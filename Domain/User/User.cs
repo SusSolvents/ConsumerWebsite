@@ -14,9 +14,10 @@ namespace SS.BL.Domain.User
         public long Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        [Index(IsUnique = true)]
         [MaxLength(100)]
         public string Email { get; set; }
         public string Password { get; set; }
-        public string avatarUrl { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }
