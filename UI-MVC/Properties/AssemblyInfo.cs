@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("sussol_consumer")]
+[assembly: AssemblyTitle("UI_MVC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("sussol_consumer")]
+[assembly: AssemblyProduct("UI_MVC")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ea3ccfee-faca-4898-9933-4c8648d9487f")]
+[assembly: Guid("8b82761e-5d76-427f-84b1-366de128f5c8")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace sussol_consumer
+namespace UI_MVC
 {
     public class RouteConfig
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace sussol_consumer
+namespace UI_MVC
 {
     public class FilterConfig
     {

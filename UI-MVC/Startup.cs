@@ -1,8 +1,12 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(sussol_consumer.Startup))]
-namespace sussol_consumer
+[assembly: OwinStartup(typeof(UI_MVC.Startup))]
+
+namespace UI_MVC
 {
     public partial class Startup
     {
