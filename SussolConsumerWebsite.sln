@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sussol-consumer", "sussol-consumer\sussol-consumer.csproj", "{C8264994-F534-4CC5-BB46-BBB1CEFEDD58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI-MVC", "sussol-consumer\UI-MVC.csproj", "{C8264994-F534-4CC5-BB46-BBB1CEFEDD58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{405B5BD2-95E7-4A75-B7B4-5A8F0F6A3EA9}"
 EndProject
