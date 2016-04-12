@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.User
+namespace SS.BL.Domain.Users
 {
-    public class Organisation
+    public class OrganisationMember
     {
         [Key]
         public long Id { get; set; }
-        public string name { get; set; }
-        public string LogoUrl { get; set; }
+        public User User { get; set; }
+        public Organisation Organisaiton { get; set; }
     }
 }

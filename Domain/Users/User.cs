@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.User
+namespace SS.BL.Domain.Users
 {
     public class User
     {

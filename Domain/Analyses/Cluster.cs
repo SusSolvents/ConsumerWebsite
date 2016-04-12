@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.Analysis
+namespace SS.BL.Domain.Analyses
 {
     public class Cluster
     {
@@ -13,5 +13,6 @@ namespace SS.BL.Domain.Analysis
         public long Id { get; set; }
         public int Number { get; set; }
         public double ClusterCenter { get; set; }
+        public ICollection<Solvent> Solvents { get; set; }
     }
 }

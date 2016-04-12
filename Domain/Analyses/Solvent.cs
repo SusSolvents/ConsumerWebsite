@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.Analysis
+namespace SS.BL.Domain.Analyses
 {
     public class Solvent
     {
@@ -15,5 +15,6 @@ namespace SS.BL.Domain.Analysis
         public string Name { get; set; }
         public string CasNr { get; set; }
         public double DistanceToClusterCenter { get; set; }
+        public ICollection<Feature> Features { get; set; }
     }
 }

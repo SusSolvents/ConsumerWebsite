@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.Analysis
+namespace SS.BL.Domain.Users
 {
-    public class Algorithm
+    public class Organisation
     {
         [Key]
         public long Id { get; set; }
-        public AlgorithmName AlgorithmName { get; set; }
-        public long ProcessTime { get; set; }
-        public string GeneralResult { get; set; }
+        public string name { get; set; }
+        public string LogoUrl { get; set; }
+        public User Organisator { get; set; }
     }
 }

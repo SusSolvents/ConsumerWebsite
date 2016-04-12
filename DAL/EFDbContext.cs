@@ -1,5 +1,5 @@
-﻿using SS.BL.Domain.Analysis;
-using SS.BL.Domain.User;
+﻿using SS.BL.Domain.Analyses;
+using SS.BL.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

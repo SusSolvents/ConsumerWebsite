@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS.BL.Domain.Analysis
+namespace SS.BL.Domain.Analyses
 {
-    public class Analysis
+    public class Parameter
     {
         [Key]
         public long Id { get; set; }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public string SourcefileUrl { get; set; }
+        public double Value { get; set; }
     }
 }
