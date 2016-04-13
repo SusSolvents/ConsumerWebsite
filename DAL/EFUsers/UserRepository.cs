@@ -40,5 +40,47 @@ namespace SS.DAL.EFUsers
             context.SaveChanges();
             return user;
         }
+
+        public IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation)
+        {
+            return context.OrganisationMembers.Where(o => o.Organisaiton.Id == organisation.Id);
+        }
+
+        public IEnumerable<Organisation> ReadAllOrganisations()
+        {
+            return context.Organisations;
+        }
+
+        public IEnumerable<OrganisationMember> ReadAllOrganisationsForMember(User user)
+        {
+            return context.OrganisationMembers.Where(u => u.User.Id == user.Id);
+        }
+
+        public IEnumerable<User> ReadAllUsers()
+        {
+            return context.Users;
+        }
+
+        public IEnumerable<Organisation> ReadOrganisationsForUser(User user)
+        {
+            IEnumerable<OrganisationMember> organisationMembers = ReadAllOrganisationsForMember(user);
+            List<Organisation> organisations = new List<Organisation>();
+            foreach (OrganisationMember org in organisationMembers)
+            {
+                organisations.AddRange(context.Organisations.Where(o => o.Id == org.Organisaiton.Id));
+            }
+            return organisations.AsEnumerable();
+        }
+
+        public IEnumerable<User> ReadUsersForOrganisation(Organisation organisation)
+        {
+            IEnumerable<OrganisationMember> organisationMembers = ReadAllMembersForOrganisation(organisation);
+            List<User> users = new List<User>();
+            foreach (OrganisationMember org in organisationMembers)
+            {
+                users.AddRange(context.Users.Where(u => u.Id == org.User.Id));
+            }
+            return users.AsEnumerable();
+        }
     }
 }

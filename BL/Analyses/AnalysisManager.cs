@@ -32,12 +32,12 @@ namespace SS.BL.Analyses
             return repo.CreateAlgorithm(algorithm);
         }
 
-        public Analysis CreateAnalysis(string name, DateTime date, string sourcefileUrl, User createdBy)
+        public Analysis CreateAnalysis(string name, DateTime dateCreated, string sourcefileUrl, User createdBy)
         {
             Analysis analysis = new Analysis()
             {
                 Name = name,
-                Date = date,
+                DateCreated = dateCreated,
                 SourcefileUrl = sourcefileUrl,
                 Analyses = new Collection<Analysis>(),
                 UsedAlgorithms = new Collection<Algorithm>()
@@ -47,22 +47,46 @@ namespace SS.BL.Analyses
 
         public Cluster CreateCluster(int number, double clusterCenter)
         {
-            throw new NotImplementedException();
+            Cluster cluster = new Cluster()
+            {
+                Number = number,
+                ClusterCenter = clusterCenter,
+                Solvents = new Collection<Solvent>()
+            };
+            return repo.CreateCluster(cluster);
         }
 
         public Feature CreateFeature(FeatureName featureName, double value)
         {
-            throw new NotImplementedException();
+            Feature feature = new Feature()
+            {
+                FeatureName = featureName,
+                Value = value
+            };
+            return repo.CreateFeature(feature);
         }
 
         public Parameter CreateParameter(string name, double value)
         {
-            throw new NotImplementedException();
+            Parameter parameter = new Parameter()
+            {
+                Name = name,
+                Value = value
+            };
+            return repo.CreateParameter(parameter);
         }
 
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)
         {
-            throw new NotImplementedException();
+            Solvent solvent = new Solvent()
+            {
+                Number = number,
+                Name = name,
+                CasNr = casNr,
+                DistanceToClusterCenter = distanceToClusterCenter,
+                Features = new Collection<Feature>()
+            };
+            return repo.CreateSolvent(solvent);
         }
     }
 }

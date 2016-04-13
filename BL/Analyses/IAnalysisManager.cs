@@ -14,7 +14,7 @@ namespace SS.BL.Analyses
         Algorithm CreateAlgorithm(AlgorithmName algorithmName, long processTime, string generalResult);
 
         //Analysis
-        Analysis CreateAnalysis(string name, DateTime date, string sourcefileUrl, User createdBy);
+        Analysis CreateAnalysis(string name, DateTime dateCreated, string sourcefileUrl, User createdBy);
 
         //Cluster
         Cluster CreateCluster(int number, double clusterCenter);

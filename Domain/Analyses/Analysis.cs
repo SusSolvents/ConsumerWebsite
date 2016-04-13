@@ -13,7 +13,7 @@ namespace SS.BL.Domain.Analyses
         [Key]
         public long Id { get; set; }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateCreated { get; set; }
         public string SourcefileUrl { get; set; }
         public User CreatedBy { get; set; }
         public Organisation SharedWith { get; set; }
