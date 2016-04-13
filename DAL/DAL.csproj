@@ -55,12 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EFAnalysis\AnalysisRepository.cs" />
-    <Compile Include="EFAnalysis\IAnalysisRepository.cs" />
+    <Compile Include="EFAnalyses\AnalysisRepository.cs" />
+    <Compile Include="EFAnalyses\IAnalysisRepository.cs" />
     <Compile Include="EFDbContext.cs" />
     <Compile Include="EFDbInitializer.cs" />
-    <Compile Include="EFUser\IUserRepository.cs" />
-    <Compile Include="EFUser\UserRepository.cs" />
+    <Compile Include="EFUsers\IUserRepository.cs" />
+    <Compile Include="EFUsers\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

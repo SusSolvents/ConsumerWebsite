@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace SS.BL.Domain.Users
     {
         [Key]
         public long Id { get; set; }
-        public string name { get; set; }
+        [Index(IsUnique = true)]
+        public string Name { get; set; }
         public string LogoUrl { get; set; }
         public User Organisator { get; set; }
     }

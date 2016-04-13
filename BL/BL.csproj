@@ -55,11 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analysis\AnalysisManager.cs" />
-    <Compile Include="Analysis\IAnalysisManager.cs" />
+    <Compile Include="Analyses\AnalysisManager.cs" />
+    <Compile Include="Analyses\IAnalysisManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\IUserManager.cs" />
-    <Compile Include="User\UserManager.cs" />
+    <Compile Include="Users\IUserManager.cs" />
+    <Compile Include="Users\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

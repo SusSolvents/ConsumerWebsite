@@ -17,7 +17,6 @@ namespace SS.BL.Domain.Users
         [Index(IsUnique = true)]
         [MaxLength(100)]
         public string Email { get; set; }
-        public string Password { get; set; }
         public string AvatarUrl { get; set; }
     }
 }
