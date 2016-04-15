@@ -13,6 +13,7 @@ namespace SS.BL.Domain.Users
         [Key]
         public long Id { get; set; }
         [Index(IsUnique = true)]
+        [MaxLength(100)]
         public string Name { get; set; }
         public string LogoUrl { get; set; }
         public User Organisator { get; set; }

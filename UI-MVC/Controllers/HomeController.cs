@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using SS.BL.Users;
 
-namespace UI_MVC.Controllers
+namespace SS.UI.Web.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        UserManager userManager = new UserManager();
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
     }
 }

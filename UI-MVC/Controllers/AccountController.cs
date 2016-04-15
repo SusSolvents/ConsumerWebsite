@@ -6,18 +6,18 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using UI_MVC.Models;
-using UI_MVC.Providers;
-using UI_MVC.Results;
+using SS.BL.Users;
+using SS.UI.Web.MVC.Models;
+using SS.UI.Web.MVC.Providers;
+using SS.UI.Web.MVC.Results;
 
-namespace UI_MVC.Controllers
+namespace SS.UI.Web.MVC.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
@@ -25,6 +25,7 @@ namespace UI_MVC.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private UserManager userMgr = new UserManager();
 
         public AccountController()
         {
@@ -306,7 +307,7 @@ namespace UI_MVC.Controllers
                     {
                         provider = description.AuthenticationType,
                         response_type = "token",
-                        client_id = Startup.PublicClientId,
+                        client_id = SS.UI.Web.MVC.Startup.PublicClientId,
                         redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
                         state = state
                     }),
@@ -321,23 +322,32 @@ namespace UI_MVC.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(string firstname, string lastname, string email, string password, string picture)
         {
+            var model = new RegisterBindingModel()
+            {
+                FirstName = firstname,
+                Lastname = lastname,
+                Email = email,
+                Password = password
+            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var applicationUser = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = userMgr.CreateUser(firstname, lastname, email, picture);
+            IdentityResult result = await UserManager.CreateAsync(applicationUser, model.Password);
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+            if (result.Succeeded)
             {
-                return GetErrorResult(result);
+                UserManager.AddToRole(applicationUser.Id, "User");
+                Authentication.SignIn();
+                return Ok();
             }
-
-            return Ok();
+            return GetErrorResult(result);
+            
         }
 
         // POST api/Account/RegisterExternal
