@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using SS.UI.Web.MVC.Models;
+using UI_MVC.Models;
 
-namespace SS.UI.Web.MVC
+namespace UI_MVC
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 

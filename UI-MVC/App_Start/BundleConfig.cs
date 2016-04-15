@@ -1,6 +1,7 @@
-﻿using System.Web.Optimization;
+﻿using System.Web;
+using System.Web.Optimization;
 
-namespace SS.UI.Web.MVC
+namespace UI_MVC
 {
     public class BundleConfig
     {

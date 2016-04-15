@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using SS.UI.Web.MVC.Models;
-using SS.UI.Web.MVC.Providers;
-using UI_MVC;
+using UI_MVC.Providers;
+using UI_MVC.Models;
 
-namespace SS.UI.Web.MVC
+namespace UI_MVC
 {
     public partial class Startup
     {
-        /*public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -61,6 +64,6 @@ namespace SS.UI.Web.MVC
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-        }*/
+        }
     }
 }

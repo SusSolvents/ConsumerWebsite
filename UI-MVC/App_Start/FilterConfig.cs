@@ -1,6 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 
-namespace SS.UI.Web.MVC
+namespace UI_MVC
 {
     public class FilterConfig
     {
