@@ -6,18 +6,18 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using UI_MVC.Models;
-using UI_MVC.Providers;
+using SS.UI.Web.MVC.Models;
+using SS.UI.Web.MVC.Providers;
+using UI_MVC;
 using UI_MVC.Results;
 
-namespace UI_MVC.Controllers
+namespace SS.UI.Web.MVC.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

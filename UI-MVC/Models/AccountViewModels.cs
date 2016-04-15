@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace UI_MVC.Models
+namespace SS.UI.Web.MVC.Models
 {
     // Models returned by AccountController actions.
 
