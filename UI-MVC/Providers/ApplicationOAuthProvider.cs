@@ -12,7 +12,7 @@ namespace SS.UI.Web.MVC.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private readonly string _publicClientId;
+       private readonly string _publicClientId;
 
         public ApplicationOAuthProvider(string publicClientId)
         {

@@ -11,7 +11,7 @@ namespace SS.DAL
 {
     public class EFDbContext : DbContext
     {
-        public EFDbContext()
+        public EFDbContext() : base("sussol")
         {
             Database.SetInitializer<EFDbContext>(new EFDbInitializer());
         }
