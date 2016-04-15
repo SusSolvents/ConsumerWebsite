@@ -12,7 +12,7 @@ namespace SS.UI.Web.MVC
 {
     public partial class Startup
     {
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        /*public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -61,6 +61,6 @@ namespace SS.UI.Web.MVC
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-        }
+        }*/
     }
 }

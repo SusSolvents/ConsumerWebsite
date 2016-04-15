@@ -17,7 +17,7 @@ namespace SS.UI.Web.MVC
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            ConfigureAuth(app);
+            ConfigureOAuth(app);
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);

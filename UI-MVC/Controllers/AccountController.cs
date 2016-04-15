@@ -76,7 +76,7 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
-        [Route("ManageInfo")]
+       /* [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -113,7 +113,7 @@ namespace SS.UI.Web.MVC.Controllers
                 Logins = logins,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
-        }
+        }*/
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
@@ -222,7 +222,7 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         // GET api/Account/ExternalLogin
-        [OverrideAuthentication]
+        /*[OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
@@ -276,10 +276,10 @@ namespace SS.UI.Web.MVC.Controllers
             }
 
             return Ok();
-        }
+        }*/
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        [AllowAnonymous]
+       /* [AllowAnonymous]
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
@@ -317,7 +317,7 @@ namespace SS.UI.Web.MVC.Controllers
             }
 
             return logins;
-        }
+        }*/
 
         // POST api/Account/Register
         [AllowAnonymous]
