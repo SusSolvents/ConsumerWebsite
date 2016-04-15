@@ -1,12 +1,13 @@
 ﻿var app = angular.module('sussol', ['ngRoute']);
 
-app.config(function ($routeProvider) {
-    $routeProvider.when("/home", {
+app.config(function ($routeProvider, $locationProvider) {
+    $routeProvider.when("/", {
         controller: "homeController",
-        templateUrl: "Home.html"
+        templateUrl: "Content/Views/Home.html"
     });
+    $routeProvider.otherwise({ redirectTo: "/" });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $locationProvider.html5Mode(true);
 });
 
 app.controller('homeController', function (){
