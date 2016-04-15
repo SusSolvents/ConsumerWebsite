@@ -5,6 +5,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using SS.UI.Web.MVC;
 using SS.UI.Web.MVC.Providers;
+using WebAPISecurity.Providers;
 
 [assembly: OwinStartup(typeof(SS.UI.Web.MVC.Startup))]
 
