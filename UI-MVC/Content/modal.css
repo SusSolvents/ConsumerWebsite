@@ -1,5 +1,5 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Roboto);
-
+@import url(https://fonts.googleapis.com/css?family=Questrial);
 /****** LOGIN MODAL ******/
 .loginmodal-container {
   padding: 20px;
@@ -21,13 +21,14 @@
   text-align: center;
   font-size: 1.8em;
     color: white;
-  font-family: roboto;
+    font-family: 'Questrial', 'Roboto';
 }
 
 .loginmodal-container input[type=submit] {
   width: 100%;
   display: block;
   margin-bottom: 10px;
+  margin-top: 10px;
   position: relative;
 }
 
@@ -35,20 +36,23 @@
   height: 44px;
   font-size: 16px;
   width: 100%;
+  border-radius: 4px;
+    padding-left: 5px;
   margin-bottom: 10px;
   -webkit-appearance: none;
-  background: #fff;
+  background: #fff !important;
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
-  /* border-radius: 2px; */
   padding: 0 8px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+   -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
 }
 
 .loginmodal-container input[type=text]:hover, input[type=password]:hover {
-  border: 1px solid #b9b9b9;
-  border-top: 1px solid #a0a0a0;
+  border: 1px solid rgba(90,90,90,1);
   -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
@@ -70,11 +74,11 @@
   /* border: 1px solid #3079ed; */
   border: 1.75px solid white;
   color: #fff;
+  font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: transparent;
   padding: 15px 0px;
-  font-family: roboto;
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: 3px;
     text-transform: lowercase;
   border-radius: 6px;
@@ -94,7 +98,8 @@
 }
 .loginmodal-container a {
   text-decoration: none;
-  font-family: roboto;
+ 
+    font-family: 'Questrial', 'Roboto';
   color: white;
   font-weight: 400;
   text-align: center;
