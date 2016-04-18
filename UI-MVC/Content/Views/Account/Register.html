@@ -3,20 +3,28 @@
     <h3>{{ registration.message }}</h3>
     <form name="registrationForm" novalidate
           ng-submit="registration.submit(registrationForm.$valid)">
-        <div class="form-group">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <label>Firstname</label>
-            <input type="text" name="firstname" class="form-control input-lg" ng-model="registration.user.firstname" required />
+            <input type="text" name="firstname" class="form-control input-lg" ng-model="registration.user.firstname" required/>
             <div ng-messages="registrationForm.firstname.$error">
                 <div ng-message="required">Required</div>
             </div>
         </div>
-        <div class="form-group">
+        <input type="file" id="profileImage" name="profileImage" style="display: none" />
+
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div style="">
+                <img id="profile_click" src="/Content/Images/avatar.png" style="width:280px;height:280px;" />
+            </div>
+        </div>
+        <div >
             <label for="lastname">Lastname</label>
-            <input type="text" name="lastname" ng-model="registration.user.lastname" class="form-control input-lg" id="lastname" required />
+            <input type="text" name="lastname" ng-model="registration.user.lastname" class="form-control input-lg" id="lastname" required/>
             <div ng-messages="registrationForm.lastname.$error">
                 <div ng-message="required">Required</div>
             </div>
         </div>
+
         <div class="form-group">
             <label for="email">Email</label>
             <input type="text" name="email" ng-model="registration.user.email" class="form-control input-lg" id="email" required />
