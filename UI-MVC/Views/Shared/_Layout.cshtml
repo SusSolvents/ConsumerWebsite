@@ -1,41 +1,65 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="sussol">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <base href="/" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
+   
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand page-scroll" href="#first"><img src="~/Content/Images/logonegative.png"/></a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" id="bs-navbar">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>
+                        <a data-toggle="collapse" data-target=".navbar-collapse"  class="page-scroll" href="#one">How it works</a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target=".navbar-collapse"  class="page-scroll" href="#two">My Organisation</a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target=".navbar-collapse"  class="page-scroll" href="#three">My Analysis</a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target=".navbar-collapse" class="page-scroll" href="#four">Contact</a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target=".navbar-collapse" class="page-scroll" href="#last">About us</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" data-toggle="modal" href="#loginModal">Log In</a>
+                    </li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
+    </nav>
+    
+        
+        @RenderBody()    
+        
+    
+    
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
