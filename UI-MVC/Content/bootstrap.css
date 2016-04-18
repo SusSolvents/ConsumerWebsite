@@ -762,6 +762,14 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.centered-container {
+    margin-top: 70px;
+    width: 75%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
 
 .container:before,
 .container:after {
@@ -4291,6 +4299,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
+      padding-right: 15px;
   }
 }
 
@@ -5657,13 +5666,7 @@ body.modal-open,
     margin-left: auto;
     padding-right: 15px;
 }
-.body-container {
-    margin-top: 70px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
+
 .modal-content {
   position: relative;
   background-color: #ffffff;
