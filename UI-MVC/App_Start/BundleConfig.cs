@@ -23,6 +23,7 @@ namespace SS.UI.Web.MVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/modal.css",
                       "~/Content/site.css"));
         }
     }

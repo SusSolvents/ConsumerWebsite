@@ -5646,6 +5646,18 @@ body.modal-open,
   margin-left: auto;
 }
 
+.login-dialog {
+    z-index: 1050;
+    width: auto;
+    right: 2px;
+    float: right;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+}
+
 .modal-content {
   position: relative;
   background-color: #ffffff;

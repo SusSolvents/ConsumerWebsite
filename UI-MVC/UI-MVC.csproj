@@ -253,6 +253,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\animation.m4v" />
     <Content Include="Content\Images\logonegative.png" />
+    <Content Include="Content\modal.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
