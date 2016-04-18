@@ -1,5 +1,8 @@
-﻿<div class="container" ng-controller="RegistrationController as registration">
+﻿<header class="first">
     <h1>Register</h1>
+</header>
+<div class="container" ng-controller="RegistrationController as registration">
+
     <h3>{{ registration.message }}</h3>
     <form name="registrationForm" novalidate
           ng-submit="registration.submit(registrationForm.$valid)">
