@@ -16,7 +16,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/LoginController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/HomeController.js"></script>
-
+   
 </head>
 <body>
     <nav id="topNav" class="navbar navbar-default navbar-fixed-top" >
@@ -50,7 +50,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" data-toggle="modal" href="/login">{{username || 'Log In'}}</a>
+                        <a href="#"  data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
                     </li>
                 </ul>
             </div>
@@ -62,7 +62,22 @@
         
     
     
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="login-dialog">
+            <div class="loginmodal-container">
+                <h1>Login to your account</h1><br>
+                <form>
+                    <input type="text" name="user" placeholder="Username">
+                    <input type="password" name="pass" placeholder="Password">
+                    <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                </form>
     
+                <div class="login-help">
+                    <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>

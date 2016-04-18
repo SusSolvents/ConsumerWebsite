@@ -260,6 +260,7 @@
     <Content Include="Content\Images\logonegative.png" />
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
+    <Content Include="Content\modal.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
