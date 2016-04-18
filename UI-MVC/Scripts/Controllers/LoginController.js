@@ -51,6 +51,7 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
                     $location.path("/");
+                    $('#login-modal').modal('hide');
                 }).error(function (status, data) {
                     console.log(status);
                     console.log(data);
@@ -65,6 +66,9 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                 delete $rootScope.username;
                 $location.path("/");
             }
+        }
+        $scope.closeModal = function closeModal() {
+            $('#login-modal').modal('hide');
         }
     }
 ]);
