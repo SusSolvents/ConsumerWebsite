@@ -7,13 +7,19 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <!--Angular scripts-->
     <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/Controllers/app.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-messages.min.js"></script>
+    <!--Controllers-->
+    <script type="text/javascript" src="~/Scripts/Controllers/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/LoginController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/HomeController.js"></script>
    
 </head>
 <body>
-    <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+    <nav id="topNav" class="navbar navbar-default navbar-fixed-top" >
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
@@ -44,7 +50,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#"  data-toggle="modal" data-target="#login-modal">Log In</a>
+                        <a href="#"  data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
                     </li>
                 </ul>
             </div>
@@ -65,7 +71,7 @@
                     <input type="password" name="pass" placeholder="Password">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                 </form>
-
+    
                 <div class="login-help">
                     <a href="#">Register</a> - <a href="#">Forgot Password</a>
                 </div>
