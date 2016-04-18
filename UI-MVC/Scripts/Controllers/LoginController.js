@@ -5,7 +5,7 @@
 return auth;
 });
 
-app.factory('UserService', function($http) {
+app.factory('UserService', ['$http', '$window', '$rootScope', function($http, $window, $rootScope) {
     var returnData;
     return {
         logIn: function (username, password) {
@@ -28,6 +28,7 @@ app.factory('UserService', function($http) {
             }).success(function succesCallback(data) {
                 console.log(data);
                 returnData = data;
+                 $rootScope.username = username;
                  return returnData;
              }).error (function errorCallback(data) {
                 $scope.message = "email or password is incorrent";
@@ -37,10 +38,10 @@ app.factory('UserService', function($http) {
 
         }
     }
-});
+}]);
 
-app.controller('LoginController', ['$scope', '$location', '$window', 'UserService', 'AuthenticationService',
-    function LoginController($scope, $location, $window, UserService, AuthenticationService) {
+app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService',
+    function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService) {
 
         //Admin User Controller (login, logout)
         $scope.logIn = function logIn(username, password) {
@@ -48,6 +49,7 @@ app.controller('LoginController', ['$scope', '$location', '$window', 'UserServic
                 UserService.logIn(username, password).success(function(data){
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
+                    $window.sessionStorage.username = username;
                     $location.path("/");
                 }).error(function (status, data) {
                     console.log(status);
@@ -60,13 +62,14 @@ app.controller('LoginController', ['$scope', '$location', '$window', 'UserServic
             if (AuthenticationService.isLogged) {
                 AuthenticationService.isLogged = false;
                 delete $window.sessionStorage.token;
+                delete $rootScope.username;
                 $location.path("/");
             }
         }
     }
 ]);
 
-appServices.factory('TokenInterceptor', function ($q, $window, $location, AuthenticationService) {
+app.factory('TokenInterceptor', function ($q, $window, $location, AuthenticationService) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
@@ -93,7 +96,7 @@ appServices.factory('TokenInterceptor', function ($q, $window, $location, Authen
             if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthenticationService.isAuthenticated)) {
                 delete $window.sessionStorage.token;
                 AuthenticationService.isAuthenticated = false;
-                $location.path("/admin/login");
+                $location.path("/");
             }
 
             return $q.reject(rejection);

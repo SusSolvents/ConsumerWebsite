@@ -2,7 +2,7 @@
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
-        controller: "homeController",
+        controller: 'homeController',
         templateUrl: "Content/Views/Home.html"
     });
     $routeProvider.when("/register", {
@@ -16,6 +16,8 @@ app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
-app.controller('homeController', function (){
 
-});
+app.controller('homeController', ['$window',
+    function ($window) {
+
+    }]);
