@@ -33,6 +33,14 @@ namespace SS.UI.Web.MVC.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "firstname")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "lastname")]
+        public string Lastname { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

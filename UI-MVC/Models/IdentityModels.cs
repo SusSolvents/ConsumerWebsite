@@ -20,7 +20,7 @@ namespace SS.UI.Web.MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("sussol", throwIfV1Schema: false)
         {
         }
         
