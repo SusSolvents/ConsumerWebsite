@@ -68,24 +68,30 @@
 
 .loginmodal-submit {
   /* border: 1px solid #3079ed; */
-  border: 0px;
+  border: 1.75px solid white;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
-  padding: 17px 0px;
+  background-color: transparent;
+  padding: 15px 0px;
   font-family: roboto;
-  font-size: 14px;
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+  font-size: 15px;
+  letter-spacing: 3px;
+    text-transform: lowercase;
+  border-radius: 6px;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  
 }
 
 .loginmodal-submit:hover {
-  /* border: 1px solid #2f5bb7; */
-  border: 0px;
+  border: 1.75px solid whitesmoke;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+  background-color: rgba(255,255,255,0.5);
 }
-
+.loginmodal-submit:focus {
+    outline: 0;
+}
 .loginmodal-container a {
   text-decoration: none;
   font-family: roboto;
