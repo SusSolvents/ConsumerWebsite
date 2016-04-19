@@ -17,6 +17,21 @@ namespace SS.BL.Users
             this.repo = new UserRepository();
         }
 
+        public User ReadUser(string email)
+        {
+            return repo.ReadUser(email);
+        }
+
+        public User ReadUser(long id)
+        {
+            return repo.ReadUser(id);
+        }
+
+        public void DeleteUser(User user)
+        {
+            repo.DeleteUser(user);
+        }
+
         public Organisation CreateOrganisation(string name, string logoUrl, User user)
         {
             Organisation organisation = new Organisation()

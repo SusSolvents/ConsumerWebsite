@@ -607,8 +607,23 @@ img::-moz-selection {
 }
 
 .messages {
-  font-size: smaller;
+    font-size: smaller;
   padding-top: 5px;
   padding-bottom: 10px;
   color: red;
+}
+
+.avatar-img {
+    height: 180px;
+    width: 180px;
+}
+progress {
+  color: #0063a6;
+  font-size: .6em;
+  line-height: 1.5em;
+  text-indent: .5em;
+  width: 14em;
+  height: 1.8em;
+  border: 1px solid #0063a6;
+  background: #fff;
 }

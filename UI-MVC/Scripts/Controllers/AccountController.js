@@ -2,7 +2,7 @@
 
 
 
-    var RegistrationController = function($scope, $http) {
+    var RegistrationController = function($scope, $http, $location, fileReader) {
         var model = this;
 
         model.message = "";
@@ -10,27 +10,58 @@
         model.user = {
             firstname: "",
             lastname: "",
+            picture: "",
             email: "",
             password: "",
             confirmPassword: ""
         };
 
+        $scope.triggerUpload = function () {
+            $("#profileImage").click();
+        };
+        console.log(fileReader);
+        $scope.getFile = function () {
+            $scope.progress = 0;
+            fileReader.readAsDataUrl($scope.file, $scope)
+                          .then(function (result) {
+                              $scope.imageSrc = result;
+                          });
+        };
+
+        $scope.$on("fileProgress", function (e, progress) {
+            $scope.progress = progress.loaded / progress.total;
+        });
+
+
+
+
         var registration = function (model, $http) {
-            //$http.post("../api/Account/Register?firstname=" + model.user.firstname + "&lastname=" + model.user.lastname + "&email=" + model.user.email + "&password=" + model.user.password + "&picture=a").then(function (response) { $scope.details = reponse });
-            $.ajax({
-                type: 'POST',
+            var formData = new FormData();
+            formData.append('firstname', model.user.firstname);
+            formData.append('lastname', model.user.lastname);
+            formData.append('email', model.user.email);
+            formData.append('password', model.user.password);
+            formData.append('picture', $scope.file);
+
+            $http({
+                method: 'POST',
                 url: 'api/Account/Register',
-                data: { firstname: model.user.firstname, lastname: model.user.lastname, email: model.user.email, password: model.user.password, picture: ""}
-            }).done(function(data) {
-                $scope.details = data;
-            }).fail(function(data) {
-                $scope.details = data;
-            })
-           
+                headers: {
+                    'Content-Type': undefined
+                },transformRequest: angular.identity,
+                data: formData
+            }).success(function succesCallback(data) {
+                model.message = data;
+                //$location.path("/");
+            }).error(function errorCallback(data) {
+                model.message = data;
+            }).catch (function(error) {
+                model.message = error;
+            });
+
         }
 
         model.submit = function(isValid) {
-            console.log("h");
             if (isValid) {
                 registration(model, $http);
                 model.message = $scope.details;
@@ -61,6 +92,23 @@
         };
     };
 
+
+
     app.directive("compareTo", compareTo);
     app.controller("RegistrationController", RegistrationController);
     
+    app.directive("ngFileSelect", function () {
+
+        return {
+            link: function ($scope, el) {
+
+                el.bind("change", function (e) {
+
+                    $scope.file = (e.srcElement || e.target).files[0];
+                    $scope.getFile();
+                });
+
+            }
+
+        }
+    });
