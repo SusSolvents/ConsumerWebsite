@@ -12,8 +12,11 @@ namespace SS.DAL.EFUsers
     {
         //User
         User CreateUser(User user);
+        User ReadUser(string email);
+        User ReadUser(long id);
         IEnumerable<User> ReadAllUsers();
         IEnumerable<User> ReadUsersForOrganisation(Organisation organisation);
+        void DeleteUser(User user);
 
         //Organisation
         Organisation CreateOrganisation(Organisation organisation, User user);

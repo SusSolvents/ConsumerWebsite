@@ -16,6 +16,12 @@ namespace SS.DAL.EFUsers
             this.context = new EFDbContext();
         }
 
+        public void DeleteUser(User user)
+        {
+            context.Users.Remove(user);
+            context.SaveChanges();
+        }
+
         public Organisation CreateOrganisation(Organisation organisation, User user)
         {
             organisation.Organisator = user;
@@ -39,6 +45,16 @@ namespace SS.DAL.EFUsers
             user = context.Users.Add(user);
             context.SaveChanges();
             return user;
+        }
+
+        public User ReadUser(string email)
+        {
+            return context.Users.FirstOrDefault(e => e.Email.Equals(email));
+        }
+
+        public User ReadUser(long id)
+        {
+            return context.Users.Find(id);
         }
 
         public IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation)

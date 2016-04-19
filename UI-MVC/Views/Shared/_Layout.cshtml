@@ -15,7 +15,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/app.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/LoginController.js"></script>
-    <script type="text/javascript" src="~/Scripts/Controllers/HomeController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/UploadController.js"></script>
    
 </head>
 <body>
@@ -48,7 +48,15 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#"  data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
+                        @if (User.IsInRole("User") || (User.IsInRole("SuperAdministrator")))
+                        {
+                            <a href="#" data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
+                        }
+                        else
+                        {
+                            <a href="#" data-toggle="modal" data-target="#login-modal">Log in</a>
+                        }
+                        
                     </li>
                 </ul>
             </div>

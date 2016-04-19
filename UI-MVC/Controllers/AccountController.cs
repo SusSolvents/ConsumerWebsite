@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using SS.BL.Domain.Users;
 using SS.BL.Users;
+using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
 using SS.UI.Web.MVC.Providers;
 using UI_MVC;
@@ -52,6 +62,16 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        //POST api/Account/GiveUserAccess
+        [Route("GiveUserAccess")]
+        public async Task<IHttpActionResult> GiveUserAccess(string email)
+        {
+            ApplicationUser user = _userManager.FindByEmail(email);
+            user.LockoutEndDateUtc = null;
+            return Ok();
+        }
+
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -321,34 +341,68 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         // POST api/Account/Register
+
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(string firstname, string lastname, string email, string password, string picture)
+        public async Task<IHttpActionResult> Register()
         {
-            var model = new RegisterBindingModel()
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            if (!Request.Content.IsMimeMultipartContent())
             {
-                FirstName = firstname,
-                Lastname = lastname,
-                Email = email,
-                Password = password
-            };
-            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            var firstname = "";
+            var lastname = "";
+            var email= "";
+            var password = "";
+            MultipartFileData picture = null;
+            try
             {
-                return BadRequest(ModelState);
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                firstname = provider.FormData.Get("firstname");
+                lastname = provider.FormData.Get("lastname");
+                email = provider.FormData.Get("email");
+                password = provider.FormData.Get("password");
+                if (provider.FileData.Count != 0)
+                {
+                    picture = provider.FileData[0];
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
-            var applicationUser = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-            var user = userMgr.CreateUser(firstname, lastname, email, picture);
-            IdentityResult result = await UserManager.CreateAsync(applicationUser, model.Password);
-
-            if (result.Succeeded)
+            string imagePath = null;
+            if (picture != null && picture.LocalFileName.Length > 0)
             {
-                UserManager.AddToRole(applicationUser.Id, "User");
-                Authentication.SignIn();
-                return Ok();
+                var imageFileName = Path.GetFileName(picture.LocalFileName + (".jpg"));
+                imagePath = FileHelper.NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings["UsersImgPath"]), imageFileName));
+                File.Move(picture.LocalFileName, imagePath);
+                imagePath = Path.GetFileName(imagePath);
             }
-            return GetErrorResult(result);
 
+            User user = userMgr.ReadUser(email);
+            if (user != null)
+            {
+                return Ok("Email address already in use");
+            }
+  
+
+                var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEndDateUtc = new DateTime(1,1,2100)};
+                user = userMgr.CreateUser(firstname, lastname, email, imagePath);
+                IdentityResult result = await UserManager.CreateAsync(applicationUser, password);
+                if (result.Succeeded)
+                {
+                    UserManager.AddToRole(applicationUser.Id, "User");
+                    Authentication.SignIn();
+                    return Ok("Registration was successful. Your application has been send to an administrator. " +
+                              "When you're accepted you can login.");
+                }
+                userMgr.DeleteUser(user);
+                return Ok("Password must contain a capital, a number and must consist out atleast 6 characters");
         }
 
         // POST api/Account/RegisterExternal

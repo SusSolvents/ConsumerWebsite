@@ -11,6 +11,9 @@ namespace SS.BL.Users
     {
         //User
         User CreateUser(string firstname, string lastname, string email, string avatarUrl);
+        User ReadUser(string email);
+        User ReadUser(long id);
+        void DeleteUser(User user);
 
         //Organisation
         Organisation CreateOrganisation(string name, string logoUrl, User user);
