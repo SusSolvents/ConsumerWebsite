@@ -255,10 +255,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\hexagon.css" />
     <Content Include="Content\Images\animation.m4v" />
     <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\full_4.jpg" />
     <Content Include="Content\Images\logonegative.png" />
     <Content Include="Content\Views\Account\Home.html" />
     <Content Include="Content\Views\Account\Login.html" />
@@ -302,6 +305,7 @@
     <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\UploadController.js" />
+    <Content Include="Scripts\hexagons.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

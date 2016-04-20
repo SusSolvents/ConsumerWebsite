@@ -1,4 +1,9 @@
-﻿
+﻿/*
+
+Landing Zero theme - A free landing page theme from BootstrapZero
+http://www.bootstrapzero.com
+
+*/
 
 @import url(https://fonts.googleapis.com/css?family=Questrial);
 @import url(http://fonts.googleapis.com/css?family=Dancing+Script:700);
@@ -7,7 +12,6 @@ html,
 body {
     width: 100%;
     height: 100%;
-    overflow-y: auto;
 }
 
 body {
@@ -16,7 +20,7 @@ body {
     color: #d3d3d3;
     webkit-tap-highlight-color: #222;
 }
-.navbar-nav { -webkit-backface-visibility: hidden; } 
+
 hr {
     max-width: 80px;
     border-width: 3px;
@@ -109,9 +113,8 @@ footer {
 
 .navbar-default {
     border-color: rgba(35,35,35,.05);
-    height: 24px;
     font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;
-    background-color: #333;
+    background-color: #222;
     -webkit-transition: all .4s;
     -moz-transition: all .4s;
     transition: all .4s;
@@ -120,19 +123,19 @@ footer {
 .navbar-header > .navbar-brand {
     font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;
     color: #9c27b0;
-    
+    padding: 12px !important;
     -webkit-transition: padding .2s ease-in;
     -moz-transition: padding .2s ease-in;
     transition: padding .2s ease-in;
 }
 
+ .navbar-header > .navbar-brand > img{
+        height: 38px;
+        width: 193px;
+    }
 .navbar-header > .navbar-brand:hover,
 .navbar-header > .navbar-brand:focus {
     color: #8b27b0;
-}
-.navbar-header > .navbar-brand > img {
-    height: 35px;
-    width: 170px;
 }
 
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
@@ -148,13 +151,11 @@ footer {
     font-size: 13px;
     font-weight: 700;
     color: #eee;
-    
 }
 
 .navbar-default .nav > li>a:hover,
 .navbar-default .nav>li>a:focus:hover {
     color: #9c27b0;
-    
 }
 
 .navbar-default .nav > li.active>a,
@@ -179,8 +180,9 @@ footer {
 
     .navbar-header > .navbar-brand {
         color: rgba(255,255,255,0.7);
-        padding: 16px;
+        
     }
+   
 
     .navbar-default .navbar-header .navbar-brand:hover,
     .navbar-default .navbar-header .navbar-brand:focus {
@@ -208,7 +210,7 @@ footer {
     .navbar-default.affix .navbar-header .navbar-brand {
         font-size: 15px;
         color: #9c27b0;
-        
+        padding: 20px;
         letter-spacing: 1px;
     }
 
@@ -236,7 +238,7 @@ header {
     color: #fff;
     width: 100%;
     background-color: #c9c9c9;
-    background-image: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2016/01/black-wallpaper-3.jpg');
+    background-image: url('Images/full_4.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -282,13 +284,16 @@ header .header-content .inner p {
 footer {
     background-color:#2d2d2d;
 }
-
+@media(max-width: 768px) {
+    .navbar-header > .navbar-brand {
+        padding: 10px!important;   
+    }
+}
 @media(min-width:768px) {
-
     .icon-lg {
         font-size: 80px;
     }
-    
+   
     header {
         min-height: 100%;
     }
@@ -305,7 +310,7 @@ footer {
     header .header-content .inner {
         margin-right: auto;
         margin-left: auto;
-        max-width: 1000px;
+        
     }
 
     header .header-content .inner h1 {
@@ -365,7 +370,6 @@ textarea {
     .feature {
         margin: 20px auto 0;
     }
-
 }
 
 .feature p {
@@ -526,104 +530,4 @@ img::selection {
 img::-moz-selection {
     color: #fff;
     background: 0 0;
-}
-@media (max-width: 970px) {
-    .navbar-default {
-    border-color: rgba(35,35,35,.05);
-    font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;
-    background-color: #333;
-    -webkit-transition: all .4s;
-    -moz-transition: all .4s;
-    transition: all .4s;
-}
-    .navbar-default .nav > li>a {
-        padding: 15px;
-    }
-    .navbar-header > .navbar-brand > img {
-        position: absolute;
-        left: 50%;
-        margin-left:-85px;
-}
-
-    .navbar-default .nav > li>a:hover {
-        
-    }
-    .navbar-header {
-        float: none;
-    }
-    
-    .navbar-left,.navbar-right {
-        float: none !important;
-    }
-    .navbar-toggle {
-        margin-top: 11px;
-        display: block;
-    }
-    .navbar-collapse {
-        border-top: 1px solid transparent;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .navbar-fixed-top {
-        top: 0;
-        border-width: 0 0 1px;
-    }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav {
-        float: none!important;
-        margin-top: 7.5px;
-    }
-    .navbar-nav>li {
-        float: none;
-    }
-    .navbar-nav>li>a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .collapse.in{
-        display:block !important;
-    }
-   .navbar-nav .open .dropdown-menu {
-       position: static;
-       float: none;
-       width: auto;
-       margin-top: 0;
-       background-color: transparent;
-       border: 0;
-       -webkit-box-shadow: none;
-       box-shadow: none;
-    }
-}
-
-.ng-invalid {
-    border-color: red;
-    outline-color: red;
-}
-
-.ng-valid {
-    border-color: green;
-    outline-color: green;
-}
-
-.messages {
-    font-size: smaller;
-  padding-top: 5px;
-  padding-bottom: 10px;
-  color: red;
-}
-
-.avatar-img {
-    height: 180px;
-    width: 180px;
-}
-progress {
-  color: #0063a6;
-  font-size: .6em;
-  line-height: 1.5em;
-  text-indent: .5em;
-  width: 14em;
-  height: 1.8em;
-  border: 1px solid #0063a6;
-  background: #fff;
 }
