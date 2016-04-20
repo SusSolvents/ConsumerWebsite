@@ -238,7 +238,7 @@ header {
     color: #fff;
     width: 100%;
     background-color: #c9c9c9;
-    background-image: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2016/01/black-wallpaper-10.jpg');
+    background-image: url('Images/full_4.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -310,7 +310,7 @@ footer {
     header .header-content .inner {
         margin-right: auto;
         margin-left: auto;
-        max-width: 1000px;
+        
     }
 
     header .header-content .inner h1 {

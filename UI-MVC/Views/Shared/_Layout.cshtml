@@ -86,7 +86,14 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-    @RenderSection("scripts", required: false)
+<script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    
+<script>
+    new WOW().init();
+</script>
+
+
+
+@RenderSection("scripts", required: false)
 </body>
 </html>

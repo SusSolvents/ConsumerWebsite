@@ -15,7 +15,13 @@
     margin-top: 60px;
     float: right;
 }
+@media(max-width: 900px) {
+    
+    .loginmodal-container {
+        float: inherit;
+    }
 
+}
 
 
 
