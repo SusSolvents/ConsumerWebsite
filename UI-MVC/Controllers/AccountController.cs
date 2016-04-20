@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
+using System.Web.UI.WebControls.WebParts;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -93,8 +94,67 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok("User has access");
         }
 
+        // GET api/Account/GetUserInfo
+        
+        [Route("GetUserInfo")]
+        public UserInformationViewModel GetUserInformation(string email)
+        {
+            User user = userMgr.ReadUser(email);
+
+            return new UserInformationViewModel()
+            {
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Picture = user.AvatarUrl
+            };
+        }
+
+        //POST api/Account/ChangeAvatar
+        [Route("ChangeAvatar")]
+        public async Task<IHttpActionResult> ChangeAvatar()
+        {
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            var email = "";
+            MultipartFileData picture = null;
+            try
+            {
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                email = provider.FormData.Get("email");
+                if (provider.FileData.Count != 0)
+                {
+                    picture = provider.FileData[0];
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            string imagePath = null;
+            if (picture != null && picture.LocalFileName.Length > 0)
+            {
+                var imageFileName = Path.GetFileName(picture.LocalFileName + (".jpg"));
+                imagePath = FileHelper.NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings["UsersImgPath"]), imageFileName));
+                File.Move(picture.LocalFileName, imagePath);
+                imagePath = Path.GetFileName(imagePath);
+            }
+
+            User user = userMgr.ReadUser(email);
+
+            user.AvatarUrl = imagePath;
+
+            userMgr.UpdateUser(user);
+
+            return Ok();
+        }
+
         // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        /*[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
@@ -106,7 +166,7 @@ namespace SS.UI.Web.MVC.Controllers
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
-        }
+        }*/
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -158,19 +218,20 @@ namespace SS.UI.Web.MVC.Controllers
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        public async Task<IHttpActionResult> ChangePassword(string currentPassword, string newPassword)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-                model.NewPassword);
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), currentPassword,
+                newPassword);
             
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return Content(HttpStatusCode.BadRequest, "Incorrent password or new password doesn't suffice to the rules." +
+                                                          " Password must contain a capital, a number and must consist out atleast 6 characters.");
             }
 
             return Ok();
@@ -361,7 +422,6 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         // POST api/Account/Register
-
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register()

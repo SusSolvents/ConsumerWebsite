@@ -16,6 +16,13 @@ namespace SS.DAL.EFUsers
             this.context = new EFDbContext();
         }
 
+        public User UpdateUser(User user)
+        {
+            context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+            return user;
+        }
+
         public void DeleteUser(User user)
         {
             context.Users.Remove(user);

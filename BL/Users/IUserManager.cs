@@ -13,6 +13,7 @@ namespace SS.BL.Users
         User CreateUser(string firstname, string lastname, string email, string avatarUrl);
         User ReadUser(string email);
         User ReadUser(long id);
+        User UpdateUser(User user);
         void DeleteUser(User user);
 
         //Organisation

@@ -27,6 +27,11 @@ namespace SS.BL.Users
             return repo.ReadUser(id);
         }
 
+        public User UpdateUser(User user)
+        {
+            return repo.UpdateUser(user);
+        }
+
         public void DeleteUser(User user)
         {
             repo.DeleteUser(user);

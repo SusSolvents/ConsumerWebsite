@@ -11,14 +11,17 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html"
     });
+    $routeProvider.when("/account/:email", {
+        templateUrl: "Content/Views/Account/Home.html"
+    });
     $routeProvider.otherwise({ redirectTo: "/" });
 
     $locationProvider.html5Mode(true).hashPrefix('*');
 });
 
 
-app.controller('homeController', ['$window',
-    function ($window) {
-
+app.controller('homeController', ['$window', '$rootScope',
+    function ($window, $rootScope) {
+        $rootScope.username = $window.sessionStorage.username;
     }]);
 

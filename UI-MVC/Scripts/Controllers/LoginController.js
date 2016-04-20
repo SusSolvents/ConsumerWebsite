@@ -4,7 +4,7 @@
     }
 return auth;
 });
-
+var error;
 app.factory('UserService', ['$http', '$window', '$rootScope', function($http, $window, $rootScope) {
     var returnData;
     return {
@@ -14,32 +14,39 @@ app.factory('UserService', ['$http', '$window', '$rootScope', function($http, $w
                 username: username,
                 password: password
             };
-            return $http.post("api/Account/IsAccountEnabled?email=" + username)
+            $http.post("api/Account/IsAccountEnabled?email=" + username)
                 .error(function errorCallback(data) {
-                    return "Account hasn't been granted access yet";
+                    error = data;
                 })
                 .success(function succesCallback(data) {
-                    return $http({
-                        method: 'POST',
-                        url: '/Token',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        transformRequest: function(obj) {
-                            var str = [];
-                            for (var p in obj)
-                                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                            return str.join("&");
-                        },
-                        data: loginData
-                    }).success(function succesCallback(data) {
-                        console.log(data);
-                        returnData = data;
-                        $rootScope.username = username;
-                        return returnData;
-                    }).error(function errorCallback(data) {
-                        console.log(data);
-                        return "password is incorrent";
-                    });
+
                 });
+            return $http({
+                method: 'POST',
+                url: '/Token',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                transformRequest: function (obj) {
+                    var str = [];
+                    for (var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: loginData
+            }).success(function succesCallback(data) {
+                if (error != null) {
+                    return null;
+                }
+                returnData = data;
+                $rootScope.username = username;
+                return returnData;
+            }).error(function errorCallback(data) {
+                if (error != null) {
+                    return null;
+                }
+                error = "Email or password is incorrect";
+                return "password is incorrent";
+            });
+            
         },
         logOut: function() {
 
@@ -57,18 +64,15 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
-                    $scope.errorlogin = data;
                     $location.path("/");
                     $('#login-modal').modal('hide');
                 }).error(function (status, data) {
-                    $scope.errorlogin = status;
-                    console.log(status);
-                    console.log(data);
+                    $scope.errorlogin = error;
                 });
             }
         }
 
-        $scope.logout = function logout() {
+        $scope.logOut = function logOut() {
             if (AuthenticationService.isLogged) {
                 AuthenticationService.isLogged = false;
                 delete $window.sessionStorage.token;

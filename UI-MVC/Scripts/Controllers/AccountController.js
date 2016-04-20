@@ -1,8 +1,4 @@
-﻿
-
-
-
-    var RegistrationController = function($scope, $http, $location, fileReader) {
+﻿    var RegistrationController = function($scope, $http, $location, fileReader) {
         var model = this;
 
         model.message = "";
@@ -91,8 +87,6 @@
             }
         };
     };
-
-
 
     app.directive("compareTo", compareTo);
     app.controller("RegistrationController", RegistrationController);

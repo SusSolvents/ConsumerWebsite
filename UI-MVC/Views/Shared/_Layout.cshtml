@@ -16,6 +16,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/LoginController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/UploadController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/AccountHomeController.js"></script>
    
 </head>
 <body>
@@ -49,11 +50,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
 
-                            <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
+                        <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
 
-                            <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username!==undefined">{{username}}</a>
-                        
+                        <a href="/account/{{username}}" ng-show="username!==undefined">{{username}}</a>
                     </li>
+                    <li ng-controller="LoginController as login">
+                         <a href="/" ng-click="logOut()" ng-show="username!==undefined">Afmelden</a>
+                    </li>
+
+                    
                 </ul>
             </div>
         </div>
@@ -61,7 +66,6 @@
     
         
         @RenderBody()    
-        
     
     
     <div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">

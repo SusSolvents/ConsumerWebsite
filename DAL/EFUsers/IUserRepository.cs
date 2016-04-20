@@ -16,6 +16,7 @@ namespace SS.DAL.EFUsers
         User ReadUser(long id);
         IEnumerable<User> ReadAllUsers();
         IEnumerable<User> ReadUsersForOrganisation(Organisation organisation);
+        User UpdateUser(User user);
         void DeleteUser(User user);
 
         //Organisation
