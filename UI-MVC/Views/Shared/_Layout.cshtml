@@ -50,14 +50,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        @if (User.IsInRole("User") || (User.IsInRole("SuperAdministrator")))
-                        {
-                            <a href="#" data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
-                        }
-                        else
-                        {
-                            <a href="#" data-toggle="modal" data-target="#login-modal">Log in</a>
-                        }
+
+                            <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
+
+                            <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username!==undefined">{{username}}</a>
                         
                     </li>
                 </ul>
@@ -75,6 +71,7 @@
             <div class="loginmodal-container">
                 <h1>Login to your account</h1><br>
                 <form>
+                    {{errorlogin}}
                     <input type="text" name="user" placeholder="Username" ng-model="login.email" required>
                     <input type="password" name="pass" placeholder="Password" ng-model="login.password" required>
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login" ng-click="logIn(login.email, login.password)">

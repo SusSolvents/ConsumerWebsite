@@ -67,11 +67,31 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("GiveUserAccess")]
         public async Task<IHttpActionResult> GiveUserAccess(string email)
         {
-            ApplicationUser user = _userManager.FindByEmail(email);
+            ApplicationUser user = UserManager.FindByEmail(email);
+            user.LockoutEnabled = false;
             user.LockoutEndDateUtc = null;
             return Ok();
         }
 
+        //POST api/Account/IsAccountEnabled
+        [AllowAnonymous]
+        [Route("IsAccountEnabled")]
+        public async Task<IHttpActionResult> IsAccountEnabled(string email)
+        {
+            ApplicationUser user = UserManager.FindByName(email);
+            if (user != null)
+            {
+                if (user.LockoutEnabled == true)
+                {
+                    return Content(HttpStatusCode.BadRequest, "Your account hasn't been granted access yet.");
+                }
+            }
+            else
+            {
+                return Content(HttpStatusCode.BadRequest, "The email address isn't registered.");
+            }
+            return Ok("User has access");
+        }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -391,7 +411,7 @@ namespace SS.UI.Web.MVC.Controllers
             }
   
 
-                var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEndDateUtc = new DateTime(1,1,2100)};
+                var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEndDateUtc = new DateTime(2100,1,1), LockoutEnabled = true};
                 user = userMgr.CreateUser(firstname, lastname, email, imagePath);
                 IdentityResult result = await UserManager.CreateAsync(applicationUser, password);
                 if (result.Succeeded)

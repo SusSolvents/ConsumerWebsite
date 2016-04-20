@@ -260,6 +260,7 @@
     <Content Include="Content\Images\animation.m4v" />
     <Content Include="Content\Images\avatar.png" />
     <Content Include="Content\Images\logonegative.png" />
+    <Content Include="Content\Views\Account\Home.html" />
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
     <Content Include="Content\modal.css" />
