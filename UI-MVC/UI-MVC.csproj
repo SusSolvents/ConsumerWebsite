@@ -270,6 +270,7 @@
     <Content Include="Content\Images\cd-icon-picture.svg" />
     <Content Include="Content\Images\full_4.jpg" />
     <Content Include="Content\Images\howto.jpg" />
+    <Content Include="Content\Images\icon.png" />
     <Content Include="Content\Images\logonegative.png" />
     <Content Include="Content\Images\pen.svg" />
     <Content Include="Content\Views\Account\Home.html" />
