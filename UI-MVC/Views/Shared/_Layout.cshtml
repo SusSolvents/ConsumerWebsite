@@ -20,7 +20,7 @@
    
 </head>
 <body>
-    <nav id="topNav" class="navbar navbar-default navbar-fixed-top" >
+<nav id="topNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
@@ -51,7 +51,7 @@
                     <li>
 
                         <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
-
+                        
                         <a href="/account/{{username}}" ng-show="username!==undefined">{{username}}</a>
                     </li>
                     <li ng-controller="LoginController as login">
@@ -62,12 +62,12 @@
                 </ul>
             </div>
         </div>
+    
     </nav>
     
         
         @RenderBody()    
-    
-    
+        
     <div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="login-dialog">
             <div class="loginmodal-container">
@@ -88,13 +88,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-    
 <script>
     new WOW().init();
 </script>
 
 
 
-@RenderSection("scripts", required: false)
+    
 </body>
 </html>

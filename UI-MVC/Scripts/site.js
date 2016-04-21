@@ -1,6 +1,7 @@
-(function($) {
+
+(function ($) {
     "use strict";
-    $(document).ready(function () {
+    jQuery(window).ready(function () {
          $('body').scrollspy({
         target: '.navbar-fixed-top',
         offset: 60
@@ -11,8 +12,12 @@
             top: 200
         }
     });
-       
+    
+
+
+    
     new WOW().init();
+
     
     $('a.page-scroll').bind('click', function(event) {
         var $ele = $(this);

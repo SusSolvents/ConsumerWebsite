@@ -25,7 +25,27 @@ Copyright (c) 2015 Daniel Eden
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-
+.rotate{
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+     
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+     
+    overflow:hidden;
+ 
+    }  
+ 
+.rotate:hover  
+{
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -o-transform:rotate(360deg);
+}
 .animated.hinge {
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
