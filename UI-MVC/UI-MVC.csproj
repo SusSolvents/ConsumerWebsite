@@ -235,6 +235,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Controllers\Utils\FileHelper.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -275,6 +276,8 @@
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
     <Content Include="Content\modal.css" />
+    <Content Include="Content\Views\Organisation\Create.html" />
+    <Content Include="Content\Views\Organisation\Home.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -318,6 +321,7 @@
     <Content Include="Scripts\Controllers\AccountHomeController.js" />
     <Content Include="Scripts\Controllers\app.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
+    <Content Include="Scripts\Controllers\OrganisationController.js" />
     <Content Include="Scripts\Controllers\UploadController.js" />
     <Content Include="Scripts\hexagons.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -352,7 +356,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Organisations\" />
     <Folder Include="Content\Images\Users\" />
+    <Folder Include="Views\Organisation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

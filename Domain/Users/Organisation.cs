@@ -16,6 +16,6 @@ namespace SS.BL.Domain.Users
         [MaxLength(100)]
         public string Name { get; set; }
         public string LogoUrl { get; set; }
-        public User Organisator { get; set; }
+        public virtual User Organisator { get; set; }
     }
 }

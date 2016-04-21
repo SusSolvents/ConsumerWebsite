@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 
@@ -63,6 +64,18 @@ namespace SS.UI.Web.MVC.Controllers.Utils
         public static string GetImagePath(string appSetting, string filename)
         {
             return "/" + ConfigurationManager.AppSettings[appSetting].Replace("~", HostingEnvironment.ApplicationVirtualPath).TrimStart('/') + "/" + filename;
+        }
+
+        public static string GetImagePathFromRequest(MultipartFileData image, string mapPath)
+        {
+            string imagePath = null;
+
+                var imageFileName = Path.GetFileName(image.LocalFileName + (".jpg"));
+                imagePath = NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings[mapPath]), imageFileName));
+                File.Move(image.LocalFileName, imagePath);
+                imagePath = Path.GetFileName(imagePath);
+
+            return imagePath;
         }
     }
 }

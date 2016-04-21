@@ -94,19 +94,24 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok("User has access");
         }
 
-        // GET api/Account/GetUserInfo
+        //GET api/Account/GetUserInfo
         
         [Route("GetUserInfo")]
         public UserInformationViewModel GetUserInformation(string email)
         {
             User user = userMgr.ReadUser(email);
 
-            return new UserInformationViewModel()
+            var model = new UserInformationViewModel()
             {
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
-                Picture = user.AvatarUrl
+                Picture = null
             };
+            if (user.AvatarUrl != null)
+            {
+                model.Picture = user.AvatarUrl;
+            }
+            return model;
         }
 
         //POST api/Account/ChangeAvatar
@@ -138,10 +143,7 @@ namespace SS.UI.Web.MVC.Controllers
             string imagePath = null;
             if (picture != null && picture.LocalFileName.Length > 0)
             {
-                var imageFileName = Path.GetFileName(picture.LocalFileName + (".jpg"));
-                imagePath = FileHelper.NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings["UsersImgPath"]), imageFileName));
-                File.Move(picture.LocalFileName, imagePath);
-                imagePath = Path.GetFileName(imagePath);
+                imagePath = FileHelper.GetImagePathFromRequest(picture, "UsersImgPath");
             }
 
             User user = userMgr.ReadUser(email);
@@ -152,21 +154,6 @@ namespace SS.UI.Web.MVC.Controllers
 
             return Ok();
         }
-
-        // GET api/Account/UserInfo
-        /*[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
-        {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
-            return new UserInfoViewModel
-            {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
-        }*/
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -458,16 +445,13 @@ namespace SS.UI.Web.MVC.Controllers
             string imagePath = null;
             if (picture != null && picture.LocalFileName.Length > 0)
             {
-                var imageFileName = Path.GetFileName(picture.LocalFileName + (".jpg"));
-                imagePath = FileHelper.NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings["UsersImgPath"]), imageFileName));
-                File.Move(picture.LocalFileName, imagePath);
-                imagePath = Path.GetFileName(imagePath);
+                imagePath = FileHelper.GetImagePathFromRequest(picture, "UsersImgPath");
             }
 
             User user = userMgr.ReadUser(email);
             if (user != null)
             {
-                return Ok("Email address already in use");
+                return BadRequest("Email address already in use");
             }
   
 
@@ -478,11 +462,11 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     UserManager.AddToRole(applicationUser.Id, "User");
                     Authentication.SignIn();
-                    return Ok("Registration was successful. Your application has been send to an administrator. " +
+                return Ok("Registration was successful. Your application has been send to an administrator. " +
                               "When you're accepted you can login.");
                 }
                 userMgr.DeleteUser(user);
-                return Ok("Password must contain a capital, a number and must consist out atleast 6 characters");
+            return BadRequest("Password must contain a capital, a number and must consist out atleast 6 characters");
         }
 
         // POST api/Account/RegisterExternal

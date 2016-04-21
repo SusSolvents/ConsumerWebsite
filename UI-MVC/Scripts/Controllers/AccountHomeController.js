@@ -1,4 +1,5 @@
-﻿app.controller('AccountHomeController', function($scope, $rootScope, $http, fileReader) {
+﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader) {
+    $scope.messagePasswordChange = "foutje";
     $http({
         method: 'GET',
         url: 'api/Account/GetUserInfo?email=' + $rootScope.username
@@ -18,7 +19,6 @@
         $("#profileImage").click();
     };
     $scope.getFile = function () {
-        $scope.progress = 0;
         fileReader.readAsDataUrl($scope.file, $scope)
                       .then(function (result) {
                           $scope.imageSrc = result;
@@ -56,12 +56,14 @@
         $http({
             method: 'POST',
             url: 'api/Account/ChangePassword?currentPassword=' + model.password.currentPassword + '&newPassword=' + model.password.newPassword
-        }).success(function successCallback(data) {
-            $scope.messagePasswordChange = data;
-            //$scope.account.password.currentPassword = null;
+        }).success(function succesCallback(data) {
+            $scope.message = data;
+            $scope.account.password.currentPassword = null;
+            $scope.account.password.newPassword = null;
+            $scope.account.password.confirmPassword = null;
             //$location.path("/");
         }).error(function errorCallback(data) {
-            $scope.messagePasswordChange = data;
+            $scope.message = data;
         });
 
     }
@@ -70,7 +72,7 @@
         if (isValid) {
             changePassword(model, $http);
         } else {
-            $scope.messagePasswordChange = "There are still invalid fields below";
+            $scope.message = "There are still invalid fields below";
         }
     };
 });

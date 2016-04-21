@@ -60,7 +60,8 @@ namespace SS.UI.Web.MVC.Migrations
                 return ir1.Succeeded;
             ir1 = um.AddToRole(user1.Id, "User");
             var userManager = new UserManager();
-            userManager.CreateUser("sussolvents@admin.com", "admin", "admin", "");
+            userManager.CreateUser("admin", "admin", "sussolvents@admin.com", "");
+            userManager.CreateUser("user", "user", "sussolvents@user.com", "");
             return ir.Succeeded;
         }
     }

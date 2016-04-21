@@ -31,10 +31,16 @@ namespace SS.DAL.EFUsers
 
         public Organisation CreateOrganisation(Organisation organisation, User user)
         {
-            organisation.Organisator = user;
+            var organisator = context.Users.Find(user.Id);
+            organisation.Organisator = organisator;
             organisation =  context.Organisations.Add(organisation);
             context.SaveChanges();
             return organisation;
+        }
+
+        public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
+        {
+            return context.Organisations.Where(u => u.Organisator.Id == user.Id);
         }
 
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)

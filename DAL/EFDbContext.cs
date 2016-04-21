@@ -16,8 +16,8 @@ namespace SS.DAL
             Database.SetInitializer<EFDbContext>(new EFDbInitializer());
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Organisation> Organisations { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Organisation> Organisations { get; set; }
         public DbSet<OrganisationMember> OrganisationMembers { get; set; }
         public DbSet<Algorithm> Algorithms { get; set; }
         public DbSet<Analysis> Analyses { get; set; }

@@ -1,0 +1,26 @@
+﻿<div class="centered-container" ng-controller="organisationController as organisation">
+    <h1>Create your own organisation</h1>
+    <form name="organisationForm" novalidate
+          ng-submit="organisation.submit(organisationForm.$valid)">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <label>Organisation Name</label>
+            <input type="text" name="firstname" class="form-control input-lg" ng-model="organisation.org.name" required/>
+            <div class="messages" ng-messages="registrationForm.name.$error">
+                <div ng-message="required">Required</div>
+            </div>
+        </div>
+        <div>
+            <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)"/>
+
+            <div class="col-xs-7 col-sm-7 col-md-7">
+                <div style="">
+                    <p>Select your logo</p>
+                    <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <button type="submit" class="btn btn-primary">Register!</button>
+        </div>
+    </form>
+</div>

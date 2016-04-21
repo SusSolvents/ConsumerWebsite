@@ -41,15 +41,14 @@
                 url: 'api/Account/Register',
                 headers: {
                     'Content-Type': undefined
-                },transformRequest: angular.identity,
+                },
+                transformRequest: angular.identity,
                 data: formData
             }).success(function succesCallback(data) {
                 model.message = data;
                 //$location.path("/");
             }).error(function errorCallback(data) {
                 model.message = data;
-            }).catch (function(error) {
-                model.message = error;
             });
 
         }

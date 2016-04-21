@@ -14,6 +14,12 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/account/:email", {
         templateUrl: "Content/Views/Account/Home.html"
     });
+    $routeProvider.when("/organisation/create", {
+        templateUrl: "Content/Views/Organisation/Create.html"
+    });
+    $routeProvider.when("/organisation/:name", {
+        templateUrl: "Content/Views/Organisation/Home.html"
+    });
     $routeProvider.otherwise({ redirectTo: "/" });
 
     $locationProvider.html5Mode(true).hashPrefix('*');
