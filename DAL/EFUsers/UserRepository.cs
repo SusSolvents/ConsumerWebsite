@@ -38,6 +38,11 @@ namespace SS.DAL.EFUsers
             return organisation;
         }
 
+        public Organisation ReadOrganisation(string name)
+        {
+            return context.Organisations.SingleOrDefault(o => o.Name.Equals(name));
+        }
+
         public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
         {
             return context.Organisations.Where(u => u.Organisator.Id == user.Id);
@@ -98,6 +103,7 @@ namespace SS.DAL.EFUsers
             {
                 organisations.AddRange(context.Organisations.Where(o => o.Id == org.Organisaiton.Id));
             }
+            organisations.AddRange(ReadOrganisationsForOrganiser(user));
             return organisations.AsEnumerable();
         }
 

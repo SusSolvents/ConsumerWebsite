@@ -18,6 +18,10 @@ namespace SS.BL.Users
 
         //Organisation
         Organisation CreateOrganisation(string name, string logoUrl, User user);
+        Organisation ReadOrganisation(string name);
+        IEnumerable<Organisation> ReadAllOrganisations();
+        IEnumerable<Organisation> ReadOrganisationsForUser(User user);
+        IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user);
 
         //OrganisationMember
         OrganisationMember CreateOrganisationMember(Organisation organisation, User user);

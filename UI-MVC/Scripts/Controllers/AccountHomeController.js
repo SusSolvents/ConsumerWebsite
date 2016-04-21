@@ -1,5 +1,4 @@
 ﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader) {
-    $scope.messagePasswordChange = "foutje";
     $http({
         method: 'GET',
         url: 'api/Account/GetUserInfo?email=' + $rootScope.username
@@ -66,6 +65,15 @@
             $scope.message = data;
         });
 
+    }
+    var organisations;
+    var getOrganisations = function($http) {
+        $http({
+            method: 'GET',
+            url: 'api/Organisation/ReadOrganisations?email=' + $rootScope.username
+        }).success(function succesCallback(data) {
+            organisations = data;
+        });
     }
 
     model.submit = function (isValid) {
