@@ -62,8 +62,5 @@ app.controller('homeController',
 
 angular.bootstrap(document.body, ['sussol']);
 
-app.controller('homeController', ['$window', '$rootScope',
-    function ($window, $rootScope) {
-        $rootScope.username = $window.sessionStorage.username;
-    }]);
+
 
