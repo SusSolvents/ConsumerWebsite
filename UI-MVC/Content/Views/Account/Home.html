@@ -1,0 +1,45 @@
+﻿<div ng-controller="AccountHomeController as account" class="centered-container account-page">
+
+    <p>Welcome {{firstname}}</p>
+
+    
+        <input type="file" id="profileImage" name="profileImage" style="display: none" ng-file-select="onFileSelect($files)"/>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+            <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()"/>
+        </div>
+    <div class="col-xs-4 col-sm-4 col-md-4">
+        <div>
+            <p>firstname: {{firstname}}</p>
+            <p>lastname: {{lastname}}</p>
+            <p>email: {{username}}</p>
+        </div>
+    </div>
+
+
+    <form name="changePasswordForm" novalidate ng-submit="account.submit(changePasswordForm.$valid)" class="col-xs-2 col-sm-2 col-md-2">
+
+        <div>
+            <label>Current password</label>
+            <input type="password" name="currentPassword" class="form-control" ng-model="account.password.currentPassword" required/>
+        </div>
+        <div>
+            <label>New password</label>
+            <input type="password" name="newPassword" class="form-control" ng-model="account.password.newPassword" required/>
+        </div>
+        <div>
+            <label>Confirm new password</label>
+            <input type="password" name="confirmPassword" class="form-control"
+                   ng-model="account.password.confirmPassword"
+                   required compare-to="account.password.newPassword"/>
+            <div class="messages" ng-messages="changePasswordForm.confirmPassword.$error">
+                <div ng-message="compareTo">Must match the previous entry</div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Change password</button>
+        </div>
+    </form>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+        <p>{{message}}</p>
+    </div>
+</div>

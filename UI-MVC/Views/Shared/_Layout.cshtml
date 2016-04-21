@@ -16,62 +16,64 @@
     <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/LoginController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/UploadController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/AccountHomeController.js"></script>
    
 </head>
 <body>
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand page-scroll" href="/"><img src="~/Content/Images/logonegative.png"/></a>
-        </div>
-        <div class="navbar-collapse collapse" id="bs-navbar">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a class="page-scroll" href="#one">How it works</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#two">My Organisation</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#three">My Analysis</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#four">Contact</a>
-                </li>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/"><img src="~/Content/Images/logonegative.png"/></a>
+            </div>
+            <div class="navbar-collapse collapse" id="bs-navbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="page-scroll" href="#one">How it works</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#two">My Organisation</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#three">My Analysis</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#four">Contact</a>
+                    </li>
+                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @if (User.IsInRole("User") || (User.IsInRole("SuperAdministrator")))
-                    {
-                        <a href="#" data-toggle="modal" data-target="#login-modal">{{username || 'Log In'}}</a>
-                    }
-                    else
-                    {
-                        <a href="#" data-toggle="modal" data-target="#login-modal">Log in</a>
-                    }
+                        <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
+                        
+                        <a href="/account/{{username}}" ng-show="username!==undefined">{{username}}</a>
+                    </li>
+                    <li ng-controller="LoginController as login">
+                         <a href="/" ng-click="logOut()" ng-show="username!==undefined">Afmelden</a>
+                    </li>
 
-                </li>
-            </ul>
+                    
+                </ul>
+            </div>
         </div>
-    </div>
     
-</nav>
-
-
-     @RenderBody()
-
-<div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    </nav>
+    
+        
+        @RenderBody()    
+        
+    <div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="login-dialog">
             <div class="loginmodal-container">
                 <h1>Login to your account</h1><br>
                 <form>
+                    {{errorlogin}}
                     <input type="text" name="user" placeholder="Username" ng-model="login.email" required>
                     <input type="password" name="pass" placeholder="Password" ng-model="login.password" required>
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login" ng-click="logIn(login.email, login.password)">
@@ -85,7 +87,7 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-<script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>  
+<script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script>
     new WOW().init();
 </script>

@@ -30,9 +30,10 @@
         </div>
         <div class="col-xs-8 col-sm-8 col-md-8">
             <label for="email">Email</label>
-            <input type="text" name="email" ng-model="registration.user.email" class="form-control input-lg" id="email" required />
+            <input type="email" name="email" ng-model="registration.user.email" class="form-control input-lg" id="email" required />
             <div class="messages" ng-messages="registrationForm.email.$error">
                 <div ng-message="required">Required</div>
+                <div ng-message="email">Incorrect format for email. eg: example@example.com</div>
             </div>
         </div>
         <div class="col-xs-8 col-sm-8 col-md-8">

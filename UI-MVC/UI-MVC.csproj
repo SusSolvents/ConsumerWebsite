@@ -271,6 +271,7 @@
     <Content Include="Content\Images\howto.jpg" />
     <Content Include="Content\Images\logonegative.png" />
     <Content Include="Content\Images\pen.svg" />
+    <Content Include="Content\Views\Account\Home.html" />
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
     <Content Include="Content\modal.css" />
@@ -314,8 +315,8 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
+    <Content Include="Scripts\Controllers\AccountHomeController.js" />
     <Content Include="Scripts\Controllers\app.js" />
-    <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\UploadController.js" />
     <Content Include="Scripts\hexagons.js" />
