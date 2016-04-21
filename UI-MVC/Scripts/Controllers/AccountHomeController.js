@@ -11,7 +11,7 @@
         }
         //$location.path("/");
     }).error(function errorCallback(data) {
-        $scope.message = data;
+        //$scope.message = data;
     });
 
     $scope.triggerUpload = function () {
@@ -25,21 +25,20 @@
                           var formData = new FormData();
                           formData.append('email', $rootScope.username);
                           formData.append('picture', $scope.file);
-                          $http({
-                              method: 'POST',
-                              url: 'api/Account/ChangeAvatar',
-                              headers: {
-                                  'Content-Type': undefined
-                              }, transformRequest: angular.identity,
-                              data: formData
-                          }).success(function succesCallback(data) {
-                              $scope.message = data;
-                              //$location.path("/");
-                          }).error(function errorCallback(data) {
-                              $scope.message = data;
-                          }).catch(function (error) {
-                              $scope.message = error;
-                          });
+                $http({
+                    method: 'POST',
+                    url: 'api/Account/ChangeAvatar',
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity,
+                    data: formData
+                }).success(function succesCallback(data) {
+                    //$scope.message = data;
+                    //$location.path("/");
+                }).error(function errorCallback(data) {
+                    //$scope.message = data;
+                });
             });
     };
     var model = this;
@@ -57,11 +56,12 @@
         $http({
             method: 'POST',
             url: 'api/Account/ChangePassword?currentPassword=' + model.password.currentPassword + '&newPassword=' + model.password.newPassword
-        }).success(function succesCallback(data) {
-            $scope.message = data;
+        }).success(function successCallback(data) {
+            $scope.messagePasswordChange = data;
+            //$scope.account.password.currentPassword = null;
             //$location.path("/");
         }).error(function errorCallback(data) {
-            $scope.message = data;
+            $scope.messagePasswordChange = data;
         });
 
     }
@@ -69,9 +69,8 @@
     model.submit = function (isValid) {
         if (isValid) {
             changePassword(model, $http);
-            model.message = $scope.details;
         } else {
-            $scope.message = "There are still invalid fields below";
+            $scope.messagePasswordChange = "There are still invalid fields below";
         }
     };
 });

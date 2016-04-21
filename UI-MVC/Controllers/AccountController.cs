@@ -234,7 +234,7 @@ namespace SS.UI.Web.MVC.Controllers
                                                           " Password must contain a capital, a number and must consist out atleast 6 characters.");
             }
 
-            return Ok();
+            return Ok("Your password has been changed.");
         }
 
         // POST api/Account/SetPassword
