@@ -1,60 +1,86 @@
 ﻿
-<div class="centered-container" ng-controller="RegistrationController as registration">
-    <h1>Register</h1>
-    <h3>{{ registration.message }}</h3>
-    <form name="registrationForm" novalidate
-          ng-submit="registration.submit(registrationForm.$valid)">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <label>Firstname</label>
-            <input type="text" name="firstname" class="form-control input-lg" ng-model="registration.user.firstname" required/>
-            <div class="messages" ng-messages="registrationForm.firstname.$error">
-                <div ng-message="required">Required</div>
-            </div>
 
-            <label for="lastname">Lastname</label>
-            <input type="text" name="lastname" ng-model="registration.user.lastname" class="form-control input-lg" id="lastname" required/>
-            <div class="messages" ng-messages="registrationForm.lastname.$error">
-                <div ng-message="required">Required</div>
-            </div>
-        </div>
-        <div>
-            <input type="file" id="profileImage" name="profileImage" ng-model="registration.user.picture" style="display: none" ng-file-select="onFileSelect($files)" />
+<div class="col-lg-12 bgsection fillHeight bigpadding" ng-controller="RegistrationController as registration">
 
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div style="">
-                    <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()" />
+    <div class="centered-container">
+        
+            <div class="col-lg-12 text-center" style="margin-bottom: 40px;">
+                <h1 class="margin-top-0 text-primary wow fadeInDown" style="color: white; font-size: 240%">Create your new account</h1>
+                <hr class="primary">
+            </div>
+        
+        <div class="error">{{ registration.message }}</div>
+        <div class="row">
+            <form role="form" id="registerForm" name="registrationForm" novalidate
+                  ng-submit="registration.submit(registrationForm.$valid)">
+
+                <div class="col-lg-8">
+
+                    <div class="form-group">
+                        <label for="Firstname">Enter Firstname</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="firstname" id="Firstname" placeholder="Enter Name" ng-model="registration.user.firstname" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Lastname">Enter Lastname</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="Lastname" name="lastname" placeholder="Enter lastname" ng-model="registration.user.lastname" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="error" ng-messages="registrationForm.email.$error">
+                            <div ng-message="email">Incorrect format for email. eg: example@example.com</div>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="email" ng-model="registration.user.email" name="email" placeholder="Email" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Enter Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="Password" name="password" placeholder="Enter password" ng-model="registration.user.password" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfPassword">Confirm Password</label>
+                        <div class="error" ng-messages="registrationForm.confirmPassword.$error">
+                            <div ng-message="compareTo">Must match the previous entry</div>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="ConfPassword" name="confirmPassword" placeholder="Confirm password" ng-model="registration.user.confirmPassword"
+                                   required compare-to="registration.user.password">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            
+                        </div>
+                    </div>
+                    <strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong>
                 </div>
-                <b>Progress:</b>
+            </form>
+            <div class="col-lg-4">
+
+                <input type="file" id="profileImage" name="profileImage" ng-model="registration.user.picture" style="display: none" ng-file-select="onFileSelect($files)"/>
+                <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()"/>
+
+
                 <progress value="{{progress}}"></progress>
+
+
+
+
             </div>
         </div>
-        <div class="col-xs-8 col-sm-8 col-md-8">
-            <label for="email">Email</label>
-            <input type="email" name="email" ng-model="registration.user.email" class="form-control input-lg" id="email" required />
-            <div class="messages" ng-messages="registrationForm.email.$error">
-                <div ng-message="required">Required</div>
-                <div ng-message="email">Incorrect format for email. eg: example@example.com</div>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-8 col-md-8">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control input-lg" ng-model="registration.user.password" required />
-            <div class="messages" ng-messages="registrationForm.password.$error">
-                <div ng-message="required">Required</div>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-8 col-md-8">
-            <label>Confirm Password</label>
-            <input type="password" name="confirmPassword" class="form-control input-lg"
-                   ng-model="registration.user.confirmPassword"
-                   required compare-to="registration.user.password" />
-            <div class="messages" ng-messages="registrationForm.confirmPassword.$error">
-                <div ng-message="required">Required</div>
-                <div ng-message="compareTo">Must match the previous entry</div>
-            </div>
-        </div>
-        <div class="col-xs-8">
-            <button type="submit" class="btn btn-primary">Register!</button>
-        </div>
-    </form>
-</div>
+        <input type="submit" form="registerForm" name="submit" id="submit" value="Submit" class="small-button">
+    </div>
+
+
+    </div>
