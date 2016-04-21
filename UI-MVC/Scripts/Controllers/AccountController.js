@@ -28,9 +28,6 @@
             $scope.progress = progress.loaded / progress.total;
         });
 
-
-
-
         var registration = function (model, $http) {
             var formData = new FormData();
             formData.append('firstname', model.user.firstname);
@@ -92,12 +89,9 @@
     app.controller("RegistrationController", RegistrationController);
     
     app.directive("ngFileSelect", function () {
-
         return {
             link: function ($scope, el) {
-
                 el.bind("change", function (e) {
-
                     $scope.file = (e.srcElement || e.target).files[0];
                     $scope.getFile();
                 });

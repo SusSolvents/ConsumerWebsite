@@ -34,17 +34,16 @@ app.factory('UserService', ['$http', '$window', '$rootScope', function($http, $w
                 data: loginData
             }).success(function succesCallback(data) {
                 if (error != null) {
-                    return null;
+                    return error;
                 }
                 returnData = data;
-                $rootScope.username = username;
                 return returnData;
             }).error(function errorCallback(data) {
                 if (error != null) {
                     return null;
                 }
                 error = "Email or password is incorrect";
-                return "password is incorrent";
+                return error;
             });
             
         },
@@ -64,7 +63,7 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
-                    $location.path("/");
+                    $rootScope.username = username;
                     $('#login-modal').modal('hide');
                 }).error(function (status, data) {
                     $scope.errorlogin = error;
@@ -73,10 +72,11 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
         }
 
         $scope.logOut = function logOut() {
-            if (AuthenticationService.isLogged) {
+            if ($rootScope.username) {
                 AuthenticationService.isLogged = false;
                 delete $window.sessionStorage.token;
                 delete $rootScope.username;
+                delete $window.sessionStorage.username;
                 $location.path("/");
             }
         }
