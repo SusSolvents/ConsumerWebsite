@@ -44,10 +44,8 @@
 
         model.submit = function (isValid) {
             if (isValid) {
-                console.log("Creatig organisation");
                 createOrganisation(model, $http);
             } else {
-                console.log("foutje");
                 $scope.message = "There are still invalid fields below";
             }
         };
@@ -55,7 +53,6 @@
         $scope.triggerUpload = function () {
             $("#profileImage").click();
         };
-        console.log(fileReader);
         $scope.getFile = function () {
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)

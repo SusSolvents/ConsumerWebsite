@@ -15,7 +15,6 @@
         $scope.triggerUpload = function () {
             $("#profileImage").click();
         };
-        console.log(fileReader);
         $scope.getFile = function () {
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
@@ -74,7 +73,7 @@
             link: function(scope, element, attributes, ngModel) {
 
                 ngModel.$validators.compareTo = function(modelValue) {
-                    return modelValue == scope.otherModelValue;
+                    return modelValue === scope.otherModelValue;
                 };
 
                 scope.$watch("otherModelValue", function() {

@@ -47,16 +47,16 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-show="username!==undefined">
+                    <li ng-if="username!==undefined">
                         <a href="#">My Dashboard</a>
                     </li>
                     
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#login-modal" ng-show="username===undefined">Log in</a>
-                        <a href="/account/{{username}}" ng-show="username!==undefined">{{username}}</a>
+                        <a href="#" data-toggle="modal" data-target="#login-modal" ng-if="username===undefined">Log in</a>
+                        <a href="/account/{{username}}" ng-if="username!==undefined">{{username}}</a>
                     </li>
                     <li ng-controller="LoginController as login">
-                         <a href="/" ng-click="logOut()"  ng-show="username!==undefined">Log out</a>
+                         <a href="/" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>
                     </li>
 
                     
