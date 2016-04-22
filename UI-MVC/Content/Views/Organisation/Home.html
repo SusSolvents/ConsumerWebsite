@@ -1,3 +1,6 @@
-﻿<div ng-controller="organisationController as organisation">
+﻿<div class="centered-container" ng-controller="organisationController as organisation">
     <p>Home pagina from organisation: {{organisationName}}</p>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+        <img class="avatar-img" id="logo_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()" />
+    </div>
 </div>

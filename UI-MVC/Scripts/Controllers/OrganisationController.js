@@ -7,6 +7,16 @@
             logo: ""
         };
 
+        var organisation;
+        var getOrganisation = function (name, $http) {
+            $http({
+                method: 'GET',
+                url: 'api/Organisation/ReadOrganisation?name=' + name
+            }).succes(function succesCallback(data) {
+                organisation = data;
+            });
+        };
+
         var createOrganisation = function(model, $http) {
             var formData = new FormData();
             formData.append('name', model.org.name);
@@ -24,11 +34,13 @@
             }).success(function succesCallback(data) {
                 $scope.message = data;
                 $scope.organisationName = model.org.name;
+                getOrganisation($scope.organisationName);
                 $location.path("/organisation/" + $scope.organisationName);
             }).error(function errorCallback(data) {
                 $scope.message = data;
             });
         };
+
 
         model.submit = function (isValid) {
             if (isValid) {

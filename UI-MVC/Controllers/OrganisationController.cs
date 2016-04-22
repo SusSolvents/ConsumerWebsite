@@ -84,9 +84,18 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]
-        public List<Organisation> ReadOrganisations(string email)
+        public IEnumerable<Organisation> ReadOrganisations(string email)
         {
-            return null;
+            var user = userMgr.ReadUser(email);
+            IEnumerable<Organisation> organisations = userMgr.ReadOrganisationsForUser(user);
+            return organisations;
+        }
+
+        //GET api/Organisation/ReadOrganisation
+        [Route("ReadOrganisation")]
+        public Organisation ReadOrganisation(string name)
+        {
+            return userMgr.ReadOrganisation(name);
         }
     }
 

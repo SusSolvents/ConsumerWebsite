@@ -67,6 +67,15 @@
         });
 
     }
+    var organisations;
+    var getOrganisations = function($http) {
+        $http({
+            method: 'GET',
+            url: 'api/Organisation/ReadOrganisations?email=' + $rootScope.username
+        }).success(function succesCallback(data) {
+            organisations = data;
+        });
+    }
 
     model.submit = function (isValid) {
         if (isValid) {
