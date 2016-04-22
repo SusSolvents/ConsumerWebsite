@@ -12,7 +12,7 @@ namespace SS.UI.Web.MVC
                       
                         , "~/Scripts/site.js"
                         , "~/Scripts/jquery-easing.js"
-                      
+                        , "~/Scripts/morphext.min.js"
                         , "~/Scripts/hexagons.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

@@ -40,6 +40,11 @@ app.controller('homeController',
             });
         });
 
+        $("#js-rotating").Morphext({
+            animation: "fadeInLeft",
+            separator: ",",
+            speed: 4000
+        });
         var timelineBlocks = $('.cd-timeline-block'),
 		offset = 0.8;
 

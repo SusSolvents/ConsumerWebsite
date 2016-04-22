@@ -1,5 +1,4 @@
 ﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader) {
-    $scope.messagePasswordChange = "foutje";
     $http({
         method: 'GET',
         url: 'api/Account/GetUserInfo?email=' + $rootScope.username
@@ -7,12 +6,13 @@
         $scope.firstname = data.Firstname;
         $scope.lastname = data.Lastname;
         var picture = data.Picture;
-        if (picture != null) {
+        
+        if (picture != null && picture !== "") {
             $scope.imageSrc = '/Content/Images/Users/' + picture;
         }
         //$location.path("/");
     }).error(function errorCallback(data) {
-        //$scope.message = data;
+        console.log("errotje");
     });
 
     $scope.triggerUpload = function () {

@@ -149,7 +149,7 @@ footer {
 
  .navbar-header > .navbar-brand > img{
         height: 38px;
-        width: 193px;
+        width: 190px;
     }
 .navbar-header > .navbar-brand:hover,
 .navbar-header > .navbar-brand:focus {
@@ -166,7 +166,7 @@ footer {
 .navbar-default .nav > li>a,
 .navbar-default .nav>li>a:focus {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #eee;
 }
@@ -218,7 +218,7 @@ footer {
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: transparent;
-  padding: 15px 0px;
+    padding: 21px;
   font-size: 20px;
   letter-spacing: 3px;
    text-transform: lowercase;
@@ -229,7 +229,8 @@ footer {
     cursor: pointer;
     width: 200px;
     margin: 10px;
-  
+  color: white;
+    text-decoration: none;
 }
 .button > a {
     color: white;
@@ -261,12 +262,16 @@ footer {
 
 }
 .button:hover , .small-button:hover {
-  border: 1.75px solid transparent;
+  border: 1.75px solid white;
   text-shadow: 0 1px rgba(0,0,0,0.3);
   background-color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    color: white;
 }
 .button:focus , .small-button:focus {
     outline: 0;
+    text-decoration: none;
+    color: white;
 }
 
 
@@ -330,7 +335,24 @@ footer {
         color: #9c27b0;
     }
 }
+.upper-profile {
+    width: 100%;
+    height: 290px;
+    display: block;
+    text-align: center;
+}
 
+.upper-profile > p {
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 30px;
+} 
+.upper-profile .small-text {
+    font-size: 21px;
+    color: black;
+    margin-top: 0px;
+}
 .bgsection {
     background-image: url('Images/howto.jpg');
     background-position: center;
@@ -339,7 +361,15 @@ footer {
     background-size: cover;
     -o-background-size: cover;
     background-repeat: no-repeat;
-    
+}
+.bgsection-2 {
+    background-image: url('Images/home.jpg');
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
 }
 header {
     position: relative;
@@ -379,8 +409,8 @@ header .header-content .inner img {
     -ms-opacity: 0.7;
     opacity: 0.7;
     
-    width: 18%;
-    padding: 30px;
+    width: 20%;
+    padding: 25px;
     
 }
 
@@ -419,7 +449,7 @@ footer {
 
     header .header-content {
         position: absolute;
-        top: 50%;
+        top: 48%;
         padding: 0 50px;
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
@@ -526,7 +556,12 @@ textarea {
 }
 
 .header-title {
-    font-size: 25px;
+    font-size: 34px;
+    width: 70%;
+    font-family: "Questrial";
+    margin: 0 auto;
+    display: block;
+    
 }
 .btn-default {
     border-color: #fff;
@@ -612,7 +647,9 @@ fieldset[disabled] .btn-default.active {
     color: #fff;
     background: #222;
 }
-
+.morphext > .animated {
+    display: inline-block;
+}
 ::selection {
     text-shadow: none;
     color: #fff;
@@ -656,7 +693,7 @@ progress {
     padding: 40px 80px 80px 80px;
     margin: 0 auto;
     height: 92%;
-    background-color: rgba(160, 160, 160, 0.5);
+    background-color: rgba(205, 205, 205, 0.6);
     border-radius: 8px;
     overflow: auto;
     min-width: 410px;
