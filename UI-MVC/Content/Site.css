@@ -137,6 +137,24 @@ footer {
     -moz-transition: all .4s;
     transition: all .4s;
 }
+#registrationSucces {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+#registrationSucces img {
+    width: 160px; height: 160px; margin-top: 16%;
+}
+#registrationSucces h3 {
+    margin-top: 40px;
+}
+#registrationSucces .button {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 15px;
+}
 
 .navbar-header > .navbar-brand {
     font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;
@@ -162,6 +180,7 @@ footer {
 .navbar-default .navbar-toggle, .navbar-default .navbar-collapse {
     border-color: transparent;
 }
+
 
 .navbar-default .nav > li>a,
 .navbar-default .nav>li>a:focus {
@@ -227,7 +246,8 @@ footer {
   -moz-transition: all .5s;
   transition: all .5s;
     cursor: pointer;
-    width: 200px;
+    display: block;
+    width: 300px;
     margin: 10px;
   color: white;
     text-decoration: none;
@@ -363,13 +383,17 @@ footer {
     background-repeat: no-repeat;
 }
 .bgsection-2 {
-    background-image: url('Images/home.jpg');
+    background-image: url('Images/howto.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
     background-repeat: no-repeat;
+}
+.modal-label {
+    font-family: "Questrial";
+    color: white;
 }
 header {
     position: relative;

@@ -8,6 +8,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!--Angular scripts-->
+    @Scripts.Render("~/bundles/jquery")
+   
     <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-messages.min.js"></script>
@@ -20,7 +22,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/OrganisationController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AnalysisController.js"></script>
 </head>
-<body>
+<body >
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -30,18 +32,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="/"><img src="~/Content/Images/logonegative.png" alt="logo"/></a>
+                <a class="navbar-brand page-scroll" id="hplogo" href="home.html#section-1"><img src="~/Content/Images/logonegative.png" alt="logo"/></a>
             </div>
             <div class="navbar-collapse collapse" id="bs-navbar">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" id="navbaar">
                     <li>
-                        <a class="page-scroll" href="#one">Algorithms</a>
+                        <a class="page-scroll" href="home.html#section-2">Algorithms</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#two">How it works</a>
+                        <a class="page-scroll" href="home.html#section-3">How it works</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#three">About</a>
+                        <a class="page-scroll" href="home.html#section-4">About</a>
                     </li>
                     
                     
@@ -85,7 +87,7 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script>

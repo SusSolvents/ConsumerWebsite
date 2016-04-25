@@ -27,18 +27,18 @@
                 <form name="changePasswordForm" novalidate ng-submit="account.submit(changePasswordForm.$valid)" >
                     <div class="error">{{message}}</div>
                     <div>
-                        <label>Current password</label>
+                        <label class="modal-label">Current password</label>
                         <input type="password" placeholder="*********" name="currentPassword" class="form-control" ng-model="account.password.currentPassword" required />
                     </div>
                     <div>
-                        <label>New password</label>
+                        <label class="modal-label">New password</label>
                         <input type="password" placeholder="*********" name="newPassword" class="form-control" ng-model="account.password.newPassword" required />
                     </div>
                     <div>
                         <div class="error" ng-messages="changePasswordForm.confirmPassword.$error">
                             <div ng-message="compareTo">Must match the previous entry</div>
                         </div>
-                        <label>Confirm new password</label>
+                        <label class="modal-label">Confirm new password</label>
                         <input type="password" placeholder="*********" name="confirmPassword" class="form-control"
                                ng-model="account.password.confirmPassword"
                                required compare-to="account.password.newPassword"/>

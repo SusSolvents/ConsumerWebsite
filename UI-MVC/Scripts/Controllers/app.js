@@ -30,20 +30,29 @@ app.config(function ($routeProvider, $locationProvider) {
 
 
 app.controller('homeController', 
-    function ($timeout, $window, $rootScope) {
+    function ($timeout, $window, $rootScope, $scope) {
         $rootScope.username = $window.sessionStorage.username;
         $rootScope.userId = $window.sessionStorage.userId;
+        if (window.location.hash) {
+            $('html, body').stop().animate({
+                scrollTop: ($(window.location.hash).offset().top - 60)
+            }, 2950, 'easeInOutExpo');
 
+        }
+        
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
                 var $ele = $(this);
-                $('html, body').stop().animate({
-                    scrollTop: ($($ele.attr('href')).offset().top - 60)
-                }, 2950, 'easeInOutExpo');
-                event.preventDefault();
+                if ($($ele.attr('href')).offset() !== undefined) {
+                    $('html, body').stop().animate({
+                        scrollTop: ($($ele.attr('href')).offset().top - 60)
+                    }, 2950, 'easeInOutExpo');
+                    event.preventDefault();
+                }
             });
-        });
 
+        });
+        
         $("#js-rotating").Morphext({
             animation: "fadeInLeft",
             separator: ",",
@@ -73,6 +82,7 @@ app.controller('homeController',
                 ($(this).offset().top <= $(window).scrollTop() + $(window).height() * offset && $(this).find('.cd-timeline-img').hasClass('is-hidden')) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
             });
         }
+        
     });
 
 angular.bootstrap(document.body, ['sussol']);
