@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
@@ -72,6 +76,32 @@ namespace SS.UI.Web.MVC.Controllers
             }
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("CreateModel")]
+        public async Task<IHttpActionResult> CreateModel()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    MultipartFormDataContent form = new MultipartFormDataContent();
+                    byte[] file = File.ReadAllBytes(HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+                    form.Add(new ByteArrayContent(file), "file");
+                    HttpResponseMessage response =
+                        await client.PostAsync("http://api-sussolkdg.rhcloud.com/api/model/canopy", form);
+                    response.EnsureSuccessStatusCode();
+                    client.Dispose();
+                    return Ok(response.Content.ReadAsStringAsync().Result);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }
