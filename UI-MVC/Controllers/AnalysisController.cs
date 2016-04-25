@@ -16,6 +16,7 @@ using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
+using SS.UI.Web.MVC.Controllers.Utils;
 
 namespace SS.UI.Web.MVC.Controllers
 {
@@ -91,58 +92,12 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 using (var client = new WebClient())
                 {
-                   // client.Headers.Add("Content-Type", "application/json");
                     var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/canopy"),
                         HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
 
-
                     var jsonResponse = Encoding.Default.GetString(response);
-                    dynamic jsonModel = JsonConvert.DeserializeObject(jsonResponse);
-                    Algorithm algorithm = new Algorithm()
-                    {
-                        AlgorithmName = AlgorithmName.Canopy,
-                        Models = new List<Model>()
-                    };
-                    Model model = new Model()
-                    {
-                        Clusters = new List<Cluster>(),
-                        DataSet = jsonModel.dataSet,
-                        Date = DateTime.Now,
-                        ModelPath = jsonModel.modelPath
-                    };
-                    foreach (var cluster in jsonModel.clusters)
-                    {
-                        Cluster clusterTemp = new Cluster()
-                        {
-                            DistanceToClusters = new List<ClusterDistanceCenter>(),
-                            Number = cluster.clusterNumber,
-                            Solvents = new List<Solvent>()
-                        };
-                        foreach (var solvent in cluster.solvents)
-                        {
-                            Solvent solventTemp = new Solvent()
-                            {
-                                CasNumber = solvent.casNumber,
-                                Name = solvent.name,
-                                DistanceToClusterCenter = solvent.distanceToCluster,
-                                Features = new List<Feature>()
-                            };
-
-                            foreach (var feature in solvent.features)
-                            {
-                                Feature featureTemp = new Feature()
-                                {
-                                    FeatureName = feature.name,
-                                    Value = feature.value
-                                };
-                                solventTemp.Features.Add(featureTemp);
-                            }
-                            clusterTemp.Solvents.Add(solventTemp);
-                        }
-                        model.Clusters.Add(clusterTemp);
-                    }
-                    algorithm.Models.Add(model);
-
+                    var algorithm = JsonHelper.ParseJson(jsonResponse);
+                    _analysisManager.CreateAlgorithm(algorithm);
                     client.Dispose();
                     return Json(Encoding.Default.GetString(response));
                 }
@@ -151,7 +106,6 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 return BadRequest("An error occurred while generating the model.");
             }
-
         }  
     }
 }
