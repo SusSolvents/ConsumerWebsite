@@ -23,7 +23,7 @@ namespace SS.DAL
         public DbSet<Analysis> Analyses { get; set; }
         public DbSet<Cluster> Clusters { get; set; }
         public DbSet<Feature> Features { get; set; }
-        public DbSet<Parameter> Parameters { get; set; }
+        public DbSet<Model> Models { get; set; }
         public DbSet<Solvent> Solvents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

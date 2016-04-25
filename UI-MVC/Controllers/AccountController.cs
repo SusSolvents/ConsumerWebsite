@@ -82,7 +82,7 @@ namespace SS.UI.Web.MVC.Controllers
             ApplicationUser user = UserManager.FindByName(email);
             if (user != null)
             {
-                if (user.LockoutEnabled == true)
+                if (user.LockoutEnabled)
                 {
                     return Content(HttpStatusCode.BadRequest, "Your account hasn't been granted access yet.");
                 }
@@ -136,7 +136,7 @@ namespace SS.UI.Web.MVC.Controllers
                     picture = provider.FileData[0];
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
