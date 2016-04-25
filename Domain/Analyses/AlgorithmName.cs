@@ -14,5 +14,7 @@ namespace SS.BL.Domain.Analyses
         KMeans,
         SOM,
         XMeans
+    
+            
     }
 }

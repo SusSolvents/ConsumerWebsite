@@ -11,6 +11,7 @@ namespace SS.BL.Domain.Analyses
         public long Id { get; set; }
         public string DataSet { get; set; }
         public DateTime Date { get; set; }
+        public string ModelPath { get; set; }
         public ICollection<Cluster> Clusters { get; set; }
     }
 }

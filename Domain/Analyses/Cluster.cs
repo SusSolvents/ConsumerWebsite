@@ -12,7 +12,7 @@ namespace SS.BL.Domain.Analyses
         [Key]
         public long Id { get; set; }
         public int Number { get; set; }
-        public double ClusterCenter { get; set; }
+        public ICollection<ClusterDistanceCenter> DistanceToClusters { get; set; } 
         public ICollection<Solvent> Solvents { get; set; }
     }
 }

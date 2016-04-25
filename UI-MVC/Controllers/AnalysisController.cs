@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Newtonsoft.Json;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
@@ -90,18 +91,21 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 using (var client = new WebClient())
                 {
-
+                   // client.Headers.Add("Content-Type", "application/json");
                     var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/canopy"),
                         HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
-            
-                    
+
+
+                    var jsonResponse = Encoding.Default.GetString(response);
+                    dynamic jsonModel = JsonConvert.DeserializeObject(jsonResponse);
+
                     client.Dispose();
-                    return Ok(Convert.ToBase64String(response));
+                    return Json(Encoding.Default.GetString(response));
                 }
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest("An error occurred while generating the model.");
             }
 
         }  
