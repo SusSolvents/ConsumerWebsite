@@ -38,9 +38,9 @@ namespace SS.DAL.EFUsers
             return organisation;
         }
 
-        public Organisation ReadOrganisation(string name)
+        public Organisation ReadOrganisation(long id)
         {
-            return context.Organisations.SingleOrDefault(o => o.Name.Equals(name));
+            return context.Organisations.Find(id);
         }
 
         public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
