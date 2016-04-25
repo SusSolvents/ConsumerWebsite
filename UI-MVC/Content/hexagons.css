@@ -1,0 +1,118 @@
+﻿.container {
+  width: 1000px;
+  line-height: 1.3; }
+
+ol.even {
+  position: relative;
+  margin-top: 2.1%;
+  left: 10.36364em; }
+
+ol.odd {
+  position: relative;
+  margin-top: -6%;
+  margin-bottom: -7%; }
+
+.hb {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  /*  Default text align center */
+  z-index: 0; }
+
+.hb:before,
+.hb:after {
+  position: absolute;
+  content: "";
+  left: -1px;
+  top: 0;
+  z-index: -1; }
+
+.hb:before {
+  -webkit-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  -ms-transform: rotate(60deg);
+  -o-transform: rotate(60deg);
+  transform: rotate(60deg); }
+
+.hb:after {
+  -webkit-transform: rotate(-60deg);
+  -moz-transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+  transform: rotate(-60deg); }
+
+.hb,
+.hb:before,
+.hb:after {
+  box-sizing: border-box; }
+
+.hb-lg {
+  line-height: 150px;
+  font-size: 150px;
+  margin: 74px 0px;
+  /* Original output, margin 0 of the button */
+  /*margin: 89px 15px;*/
+  /* New output, margin 15px of the button,  74 + 15 = 89 */ }
+
+.hb-lg,
+.hb-lg:before,
+.hb-lg:after {
+  height: 120px;
+  width: 204px; }
+
+.hb-lg-margin {
+  margin: 15px; }
+
+.hb-md-margin {
+  margin: 15px; }
+
+.hb-lg-margin,
+.hb-md-margin,
+.hb-lg-margin {
+  height: 296px;
+  width: 256px; }
+
+.hb-md-margin {
+  height: 148px;
+  width: 128px; }
+
+.hb,
+.hb:before,
+.hb:after {
+  background-color: transparent;
+  /*  Default background color  */
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-radius: 5px;
+  color: #2ecc71;
+  /* Default font color */ }
+
+.hb:hover,
+.hb:hover:before,
+.hb:hover:after {
+  background-color: lightgray;
+  border-left: 1px solid #2ecc71;
+  border-right: 1px solid #2ecc71;
+  color: #2ecc71; }
+
+.hb-custom,
+.hb-custom:before,
+.hb-custom:after {
+  background: #f39c12 !important;
+  /*  Custom background color  */
+  color: white !important;
+  /* Custom font color */
+  /*font-size:20px;*/
+  /* Custom font size */
+  border-left: 1px solid #f39c12 !important;
+  border-right: 1px solid #f39c12 !important; }
+
+.hb-custom:hover,
+.hb-custom:hover:before,
+.hb-custom:hover:after {
+  background: #f1c40f !important;
+  border-left: 1px solid #f1c40f !important;
+  border-right: 1px solid #f1c40f !important;
+  color: black !important;
+  /* Custom hover font color */ }
+
