@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -48,8 +49,28 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analyses/StartAnalysis
         [Route("StartAnalysis")]
-        public async Task<IHttpActionResult> StartAnalysis()
+        public async Task<IHttpActionResult> StartAnalysis(List<String> algorithms )
         {
+            List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
+            foreach (String algorithm in algorithms)
+            {
+                switch (algorithm)
+                {
+                    case "Cobweb": algorithmNames.Add(AlgorithmName.Cobweb);
+                        break;
+                    case "Canopy": algorithmNames.Add(AlgorithmName.Canopy);
+                        break;
+                    case "KMeans": algorithmNames.Add(AlgorithmName.KMeans);
+                        break;
+                    case "XMeans": algorithmNames.Add(AlgorithmName.XMeans);
+                        break;
+                    case "EM": algorithmNames.Add(AlgorithmName.EM);
+                        break;
+                    case "SOM": algorithmNames.Add(AlgorithmName.SOM);
+                        break;
+                }
+            }
+
             return Ok();
         }
     }

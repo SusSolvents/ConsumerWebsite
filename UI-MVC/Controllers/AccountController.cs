@@ -94,15 +94,22 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok("User has access");
         }
 
-        //GET api/Account/GetUserInfo
-        
-        [Route("GetUserInfo")]
-        public UserInformationViewModel GetUserInformation(string email)
+        //GET api/Account/GetUserId
+        [Route("GetUserId")]
+        public long GetUserId(string email)
         {
-            User user = userMgr.ReadUser(email);
+            return userMgr.ReadUser(email).Id;
+        }
+
+        //GET api/Account/GetUserInfo
+        [Route("GetUserInfo")]
+        public UserInformationViewModel GetUserInformation(long id)
+        {
+            User user = userMgr.ReadUser(id);
 
             var model = new UserInformationViewModel()
             {
+                Id = user.Id,
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Picture = null

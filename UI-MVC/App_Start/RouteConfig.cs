@@ -16,9 +16,9 @@ namespace SS.UI.Web.MVC
             );*/
             routes.MapRoute(
                 name: "Default",
-                url: "{*.}",
-                defaults: new { controller = "Home", action = "Index" }
-        );
+                url: "{*url}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

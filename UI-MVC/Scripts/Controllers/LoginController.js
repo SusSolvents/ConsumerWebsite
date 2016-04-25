@@ -53,8 +53,8 @@ app.factory('UserService', ['$http', '$window', '$rootScope', function($http, $w
     }
 }]);
 
-app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService',
-    function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService) {
+app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService', '$http',
+    function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService, $http) {
 
         //Admin User Controller (login, logout)
         $scope.logIn = function logIn(username, password) {
@@ -63,6 +63,14 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
+                    $http({
+                        method: 'GET',
+                        url: '/api/Account/GetUserId?email=' + username
+                    }).success(function(data) {
+                        $window.sessionStorage.userId = data;
+                        $rootScope.userId = data;
+                        console.log(data);
+                    });
                     $rootScope.username = username;
                     $('#login-modal').modal('hide');
                 }).error(function (status, data) {

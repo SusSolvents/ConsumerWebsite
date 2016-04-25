@@ -18,7 +18,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/UploadController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AccountHomeController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/OrganisationController.js"></script>
-   
+    <script type="text/javascript" src="~/Scripts/Controllers/AnalysisController.js"></script>
 </head>
 <body>
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
@@ -53,7 +53,7 @@
                     
                     <li>
                         <a href="#" data-toggle="modal" data-target="#login-modal" ng-if="username===undefined">Log in</a>
-                        <a href="/account/{{username}}" ng-if="username!==undefined">{{username}}</a>
+                        <a href="/account/{{userId}}" ng-if="username!==undefined">{{username}}</a>
                     </li>
                     <li ng-controller="LoginController as login">
                          <a href="/" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>

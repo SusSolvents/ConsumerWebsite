@@ -11,7 +11,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html"
     });
-    $routeProvider.when("/account/:email", {
+    $routeProvider.when("/account/:id", {
         templateUrl: "Content/Views/Account/Home.html"
     });
     $routeProvider.when("/organisation/create", {
@@ -19,6 +19,9 @@ app.config(function ($routeProvider, $locationProvider) {
     });
     $routeProvider.when("/organisation/:name", {
         templateUrl: "Content/Views/Organisation/Home.html"
+    });
+    $routeProvider.when("/analysis/start", {
+        templateUrl: "Content/Views/Analysis/Start.html"
     });
     $routeProvider.otherwise({ redirectTo: "/" });
 
@@ -29,6 +32,7 @@ app.config(function ($routeProvider, $locationProvider) {
 app.controller('homeController', 
     function ($timeout, $window, $rootScope) {
         $rootScope.username = $window.sessionStorage.username;
+        $rootScope.userId = $window.sessionStorage.userId;
 
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
