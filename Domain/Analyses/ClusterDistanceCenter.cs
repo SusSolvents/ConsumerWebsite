@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace SS.BL.Domain.Analyses
 {
-    public class Solvent
+    public class ClusterDistanceCenter
     {
         [Key]
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string CasNumber { get; set; }
-        public double DistanceToClusterCenter { get; set; }
-        public ICollection<Feature> Features { get; set; }
+
+        public long ClusterId { get; set; }
+        public double Distance { get; set; }
     }
 }
