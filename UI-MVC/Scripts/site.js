@@ -2,10 +2,13 @@
 (function ($) {
     "use strict";
     jQuery(window).ready(function () {
-         $('body').scrollspy({
-        target: '.navbar-fixed-top',
-        offset: 60
-    });
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+
+        
+
 
     $('#topNav').affix({
         offset: {
@@ -18,7 +21,7 @@
     
     new WOW().init();
 
-    
+
     $('a.page-scroll').bind('click', function(event) {
         var $ele = $(this);
         
@@ -27,7 +30,12 @@
         }, 2950, 'easeInOutExpo');
         event.preventDefault();
     });
-    
+
+    $('#bs-navbar li').bind('click', function (event) {
+        $('#bs-navbar li').removeClass('active');
+        var $ele = $(this);
+        $ele.addClass('active');
+    });
     $('.navbar-collapse ul li a').click(function() {
         /* always close responsive nav after click */
         $('.navbar-toggle:visible').click();

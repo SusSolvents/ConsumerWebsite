@@ -23,13 +23,19 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.otherwise({ redirectTo: "/" });
 
     $locationProvider.html5Mode(true).hashPrefix('*');
+    
 });
 
 
 app.controller('homeController', 
-    function ($timeout, $window, $rootScope) {
+    function ($timeout, $window, $rootScope, $scope) {
         $rootScope.username = $window.sessionStorage.username;
+        
+        $scope.$on('$destroy', function () {
+            
+            
 
+        });
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
                 var $ele = $(this);
@@ -69,6 +75,7 @@ app.controller('homeController',
                 ($(this).offset().top <= $(window).scrollTop() + $(window).height() * offset && $(this).find('.cd-timeline-img').hasClass('is-hidden')) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
             });
         }
+        
     });
 
 angular.bootstrap(document.body, ['sussol']);

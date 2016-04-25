@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!--Angular scripts-->
+    @Scripts.Render("~/bundles/jquery")
     <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-messages.min.js"></script>
@@ -20,7 +21,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/OrganisationController.js"></script>
    
 </head>
-<body>
+<body >
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -33,7 +34,7 @@
                 <a class="navbar-brand page-scroll" href="/"><img src="~/Content/Images/logonegative.png" alt="logo"/></a>
             </div>
             <div class="navbar-collapse collapse" id="bs-navbar">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" id="navbaar">
                     <li>
                         <a class="page-scroll" href="#one">Algorithms</a>
                     </li>
@@ -88,7 +89,7 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script>

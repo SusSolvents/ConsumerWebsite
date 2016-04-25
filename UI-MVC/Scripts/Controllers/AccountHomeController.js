@@ -12,7 +12,7 @@
         }
         //$location.path("/");
     }).error(function errorCallback(data) {
-        console.log("errotje");
+        console.log("hello");
     });
 
     $scope.triggerUpload = function () {
@@ -67,6 +67,7 @@
         });
 
     }
+    
     var organisations;
     var getOrganisations = function($http) {
         $http({

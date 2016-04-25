@@ -1993,6 +1993,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     active.trigger('activate.bs.scrollspy')
+    
   }
 
   ScrollSpy.prototype.clear = function () {
