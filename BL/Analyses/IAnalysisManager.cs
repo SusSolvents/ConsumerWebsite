@@ -20,16 +20,19 @@ namespace SS.BL.Analyses
         IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
 
         //Cluster
-        Cluster CreateCluster(int number, double clusterCenter);
+        Cluster CreateCluster(int number);
         IEnumerable<Cluster> ReadClustersForModel(Model model);
 
         //Feature
         Feature CreateFeature(FeatureName featureName, double value);
 
         //Model
-        Model CreateModel(string dataSet, DateTime date);
+        Model CreateModel(string dataSet, DateTime date, string modelPath);
 
         //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);
+
+        //ClusterDistanceCenter
+        ClusterDistanceCenter CreateClusterDistanceCenter(long clusterId, double distance);
     }
 }

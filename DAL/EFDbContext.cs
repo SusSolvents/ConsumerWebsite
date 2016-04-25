@@ -25,6 +25,7 @@ namespace SS.DAL
         public DbSet<Feature> Features { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Solvent> Solvents { get; set; }
+        public DbSet<ClusterDistanceCenter> ClusterDistanceCenters { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

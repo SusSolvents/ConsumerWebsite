@@ -58,12 +58,12 @@ namespace SS.BL.Analyses
             return repo.ReadAnalysesForOrganisation(organisation);
         }
 
-        public Cluster CreateCluster(int number, double clusterCenter)
+        public Cluster CreateCluster(int number)
         {
             Cluster cluster = new Cluster()
             {
                 Number = number,
-                ClusterCenter = clusterCenter,
+                DistanceToClusters = new Collection<ClusterDistanceCenter>(),
                 Solvents = new Collection<Solvent>()
             };
             return repo.CreateCluster(cluster);
@@ -84,12 +84,13 @@ namespace SS.BL.Analyses
             return repo.CreateFeature(feature);
         }
 
-        public Model CreateModel(string dataSet, DateTime date)
+        public Model CreateModel(string dataSet, DateTime date, string modelPath)
         {
             Model model = new Model()
             {
                 DataSet = dataSet,
                 Date = date,
+                ModelPath = modelPath,
                 Clusters = new Collection<Cluster>()
             };
             return repo.CreateModel(model);
@@ -99,13 +100,22 @@ namespace SS.BL.Analyses
         {
             Solvent solvent = new Solvent()
             {
-                Number = number,
                 Name = name,
-                CasNr = casNr,
+                CasNumber = casNr,
                 DistanceToClusterCenter = distanceToClusterCenter,
                 Features = new Collection<Feature>()
             };
             return repo.CreateSolvent(solvent);
+        }
+
+        public ClusterDistanceCenter CreateClusterDistanceCenter(long clusterId, double distance)
+        {
+            ClusterDistanceCenter clusterDistanceCenter = new ClusterDistanceCenter()
+            {
+                ClusterId = clusterId,
+                Distance = distance
+            };
+            return repo.CreateClusterDistanceCenter(clusterDistanceCenter);
         }
     }
 }

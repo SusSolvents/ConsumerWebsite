@@ -79,5 +79,12 @@ namespace SS.DAL.EFAnalyses
             context.SaveChanges();
             return solvent;
         }
+
+        public ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter)
+        {
+            clusterDistanceCenter = context.ClusterDistanceCenters.Add(clusterDistanceCenter);
+            context.SaveChanges();
+            return clusterDistanceCenter;
+        }
     }
 }

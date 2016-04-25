@@ -32,5 +32,8 @@ namespace SS.DAL.EFAnalyses
 
         //Solvent
         Solvent CreateSolvent(Solvent solvent);
+
+        //ClusterDistanceCenter
+        ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter);
     }
 }
