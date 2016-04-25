@@ -35,5 +35,6 @@ namespace SS.DAL.EFAnalyses
 
         //ClusterDistanceCenter
         ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter);
+        List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
     }
 }

@@ -89,16 +89,22 @@ namespace SS.BL.Analyses
             return repo.CreateFeature(feature);
         }
 
-        public Model CreateModel(string dataSet, DateTime date, string modelPath)
+        public Model CreateModel(string dataSet, DateTime date, string modelPath, AlgorithmName algorithmName)
         {
             Model model = new Model()
             {
                 DataSet = dataSet,
                 Date = date,
                 ModelPath = modelPath,
-                Clusters = new Collection<Cluster>()
+                Clusters = new Collection<Cluster>(),
+                AlgorithmName = algorithmName
             };
             return repo.CreateModel(model);
+        }
+
+        public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
+        {
+            return repo.ReadModelsForAlgorithm(algorithmName);
         }
 
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)

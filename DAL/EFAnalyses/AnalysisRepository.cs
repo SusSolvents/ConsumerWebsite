@@ -39,12 +39,12 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForUser(User user)
         {
-            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id);
+            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id).ToList();
         }
 
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
         {
-            return context.Analyses.Where(o => o.SharedWith.Id == organisation.Id);
+            return context.Analyses.Where(o => o.SharedWith.Id == organisation.Id).ToList();
         }
 
         public Cluster CreateCluster(Cluster cluster)
@@ -56,7 +56,7 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Cluster> ReadClustersForModel(Model model)
         {
-            return context.Models.Find(model.Id).Clusters;
+            return context.Models.Find(model.Id).Clusters.ToList();
         }
 
         public Feature CreateFeature(Feature feature)
@@ -85,6 +85,11 @@ namespace SS.DAL.EFAnalyses
             clusterDistanceCenter = context.ClusterDistanceCenters.Add(clusterDistanceCenter);
             context.SaveChanges();
             return clusterDistanceCenter;
+        }
+
+        public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
+        {
+            return context.Models.Where(m => m.AlgorithmName == algorithmName).ToList();
         }
     }
 }

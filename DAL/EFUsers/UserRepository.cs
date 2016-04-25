@@ -45,7 +45,7 @@ namespace SS.DAL.EFUsers
 
         public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
         {
-            return context.Organisations.Where(u => u.Organisator.Id == user.Id);
+            return context.Organisations.Where(u => u.Organisator.Id == user.Id).ToList();
         }
 
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
@@ -77,17 +77,17 @@ namespace SS.DAL.EFUsers
 
         public IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation)
         {
-            return context.OrganisationMembers.Where(o => o.Organisaiton.Id == organisation.Id);
+            return context.OrganisationMembers.Where(o => o.Organisaiton.Id == organisation.Id).ToList();
         }
 
         public IEnumerable<Organisation> ReadAllOrganisations()
         {
-            return context.Organisations;
+            return context.Organisations.ToList();
         }
 
         public IEnumerable<OrganisationMember> ReadAllOrganisationsForMember(User user)
         {
-            return context.OrganisationMembers.Where(u => u.User.Id == user.Id);
+            return context.OrganisationMembers.Where(u => u.User.Id == user.Id).ToList();
         }
 
         public IEnumerable<User> ReadAllUsers()
@@ -104,7 +104,7 @@ namespace SS.DAL.EFUsers
                 organisations.AddRange(context.Organisations.Where(o => o.Id == org.Organisaiton.Id));
             }
             organisations.AddRange(ReadOrganisationsForOrganiser(user));
-            return organisations.AsEnumerable();
+            return organisations.ToList();
         }
 
         public IEnumerable<User> ReadUsersForOrganisation(Organisation organisation)
@@ -115,7 +115,7 @@ namespace SS.DAL.EFUsers
             {
                 users.AddRange(context.Users.Where(u => u.Id == org.User.Id));
             }
-            return users.AsEnumerable();
+            return users.ToList();
         }
     }
 }

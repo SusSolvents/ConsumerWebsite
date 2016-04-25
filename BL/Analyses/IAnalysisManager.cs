@@ -29,9 +29,9 @@ namespace SS.BL.Analyses
         Feature CreateFeature(FeatureName featureName, double value);
 
         //Model
-        Model CreateModel(string dataSet, DateTime date, string modelPath);
-
-        //Solvent
+        Model CreateModel(string dataSet, DateTime date, string modelPath, AlgorithmName algorithmName);
+        List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
+            //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);
 
         //ClusterDistanceCenter

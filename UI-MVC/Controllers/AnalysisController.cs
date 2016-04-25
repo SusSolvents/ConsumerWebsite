@@ -63,13 +63,13 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 switch (algorithm)
                 {
-                    case "Cobweb": algorithmNames.Add(AlgorithmName.Cobweb);
+                    case "Cobweb": algorithmNames.Add(AlgorithmName.COBWEB);
                         break;
-                    case "Canopy": algorithmNames.Add(AlgorithmName.Canopy);
+                    case "Canopy": algorithmNames.Add(AlgorithmName.CANOPY);
                         break;
-                    case "KMeans": algorithmNames.Add(AlgorithmName.KMeans);
+                    case "KMeans": algorithmNames.Add(AlgorithmName.KMEANS);
                         break;
-                    case "XMeans": algorithmNames.Add(AlgorithmName.XMeans);
+                    case "XMeans": algorithmNames.Add(AlgorithmName.XMEANS);
                         break;
                     case "EM": algorithmNames.Add(AlgorithmName.EM);
                         break;
@@ -79,7 +79,7 @@ namespace SS.UI.Web.MVC.Controllers
             }
             foreach (AlgorithmName algorithm in algorithmNames)
             {
-                
+                                
             }
             return Ok();
         }

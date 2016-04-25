@@ -15,7 +15,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
             dynamic jsonModel = JsonConvert.DeserializeObject(jsonString);
             Algorithm algorithm = new Algorithm()
             {
-                AlgorithmName = AlgorithmName.Canopy,
+                AlgorithmName = jsonModel.algorithm,
                 Models = new List<Model>()
             };
             Model model = new Model()
@@ -23,7 +23,8 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                 Clusters = new List<Cluster>(),
                 DataSet = jsonModel.dataSet,
                 Date = DateTime.Now,
-                ModelPath = jsonModel.modelPath
+                ModelPath = jsonModel.modelPath,
+                AlgorithmName = jsonModel.algorithm
             };
             foreach (var cluster in jsonModel.clusters)
             {
