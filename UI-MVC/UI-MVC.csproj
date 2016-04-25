@@ -234,6 +234,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Controllers\Utils\FileHelper.cs" />
@@ -278,6 +279,7 @@
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
     <Content Include="Content\modal.css" />
+    <Content Include="Content\Views\Analysis\Start.html" />
     <Content Include="Content\Views\Organisation\Create.html" />
     <Content Include="Content\Views\Organisation\Home.html" />
     <Content Include="favicon.ico" />
@@ -321,6 +323,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />
+    <Content Include="Scripts\Controllers\AnalysisController.js" />
     <Content Include="Scripts\Controllers\app.js" />
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\OrganisationController.js" />

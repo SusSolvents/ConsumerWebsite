@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Ajax.Utilities;
 
 namespace SS.UI.Web.MVC.Models
 {
@@ -42,6 +43,7 @@ namespace SS.UI.Web.MVC.Models
 
     public class UserInformationViewModel
     {
+        public long Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Picture { get; set; }

@@ -32,11 +32,31 @@ namespace SS.DAL.EFAnalyses
             return analysis;
         }
 
+        public Analysis ReadAnalysis(long id)
+        {
+            return context.Analyses.Find(id);
+        }
+
+        public IEnumerable<Analysis> ReadAnalysesForUser(User user)
+        {
+            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id);
+        }
+
+        public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
+        {
+            return context.Analyses.Where(o => o.SharedWith.Id == organisation.Id);
+        }
+
         public Cluster CreateCluster(Cluster cluster)
         {
             cluster = context.Clusters.Add(cluster);
             context.SaveChanges();
             return cluster;
+        }
+
+        public IEnumerable<Cluster> ReadClustersForModel(Model model)
+        {
+            return context.Models.Find(model.Id).Clusters;
         }
 
         public Feature CreateFeature(Feature feature)
@@ -46,11 +66,11 @@ namespace SS.DAL.EFAnalyses
             return feature;
         }
 
-        public Parameter CreateParameter(Parameter parameter)
+        public Model CreateModel(Model model)
         {
-            parameter = context.Parameters.Add(parameter);
+            model = context.Models.Add(model);
             context.SaveChanges();
-            return parameter;
+            return model;
         }
 
         public Solvent CreateSolvent(Solvent solvent)

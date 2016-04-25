@@ -12,6 +12,7 @@ namespace SS.BL.Domain.Analyses
         Cobweb,
         EM,
         KMeans,
-        SOM
+        SOM,
+        XMeans
     }
 }

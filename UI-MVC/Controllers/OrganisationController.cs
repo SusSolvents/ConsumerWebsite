@@ -35,7 +35,7 @@ namespace SS.UI.Web.MVC.Controllers
     [RoutePrefix("api/Organisation")]
     public class OrganisationController : ApiController
     {
-        private UserManager userMgr = new UserManager();
+        private readonly UserManager _userManager = new UserManager();
 
         public OrganisationController()
         {
@@ -75,9 +75,9 @@ namespace SS.UI.Web.MVC.Controllers
             }
                 
 
-            User user = userMgr.ReadUser(email);
+            User user = _userManager.ReadUser(email);
 
-            Organisation org = userMgr.CreateOrganisation(name, imagePath, user);
+            Organisation org = _userManager.CreateOrganisation(name, imagePath, user);
 
             return Ok();
         }
@@ -86,8 +86,8 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("ReadOrganisations")]
         public IEnumerable<Organisation> ReadOrganisations(string email)
         {
-            var user = userMgr.ReadUser(email);
-            IEnumerable<Organisation> organisations = userMgr.ReadOrganisationsForUser(user);
+            var user = _userManager.ReadUser(email);
+            IEnumerable<Organisation> organisations = _userManager.ReadOrganisationsForUser(user);
             return organisations;
         }
 
@@ -95,7 +95,7 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("ReadOrganisation")]
         public Organisation ReadOrganisation(string name)
         {
-            return userMgr.ReadOrganisation(name);
+            return _userManager.ReadOrganisation(name);
         }
     }
 

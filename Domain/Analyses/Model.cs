@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SS.BL.Domain.Analyses
 {
-    public class Parameter
+    public class Model
     {
-        [Key]
         public long Id { get; set; }
-        public string Name { get; set; }
-        public double Value { get; set; }
+        public string DataSet { get; set; }
+        public DateTime Date { get; set; }
+        public ICollection<Cluster> Clusters { get; set; }
     }
 }

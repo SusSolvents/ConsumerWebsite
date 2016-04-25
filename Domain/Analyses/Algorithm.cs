@@ -14,7 +14,6 @@ namespace SS.BL.Domain.Analyses
         public AlgorithmName AlgorithmName { get; set; }
         public long ProcessTime { get; set; }
         public string GeneralResult { get; set; }
-        public ICollection<Parameter> Parameters { get; set; }
-        public ICollection<Cluster> Clusters { get; set; }
+        public ICollection<Model> Models { get; set; }
     }
 }

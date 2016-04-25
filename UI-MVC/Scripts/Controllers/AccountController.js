@@ -45,13 +45,15 @@
                 data: formData
             }).success(function succesCallback(data) {
                 model.message = data;
+                var myEl = angular.element(document.querySelector('#register'));
+                myEl.remove();
+                $scope.registrationComplete = data;
                 //$location.path("/");
             }).error(function errorCallback(data) {
                 model.message = data;
             });
 
         }
-
         model.submit = function(isValid) {
             if (isValid) {
                 registration(model, $http);

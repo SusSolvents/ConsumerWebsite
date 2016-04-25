@@ -15,15 +15,19 @@ namespace SS.BL.Analyses
 
         //Analysis
         Analysis CreateAnalysis(string name, DateTime dateCreated, string sourcefileUrl, User createdBy);
+        Analysis ReadAnalysis(long id);
+        IEnumerable<Analysis> ReadAnalysesForUser(User user);
+        IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
 
         //Cluster
         Cluster CreateCluster(int number, double clusterCenter);
+        IEnumerable<Cluster> ReadClustersForModel(Model model);
 
         //Feature
         Feature CreateFeature(FeatureName featureName, double value);
 
-        //Parameter
-        Parameter CreateParameter(string name, double value);
+        //Model
+        Model CreateModel(string dataSet, DateTime date);
 
         //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);

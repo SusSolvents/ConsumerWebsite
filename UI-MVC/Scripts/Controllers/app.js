@@ -11,7 +11,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html"
     });
-    $routeProvider.when("/account/:email", {
+    $routeProvider.when("/account/:id", {
         templateUrl: "Content/Views/Account/Home.html"
     });
     $routeProvider.when("/organisation/create", {
@@ -20,32 +20,39 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/organisation/:name", {
         templateUrl: "Content/Views/Organisation/Home.html"
     });
+    $routeProvider.when("/analysis/start", {
+        templateUrl: "Content/Views/Analysis/Start.html"
+    });
     $routeProvider.otherwise({ redirectTo: "/" });
 
-    $locationProvider.html5Mode(true).hashPrefix('*');
-    
+    $locationProvider.html5Mode(true);
 });
 
 
 app.controller('homeController', 
     function ($timeout, $window, $rootScope, $scope) {
         $rootScope.username = $window.sessionStorage.username;
-        
-        $scope.$on('$destroy', function () {
-            
-            
+        $rootScope.userId = $window.sessionStorage.userId;
+        if (window.location.hash) {
+            $('html, body').stop().animate({
+                scrollTop: ($(window.location.hash).offset().top - 60)
+            }, 2950, 'easeInOutExpo');
 
-        });
+        }
+        
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
                 var $ele = $(this);
-                $('html, body').stop().animate({
-                    scrollTop: ($($ele.attr('href')).offset().top - 60)
-                }, 2950, 'easeInOutExpo');
-                event.preventDefault();
+                if ($($ele.attr('href')).offset() !== undefined) {
+                    $('html, body').stop().animate({
+                        scrollTop: ($($ele.attr('href')).offset().top - 60)
+                    }, 2950, 'easeInOutExpo');
+                    event.preventDefault();
+                }
             });
-        });
 
+        });
+        
         $("#js-rotating").Morphext({
             animation: "fadeInLeft",
             separator: ",",

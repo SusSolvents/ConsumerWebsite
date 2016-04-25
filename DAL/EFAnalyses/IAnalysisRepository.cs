@@ -15,15 +15,20 @@ namespace SS.DAL.EFAnalyses
 
         //Analysis
         Analysis CreateAnalysis(Analysis analysis, User createdBy);
+        Analysis ReadAnalysis(long id);
+        IEnumerable<Analysis> ReadAnalysesForUser(User user);
+        IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
 
-        //Cluster
+
+         //Cluster
         Cluster CreateCluster(Cluster cluster);
+        IEnumerable<Cluster> ReadClustersForModel(Model model);
 
         //Feature
         Feature CreateFeature(Feature feature);
 
-        //Parameter
-        Parameter CreateParameter(Parameter parameter);
+        //Model
+        Model CreateModel(Model model);
 
         //Solvent
         Solvent CreateSolvent(Solvent solvent);

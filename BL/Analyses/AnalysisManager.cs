@@ -25,9 +25,7 @@ namespace SS.BL.Analyses
             {
                 AlgorithmName = algorithmName,
                 ProcessTime = processTime,
-                GeneralResult = generalResult,
-                Clusters = new Collection<Cluster>(),
-                Parameters = new Collection<Parameter>()
+                GeneralResult = generalResult
             };
             return repo.CreateAlgorithm(algorithm);
         }
@@ -45,6 +43,21 @@ namespace SS.BL.Analyses
             return repo.CreateAnalysis(analysis, createdBy);
         }
 
+        public Analysis ReadAnalysis(long id)
+        {
+            return repo.ReadAnalysis(id);
+        }
+
+        public IEnumerable<Analysis> ReadAnalysesForUser(User user)
+        {
+            return repo.ReadAnalysesForUser(user);
+        }
+
+        public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
+        {
+            return repo.ReadAnalysesForOrganisation(organisation);
+        }
+
         public Cluster CreateCluster(int number, double clusterCenter)
         {
             Cluster cluster = new Cluster()
@@ -54,6 +67,11 @@ namespace SS.BL.Analyses
                 Solvents = new Collection<Solvent>()
             };
             return repo.CreateCluster(cluster);
+        }
+
+        public IEnumerable<Cluster> ReadClustersForModel(Model model)
+        {
+            return repo.ReadClustersForModel(model);
         }
 
         public Feature CreateFeature(FeatureName featureName, double value)
@@ -66,14 +84,15 @@ namespace SS.BL.Analyses
             return repo.CreateFeature(feature);
         }
 
-        public Parameter CreateParameter(string name, double value)
+        public Model CreateModel(string dataSet, DateTime date)
         {
-            Parameter parameter = new Parameter()
+            Model model = new Model()
             {
-                Name = name,
-                Value = value
+                DataSet = dataSet,
+                Date = date,
+                Clusters = new Collection<Cluster>()
             };
-            return repo.CreateParameter(parameter);
+            return repo.CreateModel(model);
         }
 
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)

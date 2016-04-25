@@ -1,10 +1,11 @@
-﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader) {
+﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams) {
     $http({
         method: 'GET',
-        url: 'api/Account/GetUserInfo?email=' + $rootScope.username
-    }).success(function succesCallback(data) {
+        url: 'api/Account/GetUserInfo?id=' + $routeParams.id
+        }).success(function succesCallback(data) {
         $scope.firstname = data.Firstname;
         $scope.lastname = data.Lastname;
+        $scope.id = data.Id;
         var picture = data.Picture;
         
         if (picture != null && picture !== "") {

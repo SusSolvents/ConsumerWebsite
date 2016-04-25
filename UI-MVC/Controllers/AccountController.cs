@@ -82,7 +82,7 @@ namespace SS.UI.Web.MVC.Controllers
             ApplicationUser user = UserManager.FindByName(email);
             if (user != null)
             {
-                if (user.LockoutEnabled == true)
+                if (user.LockoutEnabled)
                 {
                     return Content(HttpStatusCode.BadRequest, "Your account hasn't been granted access yet.");
                 }
@@ -94,15 +94,22 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok("User has access");
         }
 
-        //GET api/Account/GetUserInfo
-        
-        [Route("GetUserInfo")]
-        public UserInformationViewModel GetUserInformation(string email)
+        //GET api/Account/GetUserId
+        [Route("GetUserId")]
+        public long GetUserId(string email)
         {
-            User user = userMgr.ReadUser(email);
+            return userMgr.ReadUser(email).Id;
+        }
+
+        //GET api/Account/GetUserInfo
+        [Route("GetUserInfo")]
+        public UserInformationViewModel GetUserInformation(long id)
+        {
+            User user = userMgr.ReadUser(id);
 
             var model = new UserInformationViewModel()
             {
+                Id = user.Id,
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Picture = null
@@ -136,7 +143,7 @@ namespace SS.UI.Web.MVC.Controllers
                     picture = provider.FileData[0];
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }

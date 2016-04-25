@@ -2,20 +2,13 @@
 (function ($) {
     "use strict";
     jQuery(window).ready(function () {
-        $('body').scrollspy({
-            target: '.navbar-fixed-top',
-            offset: 80
-        });
-
         
-
-
+    
     $('#topNav').affix({
         offset: {
             top: 200
         }
     });
-    
 
 
     
@@ -24,14 +17,21 @@
 
     $('a.page-scroll').bind('click', function(event) {
         var $ele = $(this);
-        
+        if ($($ele.attr('href')).offset() !== undefined ) {
         $('html, body').stop().animate({
             scrollTop: ($($ele.attr('href')).offset().top - 60)
         }, 2950, 'easeInOutExpo');
         event.preventDefault();
+        }
     });
 
+
+        $('#hplogo').click(function(event) {
+            $('#bs-navbar li').removeClass('active');
+
+        });
     $('#bs-navbar li').bind('click', function (event) {
+
         $('#bs-navbar li').removeClass('active');
         var $ele = $(this);
         $ele.addClass('active');
