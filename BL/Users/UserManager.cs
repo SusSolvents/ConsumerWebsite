@@ -47,9 +47,9 @@ namespace SS.BL.Users
             return repo.CreateOrganisation(organisation, user);
         }
 
-        public Organisation ReadOrganisation(string name)
+        public Organisation ReadOrganisation(long id)
         {
-            return repo.ReadOrganisation(name);
+            return repo.ReadOrganisation(id);
         }
 
         public IEnumerable<Organisation> ReadAllOrganisations()

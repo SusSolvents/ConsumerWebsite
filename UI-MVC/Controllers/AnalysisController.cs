@@ -45,15 +45,15 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analyses/GetAnalysesForOrganisation
         [Route("GetAnalysesForOrganisation")]
-        public List<Analysis> GetAnalysesForOrganisation(string organisationName)
+        public List<Analysis> GetAnalysesForOrganisation(long id)
         {
-            var organisation = _userManager.ReadOrganisation(organisationName);
+            var organisation = _userManager.ReadOrganisation(id);
             return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
         } 
 
         //GET api/Analyses/StartAnalysis
         [Route("StartAnalysis")]
-        public async Task<IHttpActionResult> StartAnalysis(List<String> algorithms )
+        public async Task<IHttpActionResult> StartAnalysis([FromUri] List<string> algorithms )
         {
             List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
             foreach (String algorithm in algorithms)
@@ -74,7 +74,10 @@ namespace SS.UI.Web.MVC.Controllers
                         break;
                 }
             }
-
+            foreach (AlgorithmName algorithm in algorithmNames)
+            {
+                
+            }
             return Ok();
         }
 
