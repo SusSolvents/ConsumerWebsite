@@ -96,7 +96,8 @@ namespace SS.UI.Web.MVC.Controllers
             
                     
                     client.Dispose();
-                    return Ok(Convert.ToBase64String(response));
+                    string json = Encoding.UTF8.GetString(response);
+                    return Ok(json);
                 }
             }
             catch (Exception e)
