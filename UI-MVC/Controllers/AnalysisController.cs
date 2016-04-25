@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -87,17 +88,15 @@ namespace SS.UI.Web.MVC.Controllers
         {
             try
             {
-                using (var client = new HttpClient())
+                using (var client = new WebClient())
                 {
-                    MultipartFormDataContent form = new MultipartFormDataContent();
-                    byte[] file = File.ReadAllBytes(HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
-                    form.Add(new ByteArrayContent(file), "file");
-                    HttpResponseMessage response =
-                        await client.PostAsync("http://api-sussolkdg.rhcloud.com/api/model/canopy", form);
-                    response.EnsureSuccessStatusCode();
+
+                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/canopy"),
+                        HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
+            
+                    
                     client.Dispose();
-                    return Ok(response.Content.ReadAsStringAsync().Result);
+                    return Ok(Convert.ToBase64String(response));
                 }
             }
             catch (Exception e)
