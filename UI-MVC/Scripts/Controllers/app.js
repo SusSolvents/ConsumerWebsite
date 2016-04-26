@@ -19,7 +19,7 @@ app.config(function ($routeProvider, $locationProvider) {
         authenticate: true 
     });
     $routeProvider.when("/organisation/create", {
-        templateUrl: "Content/Views/Organisation/Create.html",
+        templateUrl: "Content/Views/Organisation/Create.html", 
         authenticate: true
     });
     $routeProvider.when("/organisation/:name", {
