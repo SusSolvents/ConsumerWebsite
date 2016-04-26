@@ -1,18 +1,19 @@
-﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams) {
+﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams, $location) {
     $http({
         method: 'GET',
         url: 'api/Account/GetUserInfo?id=' + $routeParams.id
         }).success(function succesCallback(data) {
-        $scope.firstname = data.Firstname;
-        $scope.lastname = data.Lastname;
-        $scope.id = data.Id;
-        var picture = data.Picture;
-        if (picture != null && picture !== "") {
-            $scope.imageSrc = '/Content/Images/Users/' + picture;
-        }
+            $scope.tazz= true;
+            $scope.firstname = data.Firstname;
+            $scope.lastname = data.Lastname;
+            $scope.id = data.Id;
+            var picture = data.Picture;
+            if (picture != null && picture !== "") {
+                $scope.imageSrc = '/Content/Images/Users/' + picture;
+            }
         //$location.path("/");
     }).error(function errorCallback(data) {
-        console.log("hello");
+        $location.url('/404');
     });
 
 

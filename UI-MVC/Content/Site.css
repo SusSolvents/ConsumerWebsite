@@ -359,7 +359,7 @@ footer {
 }
 .upper-profile {
     width: 100%;
-    height: 360px;
+    height: 370px;
     overflow: hidden;
     
     padding: 2.5%;
@@ -747,7 +747,7 @@ progress {
     min-width: 480px;
 }
 .bigpadding {
-    padding-top: 65px;
+    padding-top: 70px;
    
 }
 

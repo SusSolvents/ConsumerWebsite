@@ -30,6 +30,10 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl: "Content/Views/Analysis/Start.html",
         authenticate: true
     });
+    $routeProvider.when("/404", {
+        templateUrl: "Content/Views/Error.html",
+        authenticate: false
+    });
     $routeProvider.otherwise({ redirectTo: "/" });
 
     $locationProvider.html5Mode(true);
