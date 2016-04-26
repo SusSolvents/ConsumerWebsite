@@ -3,25 +3,32 @@
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
         controller: 'homeController',
-        templateUrl: "Content/Views/Home.html"
+        templateUrl: "Content/Views/Home.html",
+        authenticate: false
     });
     $routeProvider.when("/register", {
-        templateUrl: "Content/Views/Account/Register.html"
+        templateUrl: "Content/Views/Account/Register.html",
+        authenticate: false
     });
     $routeProvider.when("/login", {
-        templateUrl: "Content/Views/Account/Login.html"
+        templateUrl: "Content/Views/Account/Login.html",
+        authenticate: false
     });
     $routeProvider.when("/account/:id", {
-        templateUrl: "Content/Views/Account/Home.html"
+        templateUrl: "Content/Views/Account/Home.html",
+        authenticate: true
     });
     $routeProvider.when("/organisation/create", {
-        templateUrl: "Content/Views/Organisation/Create.html"
+        templateUrl: "Content/Views/Organisation/Create.html",
+        authenticate: true
     });
     $routeProvider.when("/organisation/:name", {
-        templateUrl: "Content/Views/Organisation/Home.html"
+        templateUrl: "Content/Views/Organisation/Home.html",
+        authenticate: true
     });
     $routeProvider.when("/analysis/start", {
-        templateUrl: "Content/Views/Analysis/Start.html"
+        templateUrl: "Content/Views/Analysis/Start.html",
+        authenticate: true
     });
     $routeProvider.otherwise({ redirectTo: "/" });
 
@@ -30,9 +37,8 @@ app.config(function ($routeProvider, $locationProvider) {
 
 
 app.controller('homeController', 
-    function ($timeout, $window, $rootScope, $scope) {
-        $rootScope.username = $window.sessionStorage.username;
-        $rootScope.userId = $window.sessionStorage.userId;
+    function ($timeout, $window, $rootScope, $scope, AuthenticationService) {
+
         if (window.location.hash) {
             $('html, body').stop().animate({
                 scrollTop: ($(window.location.hash).offset().top - 60)
@@ -88,4 +94,21 @@ app.controller('homeController',
 angular.bootstrap(document.body, ['sussol']);
 
 
-
+app.run(['$rootScope', '$location', 'AuthenticationService', '$window', function ($rootScope, $location, AuthenticationService,  $window) {
+    $rootScope.$on('$routeChangeStart', function (event, tostate) {
+        $rootScope.username = $window.sessionStorage.username;
+        $rootScope.userId = $window.sessionStorage.userId;
+        if ($window.sessionStorage.username !== undefined) {
+            AuthenticationService.isLogged = true;
+        }
+        if (tostate.authenticate && !AuthenticationService.isLogged) {
+            console.log('DENY');
+            event.preventDefault();
+            $location.path('/');
+            $('#login-modal').modal('show');
+        }
+        else {
+            console.log('ALLOW');
+        }
+    });
+}]);

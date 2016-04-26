@@ -1,6 +1,6 @@
 ﻿<div ng-controller="AnalysisController as analysis" class="col-lg-12 bgsection-2 fillHeight bigpadding">
 
-    <div class="centered-container">
+    <div class="centered-container" ng-if="algorithms===undefined">
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h1 class="margin-top-0 text-primary wow fadeInDown">Select the algorithms</h1>
@@ -56,8 +56,37 @@
 
         </div>
         <div>
-            <button disabled="disabled" style="float: right; margin-top: 50px; font-size: 20px; background: none; border: none;">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            <button ng-style="next" class="selectAlgorithm" ng-disabled="disabled" ng-click="startAnalysis()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
         </div>
         </div>
-
+    <div class="centered-container" ng-if="algorithms!==undefined">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="margin-top-0 text-primary wow fadeInDown">Select your model</h1>
+                <hr class="primary">
+            </div>
+        </div>
+        <div>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>DataSet</th>
+                    <th>Date executed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="model in algorithms" id="{{model.DataSet}}" name="{{model.Id}}" ng-click="selectModel($event)" ng-style="modelList" style="cursor: pointer">
+                    <td>{{model.DataSet}}</td>
+                    <td>{{model.Date}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button ng-style="showAnalysis" class="selectAlgorithm" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        </div>
+        <div>
+            <button class="previousAlgorithm" ng-click="previous()"><i class="fa fa-sign-out rotate180deg" aria-hidden="true"></i> Previous </button>
+        </div>
+    </div>
     </div>
