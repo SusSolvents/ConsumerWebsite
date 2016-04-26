@@ -11,6 +11,7 @@ namespace SS.UI.Web.MVC
                         "~/Scripts/jquery-{version}.js"
                       
                         , "~/Scripts/site.js"
+                        , "~/Scripts/tabs.js"
                         , "~/Scripts/jquery-easing.js"
                         , "~/Scripts/morphext.min.js"
                         , "~/Scripts/hexagons.js"));
@@ -30,6 +31,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/hexagon.css",
                       "~/Content/filling-section.css",
                       "~/Content/modal.css",
+                      "~/Content/tabs.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",
                       "~/Content/site.css"));

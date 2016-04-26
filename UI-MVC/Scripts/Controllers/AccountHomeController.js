@@ -16,6 +16,19 @@
         console.log("hello");
     });
 
+
+    $('ul.tabs li').click(function() {
+        var tab_id = $(this).attr('data-tab');
+
+        $('ul.tabs li').removeClass('current');
+        $('.tab-content').removeClass('current');
+
+        $(this).addClass('current');
+        $("#" + tab_id).addClass('current');
+    });
+
+
+    
     $scope.triggerUpload = function () {
         $("#profileImage").click();
     };
@@ -58,12 +71,14 @@
             method: 'POST',
             url: 'api/Account/ChangePassword?currentPassword=' + model.password.currentPassword + '&newPassword=' + model.password.newPassword
         }).success(function succesCallback(data) {
-            $scope.message = data;
-            $scope.account.password.currentPassword = null;
-            $scope.account.password.newPassword = null;
-            $scope.account.password.confirmPassword = null;
-            $('#password-modal').modal('hide');
-            $scope.success = "Password change successfull";
+            $scope.success = data;
+           
+            setTimeout(function() {
+                $('#password-modal').modal('hide');
+                $scope.account.password.currentPassword = null;
+                $scope.account.password.newPassword = null;
+                $scope.account.password.confirmPassword = null;
+            },2000);
             
             //$location.path("/");
         }).error(function errorCallback(data) {

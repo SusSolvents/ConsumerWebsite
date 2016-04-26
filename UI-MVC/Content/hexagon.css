@@ -13,8 +13,10 @@ ol.odd {
 }
 
 .hb {
+    
     cursor: pointer;
-	display: inline-block;
+	display: block;
+    margin: 0 auto;
 	position:relative;
 	text-align: center; /*  Default text align center */
 	z-index: 0;
@@ -171,11 +173,12 @@ ol.odd {
 -------------------------------------------------*/
 
 .hb-md {
+    
 	line-height: 74px;
 	font-size: 74px;
-	margin: 37px 0px; /* Original output, margin 0 of the button */ 
-	/*margin: 52px 15px;*/ /* New output, margin 15px of the button,  37 + 15 = 52 */ 
-}
+    margin-top: 60px;
+    margin-bottom: 60px;
+	}
 .hb-md ,
 .hb-md:before ,
 .hb-md:after {
@@ -273,13 +276,6 @@ ol.odd {
 	width: 32px;
 }
 
-/* 3.0 - Margin of hexagon End
-------------------------------------------------------------------------*/
-
-
-
-/* 4.0 - Buttons Effects
-------------------------------------------------------------------------*/
 .spin,
 .spin-icon i {
 	-webkit-transition: -webkid-transform .25s  ease;
@@ -309,16 +305,9 @@ ol.odd {
 	        transition: transform .55s  ease-in-out;
         
     }
-        .hb:hover,
-        .hb:hover:before,
-        .hb:hover:after {
-            -webkit-transform:scale(1.1);
-	   -moz-transform:scale(1.1);
-	    -ms-transform:scale(1.1);
-	     -o-transform:scale(1.1);
-			transform:scale(1.1);	
+        
             
-        }
+      
     
 }
 

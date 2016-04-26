@@ -261,10 +261,12 @@
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\tabs.css" />
     <Content Include="Content\filling-section.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\hexagon.css" />
+    <Content Include="Content\Images\blur.jpg" />
     <Content Include="Content\Images\home.jpg" />
     <Content Include="Content\Images\animation.m4v" />
     <Content Include="Content\Images\avatar.png" />
@@ -323,6 +325,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Csv\defaultmatrix.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />
     <Content Include="Scripts\Controllers\AnalysisController.js" />

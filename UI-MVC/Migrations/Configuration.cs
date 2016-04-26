@@ -44,11 +44,14 @@ namespace SS.UI.Web.MVC.Migrations
             var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser()
             {
-                UserName = "sussolvents@admin.com"
+                UserName = "sussolvents@admin.com",
+                Email = "sussolvents@admin.com"
             };
             var user1 = new ApplicationUser()
             {
-                UserName = "sussolvents@user.com"
+                UserName = "sussolvents@user.com",
+                Email = "sussolvents@user.com"
+
             };
             ir = um.Create(user, "sussolvents");
             ir = um.Create(user1, "sussolvents");
