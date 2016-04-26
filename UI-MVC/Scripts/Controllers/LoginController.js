@@ -72,7 +72,7 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     });
                     $rootScope.username = username;
                     $('#login-modal').modal('hide');
-                    setTimeout($location.path("/account/" + $window.sessionStorage.userId), 500);
+                    setTimeout($location.path("/account/" + $window.sessionStorage.userId), 1000);
 
                 }).error(function (status, data) {
                     $scope.errorlogin = error;

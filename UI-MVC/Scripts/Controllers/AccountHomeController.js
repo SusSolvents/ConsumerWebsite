@@ -62,6 +62,7 @@
             $scope.account.password.currentPassword = null;
             $scope.account.password.newPassword = null;
             $scope.account.password.confirmPassword = null;
+            
             //$location.path("/");
         }).error(function errorCallback(data) {
             $scope.message = data;
