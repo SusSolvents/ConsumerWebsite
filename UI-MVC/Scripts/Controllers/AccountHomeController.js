@@ -7,7 +7,6 @@
         $scope.lastname = data.Lastname;
         $scope.id = data.Id;
         var picture = data.Picture;
-        
         if (picture != null && picture !== "") {
             $scope.imageSrc = '/Content/Images/Users/' + picture;
         }

@@ -103,22 +103,25 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Account/GetUserInfo
         [Route("GetUserInfo")]
-        public UserInformationViewModel GetUserInformation(long id)
+        public IHttpActionResult GetUserInformation(long id)
         {
             User user = userMgr.ReadUser(id);
-
-            var model = new UserInformationViewModel()
+            if (User.Identity.GetUserId() == user.Email)
             {
-                Id = user.Id,
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
-                Picture = null
-            };
-            if (user.AvatarUrl != null)
-            {
-                model.Picture = user.AvatarUrl;
+                var model = new UserInformationViewModel()
+                {
+                    Id = user.Id,
+                    Firstname = user.Firstname,
+                    Lastname = user.Lastname,
+                    Picture = null
+                };
+                if (user.AvatarUrl != null)
+                {
+                    model.Picture = user.AvatarUrl;
+                }
+                return Ok(model);
             }
-            return model;
+            return BadRequest();
         }
 
         //POST api/Account/ChangeAvatar
