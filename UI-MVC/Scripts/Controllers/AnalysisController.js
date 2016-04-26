@@ -63,5 +63,6 @@
         $scope.previous = function previous() {
             algorithms = [];
             delete $scope.algorithms;
+            $scope.next = { color: 'grey' }
         }
     });
