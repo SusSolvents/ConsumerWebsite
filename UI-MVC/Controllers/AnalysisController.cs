@@ -55,40 +55,67 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
         } 
 
-        //GET api/Analyses/StartAnalysis
-        [Route("StartAnalysis")]
-        public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
+        //GET api/Analyses/GetFullModels
+        [Route("GetFullModels")]
+        public List<Model> GetFullModels([FromUri] List<string> algorithms, [FromUri] string dataSet)
+        {
+            List<AlgorithmName> algorithmNames = SetStringsToAlgorithmNames(algorithms);
+            List<Model> models = new List<Model>();
+            foreach (AlgorithmName name in algorithmNames)
+            {
+                models.Add(_analysisManager.ReadModel(dataSet, name));
+            }
+            return models;
+        }
+
+        //GET api/Analysis/SetStringsToAlgorithmNames
+        [Route("SetStringsToAlgorithmNames")]
+        public List<AlgorithmName> SetStringsToAlgorithmNames(List<string> algorithms)
         {
             List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
             foreach (String algorithm in algorithms)
             {
                 switch (algorithm)
                 {
-                    case "Cobweb": algorithmNames.Add(AlgorithmName.COBWEB);
+                    case "Cobweb":
+                        algorithmNames.Add(AlgorithmName.COBWEB);
                         break;
-                    case "Canopy": algorithmNames.Add(AlgorithmName.CANOPY);
+                    case "Canopy":
+                        algorithmNames.Add(AlgorithmName.CANOPY);
                         break;
-                    case "KMeans": algorithmNames.Add(AlgorithmName.KMEANS);
+                    case "KMeans":
+                        algorithmNames.Add(AlgorithmName.KMEANS);
                         break;
-                    case "XMeans": algorithmNames.Add(AlgorithmName.XMEANS);
+                    case "XMeans":
+                        algorithmNames.Add(AlgorithmName.XMEANS);
                         break;
-                    case "EM": algorithmNames.Add(AlgorithmName.EM);
+                    case "EM":
+                        algorithmNames.Add(AlgorithmName.EM);
                         break;
-                    case "SOM": algorithmNames.Add(AlgorithmName.SOM);
+                    case "SOM":
+                        algorithmNames.Add(AlgorithmName.SOM);
                         break;
                 }
             }
+            return algorithmNames;
+        }
+
+        //GET api/Analyses/StartAnalysis
+        [Route("StartAnalysis")]
+        public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
+        {
+            List<AlgorithmName> algorithmNames = SetStringsToAlgorithmNames(algorithms);
             List<Model> models = new List<Model>();
             foreach (AlgorithmName algorithm in algorithmNames)
             {
                 var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
-                if (modelsTemp != null)
+                if (modelsTemp.Count == 0)
                 {
                     await CreateModel(algorithm);
                                 
-            }
+                }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
-        }
+            }
             return models;
         }
 

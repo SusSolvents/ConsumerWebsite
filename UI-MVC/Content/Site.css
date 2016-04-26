@@ -829,3 +829,24 @@ form.ng-submitted .ng-invalid {
 .purple{
      background-color:purple;
 }
+
+.selectAlgorithm {
+    float: right; 
+    margin-top: 50px; 
+    font-size: 20px; 
+    background: none; 
+    border: none;
+}
+
+.previousAlgorithm {
+    float: left;
+    color: white;
+    margin-top: 50px; 
+    font-size: 20px; 
+    background: none; 
+    border: none;
+}
+
+.rotate180deg {
+    -webkit-transform: rotate(180deg);
+}

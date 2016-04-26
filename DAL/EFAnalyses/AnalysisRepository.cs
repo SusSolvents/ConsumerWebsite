@@ -85,6 +85,17 @@ namespace SS.DAL.EFAnalyses
                 .FirstOrDefault(i => i.Id == id);
         }
 
+        public Model ReadModel(string dataSet, AlgorithmName algorithmName)
+        {
+             return context.Models
+                .Include(p => p.Clusters)
+                .Include(p => p.Clusters.Select(pt => pt.DistanceToClusters))
+                .Include(p => p.Clusters.Select(pt => pt.Solvents))
+                .Include(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features)))
+                .Where(t => t.DataSet.Equals(dataSet))
+                .FirstOrDefault(a => a.AlgorithmName == algorithmName);
+        }
+
         public Solvent CreateSolvent(Solvent solvent)
         {
             solvent = context.Solvents.Add(solvent);

@@ -30,6 +30,7 @@ namespace SS.DAL.EFAnalyses
         //Model
         Model CreateModel(Model model);
         Model ReadModel(long id);
+        Model ReadModel(string dataSet, AlgorithmName algorithmName);
         List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
 
         //Solvent
