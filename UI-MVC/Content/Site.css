@@ -465,7 +465,12 @@ header .header-content .inner img {
 #video-background.collapsing {
   display:none;
 }
+.four-o-four {
+    font-family: 'Roboto';
+    font-size: 200px;
+    text-align: center;
 
+}
 footer {
     background-color:#2d2d2d;
 }
