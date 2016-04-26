@@ -86,23 +86,23 @@ namespace SS.UI.Web.MVC.Controllers
 
         [AllowAnonymous]
         [Route("CreateModel")]
-        public async Task<IHttpActionResult> CreateModel()
+        public async Task<IHttpActionResult> CreateModel(AlgorithmName algorithmName)
         {
             try
             {
                 using (var client = new WebClient())
                 {
-                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/canopy"),
+                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
                         HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
-
+                    //creatie van model binnen algoritme
                     var jsonResponse = Encoding.Default.GetString(response);
                     var algorithm = JsonHelper.ParseJson(jsonResponse);
                     _analysisManager.CreateAlgorithm(algorithm);
                     client.Dispose();
-                    return Json(Encoding.Default.GetString(response));
+                    return Ok();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest("An error occurred while generating the model.");
             }
