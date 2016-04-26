@@ -106,7 +106,7 @@ namespace SS.UI.Web.MVC.Controllers
         public IHttpActionResult GetUserInformation(long id)
         {
             User user = userMgr.ReadUser(id);
-            if (User.Identity.GetUserId() == user.Email)
+            if (User.Identity.Name == user.Email)
             {
                 var model = new UserInformationViewModel()
                 {
@@ -122,6 +122,7 @@ namespace SS.UI.Web.MVC.Controllers
                 return Ok(model);
             }
             return BadRequest();
+
         }
 
         //POST api/Account/ChangeAvatar

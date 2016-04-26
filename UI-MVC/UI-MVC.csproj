@@ -284,6 +284,7 @@
     <Content Include="Content\modal.css" />
     <Content Include="Content\Views\Analysis\Overview.html" />
     <Content Include="Content\Views\Analysis\Start.html" />
+    <Content Include="Content\Views\Error.html" />
     <Content Include="Content\Views\Organisation\Create.html" />
     <Content Include="Content\Views\Organisation\Home.html" />
     <Content Include="favicon.ico" />
