@@ -275,10 +275,12 @@ footer {
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
   transition: all .5s;
+    padding: 2px;
+    
     cursor: pointer;
     width: 200px;
     height: 50px;
-    margin: 10px 10px 10px 0px;
+    margin: 25px 10px 10px 0px;
 
 }
 .button:hover , .small-button:hover {

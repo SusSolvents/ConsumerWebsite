@@ -69,10 +69,11 @@ app.controller('LoginController', ['$scope', '$location', '$window', '$rootScope
                     }).success(function(data) {
                         $window.sessionStorage.userId = data;
                         $rootScope.userId = data;
+                        $rootScope.username = username;
+                        $('#login-modal').modal('hide');
+                        setTimeout($location.path("/account/" + data), 1000);
                     });
-                    $rootScope.username = username;
-                    $('#login-modal').modal('hide');
-                    setTimeout($location.path("/account/" + $window.sessionStorage.userId), 500);
+                    
 
                 }).error(function (status, data) {
                     $scope.errorlogin = error;

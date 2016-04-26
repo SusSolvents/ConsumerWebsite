@@ -62,6 +62,9 @@
             $scope.account.password.currentPassword = null;
             $scope.account.password.newPassword = null;
             $scope.account.password.confirmPassword = null;
+            $('#password-modal').modal('hide');
+            $scope.success = "Password change successfull";
+            
             //$location.path("/");
         }).error(function errorCallback(data) {
             $scope.message = data;
