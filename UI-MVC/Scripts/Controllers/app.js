@@ -14,7 +14,7 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl: "Content/Views/Account/Login.html",
         authenticate: false
     });
-    $routeProvider.when("/account/:id", {
+    $routeProvider.when("/account/:id", { 
         templateUrl: "Content/Views/Account/Home.html",
         authenticate: true 
     });
