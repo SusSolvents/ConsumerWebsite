@@ -102,7 +102,7 @@ namespace SS.UI.Web.MVC.Controllers
                 using (var client = new WebClient())
                 {
                     var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
-                        HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
+                        HttpContext.Current.Server.MapPath("~/Content/Csv/defaultmatrix.csv"));
                     //creatie van model binnen algoritme
                     var jsonResponse = Encoding.Default.GetString(response);
                     var algorithm = JsonHelper.ParseJson(jsonResponse);
