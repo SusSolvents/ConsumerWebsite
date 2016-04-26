@@ -57,6 +57,7 @@
                 params: { algorithms: algorithms, dataSet: selectedModel.id }
             }).success(function (data) {
                 console.log(data);
+                $scope.modelsAnalysis = data;
             });
         }
 

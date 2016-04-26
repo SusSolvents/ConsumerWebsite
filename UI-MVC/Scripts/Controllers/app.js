@@ -37,7 +37,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
 
 app.controller('homeController', 
-    function ($timeout, $window, $rootScope, $scope, AuthenticationService) {
+    function ($timeout) {
 
         if (window.location.hash) {
             $('html, body').stop().animate({
