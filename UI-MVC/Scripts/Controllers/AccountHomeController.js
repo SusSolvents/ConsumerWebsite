@@ -3,7 +3,7 @@
         method: 'GET',
         url: 'api/Account/GetUserInfo?id=' + $routeParams.id
         }).success(function succesCallback(data) {
-            $scope.tazz= true;
+            
             $scope.firstname = data.Firstname;
             $scope.lastname = data.Lastname;
             $scope.id = data.Id;
