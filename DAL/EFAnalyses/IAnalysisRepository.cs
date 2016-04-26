@@ -29,12 +29,14 @@ namespace SS.DAL.EFAnalyses
 
         //Model
         Model CreateModel(Model model);
+        Model ReadModel(long id);
+        List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
 
         //Solvent
         Solvent CreateSolvent(Solvent solvent);
 
         //ClusterDistanceCenter
         ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter);
-        List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
+        
     }
 }

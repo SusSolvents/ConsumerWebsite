@@ -31,7 +31,9 @@ namespace SS.BL.Analyses
         //Model
         Model CreateModel(string dataSet, DateTime date, string modelPath, AlgorithmName algorithmName);
         List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
-            //Solvent
+        Model ReadModel(long id);
+        
+        //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);
 
         //ClusterDistanceCenter

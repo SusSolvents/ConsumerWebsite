@@ -107,6 +107,11 @@ namespace SS.BL.Analyses
             return repo.ReadModelsForAlgorithm(algorithmName);
         }
 
+        public Model ReadModel(long id)
+        {
+            return repo.ReadModel(id);
+        }
+
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)
         {
             Solvent solvent = new Solvent()

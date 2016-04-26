@@ -444,7 +444,7 @@ namespace SS.UI.Web.MVC.Controllers
                     picture = provider.FileData[0];
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }

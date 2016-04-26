@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +73,16 @@ namespace SS.DAL.EFAnalyses
             model = context.Models.Add(model);
             context.SaveChanges();
             return model;
+        }
+
+        public Model ReadModel(long id)
+        {
+            return context.Models
+                .Include(p => p.Clusters)
+                .Include(p => p.Clusters.Select(pt => pt.DistanceToClusters))
+                .Include(p => p.Clusters.Select(pt => pt.Solvents))
+                .Include(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features)))
+                .FirstOrDefault(i => i.Id == id);
         }
 
         public Solvent CreateSolvent(Solvent solvent)

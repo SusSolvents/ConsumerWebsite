@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.ModelBinding;
 using Newtonsoft.Json;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
@@ -56,7 +57,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analyses/StartAnalysis
         [Route("StartAnalysis")]
-        public async Task<IHttpActionResult> StartAnalysis([FromUri] List<string> algorithms )
+        public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
         {
             List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
             foreach (String algorithm in algorithms)
@@ -77,22 +78,30 @@ namespace SS.UI.Web.MVC.Controllers
                         break;
                 }
             }
+            List<Model> models = new List<Model>();
             foreach (AlgorithmName algorithm in algorithmNames)
             {
-                                
+                var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
+                if (modelsTemp != null)
+                {
+                    await CreateModel(algorithm);
+
+                }
+                models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
             }
-            return Ok();
+            return models;
         }
 
+        //POST api/Analysis/CreateModel
         [AllowAnonymous]
         [Route("CreateModel")]
-        public async Task<IHttpActionResult> CreateModel()
+        public async Task<IHttpActionResult> CreateModel(AlgorithmName algorithmName)
         {
             try
             {
                 using (var client = new WebClient())
                 {
-                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/canopy"),
+                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName),
                         HttpContext.Current.Server.MapPath("~/Content/Csv/matrix.csv"));
 
                     var jsonResponse = Encoding.Default.GetString(response);

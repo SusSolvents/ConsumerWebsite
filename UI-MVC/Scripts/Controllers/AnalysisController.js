@@ -1,6 +1,7 @@
 ﻿app.controller('AnalysisController', 
     function ($scope, $window, $http) {
         var algorithms = [];
+        var models;
         $scope.changeColor = function changeColor($event) {
             if ($event.currentTarget.style.background !== "purple") {
                 $event.currentTarget.style.background = "purple";
@@ -20,7 +21,9 @@
                 url: 'api/Analysis/StartAnalysis',
                 params: {algorithms : algorithms}
 
-            }).success(function() {
+            }).success(function (data) {
+                models = data;
+                console.log(data);
                 console.log("succes");
             });
         }
