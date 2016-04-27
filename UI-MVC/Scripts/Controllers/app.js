@@ -13,7 +13,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html",
         authenticate: false
-    });
+    }); 
     $routeProvider.when("/account/:id", { 
         templateUrl: "Content/Views/Account/Home.html",
         authenticate: true 
