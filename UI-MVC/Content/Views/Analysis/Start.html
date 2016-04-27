@@ -1,92 +1,104 @@
 ﻿<div ng-controller="AnalysisController as analysis" class="col-lg-12 bgsection-2 fillHeight bigpadding">
 
-    <div class="centered-container" ng-if="algorithms===undefined">
-                    <div class="row">
-                        <div class="col-lg-12 text-center" >
-                            <h1 class="margin-top-0 text-primary wow fadeInDown">Select your algorithms</h1>
-                            <hr class="primary">
-                        </div>
+    <div class="centered-container" >
+        <div class="show-container">
+            <div class="progress" id="progressBar">
+
+                <div class="progress-bar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+
+            </div>
+
+        </div>
+        <div class="padding-container" ng-if="algorithms===undefined">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="margin-top-0 text-primary wow fadeInDown">Select your algorithms</h1>
+                    <hr class="primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="Canopy" name="Canopy" ng-click="changeColor($event)">
+                        <i class="fa fa-cogs fa-4x"></i>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 text-center" style="margin-top: 40px">
-                            <div class="box-icon rotate" id="Canopy" name="Canopy" ng-click="changeColor($event)">
-                                <i class="fa fa-cogs fa-4x"></i>
-                            </div>
-                            <h3>Canopy</h3>
-                        </div>
+                    <h3>Canopy</h3>
+                </div>
 
-                        <div class="col-lg-4 text-center" style="margin-top: 40px">
-                            <div class="box-icon rotate" id="Cobweb" name="Cobweb" ng-click="changeColor($event)">
-                                <i class="fa fa-shield fa-4x"></i>
-                            </div>
-                            <h3>Cobweb</h3>
-                        </div>
-
-                        <div class="col-lg-4 text-center" style="margin-top: 40px">
-                            <div class="box-icon rotate" id="KMeans" name="KMeans" ng-click="changeColor($event)">
-                                <i class="fa fa-tachometer fa-4x"></i>
-                            </div>
-                            <h3>KMeans</h3>
-                        </div>
-
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="Cobweb" name="Cobweb" ng-click="changeColor($event)">
+                        <i class="fa fa-shield fa-4x"></i>
                     </div>
-
-        <div class="row">
-
-            <div class="col-lg-4 text-center" style="margin-top: 40px">
-                <div class="box-icon rotate" id="SOM" name="SOM" ng-click="changeColor($event)">
-                    <i class="fa fa-sitemap fa-4x"></i>
+                    <h3>Cobweb</h3>
                 </div>
-                <h3>Self Organising Map</h3>
-            </div>
 
-            <div class="col-lg-4 text-center" style="margin-top: 40px">
-                <div class="box-icon rotate" id="XMeans" name="XMeans" ng-click="changeColor($event)">
-                    <i class="fa fa-xing fa-4x"></i>
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="KMeans" name="KMeans" ng-click="changeColor($event)">
+                        <i class="fa fa-tachometer fa-4x"></i>
+                    </div>
+                    <h3>KMeans</h3>
                 </div>
-                <h3>XMeans</h3>
+
             </div>
 
-            <div class="col-lg-4 text-center" style="margin-top: 40px">
-                <div class="box-icon rotate" id="EM" name="EM" ng-click="changeColor($event)">
-                    <i class="fa fa-wrench fa-4x"></i>
+            <div class="row">
+
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="SOM" name="SOM" ng-click="changeColor($event)">
+                        <i class="fa fa-sitemap fa-4x"></i>
+                    </div>
+                    <h3>Self Organising Map</h3>
                 </div>
-                <h3>Expectation Maximization</h3>
-            </div>
 
-        </div>
-        <div>
-            <a ng-class="btnclass" ng-disabled="disabled" ng-click="startAnalysis()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-        </div>
-        </div>
-    <div class="centered-container" ng-if="algorithms!==undefined">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1 class="margin-top-0 text-primary wow fadeInDown">Select your model</h1>
-                <hr class="primary">
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="XMeans" name="XMeans" ng-click="changeColor($event)">
+                        <i class="fa fa-xing fa-4x"></i>
+                    </div>
+                    <h3>XMeans</h3>
+                </div>
+
+                <div class="col-lg-4 text-center" style="margin-top: 40px">
+                    <div class="box-icon rotate" id="EM" name="EM" ng-click="changeColor($event)">
+                        <i class="fa fa-wrench fa-4x"></i>
+                    </div>
+                    <h3>Expectation Maximization</h3>
+                </div>
+
+            </div>
+            <div>
+                <a ng-class="btnclass" ng-disabled="disabled" ng-click="startAnalysis()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></a>
             </div>
         </div>
-        <div>
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th>DataSet</th>
-                    <th>Date executed</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="model in algorithms" id="{{model.DataSet}}" name="{{model.Id}}" ng-click="selectModel($event)" ng-style="modelList" style="cursor: pointer">
-                    <td>{{model.DataSet}}</td>
-                    <td>{{model.Date}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <button ng-style="showAnalysis" class="selectAlgorithm" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
-        </div>
-        <div>
-            <button class="previousAlgorithm" ng-click="previous()"><i class="fa fa-sign-out rotate180deg" aria-hidden="true"></i> Previous </button>
+        <div class="padding-container" ng-if="algorithms!==undefined">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="margin-top-0 text-primary wow fadeInDown">Select your model</h1>
+                    <hr class="primary">
+                </div>
+            </div>
+            <div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>DataSet</th>
+                            <th>Date executed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="model in algorithms" id="{{model.DataSet}}" name="{{model.Id}}" ng-click="selectModel($event)" ng-style="modelList" style="cursor: pointer">
+                            <td>{{model.DataSet}}</td>
+                            <td>{{model.Date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button ng-style="showAnalysis" class="selectAlgorithm" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            </div>
+            <div>
+                <button class="previousAlgorithm" ng-click="previous()"><i class="fa fa-sign-out rotate180deg" aria-hidden="true"></i> Previous </button>
+            </div>
         </div>
     </div>
+    
     </div>

@@ -2,6 +2,7 @@
     function ($scope, $window, $http) {
         var algorithms = [];
         var models;
+        
         $scope.disabled = true;
         $scope.btnclass = "button-right disabled";
         $scope.modelDisabled = true;
@@ -10,12 +11,14 @@
             if (!contains(algorithms, $event.currentTarget.id)) {
                 $event.currentTarget.style.background = "purple";
                 $event.currentTarget.style.color = "white";
+                
                 algorithms.push($event.currentTarget.id);
                 console.log(algorithms);
                 if (algorithms.length !== 0) {
                     $scope.btnclass = "button-right";
                     $scope.disabled = false;
                     $scope.next = { color: 'white' }
+                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 25 + "%").attr("aria-valuenow", 40);
                 }
             } else {
                 $event.currentTarget.style.background = "#f0f1ec";
@@ -29,7 +32,7 @@
                 }
             }
             
-        }
+        };
 
         function contains(a, obj) {
             var i = a.length;
@@ -48,6 +51,7 @@
                 params: {algorithms : algorithms}
 
             }).success(function (data) {
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 50 + "%").attr("aria-valuenow", 50);
                 models = data;
                 $scope.algorithms = data;
             });
@@ -61,6 +65,7 @@
             $event.currentTarget.style.background = "purple";
             $scope.modelDisabled = false;
             $scope.showAnalysis = { color: 'white' }
+            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 100 + "%").attr("aria-valuenow", 100);
             console.log(selectedModel);
         }
 
@@ -78,9 +83,7 @@
         $scope.previous = function previous() {
             algorithms = [];
             delete $scope.algorithms;
-            $scope.next = { color: 'grey' };
-            $scope.disabled = true;
-            $scope.modelDisabled = true;
-            $scope.showAnalysis = { color: 'grey' };
+            $scope.btnclass = "button-right disabled";
+            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 0 + "%").attr("aria-valuenow", 0);
         }
     });

@@ -265,6 +265,7 @@ footer {
     min-height: 100%;
     height: -webkit-fit-content;
     height: -moz-fit-content;
+    height: auto;
 }
 
 
@@ -618,6 +619,7 @@ textarea {
 }
 @media(max-width: 1000px) {
        .fillHeight {
+           height: auto;
             min-height: 120%;
         }
        
@@ -748,8 +750,8 @@ img::-moz-selection {
     background: 0 0;
 }
 .avatar-img {
-    width: 160px;
-    height: 160px;
+    width: 165px;
+    height: 165px;
     border-radius: 100%;
     border: 2px solid white;
     margin: 0 auto;
@@ -772,10 +774,12 @@ progress {
 .centered-container {
     display: block;
     width: 60%;
-    padding: 40px 80px 40px 80px;
+    padding-bottom: 40px;
     margin: 0 auto;
+    
     height: -webkit-fit-content;
     height: -moz-fit-content;
+    height: auto;
     background-color: rgba(205, 205, 205, 0.6);
     border-radius: 8px;
     overflow: auto;
@@ -789,10 +793,14 @@ progress {
     
     height: -webkit-fit-content;
     height: -moz-fit-content;
+    height: auto;
     background-color: rgba(205, 205, 205, 0.6);
     border-radius: 8px;
     overflow: hidden;
     min-width: 480px;
+}
+.padding-container {
+    padding: 40px 80px 80px 80px;
 }
 .bigpadding {
     padding-top: 75px;

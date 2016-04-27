@@ -261,11 +261,11 @@
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\cd-arrow.svg" />
     <Content Include="Content\tabs.css" />
     <Content Include="Content\filling-section.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\hexagon.css" />
     <Content Include="Content\Images\blur.jpg" />
     <Content Include="Content\Images\home.jpg" />
     <Content Include="Content\Images\animation.m4v" />
@@ -278,6 +278,7 @@
     <Content Include="Content\Images\icon.png" />
     <Content Include="Content\Images\logonegative.png" />
     <Content Include="Content\Images\pen.svg" />
+    <Content Include="Content\timeline.css" />
     <Content Include="Content\Views\Account\Home.html" />
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
@@ -352,6 +353,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Content\Views\Home.html" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\timeline.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
