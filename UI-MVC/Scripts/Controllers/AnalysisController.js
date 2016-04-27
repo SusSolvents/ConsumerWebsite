@@ -71,7 +71,7 @@
                 params: { algorithms: algorithms, dataSet: selectedModel.id }
             }).success(function (data) {
                 console.log(data);
-                $scope.modelsAnalysis = data;
+                $location.path("/analysis/overview/" + data.Id);
             });
         }
 
