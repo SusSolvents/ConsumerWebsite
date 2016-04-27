@@ -21,7 +21,7 @@
   position: relative;
   height: 100%;
   background-color: #00c0fb;
-  transition: width .2s linear;
+  transition: width 0.8s linear;
 }
 .progress .progress-number {
   position: absolute;

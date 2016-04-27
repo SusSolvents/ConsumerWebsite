@@ -18,7 +18,7 @@
                     $scope.btnclass = "button-right";
                     $scope.disabled = false;
                     $scope.next = { color: 'white' }
-                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 25 + "%").attr("aria-valuenow", 40);
+                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 25 + "%").attr("aria-valuenow", 0);
                 }
             } else {
                 $event.currentTarget.style.background = "#f0f1ec";
@@ -29,6 +29,7 @@
                 if (algorithms.length === 0) {
                     $scope.disabled = true;
                     $scope.btnclass = "button-right disabled";
+                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 0 + "%").attr("aria-valuenow", 0);
                 }
             }
             

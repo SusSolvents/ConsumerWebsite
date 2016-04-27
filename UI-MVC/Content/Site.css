@@ -106,7 +106,7 @@ p {
 }
 
 .text-primary {
-    color: #9c27b0;
+    color: #b92ed1;
 }
 
 .modal-content {
@@ -401,7 +401,6 @@ footer {
     width: 100%;
     height: 350px;
     overflow: hidden;
-    
     padding: 2.5%;
     text-align: center;
     margin-top: 0px;
@@ -412,7 +411,6 @@ footer {
     background-size: cover;
     -o-background-size: cover;
     background-repeat: no-repeat;
-    
 }
 
 .upper-profile > p {
@@ -780,7 +778,7 @@ progress {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: auto;
-    background-color: rgba(205, 205, 205, 0.6);
+    background-color: rgba(205, 205, 205, 0.2);
     border-radius: 8px;
     overflow: auto;
     min-width: 410px;
@@ -794,7 +792,7 @@ progress {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: auto;
-    background-color: rgba(205, 205, 205, 0.6);
+    background-color: rgba(205, 205, 205, 0.5);
     border-radius: 8px;
     overflow: hidden;
     min-width: 480px;
