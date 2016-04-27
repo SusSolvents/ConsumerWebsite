@@ -35,15 +35,12 @@ namespace SS.BL.Analyses
             return repo.CreateAlgorithm(algorithm);
         }
 
-        public Analysis CreateAnalysis(string name, DateTime dateCreated, string sourcefileUrl, User createdBy)
+        public Analysis CreateAnalysis(string name, DateTime dateCreated, User createdBy)
         {
             Analysis analysis = new Analysis()
             {
                 Name = name,
-                DateCreated = dateCreated,
-                SourcefileUrl = sourcefileUrl,
-                Analyses = new Collection<Analysis>(),
-                UsedAlgorithms = new Collection<Algorithm>()
+                DateCreated = dateCreated
             };
             return repo.CreateAnalysis(analysis, createdBy);
         }
@@ -51,6 +48,11 @@ namespace SS.BL.Analyses
         public Analysis ReadAnalysis(long id)
         {
             return repo.ReadAnalysis(id);
+        }
+
+        public Analysis CreateAnalysis(Analysis analysis, string email)
+        {
+            return repo.CreateAnalysis(analysis, email);
         }
 
         public IEnumerable<Analysis> ReadAnalysesForUser(User user)
@@ -137,6 +139,11 @@ namespace SS.BL.Analyses
                 Distance = distance
             };
             return repo.CreateClusterDistanceCenter(clusterDistanceCenter);
+        }
+
+        public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
+        {
+            return repo.CreateAnalysisModel(analysisModel);
         }
     }
 }

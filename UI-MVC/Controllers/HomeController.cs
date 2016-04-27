@@ -9,7 +9,7 @@ namespace SS.UI.Web.MVC.Controllers
         UserManager userManager = new UserManager();
         public ActionResult Index()
         {
-            //User user = userManager.ReadUser("test@test.com");
+            User user = userManager.ReadUser("test@test.com");
             ViewBag.Title = "Home Page";
 
             return View();

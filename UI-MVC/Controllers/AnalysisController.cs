@@ -32,22 +32,22 @@ namespace SS.UI.Web.MVC.Controllers
         {
         }
 
-        //GET api/Analyses/GetAnalysis
+        //GET api/Analysis/GetAnalysis
         [Route("GetAnalysis")]
-        public Analysis GetAnalysis(long id)
+        public Analysis GetAnalysis([FromUri]long id)
         {
             return _analysisManager.ReadAnalysis(id);
         }
 
-        //GET api/Analyses/GetAnalysesForUser
+        //GET api/Analysis/GetAnalysesForUser
         [Route("GetAnalysesForUser")]
-        public List<Analysis> GetAnalysesForUser(string email)
+        public List<Analysis> GetAnalysesForUser([FromUri] string email)
         {
             var user = _userManager.ReadUser(email);
             return _analysisManager.ReadAnalysesForUser(user).ToList();
         } 
 
-        //GET api/Analyses/GetAnalysesForOrganisation
+        //GET api/Analysis/GetAnalysesForOrganisation
         [Route("GetAnalysesForOrganisation")]
         public List<Analysis> GetAnalysesForOrganisation(long id)
         {
@@ -55,9 +55,9 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
         } 
 
-        //GET api/Analyses/GetFullModels
+        //GET api/Analysis/GetFullModels
         [Route("GetFullModels")]
-        public List<Model> GetFullModels([FromUri] List<string> algorithms, [FromUri] string dataSet)
+        public List<Model> GetFullModels(List<string> algorithms, string dataSet)
         {
             List<AlgorithmName> algorithmNames = SetStringsToAlgorithmNames(algorithms);
             List<Model> models = new List<Model>();
@@ -66,6 +66,30 @@ namespace SS.UI.Web.MVC.Controllers
                 models.Add(_analysisManager.ReadModel(dataSet, name));
             }
             return models;
+        }
+
+        //GET api/Analysis/Createanalysis
+        [Route("CreateAnalysis")]
+        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet)
+        {
+            List<Model> models = GetFullModels(algorithms, dataSet);
+            Analysis analysis = new Analysis()
+            {
+                Name = models.First().DataSet,
+                DateCreated = DateTime.Now,
+                AnalysisModels = new List<AnalysisModel>()
+            };
+            foreach (Model m in models)
+            {
+                AnalysisModel analysisModel = new AnalysisModel()
+                {
+                   Model = m
+                };
+                analysis.AnalysisModels.Add(analysisModel);
+                
+            }
+            analysis = _analysisManager.CreateAnalysis(analysis, User.Identity.Name);
+            return analysis;
         }
 
         //GET api/Analysis/SetStringsToAlgorithmNames
@@ -100,7 +124,7 @@ namespace SS.UI.Web.MVC.Controllers
             return algorithmNames;
         }
 
-        //GET api/Analyses/StartAnalysis
+        //GET api/Analysis/StartAnalysis
         [Route("StartAnalysis")]
         public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
         {
@@ -138,7 +162,7 @@ namespace SS.UI.Web.MVC.Controllers
                     return Ok();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest("An error occurred while generating the model.");
             }

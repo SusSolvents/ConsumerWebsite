@@ -16,8 +16,9 @@ namespace SS.BL.Analyses
         Algorithm CreateAlgorithm(Algorithm algorithm);
 
         //Analysis
-        Analysis CreateAnalysis(string name, DateTime dateCreated, string sourcefileUrl, User createdBy);
+        Analysis CreateAnalysis(string name, DateTime dateCreated, User createdBy);
         Analysis ReadAnalysis(long id);
+        Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
 
@@ -39,5 +40,8 @@ namespace SS.BL.Analyses
 
         //ClusterDistanceCenter
         ClusterDistanceCenter CreateClusterDistanceCenter(long clusterId, double distance);
+
+        //AnalysisModel
+        AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
     }
 }

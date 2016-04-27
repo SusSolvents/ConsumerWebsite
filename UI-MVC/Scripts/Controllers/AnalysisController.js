@@ -31,9 +31,9 @@
                     $scope.btnclass = "button-right disabled";
                 }
             }
-
+            
         };
-        
+
         function contains(a, obj) {
             var i = a.length;
             while (i--) {
@@ -71,11 +71,12 @@
 
         $scope.showAlgorithms = function showAlgorithms() {
             $http({
-                method: 'GET',
-                url: 'api/Analysis/GetFullModels',
+                method: 'POST',
+                url: 'api/Analysis/CreateAnalysis',
                 params: { algorithms: algorithms, dataSet: selectedModel.id }
             }).success(function (data) {
                 console.log(data);
+                $scope.modelsAnalysis = data;
             });
         }
 

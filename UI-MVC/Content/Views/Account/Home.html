@@ -18,9 +18,45 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
+            <table class="table table-condensed" ng-if="!noAnalyses">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                    <td>{{analysis.Name}}</td>
+                    <td>{{analysis.DateCreated}}</td>
+                    <td><a href="/analysis/overview/{{analysis.Id}}">View analysis</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="noAnalyses">
+                You have no analyses!
+            </div>
             <a href="/analysis/start" class="button btn-sm">Create new Analysis</a>
         </div>
         <div id="tab-2" class="tab-content">
+            <table class="table table-condensed" ng-if="!noOrganisations">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Organiser</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="organisation in organisations" id="{{organisation.Id}}" name="{{organisation.Id}}" ng-click="selectOrganisation($event)">
+                    <td>{{organisation.Name}}</td>
+                    <td>{{organisation.Organisator.Email}}</td>
+                    <td><a href="/organisation/view/{{organisation.Id}}">View organisation</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="noOrganisations">
+                You aren't a member of an organisation!
+            </div>
             <a href="/organisation/create" class="button btn-sm">Create new organisation</a>
         </div>
 

@@ -15,6 +15,35 @@
     }).error(function errorCallback(data) {
         $location.url('/404');
     });
+    $scope.noOrganisations = true;
+    $scope.noAnalyses = true;
+    var organisations;
+
+    $http({
+        method: 'POST',
+        url: 'api/Organisation/ReadOrganisations',
+        params: {email : $rootScope.username }  
+    }).success(function succesCallback(data) {
+        organisations = data;
+        $scope.organisations = data;
+        console.log(data);
+        if (data.length !== 0) {
+            $scope.noOrganisations = false;
+        }
+    });
+
+    var analyses;
+    $http({
+        method: 'GET',
+        url: 'api/Analysis/GetAnalysesForUser',
+        params: { email: $rootScope.username }
+    }).success(function succesCallback(data) {
+        analyses = data;
+        $scope.analyses = data;
+        if (data.length !== 0) {
+            $scope.noAnalyses = false;
+        }
+    });
 
 
     $('ul.tabs li').click(function() {
@@ -86,16 +115,7 @@
         });
 
     }
-    
-    var organisations;
-    var getOrganisations = function($http) {
-        $http({
-            method: 'GET',
-            url: 'api/Organisation/ReadOrganisations?email=' + $rootScope.username
-        }).success(function succesCallback(data) {
-            organisations = data;
-        });
-    }
+
 
     model.submit = function (isValid) {
         if (isValid) {

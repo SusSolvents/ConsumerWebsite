@@ -283,6 +283,7 @@
     <Content Include="Content\Views\Account\Login.html" />
     <Content Include="Content\Views\Account\Register.html" />
     <Content Include="Content\modal.css" />
+    <Content Include="Content\Views\Analysis\Overview.html" />
     <Content Include="Content\Views\Analysis\Start.html" />
     <Content Include="Content\Views\Error.html" />
     <Content Include="Content\Views\Organisation\Create.html" />
@@ -327,6 +328,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Csv\defaultmatrix.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />
