@@ -1,5 +1,5 @@
 ul.tabs{
-            margin-top: -50px;
+            margin-top: -40px;
 			padding: 0px;
 			list-style: none;
             margin-bottom: 0px;
@@ -8,14 +8,14 @@ ul.tabs{
 		}
 		ul.tabs li{
 			background: transparent;
-			color: lightgray;
-		    height: 50px;
+			color: gray;
+		    height: 40px;
 		    font-family: "Questrial";
-		    font-size: 20px;
+		    font-size: 18px;
 			display: inline-block;
 			padding: 10px 20px;
 			cursor: pointer;
-		    border: 1px solid white;
+		    border: 1px solid lightgray;
 		    border-bottom: 0px;
 		    margin-right: 10px;
 		    
@@ -41,7 +41,7 @@ ul.tabs{
 			display: none;
 			background: transparent;
 			padding: 15px;
-            height: 50%
+		    min-height: 500px;
 
 		}
 

@@ -2,27 +2,27 @@
 
     <div class="centered-container" ng-if="algorithms===undefined">
                     <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h1 class="margin-top-0 text-primary wow fadeInDown">Select the algorithms</h1>
+                        <div class="col-lg-12 text-center" >
+                            <h1 class="margin-top-0 text-primary wow fadeInDown">Select your algorithms</h1>
                             <hr class="primary">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 20px;">
-                        <div class="col-sm-4 wow fadeInLeft text-center">
+                    <div class="row">
+                        <div class="col-lg-4 text-center" style="margin-top: 40px">
                             <div class="box-icon rotate" id="Canopy" name="Canopy" ng-click="changeColor($event)">
                                 <i class="fa fa-cogs fa-4x"></i>
                             </div>
                             <h3>Canopy</h3>
                         </div>
 
-                        <div class="col-sm-4 wow fadeInLeft text-center">
+                        <div class="col-lg-4 text-center" style="margin-top: 40px">
                             <div class="box-icon rotate" id="Cobweb" name="Cobweb" ng-click="changeColor($event)">
                                 <i class="fa fa-shield fa-4x"></i>
                             </div>
                             <h3>Cobweb</h3>
                         </div>
 
-                        <div class="col-sm-4 wow fadeInLeft text-center">
+                        <div class="col-lg-4 text-center" style="margin-top: 40px">
                             <div class="box-icon rotate" id="KMeans" name="KMeans" ng-click="changeColor($event)">
                                 <i class="fa fa-tachometer fa-4x"></i>
                             </div>
@@ -31,23 +31,23 @@
 
                     </div>
 
-        <div class="row" style="margin-top: 50px;">
+        <div class="row">
 
-            <div class="col-sm-4  wow fadeInRight text-center">
+            <div class="col-lg-4 text-center" style="margin-top: 40px">
                 <div class="box-icon rotate" id="SOM" name="SOM" ng-click="changeColor($event)">
                     <i class="fa fa-sitemap fa-4x"></i>
                 </div>
                 <h3>Self Organising Map</h3>
             </div>
 
-            <div class="col-sm-4 wow fadeInRight text-center">
+            <div class="col-lg-4 text-center" style="margin-top: 40px">
                 <div class="box-icon rotate" id="XMeans" name="XMeans" ng-click="changeColor($event)">
                     <i class="fa fa-xing fa-4x"></i>
                 </div>
                 <h3>XMeans</h3>
             </div>
 
-            <div class="col-sm-4 wow fadeInRight text-center">
+            <div class="col-lg-4 text-center" style="margin-top: 40px">
                 <div class="box-icon rotate" id="EM" name="EM" ng-click="changeColor($event)">
                     <i class="fa fa-wrench fa-4x"></i>
                 </div>
@@ -56,7 +56,7 @@
 
         </div>
         <div>
-            <button ng-style="next" class="selectAlgorithm" ng-disabled="disabled" ng-click="startAnalysis()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            <a ng-class="btnclass" ng-disabled="disabled" ng-click="startAnalysis()">Next <i class="fa fa-sign-out" aria-hidden="true"></i></a>
         </div>
         </div>
     <div class="centered-container" ng-if="algorithms!==undefined">

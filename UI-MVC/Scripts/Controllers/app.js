@@ -13,13 +13,13 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html",
         authenticate: false
-    });
-    $routeProvider.when("/account/:id", {
+    }); 
+    $routeProvider.when("/account/:id", { 
         templateUrl: "Content/Views/Account/Home.html",
-        authenticate: true
+        authenticate: true 
     });
     $routeProvider.when("/organisation/create", {
-        templateUrl: "Content/Views/Organisation/Create.html",
+        templateUrl: "Content/Views/Organisation/Create.html", 
         authenticate: true
     });
     $routeProvider.when("/organisation/:name", {

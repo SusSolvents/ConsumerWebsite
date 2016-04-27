@@ -3,30 +3,44 @@
         var algorithms = [];
         var models;
         $scope.disabled = true;
-        $scope.next = { color: 'grey' };
+        $scope.btnclass = "button-right disabled";
         $scope.modelDisabled = true;
         $scope.showAnalysis = { color: 'grey' };
         $scope.changeColor = function changeColor($event) {
-            if ($event.currentTarget.style.background !== "purple") {
+            if (!contains(algorithms, $event.currentTarget.id)) {
                 $event.currentTarget.style.background = "purple";
+                $event.currentTarget.style.color = "white";
                 algorithms.push($event.currentTarget.id);
                 console.log(algorithms);
                 if (algorithms.length !== 0) {
+                    $scope.btnclass = "button-right";
                     $scope.disabled = false;
                     $scope.next = { color: 'white' }
                 }
             } else {
-                $event.currentTarget.style.background = "white";
+                $event.currentTarget.style.background = "#f0f1ec";
+                $event.currentTarget.style.color = "#034b81";
                 var index = algorithms.indexOf($event.currentTarget.id);
                 algorithms.splice(index, 1);
                 console.log(algorithms);
                 if (algorithms.length === 0) {
                     $scope.disabled = true;
-                    $scope.next = {color : 'grey'}
+                    $scope.btnclass = "button-right disabled";
                 }
             }
             
         }
+
+        function contains(a, obj) {
+            var i = a.length;
+            while (i--) {
+                if (a[i] === obj) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         $scope.startAnalysis = function startAnalysis() {
             $http({
                 method: 'POST',

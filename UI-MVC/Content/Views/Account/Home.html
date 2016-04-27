@@ -1,4 +1,4 @@
-﻿<div ng-controller="AccountHomeController as account"  class="col-lg-12 bgsection-2 fillHeight bigpadding">
+﻿<div ng-controller="AccountHomeController as account" class="col-lg-12 bgsection-2 fillHeight bigpadding">
 
 
     <div class="centered-container-big padding-none">
@@ -10,11 +10,11 @@
             <p>Welcome, {{firstname}} {{lastname}}</p>
             <div class="small-text">{{username}}</div>
         </div>
-       
+
         <ul class="tabs">
             <li class="tab-link current" data-tab="tab-1">Analyses</li>
             <li class="tab-link" data-tab="tab-2">Organisations</li>
-           
+
         </ul>
 
         <div id="tab-1" class="tab-content current">
@@ -59,50 +59,53 @@
             </div>
             <a href="/organisation/create" class="button btn-sm">Create new organisation</a>
         </div>
-        
 
 
-        
 
-        
+
+
+
 
     </div>
 
     <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        
-            <div class="loginmodal-container password-container">
-                <form name="changePasswordForm" novalidate  ng-submit="account.submit(changePasswordForm.$valid)" >
-                    <div class="error">{{message}}</div>
-                    <div>
-                        <label class="modal-label">Current password</label>
-                        <input type="password" placeholder="*********" name="currentPassword" class="form-control" ng-model="account.password.currentPassword" required />
-                    </div>
-                    <div>
-                        <label class="modal-label">New password</label>
-                        <input type="password" placeholder="*********" name="newPassword" class="form-control" ng-model="account.password.newPassword" required />
-                    </div>
-                    <div>
-                        <div class="error" ng-messages="changePasswordForm.confirmPassword.$error">
-                            <div ng-message="compareTo">Must match the previous entry</div>
-                        </div>
-                        <label class="modal-label">Confirm new password</label>
-                        <input type="password" placeholder="*********" name="confirmPassword" class="form-control"
-                               ng-model="account.password.confirmPassword"
-                               required compare-to="account.password.newPassword"/>
 
+        <div class="loginmodal-container password-container">
+            <form name="changePasswordForm" novalidate ng-submit="account.submit(changePasswordForm.$valid)">
+                <div class="error">{{message}}</div>
+                <div>
+                    <label class="modal-label">Current password</label>
+                    <input type="password" placeholder="*********" name="currentPassword" class="form-control" ng-model="account.password.currentPassword" required/>
+                </div>
+                <div>
+                    <label class="modal-label">New password</label>
+                    <input type="password" placeholder="*********" name="newPassword" class="form-control" ng-model="account.password.newPassword" required/>
+                </div>
+                <div>
+                    <div class="error" ng-messages="changePasswordForm.confirmPassword.$error">
+                        <div ng-message="compareTo">Must match the previous entry</div>
                     </div>
-                    <div>
-                        <button type="submit" class="button small-button">save</button> 
-                        
-                    </div>
-                    <div>
-                        <i ng-if="success!==undefined" style="color: green" class="fa fa-check fa-2x"></i> {{success}}
-                    </div>
-                </form>
-                
-                
-                
-            
+                    <label class="modal-label">Confirm new password</label>
+                    <input type="password" placeholder="*********" name="confirmPassword" class="form-control"
+                           ng-model="account.password.confirmPassword"
+                           required compare-to="account.password.newPassword"/>
+
+                </div>
+                <div>
+                    <button type="submit" class="button small-button">save</button>
+
+                </div>
+                <div>
+                    <i ng-if="success!==undefined" style="color: green" class="fa fa-check fa-2x"></i> {{success}}
+                </div>
+            </form>
+
+
+
+
         </div>
     </div>
 </div>
+
+
+
