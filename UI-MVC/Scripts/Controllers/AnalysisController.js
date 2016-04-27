@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisController', 
-    function ($scope, $window, $http) {
+    function ($scope, $window, $http, $location) {
         var algorithms = [];
         var models;
         
