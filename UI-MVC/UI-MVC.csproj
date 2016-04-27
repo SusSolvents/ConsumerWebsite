@@ -327,6 +327,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Csv\defaultmatrix.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />

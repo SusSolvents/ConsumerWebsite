@@ -1,33 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.UI.WebControls.WebParts;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
-using SS.UI.Web.MVC.Models;
-using SS.UI.Web.MVC.Providers;
-using UI_MVC;
-using UI_MVC.Results;
+
 
 namespace SS.UI.Web.MVC.Controllers
 {
@@ -84,10 +66,10 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]
-        public IEnumerable<Organisation> ReadOrganisations(long id)
+        public List<Organisation> ReadOrganisations([FromUri] string email)
         {
-            var user = _userManager.ReadUser(id);
-            IEnumerable<Organisation> organisations = _userManager.ReadOrganisationsForUser(user);
+            var user = _userManager.ReadUser(email);
+            List<Organisation> organisations = _userManager.ReadOrganisationsForUser(user).ToList();
             return organisations;
         }
 

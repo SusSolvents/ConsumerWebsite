@@ -16,6 +16,7 @@ namespace SS.DAL.EFAnalyses
         //Analysis
         Analysis CreateAnalysis(Analysis analysis, User createdBy);
         Analysis ReadAnalysis(long id);
+        Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
 
@@ -39,5 +40,7 @@ namespace SS.DAL.EFAnalyses
         //ClusterDistanceCenter
         ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter);
         
+        //AnalysisModel
+        AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
     }
 }

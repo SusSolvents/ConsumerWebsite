@@ -54,7 +54,8 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         DistanceToClusterCenter = solvent.distanceToCluster,
                         Features = new List<Feature>()
                     };
-
+                    solventTemp.CasNumber = solventTemp.CasNumber.Replace("\"", "");
+                    solventTemp.Name = solventTemp.Name.Replace("\"", "");
                     foreach (var feature in solvent.features)
                     {
                         Feature featureTemp = new Feature()

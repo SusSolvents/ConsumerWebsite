@@ -52,8 +52,8 @@
 
         $scope.showAlgorithms = function showAlgorithms() {
             $http({
-                method: 'GET',
-                url: 'api/Analysis/GetFullModels',
+                method: 'POST',
+                url: 'api/Analysis/CreateAnalysis',
                 params: { algorithms: algorithms, dataSet: selectedModel.id }
             }).success(function (data) {
                 console.log(data);
@@ -64,6 +64,9 @@
         $scope.previous = function previous() {
             algorithms = [];
             delete $scope.algorithms;
-            $scope.next = { color: 'grey' }
+            $scope.next = { color: 'grey' };
+            $scope.disabled = true;
+            $scope.modelDisabled = true;
+            $scope.showAnalysis = { color: 'grey' };
         }
     });

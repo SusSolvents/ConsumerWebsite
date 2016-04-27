@@ -1,7 +1,23 @@
-﻿<div ng-controller="AnalysisController as analysis">
-    <div ng-repeat="model in modelAnalyses">
-        <div id="{{model.algorithmName}}" class="tab-content current">
-            <a class="button btn-sm">{{model.algorithmName}}</a>
+﻿<div ng-controller="AnalysisOverviewController as analysis" class="col-lg-12 bgsection-2 fillHeight bigpadding">
+    <div class="centered-container-big padding-none">
+        
+            <ul class="tabs" ng-repeat="model in models">
+                <li class="tab-link" data-tab="{{model.Model.algorithmName}}">{{model.Model.AlgorithmName}}</li>
+
+            </ul>
+        <div ng-repeat="model in models">
+            <div id="{{model.Model.algorithmName}}" class="tab-content current">
+                <a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
+                <div ng-repeat="cluster in model.Model.Clusters">
+                    <h1>Cluster {{cluster.Number}}</h1>
+                    <div ng-repeat="distance in cluster.DistanceToClusters">
+                        Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
+                    </div>
+                    <div ng-repeat="solvent in cluster.Solvents">
+                        Solvent: {{solvent.Name}} ({{solvent.CasNumber}}) has distance to cluster center: {{solvent.DistanceToClusterCenter}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    </div>

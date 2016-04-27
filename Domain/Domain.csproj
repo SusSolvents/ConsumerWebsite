@@ -62,6 +62,7 @@
     <Compile Include="Analyses\Algorithm.cs" />
     <Compile Include="Analyses\AlgorithmName.cs" />
     <Compile Include="Analyses\Analysis.cs" />
+    <Compile Include="Analyses\AnalysisModel.cs" />
     <Compile Include="Analyses\Cluster.cs" />
     <Compile Include="Analyses\ClusterDistanceCenter.cs" />
     <Compile Include="Analyses\Feature.cs" />

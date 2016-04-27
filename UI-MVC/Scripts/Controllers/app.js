@@ -30,6 +30,10 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl: "Content/Views/Analysis/Start.html",
         authenticate: true
     });
+    $routeProvider.when("/analysis/overview/:id", {
+        templateUrl: "Content/Views/Analysis/Overview.html",
+        authenticate: true
+    });
     $routeProvider.when("/404", {
         templateUrl: "Content/Views/Error.html",
         authenticate: false

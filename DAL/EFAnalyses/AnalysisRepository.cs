@@ -36,7 +36,22 @@ namespace SS.DAL.EFAnalyses
 
         public Analysis ReadAnalysis(long id)
         {
-            return context.Analyses.Find(id);
+            return context.Analyses
+                .Include(a => a.AnalysisModels)
+                .Include(a => a.AnalysisModels.Select(an => an.Model))
+                .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.DistanceToClusters))) 
+                .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents)))
+                .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features))))
+                .FirstOrDefault(i => i.Id == id);
+        }
+
+        public Analysis CreateAnalysis(Analysis analysis, string email)
+        {
+            var user = context.Users.FirstOrDefault(u => u.Email.Equals(email));
+            analysis.CreatedBy =  user;
+            analysis = context.Analyses.Add(analysis);
+            context.SaveChanges();
+            return analysis;
         }
 
         public IEnumerable<Analysis> ReadAnalysesForUser(User user)
@@ -108,6 +123,13 @@ namespace SS.DAL.EFAnalyses
             clusterDistanceCenter = context.ClusterDistanceCenters.Add(clusterDistanceCenter);
             context.SaveChanges();
             return clusterDistanceCenter;
+        }
+
+        public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
+        {
+            analysisModel = context.AnalysisModels.Add(analysisModel);
+            context.SaveChanges();
+            return analysisModel;
         }
 
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
