@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisController', 
-    function ($scope, $window, $http) {
+    function ($scope, $window, $http, $location) {
         var algorithms = [];
         var models;
         
@@ -77,7 +77,7 @@
                 params: { algorithms: algorithms, dataSet: selectedModel.id }
             }).success(function (data) {
                 console.log(data);
-                $scope.modelsAnalysis = data;
+                $location.path("/analysis/overview/" + data.Id);
             });
         }
 
