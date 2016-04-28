@@ -1,4 +1,4 @@
-﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages']);
+﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt"]);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -110,13 +110,10 @@ app.run(['$rootScope', '$location', 'AuthenticationService', '$window', function
             AuthenticationService.isLogged = true;
         }
         if (tostate.authenticate && !AuthenticationService.isLogged) {
-            console.log('DENY');
             event.preventDefault();
             $location.path('/');
             $('#login-modal').modal('show');
         }
-        else {
-            console.log('ALLOW');
-        }
+        
     });
 }]);

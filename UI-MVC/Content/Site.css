@@ -1162,3 +1162,29 @@ form.ng-submitted .ng-valid {
   } 
 }
 
+.input-analyse-name:focus {
+    color: white;
+
+}
+
+.input-analyse-name {
+    color: white;
+    width: 50%;
+    margin-top: 20px;
+    height: 44px;
+    font-size: 16px;
+    border-radius: 4px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: rgba(255,255,255,0) !important;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    padding: 0 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    color: white;
+    transition: all .5s;
+}

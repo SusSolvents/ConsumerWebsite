@@ -19,6 +19,7 @@ namespace SS.DAL.EFAnalyses
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
+        Analysis UpdateAnalysis(Analysis analysis);
 
 
          //Cluster

@@ -83,27 +83,30 @@
                         </p>
                         <p>Date:<br/> {{model.Date}}
                         </p>
+                        
                     </div>
                     <div class="card">
                         <p class="card-title">Add new model</p>
-
+                        
                     </div>
                 </div>
-
+               
             </div>
-
+            <div style="text-align: center">
+                <input type="text" class="input-analyse-name" ng-model="analysisName" placeholder="Name for your analysis (Required)" ng-change="setName(analysisName)" />
+            </div>
             <div>
                 <a ng-class="btnclass" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Start Analysis <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
             </div>
             <div>
                 <a class="button-right pull-left" ng-click="previous()">Back <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-
+                
             </div>
         </div>
         
     </div>
     
-    </div>
+        </div>
 <div id="overlay">
     <div class="wrapper">
         <div class="sk-cube-grid">
@@ -120,5 +123,5 @@
         </div>
         <h2>Loading</h2>
     </div>
-
-</div>
+    
+    </div>

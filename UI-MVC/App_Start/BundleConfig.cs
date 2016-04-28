@@ -36,6 +36,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/tabs.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",
+                      "~/Content/autocomplete.css",
                       "~/Content/site.css"));
         }
     }

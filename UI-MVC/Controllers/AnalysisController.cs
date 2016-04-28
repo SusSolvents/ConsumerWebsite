@@ -5,14 +5,10 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.ModelBinding;
-using Newtonsoft.Json;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
@@ -55,6 +51,32 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
         } 
 
+        //POST api/Analysis/ChangeName
+        [Route("ChangeName")]
+        public async Task<IHttpActionResult> ChangeName([FromUri] string name, [FromUri] long analysisId)
+        {
+            var analysis = _analysisManager.ReadAnalysis(analysisId);
+            analysis.Name = name;
+            _analysisManager.UpdateAnalysis(analysis);
+            return Ok("Name has been changed");
+        }
+
+        //GET api/Analysis/GetSolvents
+        [Route("GetSolvents")]
+        public List<Solvent> GetSolvents(long id)
+        {
+            List<Solvent> solvents = new List<Solvent>();
+            var analysis = _analysisManager.ReadAnalysis(id);
+            foreach (var cluster in analysis.AnalysisModels[0].Model.Clusters)
+            {
+                foreach (var solvent in cluster.Solvents)
+                {
+                    solvents.Add(solvent);
+                }
+            }
+            return solvents;
+        }
+
         //GET api/Analysis/GetFullModels
         [Route("GetFullModels")]
         public List<Model> GetFullModels(List<string> algorithms, string dataSet)
@@ -68,14 +90,14 @@ namespace SS.UI.Web.MVC.Controllers
             return models;
         }
 
-        //GET api/Analysis/Createanalysis
+        //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
-        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet)
+        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet, [FromUri] string name)
         {
             List<Model> models = GetFullModels(algorithms, dataSet);
             Analysis analysis = new Analysis()
             {
-                Name = models.First().DataSet,
+                Name = name,
                 DateCreated = DateTime.Now,
                 AnalysisModels = new List<AnalysisModel>()
             };
