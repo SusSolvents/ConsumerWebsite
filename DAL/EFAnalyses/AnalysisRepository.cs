@@ -64,6 +64,16 @@ namespace SS.DAL.EFAnalyses
             return context.Analyses.Where(o => o.SharedWith.Id == organisation.Id).ToList();
         }
 
+        public Analysis UpdateAnalysis(Analysis analysis)
+        {
+            var currentAnalysis = context.Analyses.Find(analysis.Id);
+
+            context.Entry(currentAnalysis).CurrentValues.SetValues(analysis);
+            context.Entry(currentAnalysis).State = EntityState.Modified;
+            context.SaveChanges();
+            return currentAnalysis;
+        }
+
         public Cluster CreateCluster(Cluster cluster)
         {
             cluster = context.Clusters.Add(cluster);

@@ -21,6 +21,7 @@ namespace SS.BL.Analyses
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
+        Analysis UpdateAnalysis(Analysis analysis);
 
         //Cluster
         Cluster CreateCluster(int number);

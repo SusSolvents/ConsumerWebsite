@@ -55,6 +55,32 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
         } 
 
+        //POST api/Analysis/ChangeName
+        [Route("ChangeName")]
+        public async Task<IHttpActionResult> ChangeName([FromUri] string name, [FromUri] long analysisId)
+        {
+            var analysis = _analysisManager.ReadAnalysis(analysisId);
+            analysis.Name = name;
+            _analysisManager.UpdateAnalysis(analysis);
+            return Ok("Name has been changed");
+        }
+
+        //GET api/Analysis/GetSolvents
+        [Route("GetSolvents")]
+        public List<Solvent> GetSolvents(long id)
+        {
+            List<Solvent> solvents = new List<Solvent>();
+            var analysis = _analysisManager.ReadAnalysis(id);
+            foreach (var cluster in analysis.AnalysisModels[0].Model.Clusters)
+            {
+                foreach (var solvent in cluster.Solvents)
+                {
+                    solvents.Add(solvent);
+                }
+            }
+            return solvents;
+        }
+
         //GET api/Analysis/GetFullModels
         [Route("GetFullModels")]
         public List<Model> GetFullModels(List<string> algorithms, string dataSet)

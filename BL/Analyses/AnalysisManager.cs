@@ -51,7 +51,7 @@ namespace SS.BL.Analyses
         }
 
         public Analysis CreateAnalysis(Analysis analysis, string email)
-        {
+        { 
             return repo.CreateAnalysis(analysis, email);
         }
 
@@ -63,6 +63,11 @@ namespace SS.BL.Analyses
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
         {
             return repo.ReadAnalysesForOrganisation(organisation);
+        }
+
+        public Analysis UpdateAnalysis(Analysis analysis)
+        {
+            return repo.UpdateAnalysis(analysis);
         }
 
         public Cluster CreateCluster(int number)
