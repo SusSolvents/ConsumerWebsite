@@ -37,12 +37,11 @@
         url: 'api/Analysis/GetAnalysesForUser',
         params: { email: $rootScope.username }
     }).success(function succesCallback(data) {
-        
         analyses = data;
         var i;
         for (i = 0; i < data.length; i++) {
             console.log(data[i].DateCreated);
-            
+            data[i].image = getRandomImage();
             data[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
         }
         
@@ -163,7 +162,7 @@
         }
     };
 
-    $scope.getRandomImage = function() {
+     function getRandomImage() {
         var number = Math.floor((Math.random() * 4) + 1);
         return "/Content/Images/random"+ number + ".jpg";
     }
