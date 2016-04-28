@@ -18,7 +18,7 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
-            <div class="fh5co-blog-style-1">
+            <div class="fh5co-blog-style-1" ng-if="!noAnalyses">
                 <div>
                     <div class="row">
                         <div class="col-lg-3" ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
@@ -28,38 +28,24 @@
                                     <img src="/Content/Images/random1.jpg" alt="Image">
                                 </div>
                                 <div class="fh5co-post-text">
-                                    <h3><a href="#">{{analysis.Name}}</a></h3>
-                                    <p>{{analysis.DateCreated}}</p>
+                                    <h3><a href="#">{{analysis.Name}}</a>
+                                    </h3>
+
+                                    <p>{{analysis.CreatedBy.Email}}</p>
                                 </div>
                                 <div class="fh5co-post-meta">
                                     #{{analysis.Id}}<br/>
-                                    <i class="fa fa-clock-o"></i> 2 hours ago
+                                    <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
                                 </div>
                             </div>
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                     </div>
-                 </div>
+                </div>
             </div>
-
-            <!--<table class="table table-condensed" ng-if="!noAnalyses">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date Created</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
-                    <td>{{analysis.Name}}</td>
-                    <td>{{analysis.DateCreated}}</td>
-                    <td><a href="">View analysis</a></td>
-                </tr>
-                </tbody>
-            </table>
             <div ng-if="noAnalyses">
                 You have no analyses!
-            </div>-->
+            </div>
             <a href="/analysis/start" class="button btn-sm">Create new Analysis</a>
         </div>
         <div id="tab-2" class="tab-content">

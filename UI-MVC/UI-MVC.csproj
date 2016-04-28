@@ -265,6 +265,7 @@
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cd-arrow.svg" />
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\random1.jpg" />
     <Content Include="Content\Images\test.jpg" />
     <Content Include="Content\tabs.css" />

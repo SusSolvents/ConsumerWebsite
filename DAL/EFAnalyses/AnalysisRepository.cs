@@ -56,7 +56,8 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForUser(User user)
         {
-            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id).ToList();
+            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id)
+                .Include(p=>p.CreatedBy).ToList();
         }
 
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)

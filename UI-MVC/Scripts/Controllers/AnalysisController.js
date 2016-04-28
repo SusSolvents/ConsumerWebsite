@@ -46,6 +46,8 @@
         }
 
         $scope.startAnalysis = function startAnalysis() {
+            angular.element(document.querySelector('#overlay')).css("visibility", "visible");
+         
             $http({
                 method: 'POST',
                 url: 'api/Analysis/StartAnalysis',
@@ -56,6 +58,10 @@
                 models = data;
                 $scope.algorithms = data;
                 $scope.btnclass = "button-right disabled";
+                setTimeout(function() {
+                    angular.element(document.querySelector('#overlay')).css("visibility", "collapse");
+                    
+                }, 2000);
             });
         }
         var selectedModel;

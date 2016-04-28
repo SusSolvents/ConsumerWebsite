@@ -38,14 +38,47 @@
         url: 'api/Analysis/GetAnalysesForUser',
         params: { email: $rootScope.username }
     }).success(function succesCallback(data) {
+        
         analyses = data;
+        var i;
+        for (i = 0; i < data.length; i++) {
+            data[i].DateCreated = timeSince(new Date(analyses[i].DateCreated));
+        }
+        
         $scope.analyses = data;
+        console.log(data);
         if (data.length !== 0) {
             $scope.noAnalyses = false;
         }
     });
 
+    function timeSince(date) {
 
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = Math.floor(seconds / 31536000);
+
+        if (interval > 1) {
+            return interval + " years";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+            return interval + " days";
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return interval + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+    }
     $('ul.tabs li').click(function() {
         var tab_id = $(this).attr('data-tab');
 
@@ -57,7 +90,7 @@
     });
 
     $scope.selectAnalysis = function selectAnalysis($event) {
-        alert("hello");
+        $location.path("/analysis/overview/" + $event.currentTarget.id);
     }
     
     $scope.triggerUpload = function () {
