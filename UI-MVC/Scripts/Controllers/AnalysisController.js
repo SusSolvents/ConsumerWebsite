@@ -80,9 +80,10 @@
             if (analyseName !== undefined && analyseName !== "") {
                 $scope.btnclass = "button-right";
             }
-            
-            process = process + 40;
-            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+            if (process === 50 || process === 60) {
+                process = process + 40;
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+            }
             
         }
 

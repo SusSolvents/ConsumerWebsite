@@ -28,13 +28,13 @@
                             <div class="analysis-card-post">
                                 <div class="analysis-card-post-image">
                                     <div class="analysis-card-overlay"></div>
-                                    <img src="{{getRandomImage()}}" alt="Image">
+                                    <img ng-src="{{analysis.image}}" alt="Image">
                                 </div>
                                 <div class="analysis-card-post-text">
                                     <h3><a href="#">{{analysis.Name}}</a>
                                     </h3>
 
-                                    <p>{{analysis.Model.NumberOfSolvents}} Solvents</p>
+                                    <p>{{analysis.NumberOfSolvents}} Solvents</p>
                                 </div>
                                 <div class="analysis-card-post-meta">
                                     #{{analysis.Id}}<br/>
