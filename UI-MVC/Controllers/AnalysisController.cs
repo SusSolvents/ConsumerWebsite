@@ -92,12 +92,12 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
-        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet)
+        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet, [FromUri] string name)
         {
             List<Model> models = GetFullModels(algorithms, dataSet);
             Analysis analysis = new Analysis()
             {
-                Name = models.First().DataSet,
+                Name = name,
                 DateCreated = DateTime.Now,
                 AnalysisModels = new List<AnalysisModel>()
             };

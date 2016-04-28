@@ -26,7 +26,6 @@
     }).success(function succesCallback(data) {
         organisations = data;
         $scope.organisations = data;
-        console.log(data);
         if (data.length !== 0) {
             $scope.noOrganisations = false;
         }

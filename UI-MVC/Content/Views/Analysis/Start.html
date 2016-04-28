@@ -83,6 +83,7 @@
                         </p>
                         <p>Date:<br/> {{model.Date}}
                         </p>
+                        
                     </div>
                     <div class="card">
                         <p class="card-title">Add new model</p>
@@ -91,7 +92,9 @@
                 </div>
                
             </div>
-            
+            <div style="text-align: center">
+                <input type="text" class="input-analyse-name" ng-model="analysisName" placeholder="Name for your analysis (Required)" ng-change="setName(analysisName)" />
+            </div>
             <div>
                 <a ng-class="btnclass" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Start Analysis <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
             </div>
