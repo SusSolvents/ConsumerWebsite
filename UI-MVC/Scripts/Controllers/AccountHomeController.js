@@ -56,7 +56,9 @@
         $("#" + tab_id).addClass('current');
     });
 
-
+    $scope.selectAnalysis = function selectAnalysis($event) {
+        alert("hello");
+    }
     
     $scope.triggerUpload = function () {
         $("#profileImage").click();

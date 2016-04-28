@@ -4,7 +4,7 @@
     <div class="centered-container-big padding-none">
 
         <div class="upper-profile center-block text-center">
-            <a href="#" data-toggle="modal" data-target="#password-modal"><i style="color: white; float: right; cursor: pointer" class="fa fa-cog fa-2x"></i></a>
+            <a href="#" data-toggle="modal" data-target="#password-modal"><i style="color: white; float: right; cursor: pointer" class="fa fa-key fa-2x"></i></a>
             <input type="file" id="profileImage" name="profileImage" style="display: none" ng-file-select="onFileSelect($files)"/>
             <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()"/>
             <p>Welcome, {{firstname}} {{lastname}}</p>
@@ -18,7 +18,31 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
-            <table class="table table-condensed" ng-if="!noAnalyses">
+            <div class="fh5co-blog-style-1">
+                <div>
+                    <div class="row">
+                        <div class="col-lg-3" ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                            <div class="fh5co-post">
+                                <div class="fh5co-post-image">
+                                    <div class="fh5co-overlay"></div>
+                                    <img src="/Content/Images/random1.jpg" alt="Image">
+                                </div>
+                                <div class="fh5co-post-text">
+                                    <h3><a href="#">{{analysis.Name}}</a></h3>
+                                    <p>{{analysis.DateCreated}}</p>
+                                </div>
+                                <div class="fh5co-post-meta">
+                                    #{{analysis.Id}}<br/>
+                                    <i class="fa fa-clock-o"></i> 2 hours ago
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix visible-sm-block"></div>
+                    </div>
+                 </div>
+            </div>
+
+            <!--<table class="table table-condensed" ng-if="!noAnalyses">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -29,13 +53,13 @@
                 <tr ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
                     <td>{{analysis.Name}}</td>
                     <td>{{analysis.DateCreated}}</td>
-                    <td><a href="/analysis/overview/{{analysis.Id}}">View analysis</a></td>
+                    <td><a href="">View analysis</a></td>
                 </tr>
                 </tbody>
             </table>
             <div ng-if="noAnalyses">
                 You have no analyses!
-            </div>
+            </div>-->
             <a href="/analysis/start" class="button btn-sm">Create new Analysis</a>
         </div>
         <div id="tab-2" class="tab-content">

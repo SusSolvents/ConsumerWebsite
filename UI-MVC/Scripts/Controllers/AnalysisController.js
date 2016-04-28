@@ -55,19 +55,23 @@
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 50 + "%").attr("aria-valuenow", 50);
                 models = data;
                 $scope.algorithms = data;
+                $scope.btnclass = "button-right disabled";
             });
         }
         var selectedModel;
         $scope.selectModel = function selectModel($event) {
             if (selectedModel !== undefined) {
-                selectedModel.style.background = "none";
+                $event.currentTarget.style.borderColor = "lightgray";
             }
             selectedModel = $event.currentTarget;
-            $event.currentTarget.style.background = "purple";
-            $scope.modelDisabled = false;
-            $scope.showAnalysis = { color: 'white' }
-            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 100 + "%").attr("aria-valuenow", 100);
-            console.log(selectedModel);
+            $event.currentTarget.style.borderWidth = "3px";
+            $event.currentTarget.style.borderColor = "rgba(156,39,193, 0.8)";
+            $event.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+
+            $scope.btnclass = "button-right";
+          
+            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", 90 + "%").attr("aria-valuenow", 90);
+            
         }
 
         $scope.showAlgorithms = function showAlgorithms() {

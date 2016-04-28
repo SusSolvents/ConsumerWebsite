@@ -261,7 +261,12 @@
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cards.css" />
+    <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cd-arrow.svg" />
+    <Content Include="Content\Images\img_same_dimension_2.jpg" />
+    <Content Include="Content\Images\random1.jpg" />
+    <Content Include="Content\Images\test.jpg" />
     <Content Include="Content\tabs.css" />
     <Content Include="Content\filling-section.css" />
     <Content Include="Content\font-awesome.css" />
