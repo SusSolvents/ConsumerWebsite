@@ -11,8 +11,7 @@ namespace SS.BL.Analyses
     public interface IAnalysisManager
     {
         //Algorithm
-        Algorithm CreateAlgorithm(AlgorithmName algorithmName, long processTime);
-
+        Algorithm CreateAlgorithm(AlgorithmName algorithmName);
         Algorithm CreateAlgorithm(Algorithm algorithm);
 
         //Analysis
