@@ -985,7 +985,7 @@ form.ng-submitted .ng-valid {
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-overlay {
   z-index: 1;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.1);
   position: absolute;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -1146,15 +1146,18 @@ form.ng-submitted .ng-valid {
 
 .input-analyse-name:focus {
     color: white;
+    
+    outline: none;
 
 }
 
 .input-analyse-name {
     color: white;
-    width: 50%;
-    margin-top: 20px;
-    height: 44px;
-    font-size: 16px;
+    width: 65%;
+    min-width: 270px;
+    margin-top: 30px;
+    height: 46px;
+    font-size: 18px;
     border-radius: 4px;
     padding-left: 5px;
     margin-bottom: 10px;
@@ -1169,4 +1172,9 @@ form.ng-submitted .ng-valid {
     -moz-transition: all .5s;
     color: white;
     transition: all .5s;
+    cursor: pointer;
+}
+.input-analyse-name:hover {
+    border: 1px solid white;
+    cursor: auto;
 }

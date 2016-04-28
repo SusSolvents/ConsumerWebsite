@@ -55,12 +55,14 @@
                 params: {algorithms : algorithms}
 
             }).success(function (data) {
+                console.log(data);
                 process = process + 25;
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                 models = data;
                 $scope.algorithms = data;
                 $scope.btnclass = "button-right disabled";
                 setTimeout(function() {
+                 
                     angular.element(document.querySelector('#overlay')).css("visibility", "collapse");
                     
                 }, 2000);

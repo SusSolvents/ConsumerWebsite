@@ -23,8 +23,9 @@
 }
 
 .card > p {
-    margin-top: 10px;
+    margin-top: 13px;
     color: white;
+    font-size: 25px;
 }
 .card-title {
     text-align: center;
