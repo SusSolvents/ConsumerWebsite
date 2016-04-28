@@ -19,12 +19,11 @@ namespace SS.BL.Analyses
             this.repo = new AnalysisRepository();
         }
 
-        public Algorithm CreateAlgorithm(AlgorithmName algorithmName, long processTime)
+        public Algorithm CreateAlgorithm(AlgorithmName algorithmName)
         {
             Algorithm algorithm = new Algorithm()
             {
-                AlgorithmName = algorithmName,
-                ProcessTime = processTime,
+                AlgorithmName = algorithmName
               
             };
             return repo.CreateAlgorithm(algorithm);

@@ -12,8 +12,6 @@ namespace SS.BL.Domain.Analyses
         [Key]
         public long Id { get; set; }
         public AlgorithmName AlgorithmName { get; set; }
-        public long ProcessTime { get; set; }
- 
         public ICollection<Model> Models { get; set; }
     }
 }
