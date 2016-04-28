@@ -5,14 +5,10 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.ModelBinding;
-using Newtonsoft.Json;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
@@ -94,7 +90,7 @@ namespace SS.UI.Web.MVC.Controllers
             return models;
         }
 
-        //GET api/Analysis/Createanalysis
+        //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
         public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet)
         {

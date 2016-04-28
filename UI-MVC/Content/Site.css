@@ -317,8 +317,8 @@ footer {
 }
 .button-right.disabled {
   /* border: 1px solid #3079ed; */
-    border: 1.75px solid lightgray;
-    color: lightgray;
+    border: 1.75px solid gray;
+    color: gray;
     pointer-events: none;
     cursor: default;
 }
@@ -404,7 +404,7 @@ footer {
     padding: 2.5%;
     text-align: center;
     margin-top: 0px;
-    background-image: url('Images/blur.jpg');
+    background-image: url('Images/test.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -434,13 +434,14 @@ footer {
     background-repeat: no-repeat;
 }
 .bgsection-2 {
-    background-image: url('Images/howto.jpg');
+    background-image: url('Images/bg.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
     background-repeat: no-repeat;
+    
 }
 .modal-label {
     font-family: "Questrial";
@@ -622,7 +623,6 @@ textarea {
         }
        
 }
-
 .feature p {
     margin-bottom: 0;
 }
@@ -630,7 +630,6 @@ textarea {
 .call-to-action h2 {
     margin: 0 auto 20px;
 }
-
 
 .no-gutter > [class*=col-] {
     padding-right: 0;
@@ -778,7 +777,7 @@ progress {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: auto;
-    background-color: rgba(205, 205, 205, 0.2);
+    background-color: rgba(100, 100, 100, 0.8);
     border-radius: 8px;
     overflow: auto;
     min-width: 410px;
@@ -792,7 +791,7 @@ progress {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: auto;
-    background-color: rgba(205, 205, 205, 0.5);
+    background-color: rgba(100, 100, 100, 0.7);
     border-radius: 8px;
     overflow: hidden;
     min-width: 480px;
@@ -932,9 +931,134 @@ form.ng-submitted .ng-valid {
     background: none; 
     border: none;
 }
+.fh5co-blog-style-1 {
+  padding: 1.5em;
+  
+}
+@media screen and (max-width: 768px) {
+  .fh5co-blog-style-1 {
+    padding: 4em 0;
+  }
+}
+.fh5co-blog-style-1 .fh5co-post {
+  float: left;
+  width: 100%;
+  background: #fff;
+  position: relative;
+  margin-bottom: 30px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -ms-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+    cursor: pointer;
+    border: 1px solid grey;
+}
 
-.rotate180deg {
-    -webkit-transform: rotate(180deg);
+.fh5co-blog-style-1 .fh5co-post:hover {
+    border: 1px solid #b92ed1;
+    
+} 
+.fh5co-blog-style-1 .fh5co-post:hover .fh5co-post-text h3 a {
+    color: #b92ed1;
+}
+
+
+.fh5co-blog-style-1 .fh5co-post img {
+    width: 105%;
+}
+
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-image {
+  position: relative;
+
+    overflow: hidden;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-overlay {
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+   
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category {
+  margin: 10px 0 0 15px;
+  float: left;
+  z-index: 2;
+  position: absolute;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a {
+  font-size: 10px;
+  padding: 2px 10px;
+  line-height: 1.5;
+  font-family: "Open Sans", Arial, sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #f2f2f2;
+  margin: 0 4px 4px 0;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:focus {
+  text-decoration: none;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text {
+    padding: 5px 15px 5px 15px;
+
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 {
+  font-size: 17px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a {
+  color: #000;
+}
+
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:focus {
+  text-decoration: none;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text p {
+  font-size: 15px;
+  margin-bottom: 0px;
+  color: grey;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-text p:last-child {
+  margin-bottom: 0 !important;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-meta {
+  border-top: 1px solid #f0f0f0;
+  padding: 5px 20px;
+    line-height: 25px;
+    font-family: "Questrial";
+    font-size: 13px;
+  margin-right: 10px;
+    
+  color: grey;
+}
+.fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:focus {
+  text-decoration: none;
 }
 
 .selectedSolvent {

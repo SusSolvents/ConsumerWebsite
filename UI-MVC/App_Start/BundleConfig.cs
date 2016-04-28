@@ -32,6 +32,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/timeline.css",
                       "~/Content/filling-section.css",
                       "~/Content/modal.css",
+                      "~/Content/cards.css",
                       "~/Content/tabs.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",

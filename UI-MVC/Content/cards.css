@@ -1,0 +1,44 @@
+﻿.card{
+    width: 270px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid lightgray;
+
+    -webkit-transition: all .7s;
+    -moz-transition: all .7s;
+    transition: all .7s;
+    
+    height: 200px;
+    padding: 5px;
+    margin: 10px;
+    
+    cursor: pointer;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.card:hover{
+    border: 3px solid rgba(156,39,193, 0.8);
+    
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.card > p {
+    margin-top: 10px;
+    color: white;
+}
+.card-title {
+    text-align: center;
+    font-family: "Questrial";
+    font-size: 25px;
+}
+
+
+
+#mainbox{
+  font-family: 'Questrial';
+  box-sizing: border-box;
+  justify-content: center;
+  display: flex;
+    margin-top: 25px;
+flex-wrap: wrap;
+}
