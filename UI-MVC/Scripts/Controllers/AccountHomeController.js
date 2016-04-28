@@ -162,4 +162,9 @@
             $scope.message = "There are still invalid fields below";
         }
     };
+
+    $scope.getRandomImage = function() {
+        var number = Math.floor((Math.random() * 4) + 1);
+        return "/Content/Images/random"+ number + ".jpg";
+    }
 });

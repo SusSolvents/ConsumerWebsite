@@ -961,6 +961,7 @@ form.ng-submitted .ng-valid {
   -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
     cursor: pointer;
+    overflow: hidden;
     border: 1px solid grey;
 }
 
@@ -1034,6 +1035,7 @@ form.ng-submitted .ng-valid {
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text p:last-child {
   margin-bottom: 0 !important;
+  word-wrap: break-word;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta {
   border-top: 1px solid #f0f0f0;
