@@ -99,7 +99,8 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 Name = name,
                 DateCreated = DateTime.Now,
-                AnalysisModels = new List<AnalysisModel>()
+                AnalysisModels = new List<AnalysisModel>(),
+                NumberOfSolvents = models[0].NumberOfSolvents
             };
             foreach (Model m in models)
             {
