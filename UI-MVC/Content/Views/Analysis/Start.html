@@ -72,14 +72,14 @@
         <div class="padding-container" ng-if="algorithms!==undefined">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="margin-top-0 text-primary wow fadeInDown">Select your model</h1>
+                    <h1 class="margin-top-0 text-primary wow fadeInDown">Select your training set</h1>
                     <hr class="primary">
                 </div>
             </div>
             <div>
                 <div id="mainbox">
                     <div class="card" ng-repeat="model in algorithms" id="{{model.DataSet}}" name="{{model.Id}}" ng-click="selectModel($event)">
-                        <p class="card-title">Dataset:<br/>{{model.DataSet}}
+                        <p class="card-title">Training set:<br/>{{model.DataSet}}
                         </p>
                         <p>Date:<br/> {{model.Date}}
                         </p>

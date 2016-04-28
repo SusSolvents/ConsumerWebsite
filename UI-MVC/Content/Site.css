@@ -936,16 +936,16 @@ form.ng-submitted .ng-valid {
     background: none; 
     border: none;
 }
-.fh5co-blog-style-1 {
+.analysis-card-blog-style-1 {
   padding: 1.5em;
   
 }
 @media screen and (max-width: 768px) {
-  .fh5co-blog-style-1 {
+  .analysis-card-blog-style-1 {
     padding: 4em 0;
   }
 }
-.fh5co-blog-style-1 .fh5co-post {
+.analysis-card-blog-style-1 .analysis-card-post {
   float: left;
   width: 100%;
   background: #fff;
@@ -964,27 +964,27 @@ form.ng-submitted .ng-valid {
     border: 1px solid grey;
 }
 
-.fh5co-blog-style-1 .fh5co-post:hover {
+.analysis-card-blog-style-1 .analysis-card-post:hover {
     border: 1px solid #b92ed1;
     
 } 
-.fh5co-blog-style-1 .fh5co-post:hover .fh5co-post-text h3 a {
+.analysis-card-blog-style-1 .analysis-card-post:hover .analysis-card-post-text h3 a {
     color: #b92ed1;
 }
 
 
-.fh5co-blog-style-1 .fh5co-post img {
+.analysis-card-blog-style-1 .analysis-card-post img {
     width: 105%;
 }
 
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-image {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image {
   position: relative;
 
     overflow: hidden;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-overlay {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-overlay {
   z-index: 1;
   background: rgba(0, 0, 0, 0.3);
   position: absolute;
@@ -1000,59 +1000,42 @@ form.ng-submitted .ng-valid {
   -ms-filter: blur(1px);
    
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category {
   margin: 10px 0 0 15px;
   float: left;
   z-index: 2;
   position: absolute;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a {
-  font-size: 10px;
-  padding: 2px 10px;
-  line-height: 1.5;
-  font-family: "Open Sans", Arial, sans-serif;
-  text-transform: uppercase;
-  color: #fff;
-  border: 1px solid #f2f2f2;
-  margin: 0 4px 4px 0;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
-  display: -moz-inline-stack;
-  display: inline-block;
-  zoom: 1;
-  *display: inline;
-}
 
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-image .fh5co-category > a:focus {
+
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:focus {
   text-decoration: none;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text {
     padding: 5px 15px 5px 15px;
 
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 {
-  font-size: 17px;
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 {
+  font-size: 22px;
   margin-bottom: 10px;
   font-weight: 700;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 a {
   color: #000;
 }
 
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-text h3 a:focus {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 a:focus {
   text-decoration: none;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text p {
-  font-size: 15px;
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text p {
+  font-size: 17px;
   margin-bottom: 0px;
   color: grey;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-text p:last-child {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text p:last-child {
   margin-bottom: 0 !important;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-meta {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta {
   border-top: 1px solid #f0f0f0;
   padding: 5px 20px;
     line-height: 25px;
@@ -1062,7 +1045,7 @@ form.ng-submitted .ng-valid {
     
   color: grey;
 }
-.fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:hover, .fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:active, .fh5co-blog-style-1 .fh5co-post .fh5co-post-meta a:focus {
+.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:focus {
   text-decoration: none;
 }
 

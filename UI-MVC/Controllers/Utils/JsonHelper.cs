@@ -23,6 +23,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                 Clusters = new List<Cluster>(),
                 DataSet = jsonModel.dataSet,
                 Date = DateTime.Now,
+                NumberOfSolvents = 0,
                 ModelPath = jsonModel.modelPath,
                 AlgorithmName = jsonModel.algorithm
             };
@@ -44,7 +45,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                     };
                     clusterTemp.DistanceToClusters.Add(clusterDistanceCenter);
                 }
-
+                
                 foreach (var solvent in cluster.solvents)
                 {
                     Solvent solventTemp = new Solvent()
@@ -67,6 +68,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                     }
                     clusterTemp.Solvents.Add(solventTemp);
                 }
+                model.NumberOfSolvents += clusterTemp.Solvents.Count;
                 model.Clusters.Add(clusterTemp);
             }
             algorithm.Models.Add(model);

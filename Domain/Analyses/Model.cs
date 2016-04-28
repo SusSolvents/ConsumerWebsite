@@ -20,6 +20,8 @@ namespace SS.BL.Domain.Analyses
         public AlgorithmName AlgorithmName { get; set; }
         
         public string ModelPath { get; set; }
+
+        public int NumberOfSolvents { get; set; }
         public ICollection<Cluster> Clusters { get; set; }
     }
 }

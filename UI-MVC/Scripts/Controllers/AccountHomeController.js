@@ -41,7 +41,9 @@
         analyses = data;
         var i;
         for (i = 0; i < data.length; i++) {
-            data[i].DateCreated = timeSince(new Date(analyses[i].DateCreated));
+            console.log(data[i].DateCreated);
+            
+            data[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
         }
         
         $scope.analyses = data;
@@ -52,9 +54,9 @@
     });
 
     function timeSince(date) {
-
+        console.log(date);
         var seconds = Math.floor((new Date() - date) / 1000);
-
+        console.log(seconds);
         var interval = Math.floor(seconds / 31536000);
 
         if (interval > 1) {
@@ -78,6 +80,8 @@
         }
         return Math.floor(seconds) + " seconds";
     }
+
+
     $('ul.tabs li').click(function() {
         var tab_id = $(this).attr('data-tab');
 
