@@ -140,7 +140,7 @@ namespace SS.UI.Web.MVC.Controllers
                 }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
             }
-            return models;
+            return models.GroupBy(x => x.DataSet).Select(y => y.First()).ToList();
         }
 
         //POST api/Analysis/CreateModel

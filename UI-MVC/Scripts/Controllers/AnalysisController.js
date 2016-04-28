@@ -1,7 +1,7 @@
 ﻿app.controller('AnalysisController', 
     function ($scope, $window, $http, $location) {
         var algorithms = [];
-        var models;
+        var models = [];
         
         $scope.disabled = true;
         $scope.btnclass = "button-right disabled";
