@@ -287,8 +287,8 @@ footer {
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: transparent;
-    padding: 21px;
-  font-size: 140%;
+    padding: 18px;
+  font-size: 130%;
   letter-spacing: 3px;
    text-transform: lowercase;
   border-radius: 6px;
@@ -297,7 +297,7 @@ footer {
   transition: all .5s;
     cursor: pointer;
     display: block;
-    width: 330px;
+    width: 340px;
     margin: 10px;
   color: white;
     text-decoration: none;

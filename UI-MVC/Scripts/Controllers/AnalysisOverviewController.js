@@ -36,7 +36,9 @@
             $("#" + name).addClass('current');
             selectedAlgorithm = name;
         };
-
+        $scope.tester = function () {
+            console.log("hello");
+        };
         $scope.changeName = function changeName() {
             $http({
                 method: 'POST',

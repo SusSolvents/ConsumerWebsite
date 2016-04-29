@@ -1,4 +1,4 @@
-﻿<div ng-controller="AnalysisOverviewController as analysis" class="col-lg-12 bgsection-2 fillHeight bigpadding">
+﻿<div ng-controller="AnalysisOverviewController as analysis" class="col-lg-12 bgsection-2 fillHeight bigpadding"    >
     <div class="centered-container-big padding-none">
         <div angucomplete-alt id="ex1"
              placeholder="Search solvent"
@@ -27,7 +27,7 @@
 
                 <a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
 
-                <div ng-repeat="cluster in model.Model.Clusters">
+                <div ng-repeat="cluster in model.Model.Clusters" >
                     <h1>Cluster {{cluster.Number}}</h1>
                     <div ng-repeat="distance in cluster.DistanceToClusters">
                         Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
