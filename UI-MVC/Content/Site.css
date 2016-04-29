@@ -242,7 +242,7 @@ footer {
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: transparent;
-    padding: 21px;
+    padding: 21px 70px;
   font-size: 20px;
   letter-spacing: 3px;
    text-transform: lowercase;
@@ -252,7 +252,7 @@ footer {
   transition: all .5s;
     cursor: pointer;
     display: block;
-    width: 300px;
+    width: 98%;
     margin: 10px;
   color: white;
     text-decoration: none;
@@ -347,7 +347,7 @@ footer {
         background-color: transparent;
         min-height: 60px;
     }
- 
+  
 
     .navbar-header > .navbar-brand {
         color: rgba(255,255,255,0.7);
@@ -1153,6 +1153,52 @@ form.ng-submitted .ng-valid {
 
 }
 
+.fh5co-cover-text {
+  position: relative;
+  z-index: 5;
+}
+.fh5co-cover-text .full-height {
+  display: table;
+  min-height: 800px;
+}
+.fh5co-cover-text .full-height .fh5co-cover-intro {
+  display: table-cell;
+  vertical-align: middle;
+  min-height: 800px;
+}
+.fh5co-cover-text .cover-text-lead {
+  font-size: 40px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-weight: 700;
+  color: #fff;
+    text-align: left;
+}
+.fh5co-cover-text .cover-text-sublead {
+    text-align: left;
+  font-size: 24px;
+  font-family: "Questrial", Arial, sans-serif;
+  font-weight: 400;
+  line-height: 26px;
+  color: #fff;
+    height: 80px;
+}
+.fh5co-cover-text .btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.fh5co-cover-text .btn-outline:hover {
+  color: #fff;
+  background: #1784fb;
+  border-color: #1784fb;
+}
+.fh5co-cover-text .btn-outline:hover, .fh5co-cover .fh5co-cover-text .btn-outline:focus, .fh5co-cover .fh5co-cover-text .btn-outline:active {
+  outline: none;
+}
 .input-analyse-name {
     color: white;
     width: 65%;
