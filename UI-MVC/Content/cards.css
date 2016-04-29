@@ -1,17 +1,17 @@
 ﻿.card{
-    width: 270px;
+    width: 230px;
     border-radius: 8px;
     overflow: hidden;
-    border: 2px solid lightgray;
+    border: 3px solid lightgray;
 
     -webkit-transition: all .7s;
     -moz-transition: all .7s;
     transition: all .7s;
     
-    height: 200px;
+    height: 210px;
     padding: 5px;
     margin: 10px;
-    
+    font-size: 21px;
     cursor: pointer;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.1);
@@ -23,17 +23,15 @@
 }
 
 .card > p {
-    margin-top: 13px;
+    margin-top: 15px;
     color: white;
-    font-size: 25px;
+    font-size: 21px;
 }
 .card-title {
     text-align: center;
     font-family: "Questrial";
     font-size: 25px;
 }
-
-
 
 #mainbox{
   font-family: 'Questrial';

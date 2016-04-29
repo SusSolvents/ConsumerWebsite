@@ -12,9 +12,9 @@ namespace SS.BL.Users
     {
         private readonly IUserRepository repo;
 
-        public UserManager()
+        public UserManager(IUserRepository repository)
         {
-            this.repo = new UserRepository();
+            this.repo = repository;
         }
 
         public User ReadUser(string email)

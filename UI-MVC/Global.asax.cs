@@ -3,6 +3,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using UI_MVC;
 
 namespace SS.UI.Web.MVC
@@ -16,6 +19,18 @@ namespace SS.UI.Web.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterIOC();
+        }
+
+        private void RegisterIOC()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterControllers(typeof (WebApiApplication).Assembly);
+            builder.RegisterApiControllers(typeof (WebApiApplication).Assembly);
+            AutofacConfig.Init(builder);
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

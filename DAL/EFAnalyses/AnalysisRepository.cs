@@ -12,31 +12,31 @@ namespace SS.DAL.EFAnalyses
 {
     public class AnalysisRepository : IAnalysisRepository
     {
-        private readonly EFDbContext context;
+        private readonly EFDbContext _context;
 
-        public AnalysisRepository()
+        public AnalysisRepository(EFDbContext efDbContext)
         {
-            this.context = new EFDbContext();
+            this._context = efDbContext;
         }
 
         public Algorithm CreateAlgorithm(Algorithm algorithm)
         {
-            algorithm = context.Algorithms.Add(algorithm);
-            context.SaveChanges();
+            algorithm = _context.Algorithms.Add(algorithm);
+            _context.SaveChanges();
             return algorithm;
         }
 
         public Analysis CreateAnalysis(Analysis analysis, User createdBy)
         {
             analysis.CreatedBy = createdBy;
-            analysis = context.Analyses.Add(analysis);
-            context.SaveChanges();
+            analysis = _context.Analyses.Add(analysis);
+            _context.SaveChanges();
             return analysis;
         }
 
         public Analysis ReadAnalysis(long id)
         {
-            return context.Analyses
+            return _context.Analyses
                 .Include(a => a.AnalysisModels)
                 .Include(a => a.AnalysisModels.Select(an => an.Model))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.DistanceToClusters))) 
@@ -47,63 +47,63 @@ namespace SS.DAL.EFAnalyses
 
         public Analysis CreateAnalysis(Analysis analysis, string email)
         {
-            var user = context.Users.FirstOrDefault(u => u.Email.Equals(email));
+            var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
             analysis.CreatedBy =  user;
-            analysis = context.Analyses.Add(analysis);
-            context.SaveChanges();
+            analysis = _context.Analyses.Add(analysis);
+            _context.SaveChanges();
             return analysis;
         }
 
         public IEnumerable<Analysis> ReadAnalysesForUser(User user)
         {
-            return context.Analyses.Where(u => u.CreatedBy.Id == user.Id)
+            return _context.Analyses.Where(u => u.CreatedBy.Id == user.Id)
                 .Include(p=>p.CreatedBy).ToList();
         }
 
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
         {
-            return context.Analyses.Where(o => o.SharedWith.Id == organisation.Id).ToList();
+            return _context.Analyses.Where(o => o.SharedWith.Id == organisation.Id).ToList();
         }
 
         public Analysis UpdateAnalysis(Analysis analysis)
         {
-            var currentAnalysis = context.Analyses.Find(analysis.Id);
+            var currentAnalysis = _context.Analyses.Find(analysis.Id);
 
-            context.Entry(currentAnalysis).CurrentValues.SetValues(analysis);
-            context.Entry(currentAnalysis).State = EntityState.Modified;
-            context.SaveChanges();
+            _context.Entry(currentAnalysis).CurrentValues.SetValues(analysis);
+            _context.Entry(currentAnalysis).State = EntityState.Modified;
+            _context.SaveChanges();
             return currentAnalysis;
         }
 
         public Cluster CreateCluster(Cluster cluster)
         {
-            cluster = context.Clusters.Add(cluster);
-            context.SaveChanges();
+            cluster = _context.Clusters.Add(cluster);
+            _context.SaveChanges();
             return cluster;
         }
 
         public IEnumerable<Cluster> ReadClustersForModel(Model model)
         {
-            return context.Models.Find(model.Id).Clusters.ToList();
+            return _context.Models.Find(model.Id).Clusters.ToList();
         }
 
         public Feature CreateFeature(Feature feature)
         {
-            feature = context.Features.Add(feature);
-            context.SaveChanges();
+            feature = _context.Features.Add(feature);
+            _context.SaveChanges();
             return feature;
         }
 
         public Model CreateModel(Model model)
         {
-            model = context.Models.Add(model);
-            context.SaveChanges();
+            model = _context.Models.Add(model);
+            _context.SaveChanges();
             return model;
         }
 
         public Model ReadModel(long id)
         {
-            return context.Models
+            return _context.Models
                 .Include(p => p.Clusters)
                 .Include(p => p.Clusters.Select(pt => pt.DistanceToClusters))
                 .Include(p => p.Clusters.Select(pt => pt.Solvents))
@@ -113,7 +113,7 @@ namespace SS.DAL.EFAnalyses
 
         public Model ReadModel(string dataSet, AlgorithmName algorithmName)
         {
-             return context.Models
+             return _context.Models
                 .Include(p => p.Clusters)
                 .Include(p => p.Clusters.Select(pt => pt.DistanceToClusters))
                 .Include(p => p.Clusters.Select(pt => pt.Solvents))
@@ -124,28 +124,28 @@ namespace SS.DAL.EFAnalyses
 
         public Solvent CreateSolvent(Solvent solvent)
         {
-            solvent = context.Solvents.Add(solvent);
-            context.SaveChanges();
+            solvent = _context.Solvents.Add(solvent);
+            _context.SaveChanges();
             return solvent;
         }
 
         public ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter)
         {
-            clusterDistanceCenter = context.ClusterDistanceCenters.Add(clusterDistanceCenter);
-            context.SaveChanges();
+            clusterDistanceCenter = _context.ClusterDistanceCenters.Add(clusterDistanceCenter);
+            _context.SaveChanges();
             return clusterDistanceCenter;
         }
 
         public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
         {
-            analysisModel = context.AnalysisModels.Add(analysisModel);
-            context.SaveChanges();
+            analysisModel = _context.AnalysisModels.Add(analysisModel);
+            _context.SaveChanges();
             return analysisModel;
         }
 
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
         {
-            return context.Models.Where(m => m.AlgorithmName == algorithmName).ToList();
+            return _context.Models.Where(m => m.AlgorithmName == algorithmName).ToList();
         }
     }
 }

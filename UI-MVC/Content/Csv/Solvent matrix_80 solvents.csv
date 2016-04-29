@@ -1,0 +1,83 @@
+Input	ID_Name_1	ID_CAS_Nr_1	ID_EG_Nr	ID_EG_Annex_Nr	Boiling_Point_Minimum_°C	Melting_Point_Minimum_°C	Flash_Point_Minimum_°C	Vapour_Pressure_25°C_mmHg	Density_25°C_Minimum_kg/L	Viscosity_25°C_Minimum_mPa.s
+DataType	string	string	string	string	numeric	numeric	numeric	numeric	numeric	numeric
+Randomisation Range	NAV	NAV	NAV	NAV						
+DNCP	hexaan	110-54-3	203-77-6	601-037-00-0	69	-95	-22	143.54	0.6606	0.3
+DNCP	heptane	142-82-5	205-563-8	601-008-00-2	98	-91	-4	46.05	0.6795	0.387
+PARIS III	3-methylpentane	96-14-0	NAV	NAV	63.2	-162.9	-6	18.98	0.66	0.31
+PARIS III	4-ethyl-2-methyl-heptane	52896-88-5	NAV	NAV	158	-108.2	81.89	2.58	0.73	0.94
+PARIS III	4-ethyl-3-methyl-heptane	52896-89-6	NAV	NAV	165	-118.28	84.42	2.33	0.73	0.99
+PARIS III	3-ethyl-5-methyl-heptane	52896-90-9	NAV	NAV	158.2	-107.85	82.7	2.54	0.73	1
+PARIS III	3-ethyl-4-methyl-heptane	52896-91-0	NAV	NAV	165	-114.96	84.51	2.53	0.73	1
+PARIS III	2,2,3-trimethylheptane	52896-92-1	NAV	NAV	157.8	-100.17	39.48	3.87	0.73	0.81
+PARIS III	2,3,4-trimethylheptane	52896-95-4	NAV	NAV	161	-122.09	48.68	3.04	0.73	0.83
+PARIS III	4-ethyl-2,2-dimethyl-hexane	52896-99-8	NAV	NAV	147	-96.35	32.11	6.51	0.73	0.8
+PARIS III	3-ethyl-2,3-dimethyl-hexane	52897-00-4	NAV	NAV	166	-107.63	45.43	3.50	0.73	1.05
+PARIS III	4-ethyl-2,4-dimethyl-hexane	52897-03-7	NAV	NAV	161.1	-99	36.53	3.88	0.73	0.88
+PARIS III	3-ethyl-2,5-dimethyl-hexane	52897-04-8	NAV	NAV	154.1	-111.38	58.04	3.98	0.73	0.8
+PARIS III	4-ethyl-3,3-dimethyl-hexane	52897-05-9	NAV	NAV	162.9	-104.37	53.57	3.37	0.73	1.07
+PARIS III	3-ethyl-3,4-dimethyl-hexane	52897-06-0	NAV	NAV	162.1	-90.89	54.25	2.78	0.73	1.13
+PARIS III	2,2,3,4-tetramethylhexane	52897-08-2	NAV	NAV	157	-95.95	42.24	4.60	0.73	0.85
+PARIS III	2,3,4,4-tetramethylhexane	52897-12-8	NAV	NAV	161.6	-98.58	48.57	4.05	0.73	0.94
+PARIS III	2,3,4,5-tetramethylhexane	52897-15-1	NAV	NAV	156.2	-97.11	54.34	3.50	0.73	0.81
+PARIS III	3,3-diethyl-2-methyl-pentane	52897-16-2	NAV	NAV	172	-77.04	49.52	2.91	0.73	1.24
+PARIS III	3-ethyl-2,2,3-trimethyl-pentane	52897-17-3	NAV	NAV	169.5	-42.5	45.45	3.79	0.73	1.18
+PARIS III	ethylbenzene	100-41-4	NAV	NAV	136.1	-94.9	25.94	9.60	0.86	0.63
+PARIS III	1,3,5-triethylbenzene	102-25-0	NAV	NAV	215.9	-66.5	81.1	0.22	0.86	1.9
+PARIS III	propylbenzene	103-65-1	NAV	NAV	159.2	-99.5	42.1	3.42	0.86	0.84
+PARIS III	butylbenzene	104-51-8	NAV	NAV	183.3	-87.9	59	1.06	0.86	0.95
+PARIS III	1,4-diethylbenzene	105-05-5	NAV	NAV	183.7	-42.83	56.7	1.06	0.86	1.08
+PARIS III	1,2,4-trimethylbenzene	95-63-6	NAV	NAV	169.3	-43.8	48	2.10	0.88	1.01
+PARIS III	tert-butylbenzene	98-06-6	NAV	NAV	169.1	-57.8	34.4	2.20	0.87	27.61
+PARIS III	1-tert-butyl-3,5-dimethyl-benzene	98-19-1	NAV	NAV	207	-18	71.8	0.23	0.86	1.09
+PARIS III	1-tert-butyl-4-methyl-benzene	98-51-1	NAV	NAV	190	-52	54.4	0.72	0.86	1.33
+Chemtec Solvent Database	Xylene, m-	108-38-3	NAV	NAV	139.1	-47.9	27	8.33	0.86009	0.581
+PARIS III	propylbenzene	103-65-1	NAV	NAV	159.2	-99.5	42.1	3.42	0.86	0.84
+PARIS III	butylbenzene	104-51-8	NAV	NAV	183.3	-87.9	59	1.06	0.86	0.95
+PARIS III	1,4-dimethylbenzene	106-42-3	NAV	NAV	138.3	13.2	27.22	8.85	0.87	0.61
+PARIS III	1,3,5-trimethylbenzene	108-67-8	NAV	NAV	164.7	-44.7	44.4	2.48	0.87	1.04
+PARIS III	1,2-diethylbenzene	135-01-3	NAV	NAV	184	-31.2	49.4	1.05	0.86	1.15
+PARIS III	1,3-diethylbenzene	141-93-5	NAV	NAV	181.1	-83.9	50.6	1.13	0.86	1.09
+PARIS III	1,2,3,5-tetramethylbenzene	527-53-7	NAV	NAV	198	-23.7	67.15	0.50	0.87	1.38
+PARIS III	1,2,3-trimethylbenzene	526-73-8	NAV	NAV	176.1	-25.4	53	1.69	0.89	1.18
+PARIS III	1,2,3,4,5-pentaethylbenzene	605-01-6	NAV	NAV	277	-1.76	133.39	0.00	0.88	5.93
+PARIS III	1-ethyl-2-methyl-benzene	611-14-3	NAV	NAV	165.2	-80.8	39.4	2.61	0.89	0.96
+Chemtec Solvent Database	Methyl hexyl ketone	111-13-7	NAV	NAV	173	-16	62.77	1.35	0.815	0.95
+Chemtec Solvent Database	Methyl isobutyl ketone	108-10-1	NAV	NAV	116.1	-84	15	19.88	0.7965	0.545
+Chemtec Solvent Database	Methyl isopropyl ketone	563-80-4	NAV	NAV	94	-92	2	52.71	0.79	0.454
+Chemtec Solvent Database	Di-tert-butyl ketone	815-24-7	NAV	NAV	151	-25	34	3.50	0.82	0.77
+Chemtec Solvent Database	Dibutyl ketone	502-56-7	NAV	NAV	185	-50	60	0.55	0.83	1.19
+Chemtec Solvent Database	Methyl amyl ketone	110-43-0	NAV	NAV	151.1	-35	39	3.83	0.811	0.69
+Chemtec Solvent Database	Methyl ethyl ketone	78-93-3	NAV	NAV	79.6	-86	-9	95.33	0.799	0.378
+Chemtec Solvent Database	Methyl n-butyl ketone	591-78-6	NAV	NAV	127.6	-57	23	11.60	0.81	0.584
+Chemtec Solvent Database	Methyl propyl ketone	107-87-9	NAV	NAV	102	-78	7	35.40	0.802	0.47
+Chemtec Solvent Database	Methyl tert-butyl ketone	75-97-8	NAV	NAV	106	-52	12	32.03	0.801	0.71
+DNCP	aceton	67-64-1	200-662-2	606-001-00-8	56	-95	-20	230.00	0.7845	0.306
+PARIS III	2-propylcyclohexan-1-one	94-65-5	NAV	NAV	197	14.11	68.43	0.58	0.9	4.01
+PARIS III	heptan-3-one	106-35-4	NAV	NAV	147	-39	41	4.17	0.82	0.68
+PARIS III	octan-3-one	106-68-3	NAV	NAV	167.5	-47.03	46	1.62	0.82	0.79
+PARIS III	cycloheptanone	502-42-1	NAV	NAV	178.5	-23.85	57	1.25	0.95	2.08
+PARIS III	nonan-5-one	502-56-7	NAV	NAV	188.4	-3.8	65	0.55	0.83	1.19
+PARIS III	cyclohexanone	108-94-1	NAV	NAV	155.4	-31	44	4.33	0.95	2.02
+PARIS III	5-methylheptan-3-one	541-85-5	NAV	NAV	159	-56.39	43.9	1.94	0.81	0.79
+PARIS III	2-methylpentan-3-one	565-69-5	NAV	NAV	113.5	-82.16	10.8	18.08	0.8	0.45
+PARIS III	2,4-dimethylpentan-3-one	565-80-0	NAV	NAV	125.4	-69	22.1	13.43	0.8	0.6
+PARIS III	propan-1-ol	71-23-8	200-746-9	NAV	97.2	-126.1	15	2.10E+01	0.8	1.96
+PARIS III	butyl alcohol	71-36-3	200-751-6	NAV	117.7	-89.8	35	6.70E+00	0.8	2.55
+PARIS III	pentan-1-ol	71-41-0	200-752-1	NAV	137.9	-78.9	48.9	2.20E+00	0.81	3.98
+PARIS III	3-methylpentan-3-ol	77-74-7	NAV	NAV	122.4	-23.6	156	5.56E+00	0.83	2.85
+PARIS III	2-butanol	78-92-2	201-158-5	NAV	99.5	-114.7	26	1.83E+01	0.8	3.65
+PARIS III	2-methylpropan-1-ol	78-83-1	201-148-0	NAV	107.8	-108	27.78	1.05E+01	0.8	3.37
+PARIS III	2-methylpentan-1-ol	105-30-6	NAV	NAV	149	-27.47	50.6	1.92E+00	0.82	2.65
+PARIS III	3,7-dimethyloctan-1-ol	106-21-8	NAV	NAV	212.5	12.38	95	3.42E-02	0.82	7.82
+PARIS III	2,6-dimethylheptan-4-ol	108-82-7	NAV	NAV	174.5	-21.92	66	3.00E-01	0.81	4.44
+PARIS III	3-octanol	589-98-0	NAV	NAV	171	-45	65.6	2.60E-01	0.82	4.94
+PARIS III	ethanol	64-17-5	200-578-6	NAV	78.2	-114.1	8.89	5.93E+01	0.78	1.07
+PARIS III	propan-2-ol	67-63-0	NAV	NAV	82.3	-89.5	11.67	4.54E+01	0.79	2.04
+PARIS III	methanol	67-56-1	NAV	NAV	64.7	-97.6	11.11	1.27E+01	0.75	0.55
+PARIS III	4-methylheptan-3-ol	14979-39-6	NAV	NAV	170	-123	67.51	2.90E-01	0.82	1.1
+PARIS III	2,2-diethylpentan-1-ol	14202-62-1	NAV	NAV	189.04	-32.82	62.48	9.15E-02	0.83	6.81
+PARIS III	2,6-dimethylheptan-2-ol	13254-34-7	NAV	NAV	173	-26.89	63	2.50E-01	0.81	5.49
+PARIS III	5-methylheptan-1-ol	7212-53-5	NAV	NAV	182.54	-28.57	73.42	2.00E-01	0.82	5.37
+PARIS III	2,5-dimethylhexan-2-ol	3730-60-7	NAV	NAV	154.5	-41.38	56.6	1.02E+00	0.82	3.68
+PARIS III	2,5-dimethylhexan-2-ol	3730-60-7	NAV	NAV	154.5	-41.38	56.6	1.02E+00	0.82	3.68
+PARIS III	3-methylheptan-1-ol	1070-32-2	NAV	NAV	182.47	-39.23	73.49	2.40E-01	0.83	1.9

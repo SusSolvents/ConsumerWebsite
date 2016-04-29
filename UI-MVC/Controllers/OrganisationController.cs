@@ -17,10 +17,11 @@ namespace SS.UI.Web.MVC.Controllers
     [RoutePrefix("api/Organisation")]
     public class OrganisationController : ApiController
     {
-        private readonly UserManager _userManager = new UserManager();
+        private readonly IUserManager _userManager;
 
-        public OrganisationController()
+        public OrganisationController(IUserManager userManager)
         {
+            this._userManager = userManager;
         }
         
         //GET api/Organisation/CreateOrganisation

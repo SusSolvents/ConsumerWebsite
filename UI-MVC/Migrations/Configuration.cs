@@ -1,6 +1,8 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SS.BL.Users;
+using SS.DAL;
+using SS.DAL.EFUsers;
 using SS.UI.Web.MVC.Models;
 
 namespace SS.UI.Web.MVC.Migrations
@@ -62,7 +64,7 @@ namespace SS.UI.Web.MVC.Migrations
             if (ir1.Succeeded == false)
                 return ir1.Succeeded;
             ir1 = um.AddToRole(user1.Id, "User");
-            var userManager = new UserManager();
+            var userManager = new UserManager(new UserRepository(new EFDbContext()));
             userManager.CreateUser("admin", "admin", "sussolvents@admin.com", "");
             userManager.CreateUser("user", "user", "sussolvents@user.com", "");
             return ir.Succeeded;

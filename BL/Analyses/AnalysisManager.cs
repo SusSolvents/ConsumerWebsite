@@ -14,9 +14,9 @@ namespace SS.BL.Analyses
     {
         private readonly IAnalysisRepository repo;
 
-        public AnalysisManager()
+        public AnalysisManager(IAnalysisRepository iAnalysisRepository)
         {
-            this.repo = new AnalysisRepository();
+            this.repo = iAnalysisRepository;
         }
 
         public Algorithm CreateAlgorithm(AlgorithmName algorithmName)

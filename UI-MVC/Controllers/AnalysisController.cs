@@ -21,11 +21,19 @@ namespace SS.UI.Web.MVC.Controllers
     [RoutePrefix("api/Analysis")]
     public class AnalysisController : ApiController
     {
-        private readonly AnalysisManager _analysisManager = new AnalysisManager();
-        private readonly UserManager _userManager = new UserManager();
-
-        public AnalysisController()
+        private readonly IAnalysisManager _analysisManager;
+        private readonly IUserManager _userManager;
+        private readonly List<String> _csvLocations; 
+        public AnalysisController(IAnalysisManager analysisManager, IUserManager userManager)
         {
+            this._analysisManager = analysisManager;
+            this._userManager = userManager;
+            _csvLocations = new List<string>();
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_12 solvents.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_15 solvents.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_80 solvents.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_9 solvents.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_volledig.csv");
         }
 
         //GET api/Analysis/GetAnalysis
@@ -158,7 +166,7 @@ namespace SS.UI.Web.MVC.Controllers
                 var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
                 if (modelsTemp.Count == 0)
                 {
-                    await CreateModel(algorithm);
+                    await CreateModels(algorithm);
                                 
                 }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
@@ -169,18 +177,22 @@ namespace SS.UI.Web.MVC.Controllers
         //POST api/Analysis/CreateModel
         [AllowAnonymous]
         [Route("CreateModel")]
-        public async Task<IHttpActionResult> CreateModel(AlgorithmName algorithmName)
+        public async Task<IHttpActionResult> CreateModels(AlgorithmName algorithmName)
         {
+            
             try
             {
                 using (var client = new WebClient())
                 {
-                    var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
-                        HttpContext.Current.Server.MapPath("~/Content/Csv/defaultmatrix.csv"));
-                    //creatie van model binnen algoritme
-                    var jsonResponse = Encoding.Default.GetString(response);
-                    var algorithm = JsonHelper.ParseJson(jsonResponse);
-                    _analysisManager.CreateAlgorithm(algorithm);
+                    foreach (var csvLocation in _csvLocations)
+                    {
+                        var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
+                        HttpContext.Current.Server.MapPath(csvLocation));
+                        //creatie van model binnen algoritme
+                        var jsonResponse = Encoding.Default.GetString(response);
+                        var algorithm = JsonHelper.ParseJson(jsonResponse);
+                        _analysisManager.CreateAlgorithm(algorithm);
+                    }
                     client.Dispose();
                     return Ok();
                 }

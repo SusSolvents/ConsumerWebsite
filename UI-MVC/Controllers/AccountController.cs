@@ -37,10 +37,11 @@ namespace SS.UI.Web.MVC.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-        private UserManager userMgr = new UserManager();
+        private readonly IUserManager _userMgr;
 
-        public AccountController()
+        public AccountController(IUserManager userManager)
         {
+            this._userMgr = userManager;
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -98,14 +99,14 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("GetUserId")]
         public long GetUserId(string email)
         {
-            return userMgr.ReadUser(email).Id;
+            return _userMgr.ReadUser(email).Id;
         }
 
         //GET api/Account/GetUserInfo
         [Route("GetUserInfo")]
         public IHttpActionResult GetUserInformation(long id)
         {
-            User user = userMgr.ReadUser(id);
+            User user = _userMgr.ReadUser(id);
             if (User.Identity.Name == user.Email)
             {
                 var model = new UserInformationViewModel()
@@ -157,11 +158,11 @@ namespace SS.UI.Web.MVC.Controllers
                 imagePath = FileHelper.GetImagePathFromRequest(picture, "UsersImgPath");
             }
 
-            User user = userMgr.ReadUser(email);
+            User user = _userMgr.ReadUser(email);
 
             user.AvatarUrl = imagePath;
 
-            userMgr.UpdateUser(user);
+            _userMgr.UpdateUser(user);
 
             return Ok();
         }
@@ -459,7 +460,7 @@ namespace SS.UI.Web.MVC.Controllers
                 imagePath = FileHelper.GetImagePathFromRequest(picture, "UsersImgPath");
             }
 
-            User user = userMgr.ReadUser(email);
+            User user = _userMgr.ReadUser(email);
             if (user != null)
             {
                 return BadRequest("Email address already in use");
@@ -467,7 +468,7 @@ namespace SS.UI.Web.MVC.Controllers
   
 
                 var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEndDateUtc = new DateTime(2100,1,1), LockoutEnabled = true};
-                user = userMgr.CreateUser(firstname, lastname, email, imagePath);
+                user = _userMgr.CreateUser(firstname, lastname, email, imagePath);
                 IdentityResult result = await UserManager.CreateAsync(applicationUser, password);
                 if (result.Succeeded)
                 {
@@ -476,7 +477,7 @@ namespace SS.UI.Web.MVC.Controllers
                 return Ok("Registration was successful. Your application has been send to an administrator. " +
                               "When you're accepted you can login.");
                 }
-                userMgr.DeleteUser(user);
+                _userMgr.DeleteUser(user);
             return BadRequest("Password must contain a capital, a number and must consist out atleast 6 characters");
         }
 

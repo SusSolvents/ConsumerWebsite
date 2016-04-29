@@ -9,43 +9,43 @@ namespace SS.DAL.EFUsers
 {
     public class UserRepository : IUserRepository
     {
-        private readonly EFDbContext context;
+        private readonly EFDbContext _context;
 
-        public UserRepository()
+        public UserRepository(EFDbContext efDbContext)
         {
-            this.context = new EFDbContext();
+            this._context = efDbContext;
         }
 
         public User UpdateUser(User user)
         {
-            context.Entry(user).State = System.Data.Entity.EntityState.Modified;
-            context.SaveChanges();
+            _context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            _context.SaveChanges();
             return user;
         }
 
         public void DeleteUser(User user)
         {
-            context.Users.Remove(user);
-            context.SaveChanges();
+            _context.Users.Remove(user);
+            _context.SaveChanges();
         }
 
         public Organisation CreateOrganisation(Organisation organisation, User user)
         {
-            var organisator = context.Users.Find(user.Id);
+            var organisator = _context.Users.Find(user.Id);
             organisation.Organisator = organisator;
-            organisation =  context.Organisations.Add(organisation);
-            context.SaveChanges();
+            organisation =  _context.Organisations.Add(organisation);
+            _context.SaveChanges();
             return organisation;
         }
 
         public Organisation ReadOrganisation(long id)
         {
-            return context.Organisations.Find(id);
+            return _context.Organisations.Find(id);
         }
 
         public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
         {
-            return context.Organisations.Where(u => u.Organisator.Id == user.Id).ToList();
+            return _context.Organisations.Where(u => u.Organisator.Id == user.Id).ToList();
         }
 
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
@@ -53,46 +53,46 @@ namespace SS.DAL.EFUsers
             OrganisationMember member = new OrganisationMember();
             member.Organisaiton = organisation;
             member.User = user;
-            member = context.OrganisationMembers.Add(member);
-            context.SaveChanges();
+            member = _context.OrganisationMembers.Add(member);
+            _context.SaveChanges();
             return member;
         }
 
         public User CreateUser(User user)
         {
-            user = context.Users.Add(user);
-            context.SaveChanges();
+            user = _context.Users.Add(user);
+            _context.SaveChanges();
             return user;
         }
 
         public User ReadUser(string email)
         {
-            return context.Users.FirstOrDefault(e => e.Email.Equals(email));
+            return _context.Users.FirstOrDefault(e => e.Email.Equals(email));
         }
 
         public User ReadUser(long id)
         {
-            return context.Users.Find(id);
+            return _context.Users.Find(id);
         }
 
         public IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation)
         {
-            return context.OrganisationMembers.Where(o => o.Organisaiton.Id == organisation.Id).ToList();
+            return _context.OrganisationMembers.Where(o => o.Organisaiton.Id == organisation.Id).ToList();
         }
 
         public IEnumerable<Organisation> ReadAllOrganisations()
         {
-            return context.Organisations.ToList();
+            return _context.Organisations.ToList();
         }
 
         public IEnumerable<OrganisationMember> ReadAllOrganisationsForMember(User user)
         {
-            return context.OrganisationMembers.Where(u => u.User.Id == user.Id).ToList();
+            return _context.OrganisationMembers.Where(u => u.User.Id == user.Id).ToList();
         }
 
         public IEnumerable<User> ReadAllUsers()
         {
-            return context.Users;
+            return _context.Users;
         }
 
         public IEnumerable<Organisation> ReadOrganisationsForUser(User user)
@@ -101,7 +101,7 @@ namespace SS.DAL.EFUsers
             List<Organisation> organisations = new List<Organisation>();
             foreach (OrganisationMember org in organisationMembers)
             {
-                organisations.AddRange(context.Organisations.Where(o => o.Id == org.Organisaiton.Id));
+                organisations.AddRange(_context.Organisations.Where(o => o.Id == org.Organisaiton.Id));
             }
             organisations.AddRange(ReadOrganisationsForOrganiser(user));
             return organisations.ToList();
@@ -113,7 +113,7 @@ namespace SS.DAL.EFUsers
             List<User> users = new List<User>();
             foreach (OrganisationMember org in organisationMembers)
             {
-                users.AddRange(context.Users.Where(u => u.Id == org.User.Id));
+                users.AddRange(_context.Users.Where(u => u.Id == org.User.Id));
             }
             return users.ToList();
         }
