@@ -18,8 +18,10 @@
                     $scope.btnclass = "button-right";
                     $scope.disabled = false;
                     $scope.next = { color: 'white' }
-                    process = process + 25;
-                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", 0);
+                    if (process === 0) {
+                        process = process + 25;
+                        angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", 0);
+                    }
                 }
             } else {
                 $event.currentTarget.style.background = "#f0f1ec";
