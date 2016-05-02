@@ -1,4 +1,4 @@
-﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt"]);
+﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt", 'sussol.services']);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -32,7 +32,15 @@ app.config(function ($routeProvider, $locationProvider) {
     });
     $routeProvider.when("/analysis/overview/:id", {
         templateUrl: "Content/Views/Analysis/Overview.html",
-        authenticate: true
+        controller: 'AnalysisOverviewController',
+        authenticate: true,
+        resolve: {
+            result: function ($route, srvLibrary) {
+                var result = srvLibrary.getSolventClusterResult($route.current.params.id);
+                console.log(result);
+                return result;
+            }
+        }
     });
     $routeProvider.when("/404", {
         templateUrl: "Content/Views/Error.html",
@@ -43,6 +51,37 @@ app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
+angular.module('sussol.services', [])
+    .factory('srvLibrary', ['$http', function($http) {
+            var services = {
+                getSolventClusterResult: function(id) {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Analysis/GetAnalysis',
+                        params: { id: id }
+                    });
+                    promise.success(function(data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                }
+            }
+            return services;
+        }
+    ]);
+
+app.run(['$rootScope', function ($root) {
+    $root.$on('$routeChangeStart', function (e, curr, prev) {
+        if (curr.$$route && curr.$$route.resolve) {
+            // Show a loading message until promises aren't resolved
+            $root.loadingView = true;
+        }
+    });
+    $root.$on('$routeChangeSuccess', function (e, curr, prev) {
+        // Hide loading message
+        $root.loadingView = false;
+    });
+}]);
 
 app.controller('homeController', 
     function ($timeout) {

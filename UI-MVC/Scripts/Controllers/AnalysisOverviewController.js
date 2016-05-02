@@ -1,16 +1,14 @@
 ﻿app.controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, Constants) {
+    function ($scope, $window, $http, $routeParams, Constants, result) {
         var solvents = [];
         var selectedAlgorithm;
         var clusters = [];
         var models = [];
         var clusterNames = [];
         var algorithms = [];
-        $http({
-            method: 'GET',
-            url: 'api/Analysis/GetAnalysis',
-            params: { id: $routeParams.id }
-        }).success(function succesCallback(data) {
+        console.log(result.data);
+        var data = result.data;
+
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
                 algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
@@ -27,16 +25,16 @@
                 setValuesForChart(data.AnalysisModels[j].Model.AlgorithmName);
                 intialchart(data.AnalysisModels[j].Model.AlgorithmName);
             }*/
-        });
 
-        $http({
+
+        /*$http({
             method: 'GET',
             url: 'api/Analysis/GetSolvents',
             params: { id: $routeParams.id }
         }).success(function succesCallback(data) {
             solvents = data;
             $scope.solvents = data;
-        });
+        });*/
 
         $scope.selectedSolvent = function selectedSolvent($item) {
                 $("#"+ selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
