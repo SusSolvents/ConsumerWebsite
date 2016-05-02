@@ -62,7 +62,7 @@ app.config(function ($routeProvider, $locationProvider) {
 });
 
 angular.module('sussol.services', [])
-    .factory('srvLibrary', ['$http', function($http) {
+    .factory('srvLibrary', ['$http', '$location', function($http, $location) {
             var services = {
                 getSolventClusterResult: function(id) {
                     var promise = $http({
@@ -80,6 +80,8 @@ angular.module('sussol.services', [])
                         method: 'GET',
                         url: 'api/Account/GetUserInfo',
                         params: { id: id }
+                    }).error(function errorCallback(data) {
+                        $location.path("/404");
                     });
                     promise.success(function (data, status, headers, conf) {
                         return data;
