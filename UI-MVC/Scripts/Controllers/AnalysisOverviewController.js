@@ -4,44 +4,50 @@
         var selectedAlgorithm;
         var clusters = [];
         var models = [];
-        
+        var chartArray = [];
         var algorithms = [];
-        console.log(result.data);
         var data = result.data;
-
-        for (var i = 0; i < data.AnalysisModels.length; i++) {
-            data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
-            algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
+        
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
+                algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
             for (var j = 0; j < data.AnalysisModels[i].Model.Clusters.length; j++) {
-                clusters[j] = { 'x': (50 + 25 * j), 'y': (2), 'z': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 30, 'name':"cluster" + j };
+                chartArray[j] = [j+"",10+ (j * 30), 0.5, "cluster", data.AnalysisModels[i].Model.Clusters[j].Solvents.length];
+                //clusters[j] = { 'ClusterNumber': j, 'x': , 'y': 1, 'opt': null, 'size': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 10 };
             }
             
         }
-        selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
+            selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
 
 
 
-        $scope.models = data.AnalysisModels;
-        $scope.analysisName = data.Name;
-        console.log(clusters);
-        
-        
-        var chart = new CanvasJS.Chart("chartContainer",
-        {
-            title: {
-                text: "Clusters"
-            },
-            data: [
-                {
-                    type: "bubble",
-                    dataPoints: clusters
-                }
-            ]
-        });
+            $scope.models = data.AnalysisModels;
+            $scope.analysisName = data.Name;
+        console.log(chartArray);
 
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawSeriesChart);
+        function drawSeriesChart() {
 
-        chart.render();
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'clusterID');
+            data.addColumn('number', 'x-as');
+            data.addColumn('number', 'y-as');
+            data.addColumn('string', 'cluster');
+            data.addColumn('number', 'size');
+            data.addRows(chartArray);
+            var options = {
+                title: 'Correlation between life expectancy, fertility rate ' +
+                       'and population of some world countries (2010)',
+                vAxis: {gridlines: {count: 2}},
+                
+                sizeAxis: { maxSize: 60}
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+            chart.draw(data, options);
+        }
 
         $scope.selectedSolvent = function selectedSolvent($item) {
             $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
@@ -66,25 +72,25 @@
             }).success(function succesCallback(data) {
             });
         }
-     
+
 
     });
-        app.constant('Constants', {
-            AlgorithmName: {
-                0: 'CANOPY',
-                1: 'COBWEB',
-                2: 'EM',
-                3: 'KMEANS',
-                4: 'SOM',
-                5: 'XMEANS'
-            },
-            FeatureName: {
-                0: 'Boiling_Point_Minimum_DegreesC',
-                1: 'Melting_Point_Minimum_DegreesC',
-                2: 'Flash_Point_Minimum_DegreesC',
-                3: 'Vapour_Pressure_25DegreesC_mmHg',
-                4: 'Density_25DegreesC_Minimum_kg_L',
-                5: 'Viscosity_25DegreesC_Minimum_mPa_s'
-            }
-        });
+app.constant('Constants', {
+    AlgorithmName: {
+        0: 'CANOPY',
+        1: 'COBWEB',
+        2: 'EM',
+        3: 'KMEANS',
+        4: 'SOM',
+        5: 'XMEANS'
+    },
+    FeatureName: {
+        0: 'Boiling_Point_Minimum_DegreesC',
+        1: 'Melting_Point_Minimum_DegreesC',
+        2: 'Flash_Point_Minimum_DegreesC',
+        3: 'Vapour_Pressure_25DegreesC_mmHg',
+        4: 'Density_25DegreesC_Minimum_kg_L',
+        5: 'Viscosity_25DegreesC_Minimum_mPa_s'
+    }
+});
    

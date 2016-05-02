@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisController', 
-    function ($scope, $window, $http, $location, $rootScope) {
+    function ($scope, $window, $http, $location, $rootScope, srvLibrary) {
         var algorithms = [];
         var models = [];
         var process = 0;

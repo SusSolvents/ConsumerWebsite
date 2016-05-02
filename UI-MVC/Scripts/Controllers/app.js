@@ -1,4 +1,4 @@
-﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt", 'sussol.services']);
+﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt", 'sussol.services', 'sussol.controllers']);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -62,8 +62,8 @@ app.config(function ($routeProvider, $locationProvider) {
 
 });
 
-angular.module('sussol.services', [])
-    .factory('srvLibrary', ['$http', function($http) {
+angular.module('sussol.services')
+    .factory('srvLibrary', ['$http', '$location', function($http, $location) {
             var services = {
                 getSolventClusterResult: function(id) {
                     var promise = $http({
@@ -76,11 +76,13 @@ angular.module('sussol.services', [])
                     });
                     return promise;
                 },
-                getUserInfo: function(id) {
+                getUserInfo: function (id) {
                     var promise = $http({
                         method: 'GET',
                         url: 'api/Account/GetUserInfo',
                         params: { id: id }
+                    }).error(function errorCallback(data) {
+                        $location.path("/404");
                     });
                     promise.success(function (data, status, headers, conf) {
                         return data;
@@ -108,24 +110,30 @@ angular.module('sussol.services', [])
                         return data;
                     });
                     return promise;
-                },
+                }
             }
             return services;
         }
     ]);
 
-app.run(['$rootScope', function ($root) {
-    $root.$on('$routeChangeStart', function (e, curr, prev) {
-        if (curr.$$route && curr.$$route.resolve) {
-            // Show a loading message until promises aren't resolved
-            $root.loadingView = true;
-        }
-    });
-    $root.$on('$routeChangeSuccess', function (e, curr, prev) {
-        // Hide loading message
-        $root.loadingView = false;
-    });
-}]);
+
+
+app.run([
+    '$rootScope', function($root) {
+        $root.$on('$routeChangeStart', function(e, curr, prev) {
+            if (curr.$$route && curr.$$route.resolve) {
+                // Show a loading message until promises aren't resolved
+                
+                $root.loadingView = true;
+            }
+        });
+        $root.$on('$routeChangeSuccess', function(e, curr, prev) {
+            // Hide loading message
+            $root.loadingView = false;
+        });
+    }
+]);
+
 
 app.controller('homeController', 
     function ($timeout) {
@@ -184,19 +192,21 @@ app.controller('homeController',
 
 angular.bootstrap(document.body, ['sussol']);
 
+app.run([
+    '$rootScope', '$location', 'AuthenticationService', '$window', function($rootScope, $location, AuthenticationService, $window) {
+        $rootScope.$on('$routeChangeStart', function (event, tostate) {
+            
+            $rootScope.username = $window.sessionStorage.username;
+            $rootScope.userId = $window.sessionStorage.userId;
+            if ($window.sessionStorage.username !== undefined) {
+                AuthenticationService.isLogged = true;
+            }
+            if (tostate.authenticate && !AuthenticationService.isLogged) {
+                event.preventDefault();
+                $location.path('/');
+                $('#login-modal').modal('show');
+            }
 
-app.run(['$rootScope', '$location', 'AuthenticationService', '$window', function ($rootScope, $location, AuthenticationService,  $window) {
-    $rootScope.$on('$routeChangeStart', function (event, tostate) {
-        $rootScope.username = $window.sessionStorage.username;
-        $rootScope.userId = $window.sessionStorage.userId;
-        if ($window.sessionStorage.username !== undefined) {
-            AuthenticationService.isLogged = true;
-        }
-        if (tostate.authenticate && !AuthenticationService.isLogged) {
-            event.preventDefault();
-            $location.path('/');
-            $('#login-modal').modal('show');
-        }
-        
-    });
-}]);
+        });
+    }
+]);
