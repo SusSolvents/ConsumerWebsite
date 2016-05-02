@@ -6,7 +6,6 @@
         var models = [];
         var clusterNames = [];
         var algorithms = [];
-        console.log(result.data);
         var data = result.data;
 
             for (var i = 0; i < data.AnalysisModels.length; i++) {
@@ -82,8 +81,6 @@
         }
 
         function intialchart(algorithmName) {
-            console.log(algorithmName);
-            console.log(values);
             $('#' + algorithmName + 'chart').highcharts({
                 "chart": {
                     "type": "heatmap",
