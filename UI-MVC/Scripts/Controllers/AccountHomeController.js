@@ -40,22 +40,18 @@
         analyses = data;
         var i;
         for (i = 0; i < data.length; i++) {
-            console.log(data[i].DateCreated);
             data[i].image = getRandomImage();
             data[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
         }
         
         $scope.analyses = data;
-        console.log(data);
         if (data.length !== 0) {
             $scope.noAnalyses = false;
         }
     });
 
     function timeSince(date) {
-        console.log(date);
         var seconds = Math.floor((new Date() - date) / 1000);
-        console.log(seconds);
         var interval = Math.floor(seconds / 31536000);
 
         if (interval > 1) {
