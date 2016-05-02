@@ -67,9 +67,9 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]
-        public List<Organisation> ReadOrganisations([FromUri] string email)
+        public List<Organisation> ReadOrganisations([FromUri] long id)
         {
-            var user = _userManager.ReadUser(email);
+            var user = _userManager.ReadUser(id);
             List<Organisation> organisations = _userManager.ReadOrganisationsForUser(user).ToList();
             return organisations;
         }

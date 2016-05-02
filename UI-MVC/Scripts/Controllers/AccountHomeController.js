@@ -1,9 +1,6 @@
-﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams, $location) {
-    $http({
-        method: 'GET',
-        url: 'api/Account/GetUserInfo?id=' + $routeParams.id
-        }).success(function succesCallback(data) {
-            
+﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams, $location, result, organisationsResult, analysesResult) {
+    var data = result.data;
+
             $scope.firstname = data.Firstname;
             $scope.lastname = data.Lastname;
             $scope.id = data.Id;
@@ -11,44 +8,28 @@
             if (picture != null && picture !== "") {
                 $scope.imageSrc = '/Content/Images/Users/' + picture;
             }
-        //$location.path("/");
-    }).error(function errorCallback(data) {
-        $location.url('/404');
-    });
     $scope.noOrganisations = true;
     $scope.noAnalyses = true;
-    var organisations;
+    var organisations = organisationsResult.data;
 
-    $http({
-        method: 'POST',
-        url: 'api/Organisation/ReadOrganisations',
-        params: {email : $rootScope.username }  
-    }).success(function succesCallback(data) {
-        organisations = data;
-        $scope.organisations = data;
-        if (data.length !== 0) {
+
+        $scope.organisations = organisations;
+        if (organisations.length !== 0) {
             $scope.noOrganisations = false;
         }
-    });
 
-    var analyses;
-    $http({
-        method: 'GET',
-        url: 'api/Analysis/GetAnalysesForUser',
-        params: { email: $rootScope.username }
-    }).success(function succesCallback(data) {
-        analyses = data;
+    var analyses = analysesResult.data;
+
         var i;
-        for (i = 0; i < data.length; i++) {
-            data[i].image = getRandomImage();
-            data[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
+        for (i = 0; i < analyses.length; i++) {
+            analyses[i].image = getRandomImage();
+            analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
         }
         
-        $scope.analyses = data;
-        if (data.length !== 0) {
+        $scope.analyses = analyses;
+        if (analyses.length !== 0) {
             $scope.noAnalyses = false;
         }
-    });
 
     function timeSince(date) {
         var seconds = Math.floor((new Date() - date) / 1000);

@@ -45,9 +45,9 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/GetAnalysesForUser
         [Route("GetAnalysesForUser")]
-        public List<Analysis> GetAnalysesForUser([FromUri] string email)
+        public List<Analysis> GetAnalysesForUser([FromUri] long id)
         {
-            var user = _userManager.ReadUser(email);
+            var user = _userManager.ReadUser(id);
             return _analysisManager.ReadAnalysesForUser(user).ToList();
         } 
 

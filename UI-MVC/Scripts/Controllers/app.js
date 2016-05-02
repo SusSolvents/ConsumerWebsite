@@ -16,7 +16,19 @@ app.config(function ($routeProvider, $locationProvider) {
     }); 
     $routeProvider.when("/account/:id", { 
         templateUrl: "Content/Views/Account/Home.html",
-        authenticate: true 
+        controller: 'AccountHomeController as account',
+        authenticate: true,
+        resolve: {
+            result: function ($route, srvLibrary) {
+                return srvLibrary.getUserInfo($route.current.params.id);
+            },
+            organisationsResult: function($route, srvLibrary) {
+                return srvLibrary.readOrganisations($route.current.params.id);
+            },
+            analysesResult: function($route, srvLibrary) {
+                return srvLibrary.readAnalyses($route.current.params.id);
+            }
+        }
     });
     $routeProvider.when("/organisation/create", {
         templateUrl: "Content/Views/Organisation/Create.html", 
@@ -36,9 +48,7 @@ app.config(function ($routeProvider, $locationProvider) {
         authenticate: true,
         resolve: {
             result: function ($route, srvLibrary) {
-                var result = srvLibrary.getSolventClusterResult($route.current.params.id);
-                console.log(result);
-                return result;
+                return srvLibrary.getSolventClusterResult($route.current.params.id);
             }
         }
     });
@@ -64,7 +74,40 @@ angular.module('sussol.services', [])
                         return data;
                     });
                     return promise;
-                }
+                },
+                getUserInfo: function(id) {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Account/GetUserInfo',
+                        params: { id: id }
+                    });
+                    promise.success(function (data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readOrganisations: function (id) {
+                    var promise = $http({
+                        method: 'POST',
+                        url: 'api/Organisation/ReadOrganisations',
+                        params: { id: id }
+                    });
+                    promise.success(function (data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readAnalyses: function (id) {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Analysis/GetAnalysesForUser',
+                        params: { id: id }
+                    });
+                    promise.success(function (data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
             }
             return services;
         }
