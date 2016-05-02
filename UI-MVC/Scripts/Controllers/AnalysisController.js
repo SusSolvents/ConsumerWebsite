@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisController', 
-    function ($scope, $window, $http, $location) {
+    function ($scope, $window, $http, $location, srvLibrary) {
         var algorithms = [];
         var models = [];
         var process = 0;
@@ -109,13 +109,9 @@
         }
 
         $scope.showAlgorithms = function showAlgorithms() {
-            $http({
-                method: 'POST',
-                url: 'api/Analysis/CreateAnalysis',
-                params: { algorithms: algorithms, dataSet: selectedModel.id, name: analyseName }
-            }).success(function (data) {
-                $location.path("/analysis/overview/" + data.Id);
-            });
+            var result = srvLibrary.showAlgorithms(algorithms, selectedModel.id, analyseName);
+
+                $location.path("/analysis/overview/" + result.data.id);
         }
 
         $scope.previous = function previous() {
