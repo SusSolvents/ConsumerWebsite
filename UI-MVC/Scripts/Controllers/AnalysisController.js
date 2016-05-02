@@ -67,8 +67,11 @@
         var selectedModel;
         var analyseName;
         $scope.selectModel = function selectModel($event) {
+            console.log(selectedModel);
             if (selectedModel !== undefined) {
-                $event.currentTarget.style.borderColor = "lightgray";
+                selectedModel.style.borderColor = "lightgray";
+                selectedModel.backgroundColor = "rgba(255, 255, 255, 0.1)";
+
             }
             selectedModel = $event.currentTarget;
             $event.currentTarget.style.borderWidth = "3px";
@@ -103,12 +106,14 @@
         }
 
         $scope.showAlgorithms = function showAlgorithms() {
+            $rootScope.loadingView = true;
             $http({
                 method: 'POST',
                 url: 'api/Analysis/CreateAnalysis',
                 params: { algorithms: algorithms, dataSet: selectedModel.id, name: analyseName }
             }).success(function (data) {
                 $location.path("/analysis/overview/" + data.Id);
+                $rootScope.loadingView = false;
             });
         }
 
