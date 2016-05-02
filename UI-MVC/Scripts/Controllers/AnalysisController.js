@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisController', 
-    function ($scope, $window, $http, $location) {
+    function ($scope, $window, $http, $location, $rootScope) {
         var algorithms = [];
         var models = [];
         var process = 0;
@@ -48,28 +48,22 @@
             return false;
         }
         
-        //$scope.startAnalysis = function startAnalysis() {
-        //    angular.element(document.querySelector('#overlay')).css("visibility", "visible");
-         
-        //    $http({
-        //        method: 'POST',
-        //        url: 'api/Analysis/StartAnalysis',
-        //        params: {algorithms : algorithms}
-
-        //    }).success(function (data) {
-        //        console.log(data);
-        //        process = process + 25;
-        //        angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
-        //        models = data;
-        //        $scope.algorithms = data;
-        //        $scope.btnclass = "button-right disabled";
-        //        setTimeout(function() {
-                 
-        //            angular.element(document.querySelector('#overlay')).css("visibility", "collapse");
-                    
-        //        }, 2000);
-        //    });
-        //}
+        $scope.startAnalysis = function startAnalysis() {
+            $rootScope.loadingView = true;
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/StartAnalysis',
+                params: {algorithms : algorithms}
+            }).success(function (data) {
+                console.log(data);
+                process = process + 25;
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+                models = data;
+                $scope.algorithms = data;
+                $scope.btnclass = "button-right disabled";
+                $rootScope.loadingView = false;
+            });
+        }
         var selectedModel;
         var analyseName;
         $scope.selectModel = function selectModel($event) {
