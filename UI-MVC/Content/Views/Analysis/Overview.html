@@ -19,9 +19,11 @@
         <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}" />
         <button ng-click="changeName()">Change name</button>
 
-        
 
 
+        <div id="chartContainer" style="height: 300px; width: 100%;">
+            
+        </div>
             <div ng-repeat="model in models" >
 
             <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
