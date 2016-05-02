@@ -107,18 +107,6 @@ angular.module('sussol.services', [])
                         return data;
                     });
                     return promise;
-                },
-                showAlgorithms: function (algorithms, id, name) {
-                    var promise = $http({
-                        method: 'POST',
-                        url: 'api/Analysis/CreateAnalysis',
-                        params: { algorithms: algorithms, dataSet: id, name: name }
-
-                    });
-                    promise.success(function (data, status, headers, conf) {
-                        return data;
-                    });
-                    return promise;
                 }
             }
             return services;
