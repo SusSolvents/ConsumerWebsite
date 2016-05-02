@@ -1061,40 +1061,42 @@ form.ng-submitted .ng-valid {
 }
 
 
-#overlay {
-  
+.overlay {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
-    background: #000;
-    opacity: 1;
-    filter: alpha(opacity=100);
+    background: rgba(0,0,0,0.9);
     text-align: center;
-    visibility: collapse;
-
-    
 }
 
 .sk-cube-grid {
    width: 90px;
     height: 90px;
-    
-    margin: -28px 0 0 -25px;
+    /* margin: -28px 0 0 -25px; */
+    display: block;
+    margin: 0 auto;
 }
 .wrapper {
-    position: absolute;
-    top: 40%;
-    left: 50%;
+        width: 200px;
+    height: 250px;
+    /* position: absolute; */
+    overflow: hidden;
+    
+    /* margin-top: 500px; */
+    /* left: 45%; */
+    margin: 0 auto;
+    margin-top: 400px;
+    display: block;
     text-align: center;
     
 }
 .wrapper h2 {
-    margin-left: -70px;
-    margin-top: 40px;
+    
+    margin-top: 60px;
     font-size: 50px;
-    width: 150px;
+    text-align: center;
 
 }
 
@@ -1102,6 +1104,7 @@ form.ng-submitted .ng-valid {
   width: 33%;
   height: 33%;
   background-color: white;
+    color: white;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
           animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
