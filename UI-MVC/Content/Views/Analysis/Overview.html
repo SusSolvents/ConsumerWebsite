@@ -19,13 +19,13 @@
         <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}" />
         <button ng-click="changeName()">Change name</button>
 
-        
+
             <div ng-repeat="model in models">
-                
-                <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
+
+            <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
                     <a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
                         <div class="panel-group" id="accordion-{{model.Model.AlgorithmName}}" >
-                            <div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
+                    <div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
                                 <div class="panel panel-default" style="background: none">
                                     <div class="panel-heading" style="background: none">
                                         <h4 class="panel-title">
@@ -44,12 +44,12 @@
                                         </div>
                                     </div>
                                     <!--<div ng-repeat="distance in cluster.DistanceToClusters">
-                    Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
+                        Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
                 </div>-->
 
-                                </div>
-                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

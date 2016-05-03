@@ -7,7 +7,7 @@
         var chartArray = [];
         var algorithms = [];
         var data = result.data;
-
+        
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
                 algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
@@ -28,12 +28,10 @@
                 $scope.solvents = data;
             });
 
-
             $scope.models = data.AnalysisModels;
             $scope.analysisName = data.Name;
-        console.log(chartArray);
 
-        
+
         $scope.selectedSolvent = function selectedSolvent($item) {
             $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
             var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
@@ -61,7 +59,7 @@
             });
         }
 
-                    
+
     });
 app.constant('Constants', {
     AlgorithmName: {

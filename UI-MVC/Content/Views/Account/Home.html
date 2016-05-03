@@ -31,23 +31,26 @@
             <div class="analysis-card-blog-style-1" ng-if="!noAnalyses">
                 <div>
                     <div class="row">
-                        <div class="col-lg-3" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                        <div class="col-lg-12">
+                            <div class="col-lg-3" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
                             <div class="analysis-card-post">
                                 <div class="analysis-card-post-image">
                                     <div class="analysis-card-overlay"></div>
                                     <img ng-src="{{analysis.image}}" alt="Image">
                                 </div>
                                 <div class="analysis-card-post-text">
-                                    <h3><a href="#">{{analysis.Name}}</a>
+                                        <h3>
+                                            <a href="#">{{analysis.Name}}</a>
                                     </h3>
 
                                     <p>{{analysis.NumberOfSolvents}} Solvents</p>
                                 </div>
                                 <div class="analysis-card-post-meta">
-                                    #{{analysis.Id}}<br/>
+                                        #{{analysis.Id}}<br />
                                     <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
                                 </div>
                             </div>
+                        </div>
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                     </div>
