@@ -21,10 +21,17 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
+            <select class="OrderBy" ng-model="OrderBy">
+                <option value="" disabled selected hidden>Order by</option>
+                <option value="DateCreated">Date</option>
+                <option value="-DateCreated">Date Desc</option>
+                <option value="Name">Name</option>
+                <option value="-Name">Name Desc</option>
+            </select>
             <div class="analysis-card-blog-style-1" ng-if="!noAnalyses">
                 <div>
                     <div class="row">
-                        <div class="col-lg-3" ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                        <div class="col-lg-3" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
                             <div class="analysis-card-post">
                                 <div class="analysis-card-post-image">
                                     <div class="analysis-card-overlay"></div>

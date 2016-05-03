@@ -19,46 +19,26 @@
         }
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
-
+            $http({
+                method: 'GET',
+                url: 'api/Analysis/GetSolvents',
+                params: { id: $routeParams.id }
+            }).success(function succesCallback(data) {
+                solvents = data;
+                $scope.solvents = data;
+            });
 
 
             $scope.models = data.AnalysisModels;
             $scope.analysisName = data.Name;
         console.log(chartArray);
 
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawSeriesChart);
-        function drawSeriesChart() {
-
-        $http({
-            method: 'GET',
-            url: 'api/Analysis/GetSolvents',
-            params: { id: $routeParams.id }
-        }).success(function succesCallback(data) {
-            solvents = data;
-            $scope.solvents = data;
-        });
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'clusterID');
-            data.addColumn('number', 'x-as');
-            data.addColumn('number', 'y-as');
-            data.addColumn('string', 'cluster');
-            data.addColumn('number', 'size');
-            data.addRows(chartArray);
-            var options = {
-                title: 'Correlation between life expectancy, fertility rate ' +
-                       'and population of some world countries (2010)',
-                vAxis: {gridlines: {count: 2}},
-                
-                sizeAxis: { maxSize: 60}
-            };
-
-            var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-            chart.draw(data, options);
-        }
-
+        
         $scope.selectedSolvent = function selectedSolvent($item) {
             $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
+            var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
+            $("#" + name).collapse();
+            console.log(name);
         }
 
         $scope.changetab = function changetab(event, name) {

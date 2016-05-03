@@ -75,7 +75,8 @@ namespace SS.BL.Analyses
             {
                 Number = number,
                 DistanceToClusters = new Collection<ClusterDistanceCenter>(),
-                Solvents = new Collection<Solvent>()
+                Solvents = new Collection<Solvent>(),
+                VectorData = new Collection<VectorData>()
             };
             return repo.CreateCluster(cluster);
         }

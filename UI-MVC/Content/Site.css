@@ -1299,3 +1299,12 @@ form.ng-submitted .ng-valid {
   -moz-animation: ani-mouse 2.5s linear infinite;
   animation: ani-mouse 2.5s linear infinite;
 }
+
+.OrderBy {
+    color: black;
+    width: 25%;
+}
+
+.selectedSolvent {
+    background-color: purple;
+}

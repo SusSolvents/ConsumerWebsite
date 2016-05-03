@@ -6,8 +6,8 @@
              pause="100"
              selected-object="selectedSolvent"
              local-data="solvents"
-             search-fields="CasNumber"
-             title-field="CasNumber"
+             search-fields="Name"
+             title-field="Name"
              minlength="1"
              input-class="form-control form-control-small"
              match-class="highlight"
@@ -19,28 +19,38 @@
         <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}" />
         <button ng-click="changeName()">Change name</button>
 
+        
+            <div ng-repeat="model in models">
+                
+                <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
+                    <a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
+                        <div class="panel-group" id="accordion-{{model.Model.AlgorithmName}}" >
+                            <div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
+                                <div class="panel panel-default" style="background: none">
+                                    <div class="panel-heading" style="background: none">
+                                        <h4 class="panel-title">
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{cluster.Number}}" style="border: none; width: 100%; text-align: left" >
+                                                Cluster {{cluster.Number}}
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div id="{{cluster.Number}}" class="panel-collapse collapse">
+                                        <div class="panel-body" style="width: 100%; max-height: 150px; overflow: scroll; overflow-x: hidden;">
+                                            <div ng-repeat="solvent in cluster.Solvents" >
+                                                <div id="{{model.Model.AlgorithmName}}-{{solvent.CasNumber}}" name="{{cluster.Number}}">
+                                                    Solvent: {{solvent.Name}} ({{solvent.CasNumber}}) has distance to cluster center: {{solvent.DistanceToClusterCenter | number:3}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div ng-repeat="distance in cluster.DistanceToClusters">
+                    Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
+                </div>-->
 
-
-        <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
-            <div ng-repeat="model in models" >
-
-            <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
-                    <!--<div id="{{model.Model.AlgorithmName}}chart" style="height: 400px; max-width: 800px; margin: 0 auto"></div>-->
-                    <a class="button btn-sm" >{{model.Model.AlgorithmName}}</a>
-
-                    <div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
-                    <h1>Cluster {{cluster.Number}}</h1>
-                    <div ng-repeat="distance in cluster.DistanceToClusters">
-                        Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
+                                </div>
+                            </div>
                     </div>
-                    <div ng-repeat="solvent in cluster.Solvents">
-                        <div id="{{model.Model.AlgorithmName}}-{{solvent.CasNumber}}">
-                            Solvent: {{solvent.Name}} ({{solvent.CasNumber}}) has distance to cluster center: {{solvent.DistanceToClusterCenter}}
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-
     </div>
     </div>

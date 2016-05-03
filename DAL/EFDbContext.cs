@@ -27,6 +27,7 @@ namespace SS.DAL
         public DbSet<Solvent> Solvents { get; set; }
         public DbSet<ClusterDistanceCenter> ClusterDistanceCenters { get; set; }
         public DbSet<AnalysisModel> AnalysisModels { get; set; }
+        public DbSet<VectorData> VectorData { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
