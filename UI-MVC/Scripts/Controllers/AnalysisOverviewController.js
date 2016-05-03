@@ -1,30 +1,34 @@
 ﻿app.controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, Constants, result) {
+    function($scope, $window, $http, $routeParams, Constants, result) {
         var solvents = [];
         var selectedAlgorithm;
         var clusters = [];
         var models = [];
-        var clusterNames = [];
+        var chartArray = [];
         var algorithms = [];
         var data = result.data;
 
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
                 algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
+            for (var j = 0; j < data.AnalysisModels[i].Model.Clusters.length; j++) {
+                chartArray[j] = [j+"",10+ (j * 30), 0.5, "cluster", data.AnalysisModels[i].Model.Clusters[j].Solvents.length];
+                //clusters[j] = { 'ClusterNumber': j, 'x': , 'y': 1, 'opt': null, 'size': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 10 };
             }
+            
+        }
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
 
 
-            models = data.AnalysisModels;
 
             $scope.models = data.AnalysisModels;
             $scope.analysisName = data.Name;
-            /*for (var j = 0; j < data.AnalysisModels.length; j++) {
-                setValuesForChart(data.AnalysisModels[j].Model.AlgorithmName);
-                intialchart(data.AnalysisModels[j].Model.AlgorithmName);
-            }*/
+        console.log(chartArray);
 
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawSeriesChart);
+        function drawSeriesChart() {
 
         $http({
             method: 'GET',
@@ -34,9 +38,27 @@
             solvents = data;
             $scope.solvents = data;
         });
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'clusterID');
+            data.addColumn('number', 'x-as');
+            data.addColumn('number', 'y-as');
+            data.addColumn('string', 'cluster');
+            data.addColumn('number', 'size');
+            data.addRows(chartArray);
+            var options = {
+                title: 'Correlation between life expectancy, fertility rate ' +
+                       'and population of some world countries (2010)',
+                vAxis: {gridlines: {count: 2}},
+                
+                sizeAxis: { maxSize: 60}
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+            chart.draw(data, options);
+        }
 
         $scope.selectedSolvent = function selectedSolvent($item) {
-                $("#"+ selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
+            $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
         }
 
         $scope.changetab = function changetab(event, name) {
@@ -47,103 +69,20 @@
             $("#" + name).addClass('current');
             selectedAlgorithm = name;
         };
-        $scope.tester = function () {
+        $scope.tester = function() {
             console.log("hello");
         };
         $scope.changeName = function changeName() {
             $http({
                 method: 'POST',
                 url: 'api/Analysis/ChangeName',
-                params: { name : $scope.newName,  analysisId: $routeParams.id }
+                params: { name: $scope.newName, analysisId: $routeParams.id }
             }).success(function succesCallback(data) {
             });
         }
-        var values = [];
-        $scope.init = function (algorithmName) {
-            clusters = [];
-            clusterNames = [];
-            values = [];
-            for (var k = 0; k < models.length; k++) {
-                if (models[k].Model.AlgorithmName === algorithmName) {
-                    clusters = models[k].Model.Clusters;
-                }
-            }
-            for (var cluster in clusters) {
-                clusterNames.push("Cluster_" + cluster);
-            }
-            for (var i = 0; i < clusters.length; i++) {
-                for (var j = 0; j < clusters.length; j++) {
-                    var value = [i, j, clusters[i].DistanceToClusters[j].Distance];
-                    values.push(value);
-                }
-            }
-            intialchart(algorithmName);
-        }
 
-        function intialchart(algorithmName) {
-            $('#' + algorithmName + 'chart').highcharts({
-                "chart": {
-                    "type": "heatmap",
-                    "marginTop": 10,
-                    "marginBottom": 40,
-                    "height": 450
-                },
-                "title": {
-                    "text": ""
-                },
-                "xAxis": {
-                    "categories": clusterNames
-                },
-                "yAxis": {
-                    "categories": clusterNames,
-                    "title": null
-                },
-                "colorAxis": {
-                    "min": 0,
-                    "minColor": "#FFFFFF",
-                    "maxColor": "#7EB26D"
-                },
-                "legend": {
-                    "align": "right",
-                    "layout": "vertical",
-                    "margin": 0,
-                    "verticalAlign": "top",
-                    "y": 25,
-                    "symbolHeight": 320
-                },
-                "tooltip": {
-        
-                },
-                "plotOptions": {
-                    "heatmap": {
-                        "borderColor": "#7EB26D",
-                        "point": {
-                            "events": {
                     
-                            }
-                        }
-                    }
-                },
-                "series": [
-                    {
-                        "name": "Sales per employee",
-                        "borderWidth": 1,
-                        "data": values,
-                        "dataLabels": {
-                            "enabled": true,
-                            "color": "black",
-                            "style": {
-                                "textShadow": "none",
-                                "HcTextStroke": null
-                            }
-                        }
-                    }
-                ]
-            });
-        }
-
     });
-
 app.constant('Constants', {
     AlgorithmName: {
         0: 'CANOPY',
@@ -162,3 +101,4 @@ app.constant('Constants', {
         5: 'Viscosity_25DegreesC_Minimum_mPa_s'
     }
 });
+   

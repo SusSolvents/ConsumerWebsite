@@ -1062,11 +1062,12 @@ form.ng-submitted .ng-valid {
 
 
 .overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
+    height: 100%;
     background: rgba(0,0,0,0.9);
     text-align: center;
 }

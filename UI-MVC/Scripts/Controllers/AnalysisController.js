@@ -70,7 +70,7 @@
             console.log(selectedModel);
             if (selectedModel !== undefined) {
                 selectedModel.style.borderColor = "lightgray";
-                selectedModel.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                selectedModel.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
 
             }
             selectedModel = $event.currentTarget;
