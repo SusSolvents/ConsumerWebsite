@@ -26,14 +26,14 @@
             }*/
 
 
-        /*$http({
+        $http({
             method: 'GET',
             url: 'api/Analysis/GetSolvents',
             params: { id: $routeParams.id }
         }).success(function succesCallback(data) {
             solvents = data;
             $scope.solvents = data;
-        });*/
+        });
 
         $scope.selectedSolvent = function selectedSolvent($item) {
                 $("#"+ selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
