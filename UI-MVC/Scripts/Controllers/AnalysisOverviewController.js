@@ -18,36 +18,50 @@
             
         }
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
-
-
+        
 
 
             $scope.models = data.AnalysisModels;
             $scope.analysisName = data.Name;
-        console.log(chartArray);
+        
+        // minimal heatmap instance configuration
+            var heatmapInstance = h337.create({
+                // only container is required, the rest will be defaults
+                container: document.querySelector('.heatmap')
+            });
 
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawSeriesChart);
-        function drawSeriesChart() {
+        // now generate some random data
+            var points = [];
+            var max = 0;
+            var currWidth = 250;
+            var width = 840;
+            var height = 200;
+            var len = 4;
 
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'clusterID');
-            data.addColumn('number', 'x-as');
-            data.addColumn('number', 'y-as');
-            data.addColumn('string', 'cluster');
-            data.addColumn('number', 'size');
-            data.addRows(chartArray);
-            var options = {
-                title: 'Correlation between life expectancy, fertility rate ' +
-                       'and population of some world countries (2010)',
-                vAxis: {gridlines: {count: 2}},
-                
-                sizeAxis: { maxSize: 60}
+            while (len--) {
+                var val = Math.floor(10);
+                // now also with custom radius
+                var radius = Math.floor(150);
+
+                max = Math.max(max, val);
+                var point = {
+                    x: Math.floor(currWidth),
+                    y: Math.floor(height),
+                    value: val,
+                    // radius configuration on point basis
+                    radius: radius
+                };
+                currWidth += 250;
+                points.push(point);
+            }
+        // heatmap data format
+            var data = {
+                max: max,
+                data: points
             };
-
-            var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-            chart.draw(data, options);
-        }
+        // if you have a set of datapoints always use setData instead of addData
+        // for data initialization
+            heatmapInstance.setData(data);
 
         $scope.selectedSolvent = function selectedSolvent($item) {
             $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');

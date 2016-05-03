@@ -356,8 +356,8 @@
     <Content Include="Content\Csv\Solvent matrix_9 solvents.csv" />
     <Content Include="Content\Csv\Solvent matrix_volledig.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
+    <Content Include="Scripts\heatmap.min.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />
@@ -366,7 +366,6 @@
     <Content Include="Scripts\Controllers\LoginController.js" />
     <Content Include="Scripts\Controllers\OrganisationController.js" />
     <Content Include="Scripts\Controllers\UploadController.js" />
-    <Content Include="Scripts\hexagons.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

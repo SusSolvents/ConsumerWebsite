@@ -8,15 +8,14 @@ namespace SS.UI.Web.MVC
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"
-                      
+                
+                "~/Scripts/jquery-{version}.js"
                         , "~/Scripts/site.js"
                         , "~/Scripts/timeline.js"
                         , "~/Scripts/tabs.js"
                         , "~/Scripts/jquery-easing.js"
                         , "~/Scripts/morphext.min.js"
-                        , "~/Scripts/canvasjs.min.js"
-
+                        , "~/Scripts/heatmap.min.js"
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -37,6 +36,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/cards.css",
                       "~/Content/tabs.css",
                       "~/Content/font-awesome.min.css",
+                      
                       "~/Content/animate.css",
                       "~/Content/autocomplete.css",
                       "~/Content/site.css"));

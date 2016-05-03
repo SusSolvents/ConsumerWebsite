@@ -954,6 +954,20 @@ form.ng-submitted .ng-valid {
     padding: 4em 0;
   }
 }
+@media screen and (max-width: 1200px) {
+  .analysis-card-post {
+      max-width: 46%;
+      margin-left: 2%;
+      margin-right: 2%;
+  }
+}
+@media screen and (max-width: 896px) {
+  .analysis-card-post {
+      max-width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+  }
+}
 .analysis-card-blog-style-1 .analysis-card-post {
   float: left;
   width: 100%;
@@ -1299,3 +1313,5 @@ form.ng-submitted .ng-valid {
   -moz-animation: ani-mouse 2.5s linear infinite;
   animation: ani-mouse 2.5s linear infinite;
 }
+
+
