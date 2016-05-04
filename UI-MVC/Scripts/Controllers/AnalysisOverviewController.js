@@ -10,13 +10,18 @@
         
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
-                algorithms.push(i, Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName]);
-            for (var j = 0; j < data.AnalysisModels[i].Model.Clusters.length; j++) {
-                chartArray[j] = [j+"",10+ (j * 30), 0.5, "cluster", data.AnalysisModels[i].Model.Clusters[j].Solvents.length];
-                //clusters[j] = { 'ClusterNumber': j, 'x': , 'y': 1, 'opt': null, 'size': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 10 };
+                algorithms.push(data.AnalysisModels[i].Model.AlgorithmName);
+            }
+        
+            for (var i = 0; i < algorithms.length; i++) {
+                if (i === 0) {
+                    $('#' + algorithms[i]).addClass("active");
+                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
+                }
+                $('#' + algorithms[i]).removeClass("disabled");
             }
             
-        }
+            
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 var clusters = getClusters(data.AnalysisModels[i].Model);
                 var clusterPositions = [];
@@ -66,7 +71,7 @@
                     var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
                     json.push({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number });
                 }
-                console.log(json);
+                
                 return json;
             }    
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
@@ -90,10 +95,13 @@
                 var index = $(this).index();
                 $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
                 $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+                console.log(e.currentTarget.id);
+                createChart(findModelOnName(e.currentTarget.id));
+
             });
 
         function createChart(model) {
-            var chart = new CanvasJS.Chart("chartContainer",
+            var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
                 zoomEnabled: true,
                 animationEnabled: true,
@@ -164,12 +172,14 @@
         function findModelOnName(name) {
             var model = null;
             for (var i = 0; i < data.AnalysisModels.length; i++) {
-                if (data.AnalysisModels[i].Model.AlgorithmName.localeCompare(name)) {
+                if (data.AnalysisModels[i].Model.AlgorithmName ===  name) {
                     model = data.AnalysisModels[i].Model;
                 }
             }
+            
             return model;
         }
+
         createChart(data.AnalysisModels[0].Model);
     });
 app.constant('Constants', {

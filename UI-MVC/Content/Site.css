@@ -1376,6 +1376,10 @@ div.bhoechie-tab-menu div.list-group>a.active .fa{
     outline: none;
   color: #ffffff;
 }
+.list-group-item.disabled {
+    pointer-events: none !important;
+    cursor: not-allowed;
+}
 div.bhoechie-tab-menu div.list-group>a.active:after{
   content: '';
   position: absolute;
