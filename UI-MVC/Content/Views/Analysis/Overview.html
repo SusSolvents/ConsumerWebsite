@@ -4,17 +4,20 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bhoechie-tab-container">
         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
             <div class="list-group">
-                <a href="#" id="CANOPY" class="list-group-item disabled text-center">
+                <a href="#" id="CANOPY" class="list-group-item disabled blurless text-center">
                     <h4 class="glyphicon glyphicon-plane"></h4><br />Canopy
                 </a>
-                <a href="#" id="KMEANS" class="list-group-item disabled text-center">
+                <a href="#" id="KMEANS" class="list-group-item disabled blurless text-center">
                     <h4 class="glyphicon glyphicon-road"></h4><br />Kmeans
                 </a>
-                <a href="#" id="EM" class="list-group-item disabled text-center">
+                <a href="#" id="EM" class="list-group-item disabled blurless text-center">
                     <h4 class="glyphicon glyphicon-home"></h4><br />EM
                 </a>
-                <a href="#" id="SOM" class="list-group-item disabled text-center">
-                    <h4 class="glyphicon glyphicon-cutlery"></h4><br />SOM
+                <a href="#" id="SOM" class="list-group-item disabled blurless text-center">
+                    <h4 class="glyphicon glyphicon-cutlery"></h4><br/>SOM
+                </a>
+                <a href="#" id="XMEANS" class="list-group-item disabled blurless text-center">
+                    <h4 class="glyphicon glyphicon-cutlery"></h4><br />XMEANS
                 </a>
                 
             </div>
@@ -22,7 +25,7 @@
         <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10 bhoechie-tab">
             <div class="bhoechie-tab-content" id="CANOPY_CONTENT">
                 <center>
-                    <div angucomplete-alt 
+                    <!--<div angucomplete-alt
                          id="ex1"
                          placeholder="Search solvent"
                          maxlength="50"
@@ -34,8 +37,12 @@
                          minlength="1"
                          input-class="form-control form-control-small"
                          match-class="highlight"
-                         clear-selected="true"></div>
-                    <div id="chartContainer_CANOPY" style="height: 300px; width: 100%;">
+                         clear-selected="true"></div>-->
+                    <div class="div-overlayed" style="height: 300px; width: 100%;">
+                        
+                        <div id="chartContainer_CANOPY" style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="overlay_CANOPY"></div>
                     </div>
                 </center>
             </div>
@@ -56,7 +63,11 @@
                          match-class="highlight"
                          clear-selected="true"></div>
 
-                    <div id="chartContainer_KMEANS" style="height: 300px; width: 100%;">
+                    <div class="div-overlayed" style="height: 300px; width: 100%;">
+
+                        <div id="chartContainer_KMEANS" style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="overlay_KMEANS"></div>
                     </div>
                 </center>
             </div>
@@ -78,7 +89,11 @@
                          match-class="highlight"
                          clear-selected="true"></div>
 
-                    <div id="chartContainer_EM" style="height: 300px; width: 100%;">
+                    <div class="div-overlayed" style="height: 300px; width: 100%;">
+
+                        <div id="chartContainer_EM" style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="overlay_EM"></div>
                     </div>
                 </center>
             </div>
@@ -98,17 +113,43 @@
                          match-class="highlight"
                          clear-selected="true"></div>
 
-                    <div id="chartContainer_SOM" style="height: 300px; width: 100%;">
+                    <div class="div-overlayed" style="height: 300px; width: 100%;">
+                        <div id="chartContainer_SOM" style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="overlay_SOM"></div>
                     </div>
                 </center>
             </div>
-           
+            <div class="bhoechie-tab-content" id="XMEANS_CONTENT">
+                <center>
+                    <div angucomplete-alt
+                         id="ex1"
+                         placeholder="Search solvent"
+                         maxlength="50"
+                         pause="100"
+                         selected-object="selectedSolvent"
+                         local-data="solvents"
+                         search-fields="Name"
+                         title-field="Name"
+                         minlength="1"
+                         input-class="form-control form-control-small"
+                         match-class="highlight"
+                         clear-selected="true"></div>
+
+                    <div class="div-overlayed" style="height: 300px; width: 100%;">
+                        <div id="chartContainer_XMEANS" style="height: 100%; width: 100%;">
+                        </div>
+                        <div id="overlay_XMEANS"></div>
+                    </div>
+                </center>
+            </div>
         </div>
+        
     </div>
 
 
     
-    <div class="centered-container-big padding-none">
+   <!-- <div class="centered-container-big padding-none">
         
         <label>Change name</label>
         <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}" />
@@ -140,12 +181,12 @@
                                     </div>
                                     <!--<div ng-repeat="distance in cluster.DistanceToClusters">
                         Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
-                </div>-->
+                </div>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     </div>

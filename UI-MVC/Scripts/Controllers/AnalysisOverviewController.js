@@ -19,6 +19,7 @@
                     $('#' + algorithms[i] + '_CONTENT').addClass("active");
                 }
                 $('#' + algorithms[i]).removeClass("disabled");
+                $('#' + algorithms[i]).removeClass("blurless");
             }
             
             
@@ -61,6 +62,7 @@
 
             function createJsonModel(model) {
                 var json = [];
+                var percentages = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
                     var valuesSolvents = [];
                     for (var j = 0; j < model.Clusters[i].Solvents.length; j++) {
@@ -69,9 +71,10 @@
                     var max = Math.max.apply(Math, valuesSolvents);
                     
                     var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
+                    percentages.push(percentage);
                     json.push({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number });
                 }
-                
+                model.maxPercent = Math.max.apply(Math, percentages);
                 return json;
             }    
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
@@ -101,8 +104,11 @@
             });
 
         function createChart(model) {
+               
+            var jsonModel = createJsonModel(model);
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
+                
                 zoomEnabled: true,
                 animationEnabled: true,
                 title: {
@@ -126,6 +132,8 @@
                     interval: 10,
                     gridThickness: 1,
                     tickThickness: 1,
+                    interval: 5,
+                    viewportMaximum: model.maxPercent + 15,
                     gridColor: "lightgrey",
                     tickColor: "lightgrey",
                     lineThickness: 0,
@@ -137,11 +145,12 @@
                     {
                         type: "bubble",
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>Normalized values</strong> {x} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
-                        dataPoints: createJsonModel(model),
+                        dataPoints: jsonModel,
                         click: function (e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
-                            console.log(e.color);
-                            e.toolTip = false;
+                            
+                            $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
+
                         }
                     }
                 ]
