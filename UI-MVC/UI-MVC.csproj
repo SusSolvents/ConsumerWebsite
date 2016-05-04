@@ -354,7 +354,6 @@
     <Content Include="Content\Csv\Solvent matrix_15 solvents.csv" />
     <Content Include="Content\Csv\Solvent matrix_80 solvents.csv" />
     <Content Include="Content\Csv\Solvent matrix_9 solvents.csv" />
-    <Content Include="Content\Csv\Solvent matrix_volledig.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
     <Content Include="Scripts\heatmap.min.js" />
