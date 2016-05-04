@@ -1323,10 +1323,9 @@ form.ng-submitted .ng-valid {
 .canvasjs-chart-credit {
     visibility: hidden !important;
 }
-
 /*  bhoechie tab */
 div.bhoechie-tab-container{
- 
+  min-width: 800px;
   background-color: #ffffff;
   padding: 0 !important;
   border-radius: 4px;
@@ -1347,20 +1346,20 @@ div.bhoechie-tab-menu{
   padding-bottom: 0;
   height: 100%
 }
-@media screen and (max-width: 1070px) {
-  a.list-group-item{
-      color: transparent;
-  }
-}
+
 div.bhoechie-tab-menu div.list-group{
   margin-bottom: 0;
 }
 div.bhoechie-tab-menu div.list-group>a{
   margin-bottom: 0;
+    font-size: 18px;
+    color: purple;
+    font-family: "Questrial"
 }
 div.bhoechie-tab-menu div.list-group>a .glyphicon,
 div.bhoechie-tab-menu div.list-group>a .fa {
-  color: #5A55A3;
+  color: purple;
+  
 }
 div.bhoechie-tab-menu div.list-group>a:first-child{
   border-top-right-radius: 0;
@@ -1373,8 +1372,8 @@ div.bhoechie-tab-menu div.list-group>a:last-child{
 div.bhoechie-tab-menu div.list-group>a.active,
 div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
 div.bhoechie-tab-menu div.list-group>a.active .fa{
-  background-color: #5A55A3;
-  background-image: #5A55A3;
+  background-color: purple;
+    outline: none;
   color: #ffffff;
 }
 div.bhoechie-tab-menu div.list-group>a.active:after{
@@ -1386,7 +1385,7 @@ div.bhoechie-tab-menu div.list-group>a.active:after{
   border-left: 0;
   border-bottom: 13px solid transparent;
   border-top: 13px solid transparent;
-  border-left: 10px solid #5A55A3;
+  border-left: 10px solid purple;
 }
 
 div.bhoechie-tab-content{

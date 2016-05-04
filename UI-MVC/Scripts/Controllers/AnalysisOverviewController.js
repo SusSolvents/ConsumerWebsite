@@ -16,7 +16,7 @@
                 //clusters[j] = { 'ClusterNumber': j, 'x': , 'y': 1, 'opt': null, 'size': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 10 };
             }
             
-            }
+        }
             for (var i = 0; i < data.AnalysisModels.length; i++) {
                 var clusters = getClusters(data.AnalysisModels[i].Model);
                 var clusterPositions = [];
@@ -122,7 +122,7 @@
                     lineThickness: 0,
                     valueFormatString: "#0'%'"
 
-                },
+            },
 
                 data: [
                     {
@@ -139,7 +139,7 @@
 
             chart.render();
         }
-        
+            
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;
         }
@@ -151,18 +151,7 @@
             console.log(name);
         }
 
-        $scope.changetab = function changetab(event, name) {
-            $('ul.tabs-test li').removeClass('current');
-            $('.tab-content').removeClass('current');
 
-            $(event.currentTarget).addClass('current');
-            $("#" + name).addClass('current');
-            selectedAlgorithm = name;
-            createChart(findModelOnName(name));
-        };
-        $scope.tester = function() {
-            console.log("hello");
-        };
         $scope.changeName = function changeName() {
             $http({
                 method: 'POST',
