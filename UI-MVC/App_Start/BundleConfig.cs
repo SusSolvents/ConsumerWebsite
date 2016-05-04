@@ -15,7 +15,7 @@ namespace SS.UI.Web.MVC
                         , "~/Scripts/tabs.js"
                         , "~/Scripts/jquery-easing.js"
                         , "~/Scripts/morphext.min.js"
-                        , "~/Scripts/heatmap.min.js"
+                        , "~/Scripts/canvasjs.min.js"
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

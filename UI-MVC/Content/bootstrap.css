@@ -5249,12 +5249,14 @@ a.thumbnail.active {
 .list-group {
   padding-left: 0;
   margin-bottom: 20px;
+    height: 100%;
 }
 .list-group-item {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 30px 15px;
   margin-bottom: -1px;
+    height: 20%;
   background-color: #fff;
   border: 1px solid #ddd;
 }

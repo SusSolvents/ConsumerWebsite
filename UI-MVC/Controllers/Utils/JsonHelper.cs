@@ -33,9 +33,18 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                 {
                     DistanceToClusters = new List<ClusterDistanceCenter>(),
                     Number = cluster.clusterNumber,
-                    Solvents = new List<Solvent>()
+                    Solvents = new List<Solvent>(),
+                    VectorData = new List<VectorData>()
                 };
+                foreach (var vector in cluster.vectorData)
+                {
+                    VectorData vectorData = new VectorData()
+                    {
+                        Value =  vector
+                    };
 
+                    clusterTemp.VectorData.Add(vectorData);
+                }
                 foreach (var distance in cluster.distanceToCluster)
                 {
                     ClusterDistanceCenter clusterDistanceCenter = new ClusterDistanceCenter()

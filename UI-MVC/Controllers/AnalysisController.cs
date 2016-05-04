@@ -33,7 +33,7 @@ namespace SS.UI.Web.MVC.Controllers
             _csvLocations.Add("~/Content/Csv/Solvent matrix_15 solvents.csv");
             _csvLocations.Add("~/Content/Csv/Solvent matrix_80 solvents.csv");
             _csvLocations.Add("~/Content/Csv/Solvent matrix_9 solvents.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_volledig.csv");
+            
         }
 
         //GET api/Analysis/GetAnalysis
