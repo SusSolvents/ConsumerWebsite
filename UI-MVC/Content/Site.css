@@ -1431,3 +1431,22 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     transition: all 1s ease-in-out;
    
 }
+
+.circle {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: red;
+    position: absolute;
+    }
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}

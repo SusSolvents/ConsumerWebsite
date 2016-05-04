@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result) {
+    function($scope, $window, $http, $routeParams, Constants, result, $rootScope) {
         var solvents = [];
         var selectedAlgorithm;
         
@@ -100,7 +100,7 @@
                 $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
                 console.log(e.currentTarget.id);
                 createChart(findModelOnName(e.currentTarget.id));
-
+                
             });
 
         function createChart(model) {
@@ -132,7 +132,6 @@
                     interval: 10,
                     gridThickness: 1,
                     tickThickness: 1,
-                    interval: 5,
                     viewportMaximum: model.maxPercent + 15,
                     gridColor: "lightgrey",
                     tickColor: "lightgrey",
@@ -150,12 +149,21 @@
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
-
+                            var distances = [];
+                            for (var i = 0; i < solventen.length; i++) {
+                                distances.push(solventen[i].DistanceToClusterCenter);
+                            }
+                            var max = Math.max.apply(Math, distances);
+                            for (var i = 0; i < solventen.length; i++) {
+                                solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
+                            }
+                            $scope.solventsInCluster = solventen;
+                            $scope.$apply();
                         }
                     }
                 ]
             });
-
+            
             chart.render();
         }
             
@@ -180,6 +188,10 @@
             });
         }
 
+        $scope.solventClick = function solventClick($event) {
+            console.log($event.currentTarget);
+        }
+
         function findModelOnName(name) {
             var model = null;
             for (var i = 0; i < data.AnalysisModels.length; i++) {
@@ -192,6 +204,67 @@
         }
 
         createChart(data.AnalysisModels[0].Model);
+
+
+
+        var width = 220, height = 200;
+
+        var color = d3.scale.category20();
+
+        var force = d3.layout.force()
+            .charge(-120)
+            .linkDistance(30)
+            .size([width, height]);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        console.log(svg);
+        var jsonGraph = {
+            "nodes": [
+                { "name": "test", "group": 1 },
+                { "name": "test1", "group": 1 },
+                { "name": "test1", "group": 1 }
+            ],
+            "links": [
+                { "source": 1, "target": 0, "value": 1 }
+            ]
+        };
+
+        d3.json(jsonGraph, function (error, graph) { 
+
+            force
+                .nodes(jsonGraph.nodes)
+                .links(jsonGraph.links)
+                .start();
+
+            var link = svg.selectAll(".link")
+                .data(jsonGraph.links)
+              .enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", function (d) { return Math.sqrt(d.value); });
+
+            var node = svg.selectAll(".node")
+                .data(jsonGraph.nodes)
+              .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", 5)
+                .style("fill", function (d) { return color(d.group); })
+                .call(force.drag);
+
+            node.append("title")
+                .text(function (d) { return d.name; });
+
+            force.on("tick", function () {
+                link.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                node.attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+            });
+        });
     });
 app.constant('Constants', {
     AlgorithmName: {

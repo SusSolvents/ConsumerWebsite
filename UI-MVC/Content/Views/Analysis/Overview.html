@@ -42,7 +42,14 @@
                         
                         <div id="chartContainer_CANOPY" style="height: 100%; width: 100%;">
                         </div>
-                        <div id="overlay_CANOPY"></div>
+                        <div id="overlay_CANOPY" >
+                            <!--<div style="margin-top: 140px;height: 50px; width: 50px; text-align: center;vertical-align: middle; line-height: 50px;" class="circle" ng-if="solventsInCluster !== undefined">Center</div>
+                            <div ng-repeat="solvent in solventsInCluster" style="margin-top: 150px;">
+                                <div class="circle" id="{{solvent.CasNumber}}" name="{{solvent.DistanceToClusterCenter}}" ng-style="{'margin-left': solvent.DistanceToClusterPercentage + '%'}" ng-click="solventClick($event)"></div>
+                            </div>
+                            <p>{{naam}}</p>-->
+                            
+                        </div>
                     </div>
                 </center>
             </div>
@@ -146,7 +153,7 @@
         </div>
         
     </div>
-
+    <svg></svg>
 
     
    <!-- <div class="centered-container-big padding-none">
