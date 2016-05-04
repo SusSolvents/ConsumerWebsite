@@ -187,7 +187,13 @@ app.constant('Constants', {
         2: 'Flash_Point_Minimum_DegreesC',
         3: 'Vapour_Pressure_25DegreesC_mmHg',
         4: 'Density_25DegreesC_Minimum_kg_L',
-        5: 'Viscosity_25DegreesC_Minimum_mPa_s'
+        5: 'Viscosity_25DegreesC_Minimum_mPa_s',
+        6: 'Autoignition_Temperature_Minimum_DegreesC',
+        7: 'Hansen_Delta_D_MPa1_2',
+        8: 'Hansen_Delta_P_MPa1_2',
+        9: 'Hansen_Delta_H_MPa1_2',
+        10: 'Solubility_Water_g_L',
+        11: 'Dielectric_Constant_20DegreesC'
     }
 });
    
