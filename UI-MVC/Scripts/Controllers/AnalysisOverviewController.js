@@ -123,6 +123,7 @@
                 },
                 axisY: {
                     title: "size cluster",
+                    interval: 10,
                     gridThickness: 1,
                     tickThickness: 1,
                     gridColor: "lightgrey",
@@ -139,7 +140,8 @@
                         dataPoints: createJsonModel(model),
                         click: function (e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
-                            alert(solventen.length);
+                            console.log(e.color);
+                            e.toolTip = false;
                         }
                     }
                 ]
