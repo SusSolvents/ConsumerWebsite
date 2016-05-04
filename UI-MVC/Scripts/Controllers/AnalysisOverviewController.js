@@ -72,7 +72,7 @@
                     
                     var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
                     percentages.push(percentage);
-                    json.push({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number });
+                    json.push({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number , 'cursor' : 'pointer'});
                 }
                 model.maxPercent = Math.max.apply(Math, percentages);
                 return json;
@@ -111,6 +111,7 @@
                 
                 zoomEnabled: true,
                 animationEnabled: true,
+                animationDuration: 500,
                 title: {
                     text: "Clusters"
 
@@ -147,8 +148,9 @@
                         dataPoints: jsonModel,
                         click: function (e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
-                            
+                            $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
+                            
 
                         }
                     }
@@ -177,6 +179,13 @@
                 params: { name: $scope.newName, analysisId: $routeParams.id }
             }).success(function succesCallback(data) {
             });
+        }
+
+        $scope.closeOverlay = function closeOverlay(name) {
+            $('#overlay_' + name).addClass("not-visible");
+            $('#overlay_' + name).removeClass("div-overlay");
+            
+
         }
 
         function findModelOnName(name) {
