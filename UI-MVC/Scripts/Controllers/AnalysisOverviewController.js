@@ -2,7 +2,7 @@
     function($scope, $window, $http, $routeParams, Constants, result) {
         var solvents = [];
         var selectedAlgorithm;
-        var clusters = [];
+        
         var models = [];
         var chartArray = [];
         var algorithms = [];
@@ -16,7 +16,59 @@
                 //clusters[j] = { 'ClusterNumber': j, 'x': , 'y': 1, 'opt': null, 'size': data.AnalysisModels[i].Model.Clusters[j].Solvents.length * 10 };
             }
             
-        }
+            }
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                var clusters = getClusters(data.AnalysisModels[i].Model);
+                var clusterPositions = [];
+                for (var j = 0; j < clusters.length; j++) {
+                    clusterPositions.push(getClusterPosition(clusters[j]));
+                }
+                var normalizedValues = getNormalizedValues(clusterPositions);
+                data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
+            }
+
+            function getClusters(model) {
+                var clusters = [];
+                for (var i = 0; i < model.Clusters.length; i++) {
+                    clusters.push(model.Clusters[i]);
+                }
+                return clusters;
+            }
+
+            function getClusterPosition(cluster) {
+                var som = 0;
+                for (var i = 0; i < cluster.VectorData.length; i++) {
+                    var vector = cluster.VectorData[i].Value;
+                    som += Math.pow(vector,2);
+                }
+                    return Math.sqrt(som);
+            }
+
+            function getNormalizedValues(lengths) {
+                var max = Math.max.apply(Math, lengths);
+                var min = Math.min.apply(Math, lengths);
+                var normalizedValues = [];
+                for (var i = 0; i < lengths.length; i++) {
+                    normalizedValues.push((lengths[i] - min) / (max - min));
+                }
+                return normalizedValues;
+            }
+
+            function createJsonModel(model) {
+                var json = [];
+                for (var i = 0; i < model.Clusters.length; i++) {
+                    var valuesSolvents = [];
+                    for (var j = 0; j < model.Clusters[i].Solvents.length; j++) {
+                        valuesSolvents.push(model.Clusters[i].Solvents[j].DistanceToClusterCenter);
+                    }
+                    var max = Math.max.apply(Math, valuesSolvents);
+                    
+                    var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
+                    json.push({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number });
+                }
+                console.log(json);
+                return json;
+            }    
             selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
             $http({
@@ -40,72 +92,57 @@
                 $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
             });
 
-        var chart = new CanvasJS.Chart("chartContainer",
-        {
-            zoomEnabled: true,
-            animationEnabled: true,
-            title: {
-                text: "Employment In Agriculture VS Agri-Land and Population"
-
-            },
-            axisX: {
-                title: "Employment - Agriculture",
-
-                valueFormatString: "#0'%'",
-                maximum: 100,
-                gridThickness: 1,
-                tickThickness: 1,
-                gridColor: "lightgrey",
-                tickColor: "lightgrey",
-                lineThickness: 0
-            },
-            axisY: {
-                title: "Agricultural Land(sq.km)",
-                gridThickness: 1,
-                tickThickness: 1,
-                gridColor: "lightgrey",
-                tickColor: "lightgrey",
-                lineThickness: 0,
-                valueFormatString: "#0'mn'"
-
-            },
-
-            data: [
+        function createChart(model) {
+            var chart = new CanvasJS.Chart("chartContainer",
             {
-                type: "bubble",
-                toolTipContent: "<span style='\"'color: {color};'\"'><strong>{name}</strong></span><br/><strong>Employment</strong> {x}% <br/> <strong>Agri Land</strong> {y} million sq. km<br/> <strong>Population</strong> {z} mn",
-                dataPoints: [
+                zoomEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "Clusters"
 
-                { x: 39.6, y: 5.225, z: 1347, name: "China" },
-                { x: 3.3, y: 4.17, z: 21.49, name: "Australia" },
-                { x: 1.5, y: 4.043, z: 304.09, name: "US" },
-                { x: 17.4, y: 2.647, z: 2.64, name: "Brazil" },
-                { x: 8.6, y: 2.154, z: 141.95, name: "Russia" },
-                { x: 52.98, y: 1.797, z: 1190.86, name: "India" },
-                { x: 4.3, y: 1.735, z: 26.16, name: "Saudi Arabia" },
-                { x: 1.21, y: 1.41, z: 39.71, name: "Argentina" },
-                { x: 5.7, y: .993, z: 48.79, name: "SA" },
-                { x: 13.1, y: 1.02, z: 110.42, name: "Mexico" },
-                { x: 2.4, y: .676, z: 33.31, name: "Canada" },
-                { x: 2.8, y: .293, z: 64.37, name: "France" },
-                { x: 3.8, y: .46, z: 127.70, name: "Japan" },
-                { x: 40.3, y: .52, z: 234.95, name: "Indonesia" },
-                { x: 42.3, y: .197, z: 68.26, name: "Thailand" },
-                { x: 31.6, y: .35, z: 78.12, name: "Egypt" },
-                { x: 1.1, y: .176, z: 61.39, name: "U.K" },
-                { x: 3.7, y: .144, z: 59.83, name: "Italy" },
-                { x: 1.8, y: .169, z: 82.11, name: "Germany" }
+                },
+                axisX: {
+                    title: "Cluster position",
 
+                    viewportMaximum: 1.1,
+                    viewportMinimum: -0.1,
+                    interval: 0.05,
+                    gridThickness: 1,
+                    tickThickness: 1,
+                    gridColor: "lightgrey",
+                    tickColor: "lightgrey",
+                    lineThickness: 0
+                },
+                axisY: {
+                    title: "size cluster",
+                    gridThickness: 1,
+                    tickThickness: 1,
+                    gridColor: "lightgrey",
+                    tickColor: "lightgrey",
+                    lineThickness: 0,
+                    valueFormatString: "#0'%'"
 
+                },
 
-
+                data: [
+                    {
+                        type: "bubble",
+                        toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>Normalized values</strong> {x} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
+                        dataPoints: createJsonModel(model),
+                        click: function (e) {
+                            var solventen = getSolventsFromCluster(model, e.dataPoint.name);
+                            alert(solventen.length);
+                        }
+                    }
                 ]
-            }
-            ]
-        });
+            });
 
-        chart.render();
-            
+            chart.render();
+        }
+        
+        function getSolventsFromCluster(model, number) {
+            return model.Clusters[number].Solvents;
+        }
 
         $scope.selectedSolvent = function selectedSolvent($item) {
             $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
@@ -121,6 +158,7 @@
             $(event.currentTarget).addClass('current');
             $("#" + name).addClass('current');
             selectedAlgorithm = name;
+            createChart(findModelOnName(name));
         };
         $scope.tester = function() {
             console.log("hello");
@@ -134,7 +172,16 @@
             });
         }
 
-
+        function findModelOnName(name) {
+            var model = null;
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                if (data.AnalysisModels[i].Model.AlgorithmName.localeCompare(name)) {
+                    model = data.AnalysisModels[i].Model;
+                }
+            }
+            return model;
+        }
+        createChart(data.AnalysisModels[0].Model);
     });
 app.constant('Constants', {
     AlgorithmName: {
