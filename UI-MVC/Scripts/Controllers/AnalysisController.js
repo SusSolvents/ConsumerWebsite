@@ -55,7 +55,6 @@
                 url: 'api/Analysis/StartAnalysis',
                 params: {algorithms : algorithms}
             }).success(function (data) {
-                console.log(data);
                 process = process + 25;
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                 models = data;

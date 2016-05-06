@@ -1,6 +1,5 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" style="min-width: 840px;">
     
-    
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bhoechie-tab-container">
         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
             <div class="list-group">
@@ -45,6 +44,8 @@
                         
                         <div class="not-visible" id="overlay_CANOPY">
                             <div class="closecross" style="cursor: pointer" ng-click="closeOverlay('CANOPY')">X</div>
+                            <svg id="clusterChart_CANOPY"></svg>
+                            
                     </div>
             </div>
             </div>
@@ -69,7 +70,9 @@
 
                         <div id="chartContainer_KMEANS" style="height: 90%; width: 100%;">
                         </div>
-                        <div id="overlay_KMEANS"></div>
+                        <div id="overlay_KMEANS">
+                            <svg id="clusterChart_KMEANS"></svg>
+                        </div>
                     </div>
                 </center>
             </div>
@@ -148,7 +151,7 @@
         </div>
         
     </div>
-    <svg></svg>
+    
 
     
    <!-- <div class="centered-container-big padding-none">
