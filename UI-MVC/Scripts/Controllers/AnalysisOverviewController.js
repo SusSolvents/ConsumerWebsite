@@ -262,11 +262,7 @@
             }
             
             return model;
-        }
-
-
-
-        
+        }     
 
 
         function createClusterChart(cluster){
