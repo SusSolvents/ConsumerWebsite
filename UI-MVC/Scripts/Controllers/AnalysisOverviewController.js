@@ -195,11 +195,12 @@
             return model.Clusters[number].Solvents;
         }
 
-        $scope.selectedSolvent = function selectedSolvent($item) {
-            $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
-            var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
-            $("#" + name).collapse();
-            console.log(name);
+        $scope.selectedSolventFunc = function ($item) {
+            $scope.selectedSolvent = $item.originalObject;
+            //$("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
+            //var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
+            //$("#" + name).collapse();
+            //console.log(name);
         }
 
         $scope.changeName = function changeName() {
