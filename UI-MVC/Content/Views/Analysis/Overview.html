@@ -1,81 +1,88 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" style="min-width: 840px;" >
-
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bhoechie-tab-container">
-    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
-        <div class="list-group">
-            <a href="#" id="CANOPY" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-plane"></h4><br/>Canopy
-            </a>
-            <a href="#" id="KMEANS" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-road"></h4><br/>Kmeans
-            </a>
-            <a href="#" id="EM" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-home"></h4><br/>EM
-            </a>
-            <a href="#" id="SOM" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-cutlery"></h4><br/>SOM
-            </a>
-            <a href="#" id="XMEANS" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-cutlery"></h4><br/>XMEANS
-            </a>
-
+    
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-lg-12 text-center">
+                <h1 class="margin-top-0 text-primary wow fadeInDown" style="font-size: 32px">Your solvent cluster result</h1>
+                <hr class="primary">
+            </div>
         </div>
-    </div>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bhoechie-tab-container">
+        <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
+            <div class="list-group">
+                <a href="#" id="CANOPY" class="list-group-item disabled blurless text-center">
+                <h4 class="glyphicon glyphicon-plane"></h4><br/>Canopy
+                </a>
+                <a href="#" id="KMEANS" class="list-group-item disabled blurless text-center">
+                <h4 class="glyphicon glyphicon-road"></h4><br/>Kmeans
+                </a>
+                <a href="#" id="EM" class="list-group-item disabled blurless text-center">
+                <h4 class="glyphicon glyphicon-home"></h4><br/>EM
+                </a>
+                <a href="#" id="SOM" class="list-group-item disabled blurless text-center">
+                    <h4 class="glyphicon glyphicon-cutlery"></h4><br/>SOM
+                </a>
+                <a href="#" id="XMEANS" class="list-group-item disabled blurless text-center">
+                <h4 class="glyphicon glyphicon-cutlery"></h4><br/>XMEANS
+                </a>
+                
+            </div>
+        </div>
     <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10 bhoechie-tab" ng-repeat="model in models" >
-
+            
         <div class="bhoechie-tab-content" id="{{model.Model.AlgorithmName}}_CONTENT">
-
+                    
                 
                 <div class="row padding-less" >
                     <div class="col-lg-12 col-md-12 grid grid-top text-nowrap">
                         <div class="progress-box"  ng-style="{width: ((100/clusters.length)) + '%'}" ng-repeat="cluster in clusters">
-                            <h3 class="text-primary" style="margin: 0 0 8px 0;">Cluster {{$index}}</h3>
+                            <h4 class="text-primary" style="margin: 0 0 8px 0;">Cluster {{$index}}</h4>
                             <div class="circle-container" id="circle-{{$index}}">
                                 
                             </div>
-                            <p>% of total solvents</p>
+                            <p style="color: grey">% of total solvents</p>
     
                         </div>
                     </div>
                 </div>
                 <div class="row" >
                 <div class="col-lg-8 col-md-8 padding-less">
-                <div class="grid grid-graph col-lg-12 text-center">
-                    <h3 class="text-primary">Solvent Cluster Graph</h3>
-
+                    <div class="grid grid-graph col-lg-12 text-center">
+                        <h3 class="text-primary">Solvent Cluster Graph</h3>
+                        
                     <div id="chartContainer_{{model.Model.AlgorithmName}}" class="chartContainer" >
-                    </div>
-
+                        </div>
+                        
                     <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
                         <div class="closecross" style="cursor: pointer" ng-click="closeOverlay(model.Model.AlgorithmName)">X</div>
                             <div class="col-lg-3" style="text-align: initial; position: absolute">
-                            <h4>Cluster: {{cluster}}</h4>
-                            <h4>#Solvents: {{solventsInCluster.length}}</h4>
+                                <h4>Cluster: {{cluster}}</h4>
+                                <h4>#Solvents: {{solventsInCluster.length}}</h4>
                             <h4>Max distance: {{maxDistance}} <br/> {{maxSolvent.Name}} </h4>
                             <h4>Min distance: {{minDistance}} <br /> {{minSolvent.Name}} </h4>
-                        </div>
+                            </div>
                         <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
-
+                            
                     </div>
-                </div>
             </div>
+                </div>
 
                 <div class="col-lg-4 col-md-4 padding-less">
                     <div class="grid grid-right col-lg-12" style="overflow: scroll; color: black; font-size: 15px; padding-left: 20px; padding-right: 15px;">
-                <div angucomplete-alt
-                     id="ex1"
-                     placeholder="Search solvent"
-                     maxlength="50"
-                     pause="100"
+                        <div angucomplete-alt
+                             id="ex1"
+                             placeholder="Search solvent"
+                             maxlength="50"
+                             pause="100"
                      selected-object="selectedSolventFunc"
-                     local-data="solvents"
-                     search-fields="Name"
-                     title-field="Name"
-                     minlength="1"
-                     input-class="form-control form-control-small"
+                             local-data="solvents"
+                             search-fields="Name"
+                             title-field="Name"
+                             minlength="1"
+                             input-class="form-control form-control-small"
                              style="margin-top: 12px; display: block; width: 100%"
-                     match-class="highlight"
-                     clear-selected="true"></div>
+                             match-class="highlight"
+                             clear-selected="true"></div>
                         <h4>Solvent: {{selectedSolvent.Name}}</h4>
                         <table>
                             <tr>
@@ -90,54 +97,54 @@
 
                     </div>
                 </div>
+                </div>
+               
+            </div>
+
         </div>
-
-                    </div>
-
+        
     </div>
+    
 
-</div>
-
-
-
-<!-- <div class="centered-container-big padding-none">
-
-<label>Change name</label>
+    
+   <!-- <div class="centered-container-big padding-none">
+        
+        <label>Change name</label>
 <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}"/>
-<button ng-click="changeName()">Change name</button>
+        <button ng-click="changeName()">Change name</button>
 
-
-<div ng-repeat="model in models">
-
-<div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
-<a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
+        
+            <div ng-repeat="model in models">
+                
+            <div id="{{model.Model.AlgorithmName}}" class="tab-content" ng-class='{current:$first}'>
+                    <a class="button btn-sm">{{model.Model.AlgorithmName}}</a>
 <div class="panel-group" id="accordion-{{model.Model.AlgorithmName}}">
-<div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
-<div class="panel panel-default" style="background: none">
-<div class="panel-heading" style="background: none">
-    <h4 class="panel-title">
+                    <div ng-repeat="cluster in model.Model.Clusters" ng-init="init(model.Model.AlgorithmName)">
+                                <div class="panel panel-default" style="background: none">
+                                    <div class="panel-heading" style="background: none">
+                                        <h4 class="panel-title">
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{cluster.Number}}" style="border: none; width: 100%; text-align: left">
-            Cluster {{cluster.Number}}
-        </button>
-    </h4>
-</div>
-<div id="{{cluster.Number}}" class="panel-collapse collapse">
-    <div class="panel-body" style="width: 100%; max-height: 150px; overflow: scroll; overflow-x: hidden;">
+                                                Cluster {{cluster.Number}}
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div id="{{cluster.Number}}" class="panel-collapse collapse">
+                                        <div class="panel-body" style="width: 100%; max-height: 150px; overflow: scroll; overflow-x: hidden;">
         <div ng-repeat="solvent in cluster.Solvents">
-            <div id="{{model.Model.AlgorithmName}}-{{solvent.CasNumber}}" name="{{cluster.Number}}">
-                Solvent: {{solvent.Name}} ({{solvent.CasNumber}}) has distance to cluster center: {{solvent.DistanceToClusterCenter | number:3}}
+                                                <div id="{{model.Model.AlgorithmName}}-{{solvent.CasNumber}}" name="{{cluster.Number}}">
+                                                    Solvent: {{solvent.Name}} ({{solvent.CasNumber}}) has distance to cluster center: {{solvent.DistanceToClusterCenter | number:3}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div ng-repeat="distance in cluster.DistanceToClusters">
+                        Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
+                </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>-->
     </div>
-</div>
-<!--<div ng-repeat="distance in cluster.DistanceToClusters">
-    Distance to cluster {{distance.ToClusterId}} : {{distance.Distance}}
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>-->
-</div>

@@ -281,6 +281,7 @@ footer {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: auto;
+    overflow: auto;
 }
 #loading {
     position: absolute;
@@ -1339,7 +1340,7 @@ div.bhoechie-tab-container{
   border-radius: 1px;
   -moz-border-radius: 1px;
   border:1px solid #ddd;
-  margin-top: 50px;
+  margin-top: 10px;
     height: 700px;
     max-height: 100%;
     overflow: auto;
@@ -1428,7 +1429,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
    height: 100%;
    z-index: 200;
    background-color: purple;
-   opacity: 0.9;
+   opacity: 0.92;
     padding: 10px;
    transition: all 0.6s ease-in-out, padding 1ms;
 }
