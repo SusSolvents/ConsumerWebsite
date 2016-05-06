@@ -358,8 +358,9 @@
     <Content Include="Content\Csv\Solvent matrix_9 solvents 6 features.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\circle-progress.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
-    <Content Include="Scripts\heatmap.min.js" />
+    <Content Include="Scripts\radial-progress-bar.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
     <Content Include="Scripts\Controllers\AccountHomeController.js" />

@@ -1,11 +1,10 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result, $rootScope) {
+    function($scope, $window, $http, $routeParams, Constants, result, $rootScope, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
-        
-        var models = [];
-        var chartArray = [];
+        var clusters;
         var algorithms = [];
+        var totalSolvents = 0;
         var data = result.data;
         setEnumNames(data);
             for (var i = 0; i < algorithms.length; i++) {
@@ -19,23 +18,44 @@
             
             
             for (var i = 0; i < data.AnalysisModels.length; i++) {
-                var clusters = getClusters(data.AnalysisModels[i].Model);
+                clusters = getClusters(data.AnalysisModels[i].Model);
+                $scope.clusters = clusters;
                 var clusterPositions = [];
+                
                 for (var j = 0; j < clusters.length; j++) {
                     clusterPositions.push(getClusterPosition(clusters[j]));
+                    
                 }
                 var normalizedValues = getNormalizedValues(clusterPositions);
                 data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
             }
 
             function getClusters(model) {
-                var clusters = [];
+                clusters = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
                     clusters.push(model.Clusters[i]);
+                    totalSolvents += clusters[i].Solvents.length;
                 }
                 return clusters;
             }
 
+            $timeout(function () {
+                
+            for (var i = 0; i < clusters.length; i++) {
+                jQuery("#circle-" + i).radialProgress("init", {
+                    'size': 80,
+                    'fill': 6,
+                    'font-size': 28,
+                    'font-family': "Questrial",
+                    "color": "#b92ed1",
+                   
+
+                }).radialProgress("to", { 'perc': (clusters[i].Solvents.length/totalSolvents)*100, 'time': 1000 });
+            }
+        });
+            
+            
+            
             function setEnumNames(model) {
                 for (var i = 0; i < model.AnalysisModels.length; i++) {
                     model.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[model.AnalysisModels[i].Model.AlgorithmName];
@@ -177,7 +197,13 @@
 
             chart.render();
         }
+
+        
             
+        
+        
+       
+
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;
         }

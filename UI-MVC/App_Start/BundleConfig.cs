@@ -16,6 +16,9 @@ namespace SS.UI.Web.MVC
                         , "~/Scripts/jquery-easing.js"
                         , "~/Scripts/morphext.min.js"
                         , "~/Scripts/canvasjs.min.js"
+                        , "~/Scripts/circle-progress.js"
+                        , "~/Scripts/radial-progress-bar.js"
+
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
