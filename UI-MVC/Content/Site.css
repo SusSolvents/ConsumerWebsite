@@ -1334,13 +1334,15 @@ form.ng-submitted .ng-valid {
 /*  bhoechie tab */
 div.bhoechie-tab-container{
   min-width: 800px;
-    background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.7);
   padding: 0 !important;
   border-radius: 1px;
   -moz-border-radius: 1px;
   border:1px solid #ddd;
   margin-top: 50px;
-   height: auto;
+    height: 700px;
+    max-height: 100%;
+    overflow: auto;
   -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -1435,13 +1437,13 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     
 }
 .closecross {
-    display:block;
-    float:right;
     font-size: 20px;
-    width:30px;
-    height:30px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
     color: white;
     z-index: 300;
+    position: absolute;
 }
 .grid {
     background-color: white;
@@ -1467,8 +1469,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     height: 440px;
 }
 .grid-top {
-    height: 110px;
-    padding: 13px;
+    height: 170px;
+    padding: 8px;
 }
 .chartContainer {
     width: 100%;
@@ -1485,6 +1487,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 
       position: absolute;
     }
+.circle-container {
+    text-align: center;
+}
 .node {
   stroke: #fff;
   stroke-width: 1.5px;

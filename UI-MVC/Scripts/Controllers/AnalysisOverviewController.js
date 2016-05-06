@@ -1,20 +1,36 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result, $rootScope, $timeout) {
+    function($scope, $window, $http, $routeParams, Constants, result, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
         var clusters;
         var algorithms = [];
+        var colors = [
+            "#44B3C2",
+            "#F1A94E",
+            "#0093D1",
+            "#F2635F",
+            "#E0A025",
+            "#32B92D",
+            "#F20075"
+        ];
         var totalSolvents = 0;
+        $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setEnumNames(data);
-            for (var i = 0; i < algorithms.length; i++) {
-                if (i === 0) {
-                    $('#' + algorithms[i]).addClass("active");
-                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
-                }
-                $('#' + algorithms[i]).removeClass("disabled");
-                $('#' + algorithms[i]).removeClass("blurless");
-            }
+
+        selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
+
+        $http({
+            method: 'GET',
+            url: 'api/Analysis/GetSolvents',
+            params: { id: $routeParams.id }
+        }).success(function succesCallback(data) {
+            solvents = data;
+            $scope.solvents = data;
+        });
+
+        
+        $scope.analysisName = data.Name;
             
             
             for (var i = 0; i < data.AnalysisModels.length; i++) {
@@ -30,6 +46,25 @@
                 data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
             }
 
+            $timeout(function() {
+                
+
+                for (var i = 0; i < algorithms.length; i++) {
+                    if (i === 0) {
+                        $('#' + algorithms[i]).addClass("active");
+                        $('#' + algorithms[i] + '_CONTENT').addClass("active");
+                    }
+                    $('#' + algorithms[i]).removeClass("disabled");
+                    $('#' + algorithms[i]).removeClass("blurless");
+                }
+
+
+                
+
+
+                createChart(data.AnalysisModels[0].Model);
+            }, 0);
+
             function getClusters(model) {
                 clusters = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
@@ -43,19 +78,19 @@
                 
             for (var i = 0; i < clusters.length; i++) {
                 jQuery("#circle-" + i).radialProgress("init", {
-                    'size': 80,
-                    'fill': 6,
-                    'font-size': 28,
+                    'size': 90,
+                    'fill': 8,
+                    'font-size': 25,
                     'font-family': "Questrial",
-                    "color": "#b92ed1",
+                    "color": colors[i],
                    
 
-                }).radialProgress("to", { 'perc': (clusters[i].Solvents.length/totalSolvents)*100, 'time': 1000 });
+                }).radialProgress("to", { 'perc': Math.floor((clusters[i].Solvents.length/totalSolvents)*100), 'time': 1000 });
             }
         });
             
             
-            
+
             function setEnumNames(model) {
                 for (var i = 0; i < model.AnalysisModels.length; i++) {
                     model.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[model.AnalysisModels[i].Model.AlgorithmName];
@@ -106,19 +141,7 @@
                 model.maxPercent = Math.max.apply(Math, percentages);
                 return json;
             }    
-            selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
-            $http({
-                method: 'GET',
-                url: 'api/Analysis/GetSolvents',
-                params: { id: $routeParams.id }
-            }).success(function succesCallback(data) {
-                solvents = data;
-                $scope.solvents = data;
-            });
-
-            $scope.models = data.AnalysisModels;
-            $scope.analysisName = data.Name;
 
             $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
                 e.preventDefault();
@@ -131,12 +154,14 @@
                 createChart(findModelOnName(e.currentTarget.id));
 
             });
-
+            
         function createChart(model) {
-               
+            CanvasJS.addColorSet("greenShades",colors
+                );
             var jsonModel = createJsonModel(model);
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
+                colorSet: "greenShades",
                 zoomEnabled: true,
                 animationEnabled: true,
                 animationDuration: 500,
@@ -199,7 +224,7 @@
 
             chart.render();
         }
-
+            
         
             
         
@@ -246,11 +271,11 @@
 
 
 
-        createChart(data.AnalysisModels[0].Model);
+        
 
 
         function createClusterChart(cluster){
-        var width = 400, height = 350;
+        var width = 700, height = 410;
 
         var color = d3.scale.category20();
 
@@ -352,6 +377,7 @@
         });
         };
     });
+
 
 app.constant('Constants', {
     AlgorithmName: {
