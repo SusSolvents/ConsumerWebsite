@@ -3,7 +3,7 @@
 }
 
 .angucomplete-dropdown {
-    border-color: #ececec;
+    border-color: grey;
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
@@ -39,7 +39,7 @@
 }
 
 .angucomplete-selected-row {
-    background-color: lightblue;
+    background-color: rgba(128,0,128,0.7);
     color: #ffffff;
 }
 

@@ -73,7 +73,7 @@
                     "color": colors[i],
                    
 
-                }).radialProgress("to", { 'perc': Math.floor((clusters[i].Solvents.length/totalSolvents)*100), 'time': 1000 });
+                }).radialProgress("to", { 'perc': ((clusters[i].Solvents.length/totalSolvents)*100)-0.2, 'time': 1000 });
             }
         });
             
