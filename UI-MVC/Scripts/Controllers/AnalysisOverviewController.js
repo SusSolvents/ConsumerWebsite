@@ -150,13 +150,14 @@
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
-                            
-
-                        }
+                            var distances = [];
+                            for (var i = 0; i < solventen.length; i++) {
+                                distances.push(solventen[i].DistanceToClusterCenter);
+                            }
                             var max = Math.max.apply(Math, distances);
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
-                    }
+                            }
                             createClusterChart(model.Clusters[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
                             $scope.$apply();
