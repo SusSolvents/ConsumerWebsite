@@ -2,32 +2,35 @@
     function ($scope, $window, $http, $routeParams, Constants, result, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
+        var currentClusters;
+        var prevClusters;
         var clusters;
         var algorithms = [];
         var colors = [
             "#44B3C2",
             "#F1A94E",
-            "#0093D1",
             "#F2635F",
             "#E0A025",
             "#32B92D",
-            "#F20075"
+            "#F20075",
+                        "#0093D1"
+
         ];
         var totalSolvents = 0;
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setEnumNames(data);
-
         selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
         
 
         
         $scope.analysisName = data.Name;
-
+        currentClusters = getClusters(findModelOnName(selectedAlgorithm));
+        $scope.clusters = currentClusters;
 
         for (var i = 0; i < data.AnalysisModels.length; i++) {
                 clusters = getClusters(data.AnalysisModels[i].Model);
-                $scope.clusters = clusters;
+                
             var clusterPositions = [];
                 
             for (var j = 0; j < clusters.length; j++) {
@@ -49,10 +52,12 @@
                     $('#' + algorithms[i]).removeClass("disabled");
                     $('#' + algorithms[i]).removeClass("blurless");
                 }
-
+            
+                console.log(algorithms);
                 createChart(data.AnalysisModels[0].Model);
-            }, 0);
-
+            createProgress();
+        });
+        console.log(data);
         function getClusters(model) {
                 clusters = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
@@ -62,20 +67,19 @@
                 return clusters;
             }
 
-            $timeout(function () {
-                
-            for (var i = 0; i < clusters.length; i++) {
-                jQuery("#circle-" + i).radialProgress("init", {
+           function createProgress() {
+               prevClusters = currentClusters; 
+            for (var i = 0; i < currentClusters.length; i++) {
+               
+                jQuery("#circle-"+selectedAlgorithm+"-" + i).radialProgress("init", {
                     'size': 90,
                     'fill': 8,
                     'font-size': 25,
                     'font-family': "Questrial",
-                    "color": colors[i],
-                   
-
-                }).radialProgress("to", { 'perc': ((clusters[i].Solvents.length/totalSolvents)*100)-0.2, 'time': 1000 });
+                    "color": colors[i]
+                }).radialProgress("to", { 'perc': ((currentClusters[i].Solvents.length / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
             }
-        });
+        };
             
             
 
@@ -139,17 +143,26 @@
 
 
             $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+                console.log(e.currentTarget.id);
                 e.preventDefault();
                 $(this).siblings('a.active').removeClass("active");
                 $(this).addClass("active");
                 var index = $(this).index();
                 $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
                 $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+                resetProgress();
                 selectedAlgorithm = e.currentTarget.id;
+                currentClusters = getClusters(findModelOnName(selectedAlgorithm));
+                $scope.clusters = currentClusters;
                 createChart(findModelOnName(e.currentTarget.id));
+                createProgress();
 
             });
-
+            function resetProgress() {
+                for (var i = 0; i < prevClusters.length; i++) {
+                    jQuery("#circle-" + selectedAlgorithm + "-" + i).empty();
+                }
+            }
         function createChart(model) {
             CanvasJS.addColorSet("greenShades",colors
                 );
@@ -276,8 +289,8 @@
             .size([width, height]);
         
         var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
 
             var svg = d3.select("#clusterChart_" + selectedAlgorithm)
                 .html("")
