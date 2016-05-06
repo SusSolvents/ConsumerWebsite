@@ -150,9 +150,6 @@
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
-                            
-
-                        }
                             var max = Math.max.apply(Math, distances);
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
@@ -178,7 +175,6 @@
             $("#" + name).collapse();
             console.log(name);
         }
-
 
         $scope.changeName = function changeName() {
             $http({
