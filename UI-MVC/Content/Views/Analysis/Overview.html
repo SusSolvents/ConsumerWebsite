@@ -58,7 +58,8 @@
                             <div class="col-lg-3" style="text-align: initial; position: absolute">
                                 <h4>Cluster: {{cluster}}</h4>
                                 <h4>#Solvents: {{solventsInCluster.length}}</h4>
-                                <h4>Max distance: {{maxDistance}}</h4>
+                            <h4>Max distance: {{maxDistance}} <br/> {{maxSolvent.Name}} </h4>
+                            <h4>Min distance: {{minDistance}} <br /> {{minSolvent.Name}} </h4>
                             </div>
                         <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
                             
@@ -73,7 +74,7 @@
                              placeholder="Search solvent"
                              maxlength="50"
                              pause="100"
-                             selected-object="selectedSolvent"
+                     selected-object="selectedSolventFunc"
                              local-data="solvents"
                              search-fields="Name"
                              title-field="Name"

@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result, $timeout) {
+    function ($scope, $window, $http, $routeParams, Constants, result, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
         var clusters;
@@ -19,34 +19,26 @@
         setEnumNames(data);
 
         selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
-
-        $http({
-            method: 'GET',
-            url: 'api/Analysis/GetSolvents',
-            params: { id: $routeParams.id }
-        }).success(function succesCallback(data) {
-            solvents = data;
-            $scope.solvents = data;
-        });
+        
 
         
         $scope.analysisName = data.Name;
-            
-            
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
+
+
+        for (var i = 0; i < data.AnalysisModels.length; i++) {
                 clusters = getClusters(data.AnalysisModels[i].Model);
                 $scope.clusters = clusters;
-                var clusterPositions = [];
+            var clusterPositions = [];
                 
-                for (var j = 0; j < clusters.length; j++) {
-                    clusterPositions.push(getClusterPosition(clusters[j]));
+            for (var j = 0; j < clusters.length; j++) {
+                clusterPositions.push(getClusterPosition(clusters[j]));
                     
-                }
-                var normalizedValues = getNormalizedValues(clusterPositions);
-                data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
             }
-
-            $timeout(function() {
+            var normalizedValues = getNormalizedValues(clusterPositions);
+            data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
+        }
+        
+        $timeout(function () {
                 
 
                 for (var i = 0; i < algorithms.length; i++) {
@@ -58,14 +50,10 @@
                     $('#' + algorithms[i]).removeClass("blurless");
                 }
 
-
-                
-
-
                 createChart(data.AnalysisModels[0].Model);
             }, 0);
 
-            function getClusters(model) {
+        function getClusters(model) {
                 clusters = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
                     clusters.push(model.Clusters[i]);
@@ -97,8 +85,10 @@
                     algorithms.push(model.AnalysisModels[i].Model.AlgorithmName);
                     for (var j = 0; j < model.AnalysisModels[i].Model.Clusters.length; j++) {
                         for (var k = 0; k < model.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
+                            solvents.push(model.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
                             for (var l = 0; l < model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
                                 model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
+                            model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                             }
                         }
                     }
@@ -109,12 +99,15 @@
                 var som = 0;
                 for (var i = 0; i < cluster.VectorData.length; i++) {
                     var vector = cluster.VectorData[i].Value;
-                    som += Math.pow(vector,2);
+                som += Math.pow(vector, 2);
                 }
                     return Math.sqrt(som);
             }
 
             function getNormalizedValues(lengths) {
+            if (lengths.length === 1) {
+                return [0];
+            }
                 var max = Math.max.apply(Math, lengths);
                 var min = Math.min.apply(Math, lengths);
                 var normalizedValues = [];
@@ -154,7 +147,7 @@
                 createChart(findModelOnName(e.currentTarget.id));
 
             });
-            
+
         function createChart(model) {
             CanvasJS.addColorSet("greenShades",colors
                 );
@@ -200,7 +193,7 @@
                         type: "bubble",
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>#solvents</strong> {solvents} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
                         dataPoints: jsonModel,
-                        click: function(e) {
+                        click: function (e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
@@ -214,7 +207,6 @@
                     }
                             createClusterChart(model.Clusters[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
-                            $scope.maxDistance = max.toFixed(2);
                             $scope.cluster = e.dataPoint.name;
                             $scope.$apply();
                         }
@@ -235,11 +227,12 @@
             return model.Clusters[number].Solvents;
         }
 
-        $scope.selectedSolvent = function selectedSolvent($item) {
-            $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
-            var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
-            $("#" + name).collapse();
-            console.log(name);
+        $scope.selectedSolventFunc = function ($item) {
+            $scope.selectedSolvent = $item.originalObject;
+            //$("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).addClass('selectedSolvent');
+            //var name = $("#" + selectedAlgorithm + "-" + $item.originalObject.CasNumber).attr('name');
+            //$("#" + name).collapse();
+            //console.log(name);
         }
 
         $scope.changeName = function changeName() {
@@ -261,7 +254,7 @@
         function findModelOnName(name) {
             var model = null;
             for (var i = 0; i < data.AnalysisModels.length; i++) {
-                if (data.AnalysisModels[i].Model.AlgorithmName ===  name) {
+                if (data.AnalysisModels[i].Model.AlgorithmName === name) {
                     model = data.AnalysisModels[i].Model;
                 }
             }
@@ -297,6 +290,7 @@
         for (var i = 0; i < cluster.Solvents.length; i++) {
             distances.push(cluster.Solvents[i].DistanceToClusterCenter);
         }
+
         var distancesNormalized = getNormalizedValues(distances);
         var jsonNodes = [];
             var jsonLinks = [];
@@ -307,12 +301,23 @@
                 "distance": 0,
                 "casNumber": "None"
             });
+            var maxSolvent, minSolvent;
             for (var i = 0; i < cluster.Solvents.length; i++) {
-                var node = { "name": cluster.Solvents[i].Name, "group": 1, "casNumber": cluster.Solvents[i].CasNumber, "distance": cluster.Solvents[i].DistanceToClusterCenter, "value": 10, "solvent": cluster.Solvents[i]  };
+                if (maxSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter > maxSolvent.DistanceToClusterCenter ) {
+                    maxSolvent = cluster.Solvents[i];
+                }
+                if (minSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter < minSolvent.DistanceToClusterCenter ) {
+                    minSolvent = cluster.Solvents[i];
+                }
+                var node = { "name": cluster.Solvents[i].Name, "group": 1, "casNumber": cluster.Solvents[i].CasNumber, "distance": cluster.Solvents[i].DistanceToClusterCenter.toFixed(2), "value": 10, "solvent": cluster.Solvents[i] };
                 jsonNodes.push(node);
-                var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) +20  };
+                var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) + 20 };
                 jsonLinks.push(link);
             }
+            $scope.maxDistance = maxSolvent.DistanceToClusterCenter.toFixed(2);
+            $scope.minDistance = minSolvent.DistanceToClusterCenter.toFixed(2);
+            $scope.maxSolvent = maxSolvent;
+            $scope.minSolvent = minSolvent;
 
         var jsonGraph = {
             "nodes": jsonNodes,
@@ -339,13 +344,13 @@
                 .data(jsonGraph.nodes)
                 .enter().append("circle")
                 .attr("class", "node")
-                .attr("r", function(d) { return d.value; })
-                .style("fill", function(d) { return color(d.group); })
-                .on("click", function(d) {
+                    .attr("r", function (d) { return d.value; })
+                    .style("fill", function (d) { return color(d.group); })
+                    .on("click", function (d) {
                     div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    div.html("Name: " + d.name + "</br>Cas number: " + d.casNumber + "</br>Distance: " + d.distance.toFixed(2) )
+                        div.html("Name: " + d.name + "</br>Cas number: " + d.casNumber + "</br>Distance: " + d.distance)
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px");
                     if (d.solvent !== undefined) {
@@ -353,7 +358,7 @@
                         $scope.$apply();
                     }
                 })
-                .on("mouseout", function(d) {
+                    .on("mouseout", function (d) {
                     div.transition()
                         .duration(500)
                         .style("opacity", 0);
@@ -370,8 +375,8 @@
                     .attr("x2", function (d) { return d.target.x; })
                     .attr("y2", function (d) { return d.target.y; });
 
-                node.attr("cx", function(d) { return d.x; })
-                    .attr("cy", function(d) { return d.y; });
+                    node.attr("cx", function (d) { return d.x; })
+                        .attr("cy", function (d) { return d.y; });
 
             });
         });
@@ -403,4 +408,3 @@ app.constant('Constants', {
         11: 'Dielectric_Constant_20DegreesC'
     }
 });
-   
