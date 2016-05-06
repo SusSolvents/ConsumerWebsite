@@ -1,34 +1,60 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result, $rootScope) {
+    function($scope, $window, $http, $routeParams, Constants, result, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
         
         var models = [];
         var chartArray = [];
         var algorithms = [];
+        $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setEnumNames(data);
-            for (var i = 0; i < algorithms.length; i++) {
-                if (i === 0) {
-                    $('#' + algorithms[i]).addClass("active");
-                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
-                }
-                $('#' + algorithms[i]).removeClass("disabled");
-                $('#' + algorithms[i]).removeClass("blurless");
-            }
-            
-            
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
-                var clusters = getClusters(data.AnalysisModels[i].Model);
-                var clusterPositions = [];
-                for (var j = 0; j < clusters.length; j++) {
-                    clusterPositions.push(getClusterPosition(clusters[j]));
-                }
-                var normalizedValues = getNormalizedValues(clusterPositions);
-                data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
-            }
 
-            function getClusters(model) {
+        selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
+
+        $http({
+            method: 'GET',
+            url: 'api/Analysis/GetSolvents',
+            params: { id: $routeParams.id }
+        }).success(function succesCallback(data) {
+            solvents = data;
+            $scope.solvents = data;
+        });
+
+        
+        $scope.analysisName = data.Name;
+
+
+        for (var i = 0; i < data.AnalysisModels.length; i++) {
+            var clusters = getClusters(data.AnalysisModels[i].Model);
+            var clusterPositions = [];
+            for (var j = 0; j < clusters.length; j++) {
+                clusterPositions.push(getClusterPosition(clusters[j]));
+            }
+            var normalizedValues = getNormalizedValues(clusterPositions);
+            data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
+        }
+        
+            $timeout(function() {
+                
+
+                for (var i = 0; i < algorithms.length; i++) {
+                    if (i === 0) {
+                        $('#' + algorithms[i]).addClass("active");
+                        $('#' + algorithms[i] + '_CONTENT').addClass("active");
+                    }
+                    $('#' + algorithms[i]).removeClass("disabled");
+                    $('#' + algorithms[i]).removeClass("blurless");
+                }
+
+
+                
+
+
+                createChart(data.AnalysisModels[0].Model);
+            }, 0);
+
+        function getClusters(model) {
                 var clusters = [];
                 for (var i = 0; i < model.Clusters.length; i++) {
                     clusters.push(model.Clusters[i]);
@@ -86,19 +112,7 @@
                 model.maxPercent = Math.max.apply(Math, percentages);
                 return json;
             }    
-            selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
-            $http({
-                method: 'GET',
-                url: 'api/Analysis/GetSolvents',
-                params: { id: $routeParams.id }
-            }).success(function succesCallback(data) {
-                solvents = data;
-                $scope.solvents = data;
-            });
-
-            $scope.models = data.AnalysisModels;
-            $scope.analysisName = data.Name;
 
             $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
                 e.preventDefault();
@@ -220,7 +234,7 @@
 
 
 
-        createChart(data.AnalysisModels[0].Model);
+        
 
 
         function createClusterChart(cluster){
@@ -326,6 +340,7 @@
         });
         };
     });
+
 
 app.constant('Constants', {
     AlgorithmName: {
