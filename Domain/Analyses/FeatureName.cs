@@ -13,6 +13,12 @@ namespace SS.BL.Domain.Analyses
         Flash_Point_Minimum_DegreesC,
         Vapour_Pressure_25DegreesC_mmHg,
         Density_25DegreesC_Minimum_kg_L,
-        Viscosity_25DegreesC_Minimum_mPa_s
+        Viscosity_25DegreesC_Minimum_mPa_s,
+        Autoignition_Temperature_Minimum_DegreesC,
+        Hansen_Delta_D_MPa1_2,
+        Hansen_Delta_P_MPa1_2,
+        Hansen_Delta_H_MPa1_2,
+        Solubility_Water_g_L,
+        Dielectric_Constant_20DegreesC
     }
 }

@@ -29,11 +29,14 @@ namespace SS.UI.Web.MVC.Controllers
             this._analysisManager = analysisManager;
             this._userManager = userManager;
             _csvLocations = new List<string>();
-            _csvLocations.Add("~/Content/Csv/Solvent matrix 9 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix 12 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix 27 solvents 12 features.csv");
-            
-            
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_6 solvents 6 features.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_9 solvents 6 features.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_12 solvents 6 features.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_15 solvents 6 features.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_27 solvents 13 features.csv");
+            _csvLocations.Add("~/Content/Csv/Solvent matrix_80 solvents 6 features.csv");
+
+
         }
 
         //GET api/Analysis/GetAnalysis

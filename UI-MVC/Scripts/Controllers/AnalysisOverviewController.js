@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result) {
+    function($scope, $window, $http, $routeParams, Constants, result, $timeout) {
         var solvents = [];
         var selectedAlgorithm;
         
@@ -102,13 +102,12 @@
                 createChart(findModelOnName(e.currentTarget.id));
 
             });
-            
-            function createChart(model) {
-               
+
+        function createChart(model) {
+
             var jsonModel = createJsonModel(model);
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
-                
                 zoomEnabled: true,
                 animationEnabled: true,
                 animationDuration: 500,
@@ -117,8 +116,9 @@
 
                 },
                 axisX: {
-                    title: "Cluster position",
-
+                    title: "Relative cluster position",
+                    valueFormatString: " ",
+                    tickLength: 0,
                     viewportMaximum: 1.1,
                     viewportMinimum: -0.1,
                     interval: 0.05,
@@ -129,7 +129,8 @@
                     lineThickness: 0
                 },
                 axisY: {
-                    title: "size cluster",
+                    title: "% of total solvents",
+                    interval: 10,
                     gridThickness: 1,
                     tickThickness: 1,
                     interval: 5,
@@ -139,18 +140,18 @@
                     lineThickness: 0,
                     valueFormatString: "#0'%'"
 
-            },
+                },
 
                 data: [
                     {
                         type: "bubble",
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>Normalized values</strong> {x} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
                         dataPoints: jsonModel,
-                        click: function (e) {
+                        click: function(e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
-                            
+
 
                         }
                     }
@@ -216,7 +217,13 @@ app.constant('Constants', {
         2: 'Flash_Point_Minimum_DegreesC',
         3: 'Vapour_Pressure_25DegreesC_mmHg',
         4: 'Density_25DegreesC_Minimum_kg_L',
-        5: 'Viscosity_25DegreesC_Minimum_mPa_s'
+        5: 'Viscosity_25DegreesC_Minimum_mPa_s',
+        6: 'Autoignition_Temperature_Minimum_DegreesC',
+        7: 'Hansen_Delta_D_MPa1_2',
+        8: 'Hansen_Delta_P_MPa1_2',
+        9: 'Hansen_Delta_H_MPa1_2',
+        10: 'Solubility_Water_g_L',
+        11: 'Dielectric_Constant_20DegreesC'
     }
 });
    
