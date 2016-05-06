@@ -1453,3 +1453,35 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     border-radius: 3px;
     border: 2px solid purple
 }
+
+.circle {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: red;
+    position: absolute;
+    }
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+div.tooltip {   
+  position: absolute;                      
+  width: auto;                  
+  height: auto;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;
+    color: black;         
+}

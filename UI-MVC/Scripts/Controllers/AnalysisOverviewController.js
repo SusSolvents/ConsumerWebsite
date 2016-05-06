@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisOverviewController',
-    function($scope, $window, $http, $routeParams, Constants, result, $timeout) {
+    function($scope, $window, $http, $routeParams, Constants, result, $rootScope) {
         var solvents = [];
         var selectedAlgorithm;
         
@@ -104,7 +104,7 @@
             });
 
         function createChart(model) {
-
+               
             var jsonModel = createJsonModel(model);
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
@@ -133,14 +133,13 @@
                     interval: 10,
                     gridThickness: 1,
                     tickThickness: 1,
-                    interval: 5,
                     viewportMaximum: model.maxPercent + 15,
                     gridColor: "lightgrey",
                     tickColor: "lightgrey",
                     lineThickness: 0,
                     valueFormatString: "#0'%'"
 
-                },
+            },
 
                 data: [
                     {
@@ -151,8 +150,16 @@
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
+                            
 
-
+                        }
+                            var max = Math.max.apply(Math, distances);
+                            for (var i = 0; i < solventen.length; i++) {
+                                solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
+                    }
+                            createClusterChart(model.Clusters[e.dataPoint.name]);
+                            $scope.solventsInCluster = solventen;
+                            $scope.$apply();
                         }
                     }
                 ]
@@ -201,7 +208,108 @@
         }
 
         createChart(data.AnalysisModels[0].Model);
+
+
+        function createClusterChart(cluster){
+        var width = 220, height = 200;
+
+        var color = d3.scale.category20();
+
+        var force = d3.layout.force()
+            .charge(-120)
+            .linkDistance(function (d) { return d.distance; })
+            .size([width, height]);
+        
+        var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+        var svg = d3.select("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        var distances = [];
+        for (var i = 0; i < cluster.Solvents.length; i++) {
+            distances.push(cluster.Solvents[i].DistanceToClusterCenter);
+        }
+        var distancesNormalized = getNormalizedValues(distances);
+            console.log(distancesNormalized);
+        var jsonNodes = [];
+            var jsonLinks = [];
+            jsonNodes.push({
+                "name": "Cluster center",
+                "group": 2,
+                "value": 20,
+                "distance": 0,
+                "casNumber": "None"
+            });
+            for (var i = 0; i < cluster.Solvents.length; i++) {
+                var node = { "name": cluster.Solvents[i].Name, "group": 1, "casNumber": cluster.Solvents[i].CasNumber, "distance": cluster.Solvents[i].DistanceToClusterCenter, "value": 10 };
+                jsonNodes.push(node);
+                var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) +20  };
+                jsonLinks.push(link);
+            }
+
+        var jsonGraph = {
+            "nodes": jsonNodes,
+            "links": jsonLinks
+        };
+
+        d3.json(jsonGraph, function (error, graph) { 
+
+            force
+                .nodes(jsonGraph.nodes)
+                .links(jsonGraph.links)
+                
+                .start();
+
+            var link = svg.selectAll(".link")
+                .data(jsonGraph.links)
+              .enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", 1)
+            ;
+
+
+            var node = svg.selectAll(".node")
+                .data(jsonGraph.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", function(d) { return d.value; })
+                .style("fill", function(d) { return color(d.group); })
+                .on("click", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div.html("Name: " + d.name + "</br>Cas number: " + d.casNumber + "</br>Distance: " + d.distance.toFixed(2) )
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                })
+                .on("mouseout", function(d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                })
+                    .call(force.drag);
+
+            node.append("title")
+                .text(function (d) { return d.name; });
+
+
+            force.on("tick", function () {
+                link.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                node.attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+
+            });
+        });
+        };
     });
+
 app.constant('Constants', {
     AlgorithmName: {
         0: 'CANOPY',
