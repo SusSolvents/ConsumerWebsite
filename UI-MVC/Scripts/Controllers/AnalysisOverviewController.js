@@ -1,6 +1,6 @@
 ﻿app.controller('AnalysisOverviewController',
     function ($scope, $window, $http, $routeParams, Constants, result, $timeout) {
-        var solvents;
+        var solvents = [];
         var selectedAlgorithm;
         var clusters;
         var algorithms = [];
@@ -19,15 +19,7 @@
         setEnumNames(data);
 
         selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
-
-        $http({
-            method: 'GET',
-            url: 'api/Analysis/GetSolvents',
-            params: { id: $routeParams.id }
-        }).success(function succesCallback(data) {
-            solvents = data;
-            $scope.solvents = data;
-        });
+        
 
         
         $scope.analysisName = data.Name;
@@ -93,6 +85,7 @@
                     algorithms.push(model.AnalysisModels[i].Model.AlgorithmName);
                     for (var j = 0; j < model.AnalysisModels[i].Model.Clusters.length; j++) {
                         for (var k = 0; k < model.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
+                            solvents.push(model.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
                             for (var l = 0; l < model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
                                 model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
