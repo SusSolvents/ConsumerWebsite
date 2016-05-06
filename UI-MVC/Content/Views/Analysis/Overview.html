@@ -49,6 +49,11 @@
                         
                         <div class="not-visible" id="overlay_CANOPY">
                             <div class="closecross" style="cursor: pointer" ng-click="closeOverlay('CANOPY')">X</div>
+                            <div class="col-lg-3" style="text-align: initial;">
+                                <h4>Cluster: {{cluster}}</h4>
+                                <h4>#Solvents: {{solventsInCluster.length}}</h4>
+                                <h4>Max distance: {{maxDistance}}</h4>
+                            </div>
                             <svg id="clusterChart_CANOPY"></svg>
                             
                     </div>
@@ -56,7 +61,18 @@
                 </div>
 
                 <div class="col-lg-4 padding-less">
-                    <div class="grid grid-right col-lg-12">
+                    <div class="grid grid-right col-lg-12" style="overflow: scroll; color: black; font-size: 15px;">
+                        <h4>Solvent: {{selectedSolvent.Name}}</h4>
+                        <table>
+                            <tr>
+                                <th style="padding-left: 15px">Feature name</th>
+                                <th style="padding-left: 15px">Value</th>
+                            </tr>
+                            <tr ng-repeat="feature in selectedSolvent.Features">
+                                <td style="padding-left: 15px">{{feature.FeatureName}}</td>
+                                <td style="padding-left: 15px">{{feature.Value}}</td>
+                            </tr>
+                        </table>
 
                     </div>
                 </div>

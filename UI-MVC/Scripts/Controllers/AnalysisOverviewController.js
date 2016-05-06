@@ -169,6 +169,8 @@
                     }
                             createClusterChart(model.Clusters[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
+                            $scope.maxDistance = max.toFixed(2);
+                            $scope.cluster = e.dataPoint.name;
                             $scope.$apply();
                         }
                     }
