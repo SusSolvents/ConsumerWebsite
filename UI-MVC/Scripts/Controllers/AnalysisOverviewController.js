@@ -93,6 +93,8 @@
                         }
                     }
                 }
+
+                $scope.solvents = solvents;
             }
 
             function getClusterPosition(cluster) {
