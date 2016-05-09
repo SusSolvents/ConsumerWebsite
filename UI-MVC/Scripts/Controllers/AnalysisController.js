@@ -50,6 +50,7 @@
         
         $scope.startAnalysis = function startAnalysis() {
             $rootScope.loadingView = true;
+            algorithms.sort();
             $http({
                 method: 'POST',
                 url: 'api/Analysis/StartAnalysis',
@@ -59,6 +60,7 @@
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                 models = data;
                 $scope.algorithms = data;
+                console.log(data);
                 $scope.btnclass = "button-right disabled";
                 $rootScope.loadingView = false;
             });
