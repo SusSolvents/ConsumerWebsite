@@ -349,9 +349,10 @@ footer {
 .button:hover, .button-right:hover , .small-button:hover {
   border: 1.75px solid white;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(40,40,40,0.7);
     text-decoration: none;
     color: white;
+   
 }
 .button:focus, .button-right:hover ,.small-button:focus {
     outline: 0;
@@ -884,6 +885,7 @@ progress {
   margin: 0;
 }
 .footer {
+
   padding: 5em 0;
 }
 .footer .links li {
@@ -1086,6 +1088,7 @@ form.ng-submitted .ng-valid {
     top: 0;
     bottom: 0;
     right: 0;
+    
     height: 100%;
     background: rgba(0,0,0,0.9);
     text-align: center;
@@ -1332,13 +1335,21 @@ form.ng-submitted .ng-valid {
 .canvasjs-chart-credit {
     visibility: hidden !important;
 }
+.main-cluster-info {
+    min-width: 800px;
+    height: 100px;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 3px;
+  -moz-border-radius: 3px;
+  border:1px solid #ddd;
+}
 /*  bhoechie tab */
 div.bhoechie-tab-container{
   min-width: 800px;
   background-color: rgba(255,255,255,0.7);
   padding: 0 !important;
-  border-radius: 1px;
-  -moz-border-radius: 1px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
   border:1px solid #ddd;
   margin-top: 10px;
     height: 700px;
@@ -1446,11 +1457,15 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     z-index: 300;
     position: absolute;
 }
+.closecross:hover {
+    color: black;
+    transition: all 0.4s ease-in-out;
+}
 .grid {
     background-color: white;
     overflow: hidden;
-    border-radius: 5px;
-    border: 2px solid purple;
+    border-radius: 3px;
+    border:2px solid purple;
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 15px;
@@ -1494,6 +1509,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .node {
   stroke: #fff;
   stroke-width: 1.5px;
+    cursor: pointer;
 }
 
 .link {
@@ -1505,16 +1521,69 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     text-align: center;
     
 }
-div.tooltip {   
-  position: absolute;                      
-  width: auto;                  
-  height: auto;                 
-  padding: 2px;             
-  font: 12px sans-serif;        
-  background: lightsteelblue;   
-  border: 0px;      
-  border-radius: 8px;           
-  pointer-events: none;
-    color: black;         
+.selected-node {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 10px;
+    width: 200px;
+    height: auto;
+    position: absolute;
+    right: 40px;
+    top: 50px;
+    cursor: text;
+    color: white;
+    
 }
+.solvent-legend {
+    font-size: 19px;
+    margin-top: 200px;
+    
+}
+.solvent-legend p {
+    font-size: 15px;
+}
+.selected-node h4 {
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: underline;
+}
+.second-footer {
+    display: inline-block;
+    bottom: 0;
+  width: 100%;
+  padding: 24px;
+  /* Set the fixed height of the footer here */
+  height: 90px;
+  background-color: #151515c;
+}
+
+.second-footer .copyright-small {
+    text-align: center;
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+      font-size: 14px;
+}
+
+.second-footer .footer-right{
+	float: right;
+	margin-top: 6px;
+	max-width: 180px;
+}
+
+.second-footer .footer-right a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-left: 3px;
+}
+
 

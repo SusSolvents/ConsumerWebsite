@@ -6,25 +6,25 @@
                 <hr class="primary">
             </div>
         </div>
-    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-cluster-info"></div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bhoechie-tab-container">
         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
             <div class="list-group">
                 <a href="#" id="CANOPY" class="list-group-item disabled blurless text-center">
-                    <h4 class="glyphicon glyphicon-plane"></h4><br/>Canopy
+                    <h4 class="fa fa-cogs fa-2x"></h4><br/>CANOPY
                 </a>
                 <a href="#" id="EM" class="list-group-item disabled blurless text-center">
-                    <h4 class="glyphicon glyphicon-home"></h4><br />EM
+                    <h4 class="fa fa-wrench fa-2x"></h4><br />EM
                 </a>
                 <a href="#" id="KMEANS" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-road"></h4><br/>Kmeans
+                <h4 class="fa fa-tachometer fa-2x"></h4><br/>KMEANS
                 </a>
                
                 <a href="#" id="SOM" class="list-group-item disabled blurless text-center">
-                    <h4 class="glyphicon glyphicon-cutlery"></h4><br/>SOM
+                    <h4 class="fa fa-sitemap fa-2x"></h4><br/>SOM
                 </a>
                 <a href="#" id="XMEANS" class="list-group-item disabled blurless text-center">
-                <h4 class="glyphicon glyphicon-cutlery"></h4><br/>XMEANS
+                <h4 class="fa fa-xing fa-2x"></h4><br/>XMEANS
                 </a>
                 
             </div>
@@ -56,22 +56,32 @@
                         
                     <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
                         <div class="closecross" style="cursor: pointer" ng-click="closeOverlay(model.Model.AlgorithmName)">X</div>
-                            <div class="col-lg-3" style="text-align: initial; position: absolute">
+                            <div class="col-lg-3" style="text-align: initial; position: absolute; color: white">
                                 <h4>Cluster: {{cluster}}</h4>
                                 <h4>#Solvents: {{solventsInCluster.length}}</h4>
-                            <h4>Max distance: {{maxDistance}} <br/> {{maxSolvent.Name}} </h4>
-                                <h4>Min distance: {{minDistance}} <br/> {{minSolvent.Name}} </h4>
-                                <div style="margin-top: 40px;">
-                                    <img src="/Content/Images/clusterball.png" style="width: 30px; height: 30px; margin-right: 8px;"/>
-                                    <p style="display: inline">Clustercenter</p>
-                                </div>
-                                <div style="margin-top: 10px;">
-                                    <img src="/Content/Images/solventball.png" style="width: 30px; height: 30px; margin-right: 8px;"/>
-                                    <p style="display: inline">Solvent</p>
+                                <div class="solvent-legend">
+                                    <div>
+                                        <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                        <p style="display: inline">Clustercenter</p>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                        <p style="display: inline">Solvent</p>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                        <p style="display: inline">Farrest Solvent</p>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <img src="/Content/Images/closestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                        <p style="display: inline">Closest Solvent</p>
+                                    </div>
                                 </div>
                             </div>
                         <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
-                            
+                        <div class="selected-node" id="selected-node-{{model.Model.AlgorithmName}}">
+                            No solvent selected <br/> Click on a node
+                        </div>   
                     </div>
             </div>
                 </div>

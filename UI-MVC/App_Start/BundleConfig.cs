@@ -38,6 +38,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/modal.css",
                       "~/Content/cards.css",
                       "~/Content/tabs.css",
+                      
                       "~/Content/font-awesome.min.css",
                       
                       "~/Content/animate.css",
