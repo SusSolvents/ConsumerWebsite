@@ -103,11 +103,22 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("AddMemberToOrganisation")]
         public async Task<IHttpActionResult> AddMemberToOrganisation(long organisationId, string email)
         {
-            var member = _userManager.AddMemberToOrganisation(organisationId, email);
-            if (member == null)
+            var membersOrganisation = _userManager.ReadUsersForOrganisation(organisationId);
+            if (membersOrganisation.Count() >= 5)
+            {
+                return BadRequest("You can have a max of 5 members in one organisation");
+            }
+            var memberToAdd = _userManager.ReadUser(email);
+            if (memberToAdd == null)
             {
                 return BadRequest("email wasn't found!");
             }
+            if (membersOrganisation.Contains(memberToAdd))
+            {
+                return BadRequest("Member already in organisation");
+            }
+            _userManager.AddMemberToOrganisation(organisationId, email);
+
             return Ok("Member has been added to organisation");
         }
 

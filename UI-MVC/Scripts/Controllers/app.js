@@ -61,6 +61,9 @@ app.config(function ($routeProvider, $locationProvider) {
         resolve: {
             result: function ($route, srvLibrary) {
                 return srvLibrary.getSolventClusterResult($route.current.params.id);
+            },
+            organisations: function(srvLibrary) {
+                return srvLibrary.readOrganisations(window.sessionStorage.userId);
             }
         }
     });

@@ -19,8 +19,9 @@
                     error = data;
                 })
                 .success(function succesCallback(data) {
-
+                    
                 });
+            
             return $http({
                 method: 'POST',
                 url: '/Token',
@@ -33,13 +34,13 @@
                 },
                 data: loginData
             }).success(function succesCallback(data) {
-                if (error != null) {
+                if (error !== null) {
                     return error;
                 }
                 returnData = data;
                 return returnData;
             }).error(function errorCallback(data) {
-                if (error != null) {
+                if (error !== null) {
                     return null;
                 }
                 error = "Email or password is incorrect";
@@ -101,33 +102,37 @@ angular.module('sussol.controllers', ['sussol.services'])
         //Admin User Controller (login, logout)
         $scope.logIn = function logIn(username, password) {
             if (username !== undefined && password !== undefined) {
-                UserService.logIn(username, password).success(function(data){
-                    AuthenticationService.isLogged = true;
-                    $window.sessionStorage.token = data.access_token;
-                    $window.sessionStorage.username = username;
+                UserService.logIn(username, password).success(function (data) {
+                    if (error !== null) {
+                        $scope.errorlogin = error;
+                    } else {
+                        AuthenticationService.isLogged = true;
+                        $window.sessionStorage.token = data.access_token;
+                        $window.sessionStorage.username = username;
 
-                    $http({
-                        method: 'GET',
-                        url: 'api/Account/GetRole',
-                        params: { email: username }
-                    }).success(function succesCallback(data) {
-                        $window.sessionStorage.role = data;
-                    });
+                        $http({
+                            method: 'GET',
+                            url: 'api/Account/GetRole',
+                            params: { email: username }
+                        }).success(function succesCallback(data) {
+                            $window.sessionStorage.role = data;
+                        });
 
-                    $http({
-                        method: 'GET',
-                        url: '/api/Account/GetUserId?email=' + username
-                    }).success(function(data) {
-                        $window.sessionStorage.userId = data;
-                        $rootScope.userId = data;
-                    $rootScope.username = username;
-                    $('#login-modal').modal('hide');
-                        setTimeout($location.path("/account/" + data), 1000);
-                    });
-                    
-
+                        $http({
+                            method: 'GET',
+                            url: '/api/Account/GetUserId?email=' + username
+                        }).success(function(data) {
+                            $window.sessionStorage.userId = data;
+                            $rootScope.userId = data;
+                            $rootScope.username = username;
+                            $('#login-modal').modal('hide');
+                            setTimeout($location.path("/account/" + data), 1000);
+                        });
+                    }
+                    error = null;
                 }).error(function (status, data) {
                     $scope.errorlogin = error;
+                    error = null;
                 });
             }
         }

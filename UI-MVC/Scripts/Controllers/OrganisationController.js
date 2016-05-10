@@ -5,7 +5,6 @@
         var analyses = analysesOrganisation.data;
         var members = membersOrganisation.data;
         $scope.organisation = organisation;
-        
         $scope.noAnalyses = true;
 
         if (analyses.length !== 0) {
@@ -13,7 +12,51 @@
             $scope.analyses = analyses;
         }
 
+        $scope.organiser = false;
+        if ($window.sessionStorage.userId === organisation.Organisator.Id.toString()) {
+            $scope.organiser = true;
+        }
+
         
+        $scope.selectAnalysis = function selectAnalysis($event) {
+            $location.path("/analysis/overview/" + $event.currentTarget.id);
+        }
+
+        for (var i = 0; i < analyses.length; i++) {
+            analyses[i].image = getRandomImage();
+            analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
+        }
+
+        function timeSince(date) {
+            var seconds = Math.floor((new Date() - date) / 1000);
+            var interval = Math.floor(seconds / 31536000);
+
+            if (interval > 1) {
+                return interval + " years";
+            }
+            interval = Math.floor(seconds / 2592000);
+            if (interval > 1) {
+                return interval + " months";
+            }
+            interval = Math.floor(seconds / 86400);
+            if (interval > 1) {
+                return interval + " days";
+            }
+            interval = Math.floor(seconds / 3600);
+            if (interval > 1) {
+                return interval + " hours";
+            }
+            interval = Math.floor(seconds / 60);
+            if (interval > 1) {
+                return interval + " minutes";
+            }
+            return Math.floor(seconds) + " seconds";
+        }
+
+        function getRandomImage() {
+            var number = Math.floor((Math.random() * 4) + 1);
+            return "/Content/Images/random" + number + ".jpg";
+        } 
 
         for (var i = 0; i < members.length; i++) {
             if (members[i].AvatarUrl !== "") {
@@ -39,12 +82,18 @@
             }).success(function succesCallback(data) {
                 $scope.messageNewMember = "User was added to organisation";
                 $scope.emailNewMember = "";
+                $('#add-member-modal').modal('hide');
             }).error(function errorCallback(data) {
-                $scope.messageNewMember = "Email address was not found";
+                $scope.messageNewMember = data.Message;
             });
         }
 
-        $scope.LeaveOrganisation = function() {
+        $scope.closeModal = function() {
+            $('#leave-modal').modal('hide');
+        }
+
+        $scope.LeaveOrganisation = function () {
+            $('#leave-modal').modal('hide');
             $http({
                 method: 'POST',
                 url: 'api/Organisation/LeaveOrganisation',

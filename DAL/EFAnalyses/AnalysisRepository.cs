@@ -37,6 +37,7 @@ namespace SS.DAL.EFAnalyses
         public Analysis ReadAnalysis(long id)
         {
             return _context.Analyses
+                .Include(a => a.CreatedBy)
                 .Include(a => a.AnalysisModels)
                 .Include(a => a.AnalysisModels.Select(an => an.Model))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.DistanceToClusters))) 
@@ -63,7 +64,9 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(long id)
         {
-            return _context.Analyses.Where(o => o.SharedWith.Id == id).ToList();
+            return _context.Analyses
+                .Include(p => p.CreatedBy)
+                .Where(o => o.SharedWith.Id == id).ToList();
         }
 
         public Analysis UpdateAnalysis(Analysis analysis)
