@@ -24,6 +24,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                 DataSet = jsonModel.dataSet,
                 Date = DateTime.Now,
                 NumberOfSolvents = 0,
+                NumberOfFeatures = 0,
                 ModelPath = jsonModel.modelPath,
                 AlgorithmName = jsonModel.algorithm
             };
@@ -76,6 +77,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         solventTemp.Features.Add(featureTemp);
                     }
                     clusterTemp.Solvents.Add(solventTemp);
+                    model.NumberOfFeatures = solventTemp.Features.Count;
                 }
                 model.NumberOfSolvents += clusterTemp.Solvents.Count;
                 model.Clusters.Add(clusterTemp);

@@ -9,7 +9,6 @@ namespace SS.BL.Domain.Analyses
     public enum AlgorithmName
     {
         CANOPY,
-        COBWEB,
         EM,
         KMEANS,
         SOM,

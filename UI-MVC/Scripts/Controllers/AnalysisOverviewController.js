@@ -350,7 +350,7 @@
                 .style("stroke-width", 1)
             ;
 
-
+          
             var node = svg.selectAll(".node")
                 .data(jsonGraph.nodes)
                 .enter().append("circle")
@@ -398,11 +398,10 @@
 app.constant('Constants', {
     AlgorithmName: {
         0: 'CANOPY',
-        1: 'COBWEB',
-        2: 'EM',
-        3: 'KMEANS',
-        4: 'SOM',
-        5: 'XMEANS'
+        1: 'EM',
+        2: 'KMEANS',
+        3: 'SOM',
+        4: 'XMEANS'
     },
     FeatureName: {
         0: 'Boiling_Point_Minimum_DegreesC',

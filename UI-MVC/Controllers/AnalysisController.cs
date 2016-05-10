@@ -134,9 +134,6 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 switch (algorithm)
                 {
-                    case "Cobweb":
-                        algorithmNames.Add(AlgorithmName.COBWEB);
-                        break;
                     case "Canopy":
                         algorithmNames.Add(AlgorithmName.CANOPY);
                         break;
