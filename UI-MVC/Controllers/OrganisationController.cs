@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using SS.BL.Analyses;
+using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
@@ -18,10 +20,12 @@ namespace SS.UI.Web.MVC.Controllers
     public class OrganisationController : ApiController
     {
         private readonly IUserManager _userManager;
+        private readonly IAnalysisManager _analysisManager;
 
-        public OrganisationController(IUserManager userManager)
+        public OrganisationController(IUserManager userManager, IAnalysisManager analysisManager)
         {
             this._userManager = userManager;
+            this._analysisManager = analysisManager;
         }
         
         //GET api/Organisation/CreateOrganisation
@@ -62,7 +66,7 @@ namespace SS.UI.Web.MVC.Controllers
 
             Organisation org = _userManager.CreateOrganisation(name, imagePath, user);
 
-            return Ok();
+            return Ok(org.Id);
         }
 
         //GET api/Organisation/ReadOrganisations
@@ -79,6 +83,40 @@ namespace SS.UI.Web.MVC.Controllers
         public Organisation ReadOrganisation(long id)
         {
             return _userManager.ReadOrganisation(id);
+        }
+
+        //GET api/Organisation/GetAnalysesForOrganisation
+        [Route("GetAnalysesForOrganisation")]
+        public List<Analysis> GetAnalysesForOrganisation(long id)
+        {
+            return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
+        }
+
+        //GET api/Organisation/GetUsersForOrganisation
+        [Route("GetUsersForOrganisation")]
+        public List<User> GetUsersForOrganisation(long id)
+        {
+            return _userManager.ReadUsersForOrganisation(id).ToList();
+        }
+
+        //POST api/Organisation/AddMemberToOrganisation
+        [Route("AddMemberToOrganisation")]
+        public async Task<IHttpActionResult> AddMemberToOrganisation(long organisationId, string email)
+        {
+            var member = _userManager.AddMemberToOrganisation(organisationId, email);
+            if (member == null)
+            {
+                return BadRequest("email wasn't found!");
+            }
+            return Ok("Member has been added to organisation");
+        }
+
+        //POST api/Organisation/LeaveOrganisation
+        [Route("LeaveOrganisation")]
+        public async Task<IHttpActionResult> LeaveOrganisation(long userId, long organisationId)
+        {
+            _userManager.DeleteOrganisationMember(organisationId, userId);
+            return Ok();
         }
     }
 

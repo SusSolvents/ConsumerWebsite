@@ -19,7 +19,7 @@ namespace SS.BL.Analyses
         Analysis ReadAnalysis(long id);
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
-        IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation);
+        IEnumerable<Analysis> ReadAnalysesForOrganisation(long id);
         Analysis UpdateAnalysis(Analysis analysis);
 
         //Cluster

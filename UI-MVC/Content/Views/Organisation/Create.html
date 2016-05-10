@@ -1,4 +1,4 @@
-﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" ng-controller="organisationController as organisation">
+﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" ng-controller="CreateOrganisationController as organisation">
     <div class="centered-container">
         <h1>Create your own organisation</h1>
         <form name="organisationForm" novalidate
@@ -15,13 +15,13 @@
 
                 <div class="col-xs-7 col-sm-7 col-md-7">
                     <div style="">
-                        <p>Select your logo</p>
-                        <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()" />
+                        <p>Upload a banner</p>
+                        <img class="banner-img" ng-src="{{imageSrc || '/Content/Images/organisationHeader.jpg'}}" ng-click="triggerUpload()" />
                     </div>
                 </div>
             </div>
             <div class="col-xs-8">
-                <button type="submit" class="btn btn-primary">Register!</button>
+                <button type="submit" class="btn btn-primary">Create organisation!</button>
             </div>
         </form>
     </div>

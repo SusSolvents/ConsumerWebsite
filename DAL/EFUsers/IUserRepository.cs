@@ -15,7 +15,7 @@ namespace SS.DAL.EFUsers
         User ReadUser(string email);
         User ReadUser(long id);
         IEnumerable<User> ReadAllUsers();
-        IEnumerable<User> ReadUsersForOrganisation(Organisation organisation);
+        IEnumerable<User> ReadUsersForOrganisation(long id);
         User UpdateUser(User user);
         void DeleteUser(User user);
 
@@ -28,8 +28,10 @@ namespace SS.DAL.EFUsers
 
             //OrganisationMember
         OrganisationMember CreateOrganisationMember(Organisation organisation, User user);
+        OrganisationMember AddMemberToOrganisation(long organisationId, string email);
         IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation);
         IEnumerable<OrganisationMember> ReadAllOrganisationsForMember(User user);
+        void DeleteOrganisationMember(long organisationId, long userId);
 
 
     }

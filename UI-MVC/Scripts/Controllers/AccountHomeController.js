@@ -10,6 +10,7 @@
             }
     $scope.noOrganisations = true;
     $scope.noAnalyses = true;
+    $scope.OrderBy = "DateCreated";
     var organisations = organisationsResult.data;
 
 
@@ -98,6 +99,23 @@
                 });
             });
     };
+
+    $scope.OrderByFunc = function ($event) {
+
+        var element = $event.currentTarget.id;
+        if (element === "name") {
+            if ($scope.OrderBy === "Name")
+                $scope.OrderBy = "-Name";
+            else
+                $scope.OrderBy = "Name";
+        } else {
+            if ($scope.OrderBy === "DateCreated")
+                $scope.OrderBy = "-DateCreated";
+            else
+                $scope.OrderBy = "DateCreated";
+        }
+    }
+
     var model = this;
     model.password = {
         currentPassword: "",

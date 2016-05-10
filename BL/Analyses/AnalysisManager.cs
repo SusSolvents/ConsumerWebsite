@@ -59,9 +59,9 @@ namespace SS.BL.Analyses
             return repo.ReadAnalysesForUser(user);
         }
 
-        public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
+        public IEnumerable<Analysis> ReadAnalysesForOrganisation(long id)
         {
-            return repo.ReadAnalysesForOrganisation(organisation);
+            return repo.ReadAnalysesForOrganisation(id);
         }
 
         public Analysis UpdateAnalysis(Analysis analysis)

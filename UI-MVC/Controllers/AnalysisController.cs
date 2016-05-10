@@ -58,8 +58,7 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("GetAnalysesForOrganisation")]
         public List<Analysis> GetAnalysesForOrganisation(long id)
         {
-            var organisation = _userManager.ReadOrganisation(id);
-            return _analysisManager.ReadAnalysesForOrganisation(organisation).ToList();
+            return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
         } 
 
         //POST api/Analysis/ChangeName

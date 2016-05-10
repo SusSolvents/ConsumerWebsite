@@ -12,6 +12,6 @@ namespace SS.BL.Domain.Users
         [Key]
         public long Id { get; set; }
         public User User { get; set; }
-        public Organisation Organisaiton { get; set; }
+        public Organisation Organisation { get; set; }
     }
 }

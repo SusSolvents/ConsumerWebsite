@@ -21,36 +21,32 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
-            <select class="OrderBy" ng-model="OrderBy">
-                <option value="" disabled selected hidden>Order by</option>
-                <option value="DateCreated">Date</option>
-                <option value="-DateCreated">Date Desc</option>
-                <option value="Name">Name</option>
-                <option value="-Name">Name Desc</option>
-            </select>
+            <i title="sort on name" class="fa fa-sort-alpha-asc" aria-hidden="true" id="name" ng-click="OrderByFunc($event)" style="cursor: pointer;"/>
+            <i title="sort on date" class="fa fa-calendar" aria-hidden="true" id="date" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)"/>
+
             <div class="analysis-card-blog-style-1" ng-if="!noAnalyses">
                 <div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="col-lg-3" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
-                            <div class="analysis-card-post">
-                                <div class="analysis-card-post-image">
-                                    <div class="analysis-card-overlay"></div>
-                                    <img ng-src="{{analysis.image}}" alt="Image">
-                                </div>
-                                <div class="analysis-card-post-text">
+                                <div class="analysis-card-post">
+                                    <div class="analysis-card-post-image">
+                                        <div class="analysis-card-overlay"></div>
+                                        <img ng-src="{{analysis.image}}" alt="Image">
+                                    </div>
+                                    <div class="analysis-card-post-text">
                                         <h3>
                                             <a href="#">{{analysis.Name}}</a>
-                                    </h3>
+                                        </h3>
 
-                                    <p>{{analysis.NumberOfSolvents}} Solvents</p>
-                                </div>
-                                <div class="analysis-card-post-meta">
-                                        #{{analysis.Id}}<br />
-                                    <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                        <p>{{analysis.NumberOfSolvents}} Solvents</p>
+                                    </div>
+                                    <div class="analysis-card-post-meta">
+                                        #{{analysis.Id}}<br/>
+                                        <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                     </div>
@@ -73,7 +69,7 @@
                 <tr ng-repeat="organisation in organisations" id="{{organisation.Id}}" name="{{organisation.Id}}" ng-click="selectOrganisation($event)">
                     <td>{{organisation.Name}}</td>
                     <td>{{organisation.Organisator.Email}}</td>
-                    <td><a href="/organisation/view/{{organisation.Id}}">View organisation</a></td>
+                    <td><a href="/organisation/{{organisation.Id}}">View organisation</a></td>
                 </tr>
                 </tbody>
             </table>

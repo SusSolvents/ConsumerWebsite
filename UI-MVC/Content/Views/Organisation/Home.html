@@ -1,6 +1,56 @@
-﻿<div class="centered-container" ng-controller="organisationController as organisation">
-    <p>Home pagina from organisation: {{organisationName}}</p>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-        <img class="avatar-img" id="logo_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()" />
+﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding">
+
+
+    <div class="centered-container-big padding-none">
+
+        <div class="organisation-full-banner" ng-style="imageSrc">
+            
+        </div>
+        <p>Home pagina from organisation: {{organisation.Name}}</p>
+        <div>
+            <table class="table table-condensed" ng-if="!noAnalyses">
+                <thead>
+                <tr>
+                    <th>Shared by</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="analysis in analyses">
+                    <td>{{analysis.CreatedBy.Email}}</td>
+                    <td>{{analysis.DateCreated}}</td>
+                    <td><a href="/analysis/overview/{{analysis.Id}}">View analysis</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="noAnalyses">
+                There aren't any shard analysis with this organisation!
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Email</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="member in members">
+                    <td><img class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}" /></td>
+                    <td>{{member.Email}}</td>
+                    <td>{{member.Firstname}} {{member.Lastname}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="addMember" style="margin-top: 20px">
+            {{messageNewMember}}
+            <input style="color: black" ng-model="emailNewMember"/>
+            <button style="color: black" ng-click="AddMember()">Add member</button>
+        </div>
+        <div>
+            <button ng-click="LeaveOrganisation()">Leave Organisation</button>
+        </div>
     </div>
-</div>
+    </div>

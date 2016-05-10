@@ -32,6 +32,11 @@ namespace SS.BL.Users
             return repo.UpdateUser(user);
         }
 
+        public IEnumerable<User> ReadUsersForOrganisation(long id)
+        {
+            return repo.ReadUsersForOrganisation(id);
+        }
+
         public void DeleteUser(User user)
         {
             repo.DeleteUser(user);
@@ -70,6 +75,16 @@ namespace SS.BL.Users
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
         {
             return repo.CreateOrganisationMember(organisation, user);
+        }
+
+        public OrganisationMember AddMemberToOrganisation(long organisationId, string email)
+        {
+            return repo.AddMemberToOrganisation(organisationId, email);
+        }
+
+        public void DeleteOrganisationMember(long organisationId, long userId)
+        {
+            repo.DeleteOrganisationMember(organisationId, userId);
         }
 
         public User CreateUser(string firstname, string lastname, string email, string avatarUrl)

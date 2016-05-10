@@ -34,9 +34,21 @@ app.config(function ($routeProvider, $locationProvider) {
         templateUrl: "Content/Views/Organisation/Create.html", 
         authenticate: true
     });
-    $routeProvider.when("/organisation/:name", {
+    $routeProvider.when("/organisation/:id", {
         templateUrl: "Content/Views/Organisation/Home.html",
-        authenticate: true
+        controller: 'OrganisationController',
+        authenticate: true,
+        resolve: {
+            result: function ($route, srvLibrary) {
+                return srvLibrary.readOrganisation($route.current.params.id);
+            },
+            membersOrganisation: function($route, srvLibrary) {
+                return srvLibrary.readUsersForOrganisation($route.current.params.id);
+            },
+            analysesOrganisation: function($route, srvLibrary) {
+                return srvLibrary.readAnalysesForOrganisation($route.current.params.id);
+            }
+        }
     });
     $routeProvider.when("/analysis/start", {
         templateUrl: "Content/Views/Analysis/Start.html",
@@ -76,7 +88,7 @@ angular.module('sussol.services')
                     });
                     return promise;
                 },
-                getUserInfo: function (id) {
+                getUserInfo: function(id) {
                     var promise = $http({
                         method: 'GET',
                         url: 'api/Account/GetUserInfo',
@@ -84,26 +96,59 @@ angular.module('sussol.services')
                     }).error(function errorCallback(data) {
                         $location.path("/404");
                     });
-                    promise.success(function (data, status, headers, conf) {
+                    promise.success(function(data, status, headers, conf) {
                         return data;
                     });
                     return promise;
                 },
-                readOrganisations: function (id) {
+                readOrganisations: function(id) {
                     var promise = $http({
                         method: 'POST',
                         url: 'api/Organisation/ReadOrganisations',
                         params: { id: id }
                     });
-                    promise.success(function (data, status, headers, conf) {
+                    promise.success(function(data, status, headers, conf) {
                         return data;
                     });
                     return promise;
                 },
-                readAnalyses: function (id) {
+                readOrganisation: function(id) {
+                    var promise = $http({
+                        method: 'POST',
+                        url: 'api/Organisation/ReadOrganisation',
+                        params: { id: id }
+                    });
+                    promise.success(function(data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readAnalyses: function(id) {
                     var promise = $http({
                         method: 'GET',
                         url: 'api/Analysis/GetAnalysesForUser',
+                        params: { id: id }
+                    });
+                    promise.success(function(data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readAnalysesForOrganisation: function(id) {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Organisation/GetAnalysesForOrganisation',
+                        params: { id: id }
+                    });
+                    promise.success(function(data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readUsersForOrganisation: function (id) {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Organisation/GetUsersForOrganisation',
                         params: { id: id }
                     });
                     promise.success(function (data, status, headers, conf) {
