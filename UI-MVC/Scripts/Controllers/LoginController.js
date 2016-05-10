@@ -109,7 +109,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                         AuthenticationService.isLogged = true;
                         $window.sessionStorage.token = data.access_token;
                         $window.sessionStorage.username = username;
-
+                        delete $scope.errorlogin;
                         $http({
                             method: 'GET',
                             url: 'api/Account/GetRole',
