@@ -111,7 +111,6 @@ angular.module('sussol.controllers', ['sussol.services'])
                         url: 'api/Account/GetRole',
                         params: { email: username }
                     }).success(function succesCallback(data) {
-                        console.log(data);
                         $window.sessionStorage.role = data;
                     });
 
@@ -139,6 +138,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                 delete $window.sessionStorage.token;
                 delete $rootScope.username;
                 delete $window.sessionStorage.username;
+                delete $window.sessionStorage.role;
                 $location.path("/");
             }
         }

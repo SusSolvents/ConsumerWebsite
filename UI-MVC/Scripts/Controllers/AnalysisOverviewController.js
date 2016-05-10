@@ -256,14 +256,14 @@
                 url: 'api/Analysis/ChangeName',
                 params: { name: $scope.newName, analysisId: $routeParams.id }
             }).success(function succesCallback(data) {
+                $scope.NameChanged = "The name has been changed";
+                $scope.newName = "";
             });
         }
 
         $scope.closeOverlay = function closeOverlay(name) {
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
-            
-
         }
 
         function findModelOnName(name) {

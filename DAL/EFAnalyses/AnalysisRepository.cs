@@ -76,6 +76,14 @@ namespace SS.DAL.EFAnalyses
             return currentAnalysis;
         }
 
+        public void ShareWithOrganisation(long organisationId, long analysisId)
+        {
+            var organisation = _context.Organisations.Find(organisationId);
+            var analysis = _context.Analyses.Find(analysisId);
+            analysis.SharedWith = organisation;
+            _context.SaveChanges();
+        }
+
         public Cluster CreateCluster(Cluster cluster)
         {
             cluster = _context.Clusters.Add(cluster);

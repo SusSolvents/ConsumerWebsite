@@ -200,6 +200,14 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 return BadRequest("An error occurred while generating the model.");
             }
-        }  
+        }
+        
+        //POST api/Analysis/ShareWithOrganisation
+        [Route("ShareWithOrganisation")]
+        public async Task<IHttpActionResult> ShareWithOrganisation(long organisationId, long analysisId)
+        {
+            _analysisManager.ShareWithOrganisation(organisationId, analysisId);
+            return Ok("Analysis shared with organisation");
+        }
     }
 }
