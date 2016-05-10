@@ -1698,9 +1698,73 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 
 .user-img {
-    width: 40px;
-    height: 40px;
     border-radius: 100%;
     border: 2px solid white;
-    display: block;
+}
+
+
+.styled-select select {
+   background: transparent;
+   width: 100%;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   }
+
+.styled-select option {
+    color: black;
+}
+
+.styled-select select::-ms-expand {
+    display: none;
+}
+
+.styled-select {
+    margin-bottom: 10px;
+   width: 100%;
+   height: 34px;
+   overflow: hidden;
+   background: url(Images/down_arrow_select.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    color: black;
+   }
+
+.analysis-header {
+    width: auto;
+    text-align: center;
+    color: black;
+}
+
+.analysis-settings {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+
+.about-user {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 300;
+    margin: .5em;
+}
+
+.about-user img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        max-height: 200px;
+        margin-bottom: .5em;
 }

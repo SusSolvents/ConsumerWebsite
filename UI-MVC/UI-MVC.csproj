@@ -281,6 +281,7 @@
     <Content Include="Content\Images\cd-arrow.svg" />
     <Content Include="Content\Images\closestsolvent.png" />
     <Content Include="Content\Images\clusterball.png" />
+    <Content Include="Content\Images\down_arrow_select.jpg" />
     <Content Include="Content\Images\farrestsolvent.png" />
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
     <Content Include="Content\Images\loading.gif" />

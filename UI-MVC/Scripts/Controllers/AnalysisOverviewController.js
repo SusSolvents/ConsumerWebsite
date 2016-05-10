@@ -1,8 +1,10 @@
 ﻿app.controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, Constants, result, $timeout) {
+    function ($scope, $window, $http, $routeParams, Constants, result, $timeout, organisations) {
         var solvents = [];
         var selectedAlgorithm;
-       
+        var organisationsUser = organisations.data;
+        $scope.organisationsUser = organisationsUser;
+        console.log(organisationsUser);
         var prevClusters;
         var clusters;
         var algorithms = [];
@@ -20,9 +22,16 @@
         var totalSolvents = 0;
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
+        console.log(data);
         setEnumNames(data);
         selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
-        
+
+        $scope.canEdit = false;
+
+        if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
+            $scope.canEdit = true;
+        }
+
 
         
         $scope.analysisName = data.Name;
@@ -243,7 +252,20 @@
             createProgress(jsonModel);
         }
             
-        
+        $scope.shareWithOrganisation = function () {
+            console.log($scope.selectedOrganisation);
+            if ($scope.selectedOrganisation === undefined) {
+                $scope.SharedWithOrganisation = "First select an organisation!";
+            } else {
+                $http({
+                    method: 'POST',
+                    url: 'api/Analysis/ShareWithOrganisation',
+                    params: { organisationId: $scope.selectedOrganisation.Id, analysisId: data.Id }
+                }).success(function succesCallback(data) {
+                    $('#organisation-model').modal('hide');
+                });
+            }
+        }
             
         
         
@@ -267,14 +289,15 @@
                 url: 'api/Analysis/ChangeName',
                 params: { name: $scope.newName, analysisId: $routeParams.id }
             }).success(function succesCallback(data) {
+                $scope.analysisName = $scope.newName;
+                $scope.newName = "";
+                $('#changeName-model').modal('hide');
             });
         }
 
         $scope.closeOverlay = function closeOverlay(name) {
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
-            
-
         }
 
         function findModelOnName(name) {

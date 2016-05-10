@@ -21,6 +21,7 @@
                 .success(function succesCallback(data) {
 
                 });
+            
             return $http({
                 method: 'POST',
                 url: '/Token',
@@ -33,13 +34,13 @@
                 },
                 data: loginData
             }).success(function succesCallback(data) {
-                if (error != null) {
+                if (error !== null) {
                     return error;
                 }
                 returnData = data;
                 return returnData;
             }).error(function errorCallback(data) {
-                if (error != null) {
+                if (error !== null) {
                     return null;
                 }
                 error = "Email or password is incorrect";
@@ -101,12 +102,11 @@ angular.module('sussol.controllers', ['sussol.services'])
         //Admin User Controller (login, logout)
         $scope.logIn = function logIn(username, password) {
             if (username !== undefined && password !== undefined) {
-                
-                    $('#load').button('loading');
-
-                   
+                $('#load').button('loading');
                 UserService.logIn(username, password).success(function (data) {
-                    delete $scope.errorlogin;
+                    if (error !== null) {
+                        $scope.errorlogin = error;
+                    } else {
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
@@ -126,43 +126,43 @@ angular.module('sussol.controllers', ['sussol.services'])
                             $timeout($location.path("/account/admin"));
                         } else {
                             console.log("no superadmin");
-                            $http({
-                                method: 'GET',
-                                url: '/api/Account/GetUserId?email=' + username
+                    $http({
+                        method: 'GET',
+                        url: '/api/Account/GetUserId?email=' + username
                             }).success(function (data) {
-                                $window.sessionStorage.userId = data;
-                                $rootScope.userId = data;
-                                $rootScope.username = username;
+                        $window.sessionStorage.userId = data;
+                        $rootScope.userId = data;
+                    $rootScope.username = username;
                                 $('#load').button('reset');
                                 $timeout($location.path("/account/" + data));
-                                $('#login-modal').modal('hide');
+                    $('#login-modal').modal('hide');
                                 $rootScope.admin = false;
                             });
                         }
                     });
-
-                    
-
-                    }).error(function (status, data) {
-                        $scope.errorlogin = error;
+                    }
+                    error = null;
+                }).error(function (status, data) {
+                    $scope.errorlogin = error;
+                    error = null;
                         $('#load').button('reset');
-                                });
-                            }
-                        }
+                });
+            }
+        }
 
-                        $scope.logOut = function logOut() {
-                            if ($rootScope.username) {
-                                AuthenticationService.isLogged = false;
-                                delete $window.sessionStorage.token;
-                                delete $rootScope.username;
-                                delete $window.sessionStorage.username;
+        $scope.logOut = function logOut() {
+            if ($rootScope.username) {
+                AuthenticationService.isLogged = false;
+                delete $window.sessionStorage.token;
+                delete $rootScope.username;
+                delete $window.sessionStorage.username;
                                 delete $window.sessionStorage.role;
                                 delete $rootScope.admin;
-                                $location.path("/");
-                            }
-                        }
-                        $scope.closeModal = function closeModal() {
-                            $('#login-modal').modal('hide');
-                        }
-                    }
-                ]);
+                $location.path("/");
+            }
+        }
+        $scope.closeModal = function closeModal() {
+            $('#login-modal').modal('hide');
+        }
+    }
+]);

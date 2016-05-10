@@ -6,51 +6,72 @@
         <div class="organisation-full-banner" ng-style="imageSrc">
             
         </div>
-        <p>Home pagina from organisation: {{organisation.Name}}</p>
-        <div>
-            <table class="table table-condensed" ng-if="!noAnalyses">
-                <thead>
-                <tr>
-                    <th>Shared by</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="analysis in analyses">
-                    <td>{{analysis.CreatedBy.Email}}</td>
-                    <td>{{analysis.DateCreated}}</td>
-                    <td><a href="/analysis/overview/{{analysis.Id}}">View analysis</a></td>
-                </tr>
-                </tbody>
-            </table>
-            <div ng-if="noAnalyses">
-                There aren't any shard analysis with this organisation!
+        <h3>Home pagina from organisation: {{organisation.Name}}</h3>
+        <div style="float: right;">
+            <a style="margin-right: 20px;" href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i style="color: white; cursor: pointer" class="fa fa-plus-square fa-2x" aria-hidden="true"></i></a>
+            <a style="margin-right: 20px;" href="#" data-toggle="modal" data-target="#leave-modal" ng-if="organiser === false"><i style="color: white; cursor: pointer" class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div class="row">
+            <div class="about-user col-lg-2">
+                <img class="user-img" ng-src="{{organisation.Organisator.AvatarUrl || '/Content/Images/avatar.png'}}" />
+                <p>{{organisation.Organisator.Firstname}} {{organisation.Organisator.Lastname}}</p>
             </div>
+            <div class="about-user col-lg-2" ng-repeat="member in members">
+                <img class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}"/>
+                <p>{{member.Firstname}} {{member.Lastname}}</p>
+            </div>
+        </div>
+            <div>
+                <div class="analysis-card-blog-style-1">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-3" ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                                <div class="analysis-card-post">
+                                    <div class="analysis-card-post-image">
+                                        <div class="analysis-card-overlay"></div>
+                                        <img ng-src="{{analysis.image}}" alt="Image">
+                                    </div>
+                                    <div class="analysis-card-post-text">
+                                        <h3>
+                                            <a href="#">{{analysis.Name}}</a>
+                                        </h3>
+                                        <p>{{analysis.CreatedBy.Email}}</p>
 
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Email</th>
-                    <th>Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="member in members">
-                    <td><img class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}"/></td>
-                    <td>{{member.Email}}</td>
-                    <td>{{member.Firstname}} {{member.Lastname}}</td>
-                </tr>
-                </tbody>
-            </table>
+                                        <p>{{analysis.NumberOfSolvents}} Solvents</p>
+                                    </div>
+                                    <div class="analysis-card-post-meta">
+                                        #{{analysis.Id}}<br />
+                                        <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix visible-sm-block"></div>
+                    </div>
+                </div>
+                <div ng-if="noAnalyses">
+                    There aren't any shard analysis with this organisation!
+                </div>
+            </div>
         </div>
-        <div id="addMember" style="margin-top: 20px">
-            {{messageNewMember}}
-            <input style="color: black" ng-model="emailNewMember"/>
-            <button style="color: black" ng-click="AddMember()">Add member</button>
-        </div>
+    </div>
+<div class="modal fade" id="add-member-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="loginmodal-container password-container">
+        <h1>Add a member to your organisation</h1>
         <div>
-            <button ng-click="LeaveOrganisation()">Leave Organisation</button>
+            {{messageNewMember}}
+            <input style="color: black; width: 100%;" ng-model="emailNewMember" placeholder="email address" />
+            <button class="login loginmodal-submit" style="width: 100%; margin-top: 7px;" ng-click="AddMember()">Add member</button>
         </div>
     </div>
+</div> 
+
+<div class="modal fade" id="leave-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="loginmodal-container password-container">
+        <h1>Are you sure you want to leave this organisation?</h1>
+        <div>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="LeaveOrganisation()">Yes</button>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModal()">No</button>
+        </div>
     </div>
+</div> 
