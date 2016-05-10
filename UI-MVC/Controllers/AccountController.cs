@@ -23,6 +23,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
+using SS.DAL;
 using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
 using SS.UI.Web.MVC.Providers;
@@ -64,6 +65,27 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        //GET api/Account/GetRole
+        [Route("GetRole")]
+        public string GetRole(string email)
+        {
+            var rm = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleManager = new RoleManager<IdentityRole>(rm);
+            var roleNames = roleManager.Roles.ToList();
+            var role = UserManager.FindByEmail(email).Roles.First();
+            
+
+
+           for (var i = 0; i < roleNames.Count; i++)
+            {
+                if (roleNames[i].Id.Equals(role.RoleId))
+                {
+                    return roleNames[i].Name;
+                }
+            }
+            return null;
+        }
 
         //POST api/Account/GiveUserAccess
         [Route("GiveUserAccess")]

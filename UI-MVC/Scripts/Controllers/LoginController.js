@@ -105,6 +105,16 @@ angular.module('sussol.controllers', ['sussol.services'])
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.access_token;
                     $window.sessionStorage.username = username;
+
+                    $http({
+                        method: 'GET',
+                        url: 'api/Account/GetRole',
+                        params: { email: username }
+                    }).success(function succesCallback(data) {
+                        console.log(data);
+                        $window.sessionStorage.role = data;
+                    });
+
                     $http({
                         method: 'GET',
                         url: '/api/Account/GetUserId?email=' + username

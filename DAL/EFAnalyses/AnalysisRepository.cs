@@ -61,9 +61,9 @@ namespace SS.DAL.EFAnalyses
                 .Include(p=>p.CreatedBy).ToList();
         }
 
-        public IEnumerable<Analysis> ReadAnalysesForOrganisation(Organisation organisation)
+        public IEnumerable<Analysis> ReadAnalysesForOrganisation(long id)
         {
-            return _context.Analyses.Where(o => o.SharedWith.Id == organisation.Id).ToList();
+            return _context.Analyses.Where(o => o.SharedWith.Id == id).ToList();
         }
 
         public Analysis UpdateAnalysis(Analysis analysis)

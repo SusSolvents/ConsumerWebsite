@@ -14,6 +14,7 @@ namespace SS.BL.Users
         User ReadUser(string email);
         User ReadUser(long id);
         User UpdateUser(User user);
+        IEnumerable<User> ReadUsersForOrganisation(long id);
         void DeleteUser(User user);
 
         //Organisation
@@ -25,5 +26,7 @@ namespace SS.BL.Users
 
         //OrganisationMember
         OrganisationMember CreateOrganisationMember(Organisation organisation, User user);
+        OrganisationMember AddMemberToOrganisation(long organisationId, string email);
+        void DeleteOrganisationMember(long organisationId, long userId);
     }
 }

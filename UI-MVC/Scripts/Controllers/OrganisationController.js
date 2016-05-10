@@ -1,23 +1,73 @@
-﻿app.controller('organisationController', 
+﻿app.controller('OrganisationController', 
+    function ($window, $scope, $http, fileReader, $location, result, analysesOrganisation, membersOrganisation) {
+
+        var organisation = result.data;
+        var analyses = analysesOrganisation.data;
+        var members = membersOrganisation.data;
+        $scope.organisation = organisation;
+        
+        $scope.noAnalyses = true;
+
+        if (analyses.length !== 0) {
+            $scope.noAnalyses = false;
+            $scope.analyses = analyses;
+        }
+
+        
+
+        for (var i = 0; i < members.length; i++) {
+            if (members[i].AvatarUrl !== "") {
+                members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
+            }
+        }
+
+        $scope.members = members;
+
+        var logo = organisation.LogoUrl;
+        if (logo != null && logo !== "") {
+            $scope.imageSrc = { 'background-image': 'url(/Content/Images/Organisations/' + logo + ')' }
+        } else {
+            $scope.imageSrc = { 'background-image': 'url(/Content/Images/organisationHeader.jpg)' }
+        }
+
+        
+        $scope.AddMember = function() {
+            $http({
+                method: 'POST',
+                url: 'api/Organisation/AddMemberToOrganisation',
+                params: { organisationId: organisation.Id, email: $scope.emailNewMember }
+            }).success(function succesCallback(data) {
+                $scope.messageNewMember = "User was added to organisation";
+                $scope.emailNewMember = "";
+            }).error(function errorCallback(data) {
+                $scope.messageNewMember = "Email address was not found";
+            });
+        }
+
+        $scope.LeaveOrganisation = function() {
+            $http({
+                method: 'POST',
+                url: 'api/Organisation/LeaveOrganisation',
+                params: { userId: $window.sessionStorage.userId, organisationId: organisation.Id }
+            }).success(function succesCallback() {
+                $location.path("/account/" + $window.sessionStorage.userId);
+            });
+        }
+
+
+        
+    }
+);
+
+app.controller('CreateOrganisationController',
     function ($window, $scope, $http, fileReader, $location) {
-        $scope.username = $window.sessionStorage.username;
         var model = this;
         model.org = {
             name: "",
             logo: ""
         };
 
-        var organisation;
-        var getOrganisation = function (name, $http) {
-            $http({
-                method: 'GET',
-                url: 'api/Organisation/ReadOrganisation?name=' + name
-            }).succes(function succesCallback(data) {
-                organisation = data;
-            });
-        };
-
-        var createOrganisation = function(model, $http) {
+        var createOrganisation = function (model, $http) {
             var formData = new FormData();
             formData.append('name', model.org.name);
             formData.append('email', $scope.username);
@@ -32,10 +82,7 @@
                 transformRequest: angular.identity,
                 data: formData
             }).success(function succesCallback(data) {
-                $scope.message = data;
-                $scope.organisationName = model.org.name;
-                getOrganisation($scope.organisationName);
-                $location.path("/organisation/" + $scope.organisationName);
+                setTimeout($location.path("/organisation/" + data), 1000);
             }).error(function errorCallback(data) {
                 $scope.message = data;
             });
@@ -60,5 +107,4 @@
                               $scope.imageSrc = result;
                           });
         };
-    }
-);
+    });
