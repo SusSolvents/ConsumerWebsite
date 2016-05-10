@@ -21,6 +21,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/AccountController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/UploadController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AccountHomeController.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/AdminController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/OrganisationController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AnalysisController.js"></script>
     <script type="text/javascript" src="~/Scripts/Controllers/AnalysisOverviewController.js"></script>
@@ -56,7 +57,8 @@
                     
                     <li>
                         <a href="#" data-toggle="modal" data-target="#login-modal" ng-if="username===undefined">Log in</a>
-                        <a href="/account/{{userId}}" ng-if="username!==undefined">My Dashboard</a>
+                        <a href="/account/admin" ng-if="admin">Admin</a>
+                        <a href="/account/{{userId}}" ng-if="username!==undefined && !admin">My Dashboard</a>
                     </li>
                     <li ng-controller="LoginController as login">
                          <a href="/" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>
@@ -91,17 +93,18 @@
         <div class="login-dialog">
             <div class="loginmodal-container">
                 <h1>Login to your account</h1><br>
-                <form>
+                <form id="logform">
                     {{errorlogin}}
                     <input type="text" name="user" placeholder="Username" ng-model="login.email" required>
                     <input type="password" name="pass" placeholder="Password" ng-model="login.password" required>
-                    <input type="submit" name="login" class="login loginmodal-submit" value="Login" ng-click="logIn(login.email, login.password)">
+                    <button type="submit" name="login" class="small-button" style="width: 100%; padding: 10px; margin: 12px 0 15px 0" value="Login" ng-click="logIn(login.email, login.password)" id="load" data-loading-text="<i class='fa fa-refresh fa-spin'></i>   Logging in ...">Log in</button>
                 </form>
-    
+
                 <div class="login-help text-center">
                     <a href="/register" ng-click="closeModal()">Register</a> - <a href="#" ng-click="closeModal()">Forgot Password</a>
                 </div>
             </div>
+            
         </div>
     </div>
     

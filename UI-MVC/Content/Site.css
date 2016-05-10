@@ -296,7 +296,8 @@ footer {
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
   background-color: transparent;
-    padding: 18px;
+    padding: 12px;
+    text-align: center;
   font-size: 130%;
   letter-spacing: 3px;
    text-transform: lowercase;
@@ -346,7 +347,7 @@ footer {
     cursor: default;
 }
 
-.button:hover, .button-right:hover , .small-button:hover {
+.button:hover, .xs-button:hover,.button-right:hover , .small-button:hover {
   border: 1.75px solid white;
   text-shadow: 0 1px rgba(0,0,0,0.3);
   background-color: rgba(40,40,40,0.7);
@@ -354,7 +355,7 @@ footer {
     color: white;
    
 }
-.button:focus, .button-right:hover ,.small-button:focus {
+.button:focus, .button-right:focus, .xs-button:hover ,.small-button:focus {
     outline: 0;
     text-decoration: none;
     color: white;
@@ -802,10 +803,102 @@ progress {
     height: -moz-fit-content;
     height: auto;
     background-color: rgba(80, 80, 80, 0.8);
-    border-radius: 8px;
+    border-radius: 5px;
     overflow: auto;
     min-width: 410px;
 }
+.centered-container-admin {
+    display: block;
+    width: 80%;
+    padding: 40px 80px 80px 80px;
+    margin: 0 auto;
+    background-color: rgba(80, 80, 80, 0.8);
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: auto;
+    
+    
+    overflow: hidden;
+    min-width: 480px;
+}
+.admin-card {
+    height: 250px;
+    border-radius: 1px;
+    background-color: grey;
+    overflow: hidden;
+    padding: 0;
+    margin-top: 15px;
+    
+}
+.profile-review {
+    margin: 2%;
+    text-align: center;
+    width: 96%;
+    
+    
+}
+.profile-review:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+.profile-container {
+    width: 100%;
+}
+.profile-review p {
+    display: inline-block;
+    width: 130px;
+    
+    
+}
+.profile-review img {
+    margin-top: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.profile-review i {
+    color: black;
+    margin-left: 3%;
+    font-size: 20px;
+}
+.profile-review .cross:hover {
+    color: red;
+}
+.profile-review i:hover {
+    color: greenyellow;
+}
+.xs-button {
+      /* border: 1px solid #3079ed; */
+  border: 1.75px solid white;
+  color: #fff;
+  font-family: 'Questrial', 'Roboto';
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: transparent;
+  padding: 10px;
+    text-align: center;
+  font-size: 100%;
+  letter-spacing: 3px;
+  text-transform: lowercase;
+  border-radius: 6px;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  cursor: pointer;
+    
+    width: 100px;
+    margin: 10px;
+  color: white;
+    text-decoration: none;
+}
+.admin-card .admin-card-title{
+    color: lightgray;
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    
+    border-bottom: 1px solid darkgray;
+}
+
 .centered-container-big {
     display: block;
     width: 70%;
@@ -816,7 +909,7 @@ progress {
     height: -moz-fit-content;
     height: auto;
     background-color: rgba(100, 100, 100, 0.6);
-    border-radius: 8px;
+    border-radius: 5px;
     overflow: hidden;
     min-width: 480px;
 }

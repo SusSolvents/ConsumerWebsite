@@ -123,6 +123,27 @@ namespace SS.UI.Web.MVC.Controllers
         {
             return _userMgr.ReadUser(email).Id;
         }
+        
+        [Route("GetAllAdminInfo")]
+        public AdminInformationModel GetAdminInfo()
+        {
+            AdminInformationModel model = new AdminInformationModel()
+            {
+                BlockedUsers = new List<User>()
+            };
+            foreach (var applicationUser in UserManager.Users.Where(u => u.LockoutEnabled))
+            {
+                model.BlockedUsers.Add(_userMgr.ReadUser(applicationUser.Email));
+            }
+            return model;
+        }
+        [Route("AllowUser")]
+        public async Task<IHttpActionResult> AllowUser(string email)
+        {
+            var user = UserManager.Users.Single(u => u.Email == email);
+            await UserManager.SetLockoutEnabledAsync(user.Id, false);
+            return Ok("This user will now have access");
+        }
 
         //GET api/Account/GetUserInfo
         [Route("GetUserInfo")]
