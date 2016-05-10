@@ -13,7 +13,18 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/login", {
         templateUrl: "Content/Views/Account/Login.html",
         authenticate: false
-    }); 
+    });
+    $routeProvider.when("/account/admin", {
+        controller: 'AdminController',
+        templateUrl: "Content/Views/Account/Admin.html",
+        authenticate: true,
+        resolve: {
+            result: function($route, srvLibrary) {
+                return srvLibrary.getAdminInfo();
+            }
+    }
+        
+    });
     $routeProvider.when("/account/:id", { 
         templateUrl: "Content/Views/Account/Home.html",
         controller: 'AccountHomeController as account',
@@ -104,6 +115,20 @@ angular.module('sussol.services')
                     });
                     return promise;
                 },
+                getAdminInfo: function () {
+                    var promise = $http({
+                        method: 'GET',
+                        url: 'api/Account/GetAllAdminInfo'
+                        
+                    }).error(function errorCallback(data) {
+                        console.log(data);
+                        $location.path("/404");
+                    });
+                    promise.success(function (data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
                 readOrganisations: function(id) {
                     var promise = $http({
                         method: 'POST',
@@ -167,11 +192,15 @@ angular.module('sussol.services')
 
 
 app.run([
-    '$rootScope', function($root) {
-        $root.$on('$routeChangeStart', function(e, curr, prev) {
+    '$rootScope','$window','$location', function($root, $window, $location) {
+        $root.$on('$routeChangeStart', function (e, curr, prev) {
+            if (curr.templateUrl === "Content/Views/Account/Admin.html") {
+                if ($window.sessionStorage.role !== "SuperAdministrator") {
+                    $location.path('/');
+                }
+            }
             if (curr.$$route && curr.$$route.resolve) {
-                // Show a loading message until promises aren't resolved
-                
+                // Show a loading message until promises aren't resolved   
                 $root.loadingView = true;
             }
         });

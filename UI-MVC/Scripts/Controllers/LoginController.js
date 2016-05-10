@@ -96,12 +96,13 @@ var error;
 
 angular.module('sussol.controllers', ['sussol.services'])
 
-    .controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService', '$http',
-    function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService, $http) {
+    .controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService', '$http', '$timeout',
+    function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService, $http, $timeout) {
 
         //Admin User Controller (login, logout)
         $scope.logIn = function logIn(username, password) {
             if (username !== undefined && password !== undefined) {
+                $('#load').button('loading');
                 UserService.logIn(username, password).success(function (data) {
                     if (error !== null) {
                         $scope.errorlogin = error;
@@ -115,24 +116,36 @@ angular.module('sussol.controllers', ['sussol.services'])
                             url: 'api/Account/GetRole',
                             params: { email: username }
                         }).success(function succesCallback(data) {
-                            $window.sessionStorage.role = data;
-                        });
 
+                            $window.sessionStorage.role = data;
+                        if ($window.sessionStorage.role === "SuperAdministrator") {
+                            $rootScope.admin = true;
+                            console.log("Logged in as: " + data);
+                            $('#load').button('reset');
+                            $('#login-modal').modal('hide');
+                            $timeout($location.path("/account/admin"));
+                        } else {
+                            console.log("no superadmin");
                         $http({
                             method: 'GET',
                             url: '/api/Account/GetUserId?email=' + username
-                        }).success(function(data) {
+                            }).success(function (data) {
                             $window.sessionStorage.userId = data;
                             $rootScope.userId = data;
                             $rootScope.username = username;
+                                $('#load').button('reset');
+                                $timeout($location.path("/account/" + data));
                             $('#login-modal').modal('hide');
-                            setTimeout($location.path("/account/" + data), 1000);
+                                $rootScope.admin = false;
+                            });
+                        }
                         });
                     }
                     error = null;
                 }).error(function (status, data) {
                     $scope.errorlogin = error;
                     error = null;
+                        $('#load').button('reset');
                 });
             }
         }
@@ -144,6 +157,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                 delete $rootScope.username;
                 delete $window.sessionStorage.username;
                 delete $window.sessionStorage.role;
+                                delete $rootScope.admin;
                 $location.path("/");
             }
         }
