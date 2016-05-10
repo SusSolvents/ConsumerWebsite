@@ -132,15 +132,15 @@ namespace SS.UI.Web.MVC.Controllers
             List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
             foreach (String algorithm in algorithms)
             {
-                switch (algorithm)
+                switch (algorithm.ToUpper())
                 {
-                    case "Canopy":
+                    case "CANOPY":
                         algorithmNames.Add(AlgorithmName.CANOPY);
                         break;
-                    case "KMeans":
+                    case "KMEANS":
                         algorithmNames.Add(AlgorithmName.KMEANS);
                         break;
-                    case "XMeans":
+                    case "XMEANS":
                         algorithmNames.Add(AlgorithmName.XMEANS);
                         break;
                     case "EM":

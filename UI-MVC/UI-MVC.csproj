@@ -278,7 +278,9 @@
     <Content Include="Content\cards.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cd-arrow.svg" />
+    <Content Include="Content\Images\closestsolvent.png" />
     <Content Include="Content\Images\clusterball.png" />
+    <Content Include="Content\Images\farrestsolvent.png" />
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\organisationHeader.jpg" />

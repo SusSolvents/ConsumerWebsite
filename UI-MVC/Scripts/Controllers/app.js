@@ -176,20 +176,23 @@ app.run([
             // Hide loading message
             $root.loadingView = false;
         });
+        $root.footer = true;
     }
 ]);
 
 
 app.controller('homeController', 
-    function ($timeout) {
-
+    function ($timeout, $rootScope, $scope) {
+        $rootScope.footer = false;
         if (window.location.hash) {
             $('html, body').stop().animate({
                 scrollTop: ($(window.location.hash).offset().top - 60)
             }, 2950, 'easeInOutExpo');
 
         }
-        
+        $scope.$on("$destroy", function() {
+            $rootScope.footer = true;
+        });
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
                 var $ele = $(this);
@@ -232,6 +235,7 @@ app.controller('homeController',
                 ($(this).offset().top <= $(window).scrollTop() + $(window).height() * offset && $(this).find('.cd-timeline-img').hasClass('is-hidden')) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
             });
         }
+        
         
     });
 

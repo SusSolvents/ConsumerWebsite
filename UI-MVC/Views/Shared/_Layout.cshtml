@@ -71,7 +71,20 @@
     
         
         @RenderBody()
+    <div class="second-footer" ng-if="footer">
+        <div class="footer-right">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-github"></i></a>
+        </div>
+       
+        
+        <p class="copyright-small">
+            &copy; 2016 Sustainable Solvents. <br>All Rights Reserved. <br>
 
+        </p>
+    </div>
     
 
 <div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
