@@ -13,6 +13,8 @@
         }
 
         $scope.organiser = false;
+        console.log($window.sessionStorage.userId);
+        console.log(organisation.Organisator.Id);
         if ($window.sessionStorage.userId === organisation.Organisator.Id.toString()) {
             $scope.organiser = true;
         }
