@@ -8,13 +8,14 @@
         }
     }
     $scope.blockedUsers = data.BlockedUsers;
-    $scope.allowUser = function(email) {
+    $scope.allowUser = function(email, index) {
         $http({
             method: 'POST',
             url: 'api/Account/AllowUser',
             params: { email: email }
         }).success(function (data) {
             console.log(data);
+            $scope.blockedUsers.splice(index, 1);
         });
     }
 });

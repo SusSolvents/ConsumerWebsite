@@ -8,25 +8,27 @@
             </div>
         </div>
         <div class="row" style="margin-top: 20px">
-            <div class="col-lg-4">
+            <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12 col-md-12">
                     <p class="admin-card-title">Review new members</p>
                     <div class="profile-container">
-                        <div class="profile-review" ng-repeat="user in blockedUsers" >
-                            <img class="img-circle" ng-src="{{user.AvatarUrl || '/Content/Images/avatar.png'}}" />
-                            <p class="profile-review-name">{{user.Firstname}} {{user.Lastname}}</p>
-                            <a href="#" ng-click="allowUser(user.Email)"><i class="fa fa-check"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#password-modal"><i class="fa fa-times cross"></i></a>
+                        <div class="profile-review-row" ng-repeat="user in blockedUsers" >
+                            <div class="profile-review">
+                                <img class="img-circle" ng-src="{{user.AvatarUrl || '/Content/Images/avatar.png'}}" />
+                                <p class="profile-review-name">{{user.Firstname}} {{user.Lastname}}</p>
+                                <a href="#" ng-click="allowUser(user.Email, $index)"><i class="fa fa-check"></i></a>
+                                <a href="#" data-toggle="modal" data-target="#password-modal"><i class="fa fa-times cross"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
 
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12"></div>
             </div>
         </div>
