@@ -1,4 +1,4 @@
-﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result, notie) {
+﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result) {
     var data = result.data;
     console.log(data);
            

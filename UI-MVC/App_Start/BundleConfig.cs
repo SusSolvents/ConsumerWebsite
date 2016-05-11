@@ -18,7 +18,7 @@ namespace SS.UI.Web.MVC
                         , "~/Scripts/canvasjs.min.js"
                         , "~/Scripts/circle-progress.js"
                         , "~/Scripts/radial-progress-bar.js"
-                        , "~/Scripts/notie.js"
+                        
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -28,6 +28,7 @@ namespace SS.UI.Web.MVC
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                       "~/Scripts/notie.js",
                       "~/Scripts/respond.js"));
 
 
