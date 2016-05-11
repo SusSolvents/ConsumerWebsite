@@ -1680,24 +1680,18 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 
 
-.organisation-full-banner {
-    width: 100%;
-    height: 200px;
-    background-size: cover;
-    background-position: center center;
-}
 
-
-.banner-img {
-    width: 300px;
-    height: 100px;
+.organisation-logo {
+    width: 150px;
+    height: 150px;
     border: 2px solid white;
     margin-bottom: 20px ;
     display: block;
-    cursor: pointer;
 }
 
 .user-img {
+    height: 100px;
+    width: 100px;
     border-radius: 100%;
     border: 2px solid white;
 }

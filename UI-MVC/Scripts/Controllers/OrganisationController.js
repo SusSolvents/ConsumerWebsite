@@ -68,10 +68,11 @@
 
         var logo = organisation.LogoUrl;
         if (logo != null && logo !== "") {
-            $scope.imageSrc = { 'background-image': 'url(/Content/Images/Organisations/' + logo + ')' }
-        } else {
-            $scope.imageSrc = { 'background-image': 'url(/Content/Images/organisationHeader.jpg)' }
-        }
+            $scope.imageSrc = 'Content/Images/Organisations/' + logo;
+        } else
+            {
+                $scope.imageSrc = 'Content/Images/organisationLogo.jpg';
+            }
 
         
         $scope.AddMember = function() {
