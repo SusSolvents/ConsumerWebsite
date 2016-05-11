@@ -117,30 +117,28 @@ angular.module('sussol.controllers', ['sussol.services'])
                             method: 'GET',
                             url: 'api/Account/GetRole',
                             params: { email: username }
-                        }).success(function succesCallback(data) {
+                        }).success(function succesCallback(role) {
 
-                            $window.sessionStorage.role = data;
-                        if ($window.sessionStorage.role === "SuperAdministrator") {
-                            $rootScope.admin = true;
-                            console.log("Logged in as: " + data);
-                            $('#load').button('reset');
-                            $('#login-modal').modal('hide');
-                            $timeout($location.path("/account/admin"));
-                        } else {
-                            console.log("no superadmin");
-                        $http({
+                            $window.sessionStorage.role = role;
+                            $http({
                             method: 'GET',
                             url: '/api/Account/GetUserId?email=' + username
                             }).success(function (data) {
                             $window.sessionStorage.userId = data;
                             $rootScope.userId = data;
                             $rootScope.username = username;
-                                $('#load').button('reset');
-                                $timeout($location.path("/account/" + data));
+                            $('#load').button('reset');
                             $('#login-modal').modal('hide');
-                                $rootScope.admin = false;
+                            if ($window.sessionStorage.role === "SuperAdministrator") {
+                                    $rootScope.admin = true;
+                                    console.log("Logged in as: " + role);
+                                    $timeout($location.path("/account/admin"));
+                                } else {
+                                    console.log("no superadmin");
+                                    $rootScope.admin = false;
+                                    $timeout($location.path("/account/" + data));
+                                }
                             });
-                        }
                         });
                     }
                     error = null;

@@ -1,6 +1,8 @@
-﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result) {
+﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result, notie) {
     var data = result.data;
     console.log(data);
+           
+    notie.alert(1, 'Success!');
 
     for (var i = 0; i < data.BlockedUsers.length; i++) {
         if (data.BlockedUsers[i].AvatarUrl !== "" && data.BlockedUsers[i].AvatarUrl !== null) {
@@ -16,6 +18,18 @@
         }).success(function (data) {
             console.log(data);
             $scope.blockedUsers.splice(index, 1);
+            
+        });
+    }
+    $scope.denyUser = function (email, index) {
+        $http({
+            method: 'POST',
+            url: 'api/Account/DenyUser',
+            params: { email: email }
+        }).success(function (data) {
+            console.log(data);
+            $scope.blockedUsers.splice(index, 1);
+            notie.alert(1, data, 2.5);
         });
     }
 });

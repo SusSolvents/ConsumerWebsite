@@ -142,7 +142,16 @@ namespace SS.UI.Web.MVC.Controllers
         {
             var user = UserManager.Users.Single(u => u.Email == email);
             await UserManager.SetLockoutEnabledAsync(user.Id, false);
-            return Ok("This user will now have access");
+            await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
+            return Ok(email + " will now have access to Sussol");
+        }
+        [Route("DenyUser")]
+        public async Task<IHttpActionResult> DenyUser(string email)
+        {
+            var user = UserManager.Users.Single(u => u.Email == email);
+            await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
+            await UserManager.SetLockoutEnabledAsync(user.Id, false);
+            return Ok(email + " is blocked from Sussol");
         }
 
         //GET api/Account/GetUserInfo

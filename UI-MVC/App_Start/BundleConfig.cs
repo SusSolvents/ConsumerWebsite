@@ -18,7 +18,7 @@ namespace SS.UI.Web.MVC
                         , "~/Scripts/canvasjs.min.js"
                         , "~/Scripts/circle-progress.js"
                         , "~/Scripts/radial-progress-bar.js"
-
+                        , "~/Scripts/notie.js"
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -38,7 +38,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/modal.css",
                       "~/Content/cards.css",
                       "~/Content/tabs.css",
-                      
+                      "~/Content/notie.css",
                       "~/Content/font-awesome.min.css",
                       
                       "~/Content/animate.css",
