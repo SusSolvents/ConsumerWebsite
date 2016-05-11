@@ -64,6 +64,11 @@ namespace SS.BL.Analyses
             return repo.ReadAnalysesForOrganisation(id);
         }
 
+        public IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId)
+        {
+            return repo.ReadAnalysesForUserPermission(userId);
+        }
+
         public Analysis UpdateAnalysis(Analysis analysis)
         {
             return repo.UpdateAnalysis(analysis);

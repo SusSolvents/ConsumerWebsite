@@ -20,6 +20,7 @@ namespace SS.BL.Analyses
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(long id);
+        IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId);
         Analysis UpdateAnalysis(Analysis analysis);
         void ShareWithOrganisation(long organisationId, long analysisId);
 

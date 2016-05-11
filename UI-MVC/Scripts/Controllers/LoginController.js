@@ -1,4 +1,5 @@
-﻿angular.module('sussol.services', [])
+﻿var error = null;
+angular.module('sussol.services', [])
     .factory('AuthenticationService', function () {
         var auth = {
             isLogged: false
@@ -92,7 +93,7 @@
   $httpProvider.interceptors.push('TokenInterceptor');
 });
 
-var error;
+
 
 angular.module('sussol.controllers', ['sussol.services'])
 
@@ -106,6 +107,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                 UserService.logIn(username, password).success(function (data) {
                     if (error !== null) {
                         $scope.errorlogin = error;
+                        $('#load').button('reset');
                     } else {
                         AuthenticationService.isLogged = true;
                         $window.sessionStorage.token = data.access_token;
