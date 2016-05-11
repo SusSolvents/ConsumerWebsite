@@ -1,4 +1,5 @@
-﻿var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt", 'sussol.services', 'sussol.controllers']);
+﻿
+var app = angular.module('sussol', ['ngRoute', 'ngMessages', "angucomplete-alt", 'sussol.services', 'sussol.controllers']);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {

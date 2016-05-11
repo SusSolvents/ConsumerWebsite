@@ -292,6 +292,7 @@
     <Content Include="Content\Images\random4.jpg" />
     <Content Include="Content\Images\solventball.png" />
     <Content Include="Content\Images\test.jpg" />
+    <Content Include="Content\notie.css" />
     <Content Include="Content\tabs.css" />
     <Content Include="Content\filling-section.css" />
     <Content Include="Content\font-awesome.css" />
@@ -369,6 +370,7 @@
     <Content Include="Scripts\circle-progress.js" />
     <Content Include="Scripts\Controllers\AdminController.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
+    <Content Include="Scripts\notie.js" />
     <Content Include="Scripts\radial-progress-bar.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
