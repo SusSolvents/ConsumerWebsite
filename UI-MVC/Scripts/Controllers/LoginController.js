@@ -1,4 +1,5 @@
-﻿angular.module('sussol.services', [])
+﻿var error = null;
+angular.module('sussol.services', [])
     .factory('AuthenticationService', function () {
         var auth = {
             isLogged: false
@@ -19,7 +20,7 @@
                     error = data;
                 })
                 .success(function succesCallback(data) {
-
+                    
                 });
             
             return $http({
@@ -92,7 +93,7 @@
   $httpProvider.interceptors.push('TokenInterceptor');
 });
 
-var error;
+
 
 angular.module('sussol.controllers', ['sussol.services'])
 
@@ -106,18 +107,19 @@ angular.module('sussol.controllers', ['sussol.services'])
                 UserService.logIn(username, password).success(function (data) {
                     if (error !== null) {
                         $scope.errorlogin = error;
+                        $('#load').button('reset');
                     } else {
-                    AuthenticationService.isLogged = true;
-                    $window.sessionStorage.token = data.access_token;
-                    $window.sessionStorage.username = username;
+                        AuthenticationService.isLogged = true;
+                        $window.sessionStorage.token = data.access_token;
+                        $window.sessionStorage.username = username;
+                        delete $scope.errorlogin;
+                        $http({
+                            method: 'GET',
+                            url: 'api/Account/GetRole',
+                            params: { email: username }
+                        }).success(function succesCallback(data) {
 
-                    $http({
-                        method: 'GET',
-                        url: 'api/Account/GetRole',
-                        params: { email: username }
-                    }).success(function succesCallback(data) {
-
-                        $window.sessionStorage.role = data;
+                            $window.sessionStorage.role = data;
                         if ($window.sessionStorage.role === "SuperAdministrator") {
                             $rootScope.admin = true;
                             console.log("Logged in as: " + data);
@@ -126,20 +128,20 @@ angular.module('sussol.controllers', ['sussol.services'])
                             $timeout($location.path("/account/admin"));
                         } else {
                             console.log("no superadmin");
-                    $http({
-                        method: 'GET',
-                        url: '/api/Account/GetUserId?email=' + username
+                        $http({
+                            method: 'GET',
+                            url: '/api/Account/GetUserId?email=' + username
                             }).success(function (data) {
-                        $window.sessionStorage.userId = data;
-                        $rootScope.userId = data;
-                    $rootScope.username = username;
+                            $window.sessionStorage.userId = data;
+                            $rootScope.userId = data;
+                            $rootScope.username = username;
                                 $('#load').button('reset');
                                 $timeout($location.path("/account/" + data));
-                    $('#login-modal').modal('hide');
+                            $('#login-modal').modal('hide');
                                 $rootScope.admin = false;
                             });
                         }
-                    });
+                        });
                     }
                     error = null;
                 }).error(function (status, data) {
@@ -156,7 +158,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                 delete $window.sessionStorage.token;
                 delete $rootScope.username;
                 delete $window.sessionStorage.username;
-                                delete $window.sessionStorage.role;
+                delete $window.sessionStorage.role;
                                 delete $rootScope.admin;
                 $location.path("/");
             }

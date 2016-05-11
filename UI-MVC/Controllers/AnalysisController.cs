@@ -209,5 +209,18 @@ namespace SS.UI.Web.MVC.Controllers
             _analysisManager.ShareWithOrganisation(organisationId, analysisId);
             return Ok("Analysis shared with organisation");
         }
+
+        //POST api/Analysis/CheckPermission
+        [Route("CheckPermission")]
+        public async Task<IHttpActionResult> CheckPermission(long userId, long analysisId)
+        {
+            var analyses = _analysisManager.ReadAnalysesForUserPermission(userId);
+            var analysis = _analysisManager.ReadAnalysis(analysisId);
+            if (analyses.Contains(analysis))
+            {
+                return Ok();
+            }
+            return BadRequest("Access not granted");
+        }
     }
 }

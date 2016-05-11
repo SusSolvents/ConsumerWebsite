@@ -192,12 +192,22 @@ angular.module('sussol.services')
 
 
 app.run([
-    '$rootScope','$window','$location', function($root, $window, $location) {
+    '$rootScope','$window','$location', '$http', function($root, $window, $location, $http) {
         $root.$on('$routeChangeStart', function (e, curr, prev) {
             if (curr.templateUrl === "Content/Views/Account/Admin.html") {
                 if ($window.sessionStorage.role !== "SuperAdministrator") {
                     $location.path('/');
                 }
+            }
+            if (curr.templateUrl === "Content/Views/Analysis/Overview.html") {
+                $http({
+                    method: 'POST',
+                    url: 'api/Analysis/CheckPermission',
+                    params: {userId: $window.sessionStorage.userId, analysisId: curr.params.id}
+                }).error(function succesCallback(data) {
+                    $location.path('/404');
+                });
+                
             }
             if (curr.$$route && curr.$$route.resolve) {
                 // Show a loading message until promises aren't resolved   
