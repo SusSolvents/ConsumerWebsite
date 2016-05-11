@@ -33,54 +33,54 @@
         }
 
 
-        
+
         $scope.analysisName = data.Name;
-       
+
         $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
 
         for (var i = 0; i < data.AnalysisModels.length; i++) {
-                clusters = getClusters(data.AnalysisModels[i].Model);
-                
+            clusters = getClusters(data.AnalysisModels[i].Model);
+
             var clusterPositions = [];
-                
+
             for (var j = 0; j < clusters.length; j++) {
                 clusterPositions.push(getClusterPosition(clusters[j]));
-                    
+
             }
             var normalizedValues = getNormalizedValues(clusterPositions);
             data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
         }
-        
-        $timeout(function () {
-                
 
-                for (var i = 0; i < algorithms.length; i++) {
-                    if (i === 0) {
-                        $('#' + algorithms[i]).addClass("active");
-                        $('#' + algorithms[i] + '_CONTENT').addClass("active");
-                    }
-                    $('#' + algorithms[i]).removeClass("disabled");
-                    $('#' + algorithms[i]).removeClass("blurless");
+        $timeout(function () {
+
+
+            for (var i = 0; i < algorithms.length; i++) {
+                if (i === 0) {
+                    $('#' + algorithms[i]).addClass("active");
+                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
                 }
-            
-              
-                createChart(data.AnalysisModels[0].Model);
-            
-        });
-        
-        function getClusters(model) {
-                clusters = [];
-                for (var i = 0; i < model.Clusters.length; i++) {
-                    clusters.push(model.Clusters[i]);
-                    totalSolvents += clusters[i].Solvents.length;
-                }
-                return clusters;
+                $('#' + algorithms[i]).removeClass("disabled");
+                $('#' + algorithms[i]).removeClass("blurless");
             }
 
+
+            createChart(data.AnalysisModels[0].Model);
+
+        });
+
+        function getClusters(model) {
+            clusters = [];
+            for (var i = 0; i < model.Clusters.length; i++) {
+                clusters.push(model.Clusters[i]);
+                totalSolvents += clusters[i].Solvents.length;
+            }
+            return clusters;
+        }
+
         function createProgress(jso) {
-               prevClusters = jso; 
-                for (var i = 0; i < jso.length; i++) {
-                jQuery("#circle-"+selectedAlgorithm+"-" + i).radialProgress("init", {
+            prevClusters = jso;
+            for (var i = 0; i < jso.length; i++) {
+                jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
                     'size': 90,
                     'fill': 12,
                     'font-size': 25,
@@ -89,102 +89,102 @@
                 }).radialProgress("to", { 'perc': ((jso[jso[i].name].solvents / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
             }
         };
-        
-        
-            
 
-            function setEnumNames(model) {
-                for (var i = 0; i < model.AnalysisModels.length; i++) {
-                    model.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[model.AnalysisModels[i].Model.AlgorithmName];
-                    algorithms.push(model.AnalysisModels[i].Model.AlgorithmName);
-                    for (var j = 0; j < model.AnalysisModels[i].Model.Clusters.length; j++) {
-                        for (var k = 0; k < model.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
-                            solvents.push(model.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
-                            for (var l = 0; l < model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
-                                model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
+
+
+
+        function setEnumNames(model) {
+            for (var i = 0; i < model.AnalysisModels.length; i++) {
+                model.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[model.AnalysisModels[i].Model.AlgorithmName];
+                algorithms.push(model.AnalysisModels[i].Model.AlgorithmName);
+                for (var j = 0; j < model.AnalysisModels[i].Model.Clusters.length; j++) {
+                    for (var k = 0; k < model.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
+                        solvents.push(model.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
+                        for (var l = 0; l < model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
+                            model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
-                            }
                         }
                     }
                 }
-
-                $scope.solvents = solvents;
             }
 
-            function getClusterPosition(cluster) {
-                var som = 0;
-                for (var i = 0; i < cluster.VectorData.length; i++) {
-                    var vector = cluster.VectorData[i].Value;
+            $scope.solvents = solvents;
+        }
+
+        function getClusterPosition(cluster) {
+            var som = 0;
+            for (var i = 0; i < cluster.VectorData.length; i++) {
+                var vector = cluster.VectorData[i].Value;
                 som += Math.pow(vector, 2);
-                }
-                    return Math.sqrt(som);
             }
+            return Math.sqrt(som);
+        }
 
 
-            
-            function getNormalizedValues(lengths) {
+
+        function getNormalizedValues(lengths) {
             if (lengths.length === 1) {
                 return [0];
             }
-                var max = Math.max.apply(Math, lengths);
-                var min = Math.min.apply(Math, lengths);
-                var normalizedValues = [];
-                for (var i = 0; i < lengths.length; i++) {
-                    normalizedValues.push((lengths[i] - min) / (max - min));
-                }
-                return normalizedValues;
+            var max = Math.max.apply(Math, lengths);
+            var min = Math.min.apply(Math, lengths);
+            var normalizedValues = [];
+            for (var i = 0; i < lengths.length; i++) {
+                normalizedValues.push((lengths[i] - min) / (max - min));
             }
+            return normalizedValues;
+        }
 
-            function createJsonModel(model) {
-                var json = [];
-                var percentages = [];
-                
-                for (var i = 0; i < model.Clusters.length; i++) {
-                    var valuesSolvents = [];
-                    for (var j = 0; j < model.Clusters[i].Solvents.length; j++) {
-                        valuesSolvents.push(model.Clusters[i].Solvents[j].DistanceToClusterCenter);
-                    }
-                    var max = Math.max.apply(Math, valuesSolvents);
-                    
-                    var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
-                    percentages.push(percentage);
-                    
-                    json[i] = ({'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length });
-                    
+        function createJsonModel(model) {
+            var json = [];
+            var percentages = [];
+
+            for (var i = 0; i < model.Clusters.length; i++) {
+                var valuesSolvents = [];
+                for (var j = 0; j < model.Clusters[i].Solvents.length; j++) {
+                    valuesSolvents.push(model.Clusters[i].Solvents[j].DistanceToClusterCenter);
                 }
-                model.maxPercent = Math.max.apply(Math, percentages);
-                
-                
-                return json;
-            }    
+                var max = Math.max.apply(Math, valuesSolvents);
 
+                var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
+                percentages.push(percentage);
 
-            $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
-                
-                e.preventDefault();
-                $(this).siblings('a.active').removeClass("active");
-                $(this).addClass("active");
-              
-                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
-                $("#" + e.currentTarget.id + "_CONTENT").addClass("active");
-                resetProgress();
-                selectedAlgorithm = e.currentTarget.id;
+                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length });
 
-                $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
-                createChart(findModelOnName(e.currentTarget.id));
-                
-
-            });
-            function resetProgress() {
-                for (var i = 0; i < prevClusters.length; i++) {
-                    jQuery("#circle-" + selectedAlgorithm + "-" + i).empty();
-                }
             }
+            model.maxPercent = Math.max.apply(Math, percentages);
+
+
+            return json;
+        }
+
+
+        $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+
+            e.preventDefault();
+            $(this).siblings('a.active').removeClass("active");
+            $(this).addClass("active");
+
+            $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+            $("#" + e.currentTarget.id + "_CONTENT").addClass("active");
+            resetProgress();
+            selectedAlgorithm = e.currentTarget.id;
+
+            $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
+            createChart(findModelOnName(e.currentTarget.id));
+
+
+        });
+        function resetProgress() {
+            for (var i = 0; i < prevClusters.length; i++) {
+                jQuery("#circle-" + selectedAlgorithm + "-" + i).empty();
+            }
+        }
         function createChart(model) {
-            CanvasJS.addColorSet("greenShades",colors
+            CanvasJS.addColorSet("greenShades", colors
                 );
             var jsonModel = createJsonModel(model);
-           
+
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
                 colorSet: "greenShades",
@@ -219,7 +219,7 @@
                     lineThickness: 0,
                     valueFormatString: "#0'%'"
 
-            },
+                },
 
                 data: [
                     {
@@ -238,7 +238,7 @@
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
                             }
-                         
+
                             createClusterChart(model.Clusters[e.dataPoint.name], colors[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
                             $scope.cluster = e.dataPoint.name;
@@ -251,7 +251,7 @@
             chart.render();
             createProgress(jsonModel);
         }
-            
+
         $scope.shareWithOrganisation = function () {
             console.log($scope.selectedOrganisation);
             if ($scope.selectedOrganisation === undefined) {
@@ -262,14 +262,15 @@
                     url: 'api/Analysis/ShareWithOrganisation',
                     params: { organisationId: $scope.selectedOrganisation.Id, analysisId: data.Id }
                 }).success(function succesCallback(data) {
+                    notie.alert(1, "Cluster Analysis shard with the organisation", 2);
                     $('#organisation-model').modal('hide');
                 });
             }
         }
-            
-        
-        
-       
+
+
+
+
 
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;
@@ -289,6 +290,7 @@
                 url: 'api/Analysis/ChangeName',
                 params: { name: $scope.newName, analysisId: $routeParams.id }
             }).success(function succesCallback(data) {
+                notie.alert(1, "Name has been changed", 2);
                 $scope.analysisName = $scope.newName;
                 $scope.newName = "";
                 $('#changeName-model').modal('hide');
@@ -307,21 +309,21 @@
                     model = data.AnalysisModels[i].Model;
                 }
             }
-            
+
             return model;
-        }     
+        }
 
 
-        function createClusterChart(cluster, clustercentercolor){
-        var width = 700, height = 410;
+        function createClusterChart(cluster, clustercentercolor) {
+            var width = 700, height = 410;
 
-        var color = d3.scale.category20();
+            var color = d3.scale.category20();
 
-        var force = d3.layout.force()
-            .charge(-120)
-            .linkDistance(function (d) { return d.distance; })
-            .size([width, height]);
-        
+            var force = d3.layout.force()
+                .charge(-120)
+                .linkDistance(function (d) { return d.distance; })
+                .size([width, height]);
+
 
 
             var svg = d3.select("#clusterChart_" + selectedAlgorithm)
@@ -329,13 +331,13 @@
             .attr("width", width)
             .attr("height", height);
 
-        var distances = [];
-        for (var i = 0; i < cluster.Solvents.length; i++) {
-            distances.push(cluster.Solvents[i].DistanceToClusterCenter);
-        }
+            var distances = [];
+            for (var i = 0; i < cluster.Solvents.length; i++) {
+                distances.push(cluster.Solvents[i].DistanceToClusterCenter);
+            }
 
-        var distancesNormalized = getNormalizedValues(distances);
-        var jsonNodes = [];
+            var distancesNormalized = getNormalizedValues(distances);
+            var jsonNodes = [];
             var jsonLinks = [];
             jsonNodes.push({
                 "name": "Cluster center",
@@ -346,13 +348,13 @@
             });
             var maxSolvent, minSolvent;
             for (var i = 0; i < cluster.Solvents.length; i++) {
-                if (maxSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter > maxSolvent.DistanceToClusterCenter ) {
+                if (maxSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter > maxSolvent.DistanceToClusterCenter) {
                     maxSolvent = cluster.Solvents[i];
                 }
-                if (minSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter < minSolvent.DistanceToClusterCenter ) {
+                if (minSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter < minSolvent.DistanceToClusterCenter) {
                     minSolvent = cluster.Solvents[i];
                 }
-                var node = { "name": cluster.Solvents[i].Name, "group": 1 ,"casNumber": cluster.Solvents[i].CasNumber, "distance": cluster.Solvents[i].DistanceToClusterCenter.toFixed(2), "value": 10, "solvent": cluster.Solvents[i] };
+                var node = { "name": cluster.Solvents[i].Name, "group": 1, "casNumber": cluster.Solvents[i].CasNumber, "distance": cluster.Solvents[i].DistanceToClusterCenter.toFixed(2), "value": 10, "solvent": cluster.Solvents[i] };
                 jsonNodes.push(node);
                 var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) + 33 };
                 jsonLinks.push(link);
@@ -362,77 +364,77 @@
             $scope.maxSolvent = maxSolvent;
             $scope.minSolvent = minSolvent;
 
-        var jsonGraph = {
-            "nodes": jsonNodes,
-            "links": jsonLinks
-        };
+            var jsonGraph = {
+                "nodes": jsonNodes,
+                "links": jsonLinks
+            };
 
-        d3.json(jsonGraph, function (error, graph) { 
+            d3.json(jsonGraph, function (error, graph) {
 
-            force
-                .nodes(jsonGraph.nodes)
-                .links(jsonGraph.links)
-                
-                .start();
+                force
+                    .nodes(jsonGraph.nodes)
+                    .links(jsonGraph.links)
 
-            var link = svg.selectAll(".link")
-                .data(jsonGraph.links)
-              .enter().append("line")
-                .attr("class", "link")
-                .style("stroke-width", 1)
-            ;
-            var selectedNode;
-            var node = svg.selectAll(".node")
-                .data(jsonGraph.nodes)
-                .enter().append("circle")
-                .attr("class", "node")
-                .attr("r", function(d) { return d.value; })
-                .style("fill", function (d) {
-                    
-                    if (d.casNumber === maxSolvent.CasNumber) {
-                        return "#E68364";
-                    } else if (d.casNumber === minSolvent.CasNumber) return "#26A65B";
-                    else {
-                        return color(d.group);
-                    }
-                })
-                .on("click", function(d) {
-                    if (d.solvent !== undefined) {
-                        $("#selected-node-" + selectedAlgorithm).html("<h4>Selected solvent:</h4>"
-                            + d.solvent.Name
-                            + "<h4> Cas Number: </h4>" +
-                            d.solvent.CasNumber
-                            + "<h4> Distance to center: </h4>" +
-                            d.solvent.DistanceToClusterCenter.toFixed(3));
-                        if (selectedNode !== undefined) {
-                            d3.select(selectedNode).style("stroke", "white");
+                    .start();
+
+                var link = svg.selectAll(".link")
+                    .data(jsonGraph.links)
+                  .enter().append("line")
+                    .attr("class", "link")
+                    .style("stroke-width", 1)
+                ;
+                var selectedNode;
+                var node = svg.selectAll(".node")
+                    .data(jsonGraph.nodes)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", function (d) { return d.value; })
+                    .style("fill", function (d) {
+
+                        if (d.casNumber === maxSolvent.CasNumber) {
+                            return "#E68364";
+                        } else if (d.casNumber === minSolvent.CasNumber) return "#26A65B";
+                        else {
+                            return color(d.group);
                         }
-                        d3.select(this).style("stroke", "red");
-                        selectedNode = this;
-                        
+                    })
+                    .on("click", function (d) {
+                        if (d.solvent !== undefined) {
+                            $("#selected-node-" + selectedAlgorithm).html("<h4>Selected solvent:</h4>"
+                                + d.solvent.Name
+                                + "<h4> Cas Number: </h4>" +
+                                d.solvent.CasNumber
+                                + "<h4> Distance to center: </h4>" +
+                                d.solvent.DistanceToClusterCenter.toFixed(3));
+                            if (selectedNode !== undefined) {
+                                d3.select(selectedNode).style("stroke", "white");
+                            }
+                            d3.select(this).style("stroke", "red");
+                            selectedNode = this;
+
                             $scope.selectedSolvent = d.solvent;
                             $scope.$apply();
-                        
-                    }
 
-                });
-                    
+                        }
 
-            node.append("title")
-                .text(function (d) { return d.name; });
+                    });
 
 
-            force.on("tick", function () {
-                link.attr("x1", function (d) { return d.source.x; })
-                    .attr("y1", function (d) { return d.source.y; })
-                    .attr("x2", function (d) { return d.target.x; })
-                    .attr("y2", function (d) { return d.target.y; });
+                node.append("title")
+                    .text(function (d) { return d.name; });
+
+
+                force.on("tick", function () {
+                    link.attr("x1", function (d) { return d.source.x; })
+                        .attr("y1", function (d) { return d.source.y; })
+                        .attr("x2", function (d) { return d.target.x; })
+                        .attr("y2", function (d) { return d.target.y; });
 
                     node.attr("cx", function (d) { return d.x; })
                         .attr("cy", function (d) { return d.y; });
 
+                });
             });
-        });
         };
     });
 

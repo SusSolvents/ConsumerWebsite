@@ -19,7 +19,7 @@ namespace SS.DAL.EFUsers
 
         public User UpdateUser(User user)
         {
-            _context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
             return user;
         }
@@ -47,6 +47,27 @@ namespace SS.DAL.EFUsers
         public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
         {
             return _context.Organisations.Where(u => u.Organisator.Id == user.Id).ToList();
+        }
+
+        public Organisation UpdateOrganisation(Organisation organisation)
+        {
+            _context.Entry(organisation).State = EntityState.Modified;
+            _context.SaveChanges();
+            return organisation;
+        }
+
+        public void DeleteOrganisation(long id)
+        {
+            var members = _context.OrganisationMembers.Where(a => a.Organisation.Id == id).ToList();
+            var analyses = _context.Analyses.Where(a => a.SharedWith.Id == id).ToList();
+            for (var i = 0; i < analyses.Count; i++)
+            {
+                analyses[i].SharedWith = null;
+            }
+            var organisation = _context.Organisations.Find(id);
+            _context.OrganisationMembers.RemoveRange(members);
+            _context.Organisations.Remove(organisation);
+            _context.SaveChanges();
         }
 
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)

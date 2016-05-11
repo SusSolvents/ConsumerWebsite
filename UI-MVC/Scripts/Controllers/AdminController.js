@@ -7,7 +7,7 @@
         animationDelay: 300, 
         backgroundClickDismiss: true
     });
-   
+           
     for (var i = 0; i < data.BlockedUsers.length; i++) {
         if (data.BlockedUsers[i].AvatarUrl !== "" && data.BlockedUsers[i].AvatarUrl !== null) {
             data.BlockedUsers[i].AvatarUrl = "/Content/Images/Users/" + data.BlockedUsers[i].AvatarUrl;

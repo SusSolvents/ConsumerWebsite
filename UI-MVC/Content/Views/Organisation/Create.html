@@ -1,27 +1,30 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" ng-controller="CreateOrganisationController as organisation">
     <div class="centered-container">
-        <h1>Create your own organisation</h1>
+            <div class="col-lg-12 text-center" style="margin-top: 20px;">
+                <h2 class="margin-top-0 text-primary wow fadeInDown">Create your own organisation</h2>
+                <hr class="primary">
+            </div>
         <form name="organisationForm" novalidate
               ng-submit="organisation.submit(organisationForm.$valid)">
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <label>Organisation Name</label>
-                <input type="text" name="firstname" class="form-control input-lg" ng-model="organisation.org.name" required />
+                <input type="text" name="firstname" class="form-control input-lg" ng-model="organisation.org.name" required/>
                 <div class="messages" ng-messages="registrationForm.name.$error">
                     <div ng-message="required">Required</div>
                 </div>
             </div>
             <div>
-                <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" />
+                <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)"/>
 
                 <div class="col-xs-7 col-sm-7 col-md-7">
                     <div style="">
-                        <p>Upload a banner</p>
-                        <img class="banner-img" ng-src="{{imageSrc || '/Content/Images/organisationHeader.jpg'}}" ng-click="triggerUpload()" />
+                        <p>Upload a logo</p>
+                        <img class="logo-img" ng-src="{{imageSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()"/>
                     </div>
                 </div>
             </div>
             <div class="col-xs-8">
-                <button type="submit" class="btn btn-primary">Create organisation!</button>
+                <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
             </div>
         </form>
     </div>

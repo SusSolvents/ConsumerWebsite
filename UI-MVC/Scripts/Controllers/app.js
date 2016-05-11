@@ -290,6 +290,7 @@ app.run([
             
             $rootScope.username = $window.sessionStorage.username;
             $rootScope.userId = $window.sessionStorage.userId;
+            $rootScope.admin = $window.sessionStorage.admin;
             if ($window.sessionStorage.username !== undefined) {
                 AuthenticationService.isLogged = true;
             }

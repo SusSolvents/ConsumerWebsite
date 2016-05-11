@@ -23,6 +23,8 @@ namespace SS.BL.Users
         IEnumerable<Organisation> ReadAllOrganisations();
         IEnumerable<Organisation> ReadOrganisationsForUser(User user);
         IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user);
+        Organisation UpdateOrganisation(Organisation organisation);
+        void DeleteOrganisation(long id);
 
         //OrganisationMember
         OrganisationMember CreateOrganisationMember(Organisation organisation, User user);

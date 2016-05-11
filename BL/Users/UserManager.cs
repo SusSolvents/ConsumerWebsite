@@ -72,6 +72,16 @@ namespace SS.BL.Users
             return repo.ReadOrganisationsForOrganiser(user);
         }
 
+        public Organisation UpdateOrganisation(Organisation organisation)
+        {
+            return repo.UpdateOrganisation(organisation);
+        }
+
+        public void DeleteOrganisation(long id)
+        {
+            repo.DeleteOrganisation(id);
+        }
+
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
         {
             return repo.CreateOrganisationMember(organisation, user);

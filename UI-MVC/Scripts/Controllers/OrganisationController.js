@@ -1,5 +1,5 @@
 ﻿app.controller('OrganisationController', 
-    function ($window, $scope, $http, fileReader, $location, result, analysesOrganisation, membersOrganisation) {
+    function ($timeout, $window, $scope, $http, fileReader, $route, $location, result, analysesOrganisation, membersOrganisation) {
 
         var organisation = result.data;
         var analyses = analysesOrganisation.data;
@@ -22,6 +22,18 @@
             $location.path("/analysis/overview/" + $event.currentTarget.id);
         }
 
+        function createProgress() {
+            jQuery("#circle-members").empty();
+                jQuery("#circle-members").radialProgress("init", {
+                    'size': 90,
+                    'fill': 12,
+                    'font-size': 25,
+                    'font-family': "Questrial",
+                    "color": "#44B3C2"
+                }).radialProgress("to", { 'perc': (members.length/4)*100, 'time': 1000 });
+        };
+
+        createProgress();
         for (var i = 0; i < analyses.length; i++) {
             analyses[i].image = getRandomImage();
             analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
@@ -59,7 +71,7 @@
         } 
 
         for (var i = 0; i < members.length; i++) {
-            if (members[i].AvatarUrl !== "") {
+            if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
             }
         }
@@ -68,27 +80,38 @@
 
         var logo = organisation.LogoUrl;
         if (logo != null && logo !== "") {
-            $scope.imageSrc = { 'background-image': 'url(/Content/Images/Organisations/' + logo + ')' }
-        } else {
-            $scope.imageSrc = { 'background-image': 'url(/Content/Images/organisationHeader.jpg)' }
-        }
+            $scope.imageSrc = 'Content/Images/Organisations/' + logo;
+        } else
+            {
+                $scope.imageSrc = 'Content/Images/organisationLogo.jpg';
+            }
 
-        
-        $scope.AddMember = function() {
+        function reloadMembers() {
             $http({
-                method: 'POST',
-                url: 'api/Organisation/AddMemberToOrganisation',
-                params: { organisationId: organisation.Id, email: $scope.emailNewMember }
+                    method: 'GET',
+                    url: 'api/Organisation/GetUsersForOrganisation',
+                    params: { id: organisation.Id }
             }).success(function succesCallback(data) {
-                $scope.messageNewMember = "User was added to organisation";
-                $scope.emailNewMember = "";
-                $('#add-member-modal').modal('hide');
-            }).error(function errorCallback(data) {
-                $scope.messageNewMember = data.Message;
+                members = data;
+                $scope.members = data;
+                createProgress();
             });
         }
 
-        $scope.closeModal = function() {
+        $scope.DeleteOrganisation = function () {
+            $('#delete-organisation').modal('hide');
+            $http({
+                method: 'DELETE',
+                url: 'api/Organisation/DeleteOrganisation',
+                params: { id: organisation.Id }
+            }).success(function succesCallback() {
+                notie.alert(1, "The organisation has been removed", 2);
+                $('body').removeClass('modal-open');
+                $location.path("/account/" + $window.sessionStorage.userId);
+            });
+        }
+
+        $scope.closeModal = function () {
             $('#leave-modal').modal('hide');
         }
 
@@ -99,9 +122,56 @@
                 url: 'api/Organisation/LeaveOrganisation',
                 params: { userId: $window.sessionStorage.userId, organisationId: organisation.Id }
             }).success(function succesCallback() {
+                notie.alert(1, "You left the organisation", 2);
+                $('body').removeClass('modal-open');
                 $location.path("/account/" + $window.sessionStorage.userId);
+
             });
         }
+        
+        $scope.AddMember = function() {
+            $http({
+                method: 'POST',
+                url: 'api/Organisation/AddMemberToOrganisation',
+                params: { organisationId: organisation.Id, email: $scope.emailNewMember }
+            }).success(function succesCallback(data) {
+                
+                notie.alert(1, "User was added to organisation", 2);
+                $scope.emailNewMember = "";
+                reloadMembers();
+                $('#add-member-modal').modal('hide');
+            }).error(function errorCallback(data) {
+                $scope.messageNewMember = data.Message;
+            });
+            
+        }
+
+        $scope.triggerUpload = function () {
+            $("#logo").click();
+        };
+        $scope.getFile = function () {
+            fileReader.readAsDataUrl($scope.file, $scope)
+                          .then(function (result) {
+                              $scope.imageSrc = result;
+                              var formData = new FormData();
+                              formData.append('id', organisation.Id);
+                              formData.append('logo', $scope.file);
+                              $http({
+                                  method: 'POST',
+                                  url: 'api/Organisation/ChangeLogo',
+                                  headers: {
+                                      'Content-Type': undefined
+                                  },
+                                  transformRequest: angular.identity,
+                                  data: formData
+                              }).success(function succesCallback(data) {
+                                  //$scope.message = data;
+                                  //$location.path("/");
+                              }).error(function errorCallback(data) {
+                                  //$scope.message = data;
+                              });
+                          });
+        };
 
 
         

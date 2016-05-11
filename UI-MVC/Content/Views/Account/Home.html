@@ -21,8 +21,10 @@
         </ul>
 
         <div id="tab-1" class="tab-content current">
-            <i title="sort on name" class="fa fa-sort-alpha-asc" aria-hidden="true" id="name" ng-click="OrderByFunc($event)" style="cursor: pointer;"/>
-            <i title="sort on date" class="fa fa-calendar" aria-hidden="true" id="date" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)"/>
+            <i title="sort on name asc" class="fa fa-sort-alpha-asc" aria-hidden="true" id="name" ng-click="OrderByFunc($event)" style="cursor: pointer;" ng-if="OrderBy !== 'Name'"/>
+            <i title="sort on name desc" class="fa fa-sort-alpha-desc" aria-hidden="true" id="namedesc" ng-click="OrderByFunc($event)" style="cursor: pointer;" ng-if="OrderBy === 'Name'" />
+            <i title="sort on date asc" class="fa fa-calendar" aria-hidden="true" id="date" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)" ng-if="OrderBy !== 'DateCreated'"/>
+            <i title="sort on date desc" class="fa fa-calendar-o" aria-hidden="true" id="datedesc" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)" ng-if="OrderBy === 'DateCreated'" />
 
             <div class="analysis-card-blog-style-1" ng-if="!noAnalyses">
                 <div>
