@@ -19,6 +19,7 @@ namespace SS.BL.Analyses
         Analysis ReadAnalysis(long id);
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
+        IEnumerable<Analysis> ReadAnalyses();
         IEnumerable<Analysis> ReadAnalysesForOrganisation(long id);
         IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId);
         Analysis UpdateAnalysis(Analysis analysis);
@@ -45,5 +46,6 @@ namespace SS.BL.Analyses
 
         //AnalysisModel
         AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
+        IEnumerable<Analysis> ReadFullAnalyses();
     }
 }

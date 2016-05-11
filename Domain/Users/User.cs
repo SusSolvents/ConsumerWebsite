@@ -17,6 +17,7 @@ namespace SS.BL.Domain.Users
         [Index(IsUnique = true)]
         [MaxLength(100)]
         public string Email { get; set; }
+        public DateTime DateRegistered { get; set; }
         public string AvatarUrl { get; set; }
     }
 }

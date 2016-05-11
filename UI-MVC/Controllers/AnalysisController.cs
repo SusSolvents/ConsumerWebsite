@@ -59,7 +59,20 @@ namespace SS.UI.Web.MVC.Controllers
         public List<Analysis> GetAnalysesForOrganisation(long id)
         {
             return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
-        } 
+        }
+
+        [Route("GetAnalysesByMonth")]
+        public IEnumerable<IGrouping<int, Analysis>> GetAnalyses()
+        {
+            return _analysisManager.ReadAnalyses().GroupBy(x => x.DateCreated.Month);
+        }
+        
+        [Route("GetAnalysesDivision")]
+        public List<Analysis> GetAnalysesDivision()
+        {
+            var analyses = _analysisManager.ReadFullAnalyses();
+            return analyses.ToList();
+        }
 
         //POST api/Analysis/ChangeName
         [Route("ChangeName")]

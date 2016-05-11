@@ -79,6 +79,7 @@ namespace SS.DAL.EFUsers
 
         public User CreateUser(User user)
         {
+            user.DateRegistered = DateTime.Now;
             user = _context.Users.Add(user);
             _context.SaveChanges();
             return user;

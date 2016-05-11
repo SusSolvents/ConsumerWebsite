@@ -69,6 +69,8 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(org.Id);
         }
 
+       
+
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]
         public List<Organisation> ReadOrganisations([FromUri] long id)

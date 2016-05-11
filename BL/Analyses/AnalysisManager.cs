@@ -59,6 +59,11 @@ namespace SS.BL.Analyses
             return repo.ReadAnalysesForUser(user);
         }
 
+        public IEnumerable<Analysis> ReadAnalyses()
+        {
+            return repo.ReadAnalyses();
+        }
+
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(long id)
         {
             return repo.ReadAnalysesForOrganisation(id);
@@ -159,6 +164,11 @@ namespace SS.BL.Analyses
         public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
         {
             return repo.CreateAnalysisModel(analysisModel);
+        }
+
+        public IEnumerable<Analysis> ReadFullAnalyses()
+        {
+            return repo.ReadFullAnalyses();
         }
     }
 }

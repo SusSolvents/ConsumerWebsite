@@ -137,6 +137,18 @@ namespace SS.UI.Web.MVC.Controllers
             }
             return model;
         }
+
+        [Route("GetAllUsers")]
+        public IEnumerable<IGrouping<int, User>> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+            foreach (var applicationUser in UserManager.Users)
+            {
+                users.Add(_userMgr.ReadUser(applicationUser.Email));
+            }
+            return users.GroupBy(x=>x.DateRegistered.Month);
+        }
+
         [Route("AllowUser")]
         public async Task<IHttpActionResult> AllowUser(string email)
         {

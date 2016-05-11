@@ -45,5 +45,7 @@ namespace SS.DAL.EFAnalyses
         
         //AnalysisModel
         AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
+        IEnumerable<Analysis> ReadAnalyses();
+        IEnumerable<Analysis> ReadFullAnalyses();
     }
 }

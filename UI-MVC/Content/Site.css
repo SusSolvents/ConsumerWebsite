@@ -830,7 +830,7 @@ progress {
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
     margin-top: 15px;
     vertical-align: middle;
-    
+    a
 }
 .profile-review-row {
     margin: 2%;
@@ -861,7 +861,21 @@ progress {
     width: 50px;
     height: 50px;
 }
-
+.chart-container-admin {
+    width: 95%;
+    height: 95%;
+    display: block;
+    margin-top: -50px;
+    margin: 0 auto;
+}
+.profile-review-alt p{
+    font-size: 23px;
+    margin-top: 75px;
+    text-align: center;
+    color: black;
+    text-shadow: 1px 1px 0 black, 
+                1px 1px 0 black;
+}
 .profile-review i {
     color: black;
     margin-left: 3%;
@@ -904,6 +918,7 @@ progress {
     width: 100%;
     text-transform: uppercase;
     border-bottom: 1px dotted black;
+    margin-bottom: 0;
 }
 
 .centered-container-big {
@@ -924,7 +939,7 @@ progress {
     padding: 40px 80px 80px 80px;
 }
 .bigpadding {
-    padding-top: 75px;
+    padding-top: 100px;
     padding-bottom: 50px;
    
 }

@@ -177,6 +177,16 @@ namespace SS.DAL.EFAnalyses
             return analysisModel;
         }
 
+        public IEnumerable<Analysis> ReadAnalyses()
+        {
+            return _context.Analyses.ToList();
+        }
+
+        public IEnumerable<Analysis> ReadFullAnalyses()
+        {
+            return _context.Analyses.Include(p => p.AnalysisModels).Include(p => p.AnalysisModels.Select(a => a.Model));
+        }
+
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
         {
             return _context.Models.Where(m => m.AlgorithmName == algorithmName).ToList();
