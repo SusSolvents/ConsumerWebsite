@@ -1,8 +1,6 @@
 ﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result) {
     var data = result.data;
     console.log(data);
-           
-    notie.alert(1, 'Success!');
 
     for (var i = 0; i < data.BlockedUsers.length; i++) {
         if (data.BlockedUsers[i].AvatarUrl !== "" && data.BlockedUsers[i].AvatarUrl !== null) {

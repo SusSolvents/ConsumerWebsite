@@ -1686,6 +1686,14 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 	margin-left: 3px;
 }
 
+.logo-img {
+    width: 200px;
+    height: 150px;
+    display: block;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 2px solid white;
+}
 
 
 .organisation-logo {
@@ -1759,11 +1767,11 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     margin: .5em;
 }
 
-.about-user img {
+    .about-user img {
         display: block;
         width: 100%;
         height: auto;
         max-width: 200px;
         max-height: 200px;
         margin-bottom: .5em;
-}
+    }

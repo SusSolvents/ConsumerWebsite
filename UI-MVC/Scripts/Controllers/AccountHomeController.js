@@ -104,10 +104,9 @@
 
         var element = $event.currentTarget.id;
         if (element === "name") {
-            if ($scope.OrderBy === "Name")
-                $scope.OrderBy = "-Name";
-            else
-                $scope.OrderBy = "Name";
+            $scope.OrderBy = "Name";
+        }else if (element === "namedesc") {
+            $scope.OrderBy = "-Name";
         } else {
             if ($scope.OrderBy === "DateCreated")
                 $scope.OrderBy = "-DateCreated";

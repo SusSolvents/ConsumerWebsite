@@ -129,6 +129,55 @@ namespace SS.UI.Web.MVC.Controllers
             _userManager.DeleteOrganisationMember(organisationId, userId);
             return Ok();
         }
+
+        //POST api/Organisation/DeleteOrganisation
+        [Route("DeleteOrganisation")]
+        public async Task<IHttpActionResult> DeleteOrganisation(long id)
+        {
+            _userManager.DeleteOrganisation(id);
+            return Ok();
+        }
+
+        //POST api/Organisation/ChangeLogo
+        [Route("ChangeLogo")]
+        public async Task<IHttpActionResult> ChangeLogo()
+        {
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            var id = 0;
+            MultipartFileData picture = null;
+            try
+            {
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                id = Int32.Parse(provider.FormData.Get("id"));
+                if (provider.FileData.Count != 0)
+                {
+                    picture = provider.FileData[0];
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            string imagePath = null;
+            if (picture != null && picture.LocalFileName.Length > 0)
+            {
+                imagePath = FileHelper.GetImagePathFromRequest(picture, "OrganisationsImgPath");
+            }
+
+            Organisation organisation = _userManager.ReadOrganisation(id);
+
+            organisation.LogoUrl = imagePath;
+
+            _userManager.UpdateOrganisation(organisation);
+
+            return Ok();
+        }
     }
 
 

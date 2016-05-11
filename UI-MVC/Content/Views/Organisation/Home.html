@@ -6,6 +6,7 @@
             <h2 class="margin-top-0 text-primary wow fadeInDown">Home page of {{organisation.Name}}</h2>
             <div style="float: right;">
                 <a title="add member" style="margin-right: 20px;" href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i style="color: white; cursor: pointer" class="fa fa-plus-square fa-2x" aria-hidden="true"></i></a>
+                <a title="delete organisation" style="margin-right: 20px;" href="#" data-toggle="modal" data-target="#delete-organisation" ng-if="organiser"><i style="color: white; cursor: pointer" class="fa fa-times fa-2x" aria-hidden="true"></i></a>
                 <a title="leave" style="margin-right: 20px;" href="#" data-toggle="modal" data-target="#leave-modal" ng-if="organiser === false"><i style="color: white; cursor: pointer" class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
             </div>
             <hr class="primary">
@@ -15,14 +16,24 @@
         <div class="col-lg-4 padding-less">
             <div class="admin-card col-lg-12 col-md-12">
                 <div class="profile-container">
-                    <img title="logo" class="organisation-logo" src="{{imageSrc}}" style="width: 100%; height: 100%"/>
+                    <input type="file" id="logo" name="logo" style="display: none" ng-file-select="onFileSelect($files)" />
+                    <img title="logo" class="organisation-logo" src="{{imageSrc}}" style="width: 100%; height: 100%; cursor: pointer;" ng-click="triggerUpload()"/>
 
                 </div>
             </div>
         </div>
         <div class="col-lg-4 padding-less">
             <div class="admin-card col-lg-12">
-
+                <div class="text-center" style="margin-top: 5px;">
+                    <div class="circle-container" id="circle-members"></div>
+                    <p style="font-size: 12px;">
+                        % members you have added<br/>({{members.length}} members)
+                    </p>
+                    <div>
+                        <p>
+                            <h1 style="color: orange">{{analyses.length || "0"}}</h1> Cluster analyses</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-4 padding-less">
@@ -98,6 +109,16 @@
         <h1>Are you sure you want to leave this organisation?</h1>
         <div>
             <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="LeaveOrganisation()">Yes</button>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModal()">No</button>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="delete-organisation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="loginmodal-container password-container">
+        <h1>Are you sure you want to delete this organisation?</h1>
+        <div>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="DeleteOrganisation()">Yes</button>
             <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModal()">No</button>
         </div>
     </div>

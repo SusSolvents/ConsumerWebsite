@@ -25,8 +25,10 @@ namespace SS.DAL.EFUsers
         IEnumerable<Organisation> ReadAllOrganisations();
         IEnumerable<Organisation> ReadOrganisationsForUser(User user);
         IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user);
+        Organisation UpdateOrganisation(Organisation organisation);
+        void DeleteOrganisation(long id);
 
-            //OrganisationMember
+        //OrganisationMember
         OrganisationMember CreateOrganisationMember(Organisation organisation, User user);
         OrganisationMember AddMemberToOrganisation(long organisationId, string email);
         IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation);

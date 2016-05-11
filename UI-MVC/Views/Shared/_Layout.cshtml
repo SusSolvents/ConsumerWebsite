@@ -57,8 +57,9 @@
                     
                     <li>
                         <a href="#" data-toggle="modal" data-target="#login-modal" ng-if="username===undefined">Log in</a>
-                        <a href="/account/admin" ng-if="admin">Admin</a>
-                        <a href="/account/{{userId}}" ng-if="username!==undefined && !admin">My Dashboard</a>
+                        <a href="/account/{{userId}}" ng-if="username!==undefined && admin === 'false'">My Dashboard</a>
+                        <a href="/account/admin" ng-if="admin === 'true'">Admin</a>
+                        
                     </li>
                     <li ng-controller="LoginController as login">
                          <a href="/" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>

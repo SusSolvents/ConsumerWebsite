@@ -130,12 +130,12 @@ angular.module('sussol.controllers', ['sussol.services'])
                             $('#load').button('reset');
                             $('#login-modal').modal('hide');
                             if ($window.sessionStorage.role === "SuperAdministrator") {
-                                    $rootScope.admin = true;
+                                    $window.sessionStorage.admin = true;
                                     console.log("Logged in as: " + role);
                                     $timeout($location.path("/account/admin"));
                                 } else {
                                     console.log("no superadmin");
-                                    $rootScope.admin = false;
+                                    $window.sessionStorage.admin = false;
                                     $timeout($location.path("/account/" + data));
                                 }
                             });
@@ -157,7 +157,7 @@ angular.module('sussol.controllers', ['sussol.services'])
                 delete $rootScope.username;
                 delete $window.sessionStorage.username;
                 delete $window.sessionStorage.role;
-                                delete $rootScope.admin;
+                delete $window.sessionStorage.admin;
                 $location.path("/");
             }
         }

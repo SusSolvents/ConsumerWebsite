@@ -29,7 +29,8 @@ namespace SS.UI.Web.MVC
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                        "~/Scripts/notie.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js"
+                      ));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -41,7 +42,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/tabs.css",
                       "~/Content/notie.css",
                       "~/Content/font-awesome.min.css",
-                      
+
                       "~/Content/animate.css",
                       "~/Content/autocomplete.css",
                       "~/Content/site.css"));
