@@ -26,16 +26,27 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
-                    <p class="admin-card-title">Solvent Cluster Trend</p>
-                    <div id="chartCont" class="chart-container-admin">
+                    <p class="admin-card-title">General Information</p>
+                    <div style="height: 40%">
+                        <p class="admin-card-general">
+                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{totalSolventClusters}}
+                        </p>
+                        <p style="color: greenyellow; display: inline;">solvent clusters</p>
+                    </div>
+                    <div style="height: 45%;">
+                        <p class="admin-card-general">
+                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{totalOrganisations}}
+                        </p>
+                        <p style="color: greenyellow; display: inline">organisations</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
-                    <p class="admin-card-title">Users Trend</p>
+                    <p class="admin-card-title">Users Trend Month</p>
                     <div id="chartCont-user" class="chart-container-admin">
                     </div>
                 </div>
@@ -48,21 +59,45 @@
                     <p class="admin-card-title">Algorithm Usage</p>
                     <div id="chartCont-algo" class="chart-container-admin">
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
-                    <p class="admin-card-title">General Information</p>
+                    <p class="admin-card-title">Solvent Cluster Trend Months</p>
+                    <div id="chartCont" class="chart-container-admin">
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
-                    <p class="admin-card-title">Organisation Information</p>
+                    <p class="admin-card-title">Most active</p>
+                    <img class="ma-user-circle" ng-src="{{ mostActiveUser.User.AvatarUrl || '/Content/Images/avatar.png'}}"/>
+                    <p style="text-align: center; margin-top: 15px; font-size: 25px; margin-bottom: 0">{{mostActiveUser.User.Firstname}} {{mostActiveUser.User.Lastname}}</p>
+                    <p style="text-align: center; font-size: 15px;">{{mostActiveUser.NumberOfUserAnalyses}} analyses in total</p>
                 </div>
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6  padding-less">
+                <div class="admin-card col-lg-12 col-md-12">
+                    <p class="admin-card-title">User Administration</p>
+                    <div id="chartCont-algo" class="chart-container-admin">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6  padding-less">
+                <div class="admin-card col-lg-12">
+                    <p class="admin-card-title">Organisation administration</p>
+                    <div id="chartCont" class="chart-container-admin">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
 
     </div>
 </div>

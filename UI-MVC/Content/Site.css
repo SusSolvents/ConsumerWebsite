@@ -920,6 +920,22 @@ progress {
     border-bottom: 1px dotted black;
     margin-bottom: 0;
 }
+.ma-user-circle {
+    border-radius: 50%;
+    width: 110px;
+    height:110px;
+    border: 2px solid  purple;
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+.admin-card-general {
+    font-size: 70px;
+    display: inline-block;
+    color: greenyellow;
+    margin-left: 60px;
+   
+}
 
 .centered-container-big {
     display: block;
