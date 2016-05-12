@@ -63,8 +63,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="organisation-card-full col-lg-3" ng-repeat="organisation in organisations" ng-click="selectOrganisation(organisation.Id)">
-                        <div class="organisation-card" style="width: 100%">
-                            <div style="margin-top: 20px;">
+                        <div class="organisation-card">
+                            <div >
                                 <img class="user-img" ng-src="{{organisation.LogoUrl}}" />
                                 <h2>{{organisation.Name}}</h2>
                                 <h4>{{organisation.Organisator.Firstname}} {{organisation.Organisator.Lastname}}</h4>
@@ -72,21 +72,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<table class="table table-condensed" ng-if="!noOrganisations">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Organiser</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="organisation in organisations" id="{{organisation.Id}}" name="{{organisation.Id}}" ng-click="selectOrganisation($event)">
-                    <td>{{organisation.Name}}</td>
-                    <td>{{organisation.Organisator.Email}}</td>
-                    <td><a href="/organisation/{{organisation.Id}}">View organisation</a></td>
-                </tr>
-                </tbody>
-                </!--table>-->
                 <div ng-if="noOrganisations">
                     You aren't a member of an organisation!
                 </div>
