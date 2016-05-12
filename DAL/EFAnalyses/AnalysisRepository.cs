@@ -179,7 +179,7 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalyses()
         {
-            return _context.Analyses.ToList();
+            return _context.Analyses.Include(a => a.CreatedBy).ToList();
         }
 
         public IEnumerable<Analysis> ReadFullAnalyses()

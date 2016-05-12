@@ -20,5 +20,7 @@ namespace SS.BL.Domain.Analyses
         public User CreatedBy { get; set; }
         public Organisation SharedWith { get; set; }
         public List<AnalysisModel> AnalysisModels { get; set; }
+
+        
     }
 }

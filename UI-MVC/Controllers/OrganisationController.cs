@@ -11,6 +11,7 @@ using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
+using SS.UI.Web.MVC.Models;
 
 
 namespace SS.UI.Web.MVC.Controllers
@@ -69,7 +70,18 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(org.Id);
         }
 
-       
+        [Route("GetMostActive")]
+        public MostActiveModel GetMostActive()
+        {
+            var test = 0;
+            MostActiveModel mostActiveModel  = new MostActiveModel()
+            {
+                User = _analysisManager.ReadAnalyses().GroupBy(a => a.CreatedBy).OrderByDescending(p => test = p.Count()).Select(g => g.Key).First(),
+                NumberOfUserAnalyses = test
+            };
+            return mostActiveModel;
+            
+        }
 
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]

@@ -47,7 +47,7 @@
             json.push({ 'x': new Date(new Date(data[i][0].DateCreated).getFullYear(), new Date(data[i][0].DateCreated).getMonth(),1), 'y': data[i].length });
         }
         
-        createChart("chartCont", json, "line", "Number of solvent clusters", "#1BA5BF");
+        createChart("chartCont", json, "line", "Number of solvent clusters", "#F41D47");
         
     });
     //Load User trend information
@@ -103,12 +103,27 @@
         console.log(numberAnalyses);
         var json = [];
         for (var i = 0; i < algorithmNames.length; i++) {
-            json.push({'y': (algorithmTotals[i]/numberAnalyses) * 100, 'indexLabel' : algorithmNames[i]});
+            if (((algorithmTotals[i] / numberAnalyses) * 100) !== 0) {
+                json.push({ 'y': (algorithmTotals[i] / numberAnalyses) * 100, 'indexLabel': algorithmNames[i] });
+            }
+            
         }
+        $scope.totalSolventClusters = data.length;
+        $scope.totalOrganisations = 0;
         createChart("chartCont-algo", json, "doughnut", null, null);
 
     });
-    
+    //Load most active user and organisation
+    $http({
+        method: 'GET',
+        url: 'api/Organisation/GetMostActive'
+    }).success(function (data) {
+        if (data.User.AvatarUrl != null && data.User.AvatarUrl !== "") {
+            data.User.AvatarUrl = '/Content/Images/Users/' + data.User.AvatarUrl;
+        }
+        $scope.mostActiveUser = data;
+
+    });
     function createChart(id, json, type, title, color)
     {
         var chart = new CanvasJS.Chart(id,
@@ -124,8 +139,8 @@
 
             },
             axisY: {
-                title: title
-
+                title: title,
+                includeZero: false
             },
             
             data: [
