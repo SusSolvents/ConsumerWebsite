@@ -114,7 +114,10 @@
   transition: all .5s;
   
 }
+.loginmodal-submit:disabled {
+    cursor: not-allowed;
 
+}
 .loginmodal-submit:hover {
   border: 1.75px solid whitesmoke;
   text-shadow: 0 1px rgba(0,0,0,0.3);

@@ -6,7 +6,7 @@
         var members = membersOrganisation.data;
         $scope.organisation = organisation;
         $scope.noAnalyses = true;
-
+        $scope.totalAnalyses = analyses.length;
         if (analyses.length !== 0) {
             $scope.noAnalyses = false;
             $scope.analyses = analyses;
@@ -26,9 +26,9 @@
         function setInArrayOf5(items) {
             var item = [];
             var counter = 0;
-            for (var i = 0; i < items.length; i += 4) {
+            for (var i = 0; i < items.length; i += 6) {
                 item[counter] = [];
-                for (var j = 0; j < 4; j++) {
+                for (var j = 0; j < 6; j++) {
                     if (items[i + j] !== undefined) {
                         item[counter][j] = items[i + j];
                     }
@@ -42,11 +42,11 @@
         function createProgress() {
             jQuery("#circle-members").empty();
             jQuery("#circle-members").radialProgress("init", {
-                'size': 90,
-                'fill': 12,
-                'font-size': 25,
+                'size': 120,
+                'fill': 18,
+                'font-size': 35,
                 'font-family': "Questrial",
-                "color": "#44B3C2"
+                "color": "#FF0D0D"
             }).radialProgress("to", { 'perc': (members.length / 4) * 100, 'time': 1000 });
         };
 
@@ -61,25 +61,25 @@
             var interval = Math.floor(seconds / 31536000);
 
             if (interval > 1) {
-                return interval + " years";
+                return interval + " yrs";
             }
             interval = Math.floor(seconds / 2592000);
             if (interval > 1) {
-                return interval + " months";
+                return interval + " mnths";
             }
             interval = Math.floor(seconds / 86400);
             if (interval > 1) {
-                return interval + " days";
+                return interval + " dys";
             }
             interval = Math.floor(seconds / 3600);
             if (interval > 1) {
-                return interval + " hours";
+                return interval + " hrs";
             }
             interval = Math.floor(seconds / 60);
             if (interval > 1) {
-                return interval + " minutes";
+                return interval + " min";
             }
-            return Math.floor(seconds) + " seconds";
+            return Math.floor(seconds) + " sec";
         }
 
         function getRandomImage() {
@@ -91,6 +91,9 @@
             if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
             }
+        }
+        if (organisation.Organisator.AvatarUrl !== null) {
+            organisation.Organisator.AvatarUrl = 'Content/Images/Users/' + organisation.Organisator.AvatarUrl;
         }
 
         $scope.members = members;
@@ -127,8 +130,8 @@
             });
         }
 
-        $scope.closeModal = function () {
-            $('#leave-modal').modal('hide');
+        $scope.closeModal = function (id) {
+            $('#' + id).modal('hide');
         }
 
         $scope.LeaveOrganisation = function () {
@@ -172,11 +175,26 @@
             for (var i = 0; i < data.length; i++) {
                 json.push({ 'x': new Date(new Date(data[i][0].DateCreated).getFullYear(), new Date(data[i][0].DateCreated).getMonth(), 1), 'y': data[i].length });
             }
-
-            createChart("chartCont", json, "line", "Number of solvent clusters", "#1BA5BF");
+            if (data.length !== 0) {
+                createChart("chartCont-solv", json, "line", "Number of solvent clusters", "#25DA45");
+            };
 
         });
+        
 
+        //Load activity per user within organisation
+        $http({
+            method: 'GET',
+            url: 'api/Organisation/GetActivityPerUser',
+            params: { id: organisation.Id }
+        }).success(function (data) {
+            var json = [];
+            for (var i = 0; i < data.length; i++) {
+                json.push({ 'y': data[i].NumberOfUserAnalyses, 'indexLabel': data[i].User.Firstname });
+            }
+            console.log(json);
+            createChart("chartCont-usract", json, "pie", "", null);
+        });
 
         function createChart(id, json, type, title, color) {
             var chart = new CanvasJS.Chart(id,
@@ -192,8 +210,8 @@
 
                 },
                 axisY: {
-                    title: title
-
+                    title: title,
+                    titleFontColor: "gray"
                 },
 
                 data: [
@@ -204,6 +222,7 @@
                     indexLabelFontColor: "darkgrey",
                     indexLabelLineColor: "darkgrey",
                     color: color,
+                    
 
                     lineThickness: 3,
 

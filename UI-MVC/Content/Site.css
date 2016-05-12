@@ -830,7 +830,18 @@ progress {
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
     margin-top: 15px;
     vertical-align: middle;
-    a
+    
+}
+.admin-card-large {
+    height: 515px;
+    border-radius: 2px;
+    background-color: rgba(80,80,80,1);
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 10px 10px 10px rgba(0,0,0,1);
+    margin-top: 15px;
+    vertical-align: middle;
+    
 }
 .profile-review-row {
     margin: 2%;
@@ -850,6 +861,35 @@ progress {
 .profile-container {
     width: 100%;
 }
+.organisation-container {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    text-align: center;
+}
+.organisation-buttons {
+    position: absolute;
+    right: 0;
+}
+.organisation-buttons i {
+    color: white;cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-right: 15px;
+}
+.organisation-buttons a i:hover{
+    color: #b92ed1;
+    
+}
+.organisation-container-img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+}
+
 .profile-review p {
     display: inline-block;
     width: 140px;
@@ -860,6 +900,32 @@ progress {
     
     width: 50px;
     height: 50px;
+}
+.member-container {
+    padding: 35px 5px 20px 5px;
+    width: 100%;
+    height: 100%;
+}
+#myCarousel {
+    height: 94%;
+}
+.carousel-control i {
+    color: white;
+    font-size: 30px;
+    transition: all .2s ease-in-out;
+    margin-top: 180px;
+}
+.carousel-control i:hover {
+    transform: scale(1.2);
+}
+
+.carousel-control > .fa-angle-right {
+    float: right;
+    margin-right: 30px;
+}
+.carousel-control > .fa-angle-left {
+    float: left;
+    margin-left: 30px;
 }
 .chart-container-admin {
     width: 95%;
@@ -911,6 +977,16 @@ progress {
     text-decoration: none;
 }
 .admin-card .admin-card-title{
+    color: white;
+    font-size: 13px;
+    padding: 2px;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    border-bottom: 1px dotted black;
+    margin-bottom: 0;
+}
+.admin-card-large .admin-card-title{
     color: white;
     font-size: 13px;
     padding: 2px;
@@ -1091,14 +1167,39 @@ form.ng-submitted .ng-valid {
   padding: 1.5em;
   
 }
+.card-padding {
+    padding-left: 20px; padding-right: 20px;
+}
+@media screen and (max-width: 1600px) {
+.card-padding {
+    padding-left: 3px; padding-right: 3px;
+    }
+}
+
 
 @media screen and (max-width: 1200px) {
   .analysis-card-post {
-      max-width: 46%;
+      
       margin-left: 2%;
       margin-right: 2%;
   }
+  .analysis-card-post-image {
+    
+    height: 70px !important;
 }
+  
+
+}
+@media screen and (max-width: 1300px) {
+.analysis-card-post-image {
+    
+    height: 90px !important;
+}
+  
+  
+
+}
+
 @media screen and (max-width: 896px) {
   .analysis-card-post {
       max-width: 80%;
@@ -1122,7 +1223,7 @@ form.ng-submitted .ng-valid {
   -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
     cursor: pointer;
-    overflow: hidden;
+    
     border: 1px solid grey;
 }
 
@@ -1146,36 +1247,21 @@ form.ng-submitted .ng-valid {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-overlay {
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.1);
-  position: absolute;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  -webkit-filter: blur(1px);
-  -moz-filter: blur(1px);
-  -o-filter: blur(1px);
-  -ms-filter: blur(1px);
-   
-}
-.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category {
-  margin: 10px 0 0 15px;
-  float: left;
-  z-index: 2;
-  position: absolute;
+
+.analysis-card-post-image {
+    background-position: center; 
+    background-size: cover;
+    width: 100%;
+    height: 140px;
 }
 
 
-.analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image .analysis-card-category > a:focus {
-  text-decoration: none;
-}
+
+
+
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text {
     padding: 5px 15px 5px 15px;
-
+    word-wrap: break-word;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 {
   font-size: 22px;
@@ -1193,6 +1279,12 @@ form.ng-submitted .ng-valid {
   font-size: 17px;
   margin-bottom: 0px;
   color: grey;
+  word-wrap: break-word;
+}
+.center {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text p:last-child {
   margin-bottom: 0 !important;
@@ -1636,6 +1728,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     }
 .circle-container {
     text-align: center;
+    
 }
 .node {
   stroke: #fff;
@@ -1728,17 +1821,24 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 
 
 .organisation-logo {
-    width: 100%;
-    height: 100%;
+    width: 55%;
+    height: auto;
+    min-width: 250px;
+    max-width: 270px;
     display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+   
+    cursor: pointer;
+    border: 1px solid black;
+    transition: all 0.2s ease-in-out;
+}
+.organisation-logo:hover {
+
+    border: 1px solid purple;
+    
 }
 
-.user-img {
-    height: 100px;
-    width: 100px;
-    border-radius: 100%;
-    border: 2px solid white;
-}
 
 
 .styled-select select {
@@ -1795,14 +1895,15 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     text-align: center;
     font-size: 1.2em;
     font-weight: 300;
-    margin: .5em;
+    
 }
 
     .about-user img {
         display: block;
-        width: 100%;
+        width: 120px;
         height: auto;
-        max-width: 200px;
-        max-height: 200px;
-        margin-bottom: .5em;
+        border-radius: 100%;
+        border: 2px solid white;
+        margin: 0 auto;
+        margin-bottom: 10px;
     }

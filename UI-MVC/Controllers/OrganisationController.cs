@@ -92,6 +92,31 @@ namespace SS.UI.Web.MVC.Controllers
             
         }
 
+        [Route("GetActivityPerUser")]
+        public List<MostActiveModel> GetActivityPerUser(long id)
+        {
+            var mostActiveList = new List<MostActiveModel>();
+            var analyses = _analysisManager.ReadAnalysesForOrganisation(id);
+            foreach (var analysis in analyses)
+            {
+                MostActiveModel mtemp = new MostActiveModel()
+                {
+                    User = analysis.CreatedBy,
+                    NumberOfUserAnalyses = 1
+                };
+                if (mostActiveList.TrueForAll(p=>p.User!=mtemp.User))
+                {
+                    mostActiveList.Add(mtemp);
+                }
+                else
+                {
+                    mostActiveList[mostActiveList.FindIndex(p => p.User == mtemp.User)].NumberOfUserAnalyses++;
+                    
+                }
+            }
+            return mostActiveList;
+        }
+
         //GET api/Organisation/ReadOrganisations
         [Route("ReadOrganisations")]
         public List<Organisation> ReadOrganisations([FromUri] long id)

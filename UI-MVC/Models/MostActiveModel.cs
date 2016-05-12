@@ -12,5 +12,7 @@ namespace SS.UI.Web.MVC.Models
         public int NumberOfUserAnalyses { get; set; }
         public Organisation Organisation { get; set; }
         public int NumberOfOrganisationAnalyses { get; set; }
+
+        
     }
 }
