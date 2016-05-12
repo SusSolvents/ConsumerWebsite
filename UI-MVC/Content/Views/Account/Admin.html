@@ -7,9 +7,9 @@
                 <hr class="primary">
             </div>
         </div>
-        <div class="row" style="margin-top: 20px">
+        <div class="row" style="margin-top: 2px">
             <div class="col-lg-4  padding-less">
-                <div class="admin-card col-lg-12 col-md-12" style="overflow-y: scroll; width: 100%;">
+                <div class="admin-card col-lg-12 col-md-12" style="overflow-y: auto;">
                     <p class="admin-card-title">Review new members</p>
                     <div class="profile-container" ng-if="blockedUsers.length !== 0"  >
                         <div class="profile-review-row" ng-repeat="user in blockedUsers">
@@ -31,13 +31,13 @@
                 <div class="admin-card col-lg-12">
                     <p class="admin-card-title">General Information</p>
                     <div style="height: 40%">
-                        <p class="admin-card-general">
+                        <p class="admin-card-general" >
                             <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{totalSolventClusters}}
                         </p>
                         <p style="color: greenyellow; display: inline;">solvent clusters</p>
                     </div>
                     <div style="height: 45%;">
-                        <p class="admin-card-general">
+                        <p class="admin-card-general" >
                             <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{organisations.length}}
                         </p>
                         <p style="color: greenyellow; display: inline">organisations</p>
@@ -83,9 +83,9 @@
             <div class="col-lg-6  padding-less" >
                 <div class="admin-card col-lg-12 col-md-12" >
                     <p class="admin-card-title">User Administration</p>
-                    <div id="chartCont-users" class="chart-container-admin" style="overflow-y: scroll; width: 100%; overflow-x: hidden; padding-bottom: 15px;" >
+                    <div id="chartCont-users" class="chart-container-admin" style="overflow-y: auto; padding-bottom: 10px; padding-top: 20px;" >
 
-                        <div class="row" ng-repeat="user in users" style="border-bottom: 1px solid white; margin-top: 5px;">
+                        <div class="user-admin-row" ng-repeat="user in users">
                             <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{user.Email}}</div>
                             <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 50px;">
                                 <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{user.Email}}" ng-model="user.LockoutEnabled" ng-click="changeUser(user)">
@@ -102,7 +102,7 @@
             <div class="col-lg-6  padding-less">
                 <div class="admin-card col-lg-12">
                     <p class="admin-card-title">Organisation administration</p>
-                    <div id="chartCont-organisations" class="chart-container-admin" style="overflow-y: scroll; width: 100%; overflow-x: hidden; padding-bottom: 15px;">
+                    <div id="chartCont-organisations" class="chart-container-admin" style="overflow-y: auto; width: 100%; overflow-x: hidden; padding-bottom: 15px;">
                         <div class="row" ng-repeat="organisation in organisations" style="border-bottom: 1px solid white; margin-top: 5px;">
                             <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisation.Name}} - {{organisation.Organisator.Email}}</div>
                             <div style="display: inline-block; float: right; margin-right: 50px;">

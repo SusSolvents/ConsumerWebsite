@@ -860,6 +860,12 @@ progress {
 }
 .profile-container {
     width: 100%;
+    overflow-y: auto;
+}
+.user-admin-row {
+    width: 100%;
+    border-bottom: 1px solid rgba(125,125,125,0.6);
+    display: inline-block;
 }
 .organisation-container {
     width: 100%;
@@ -1003,13 +1009,14 @@ progress {
     border: 2px solid  purple;
     display: block;
     margin: 0 auto;
-    margin-top: 25px;
+    margin-top: 18px;
 }
 .admin-card-general {
     font-size: 70px;
     display: inline-block;
     color: greenyellow;
-    margin-left: 60px;
+    margin-left: 20%;
+    margin-right: 10px;
    
 }
 
@@ -1031,7 +1038,7 @@ progress {
     padding: 40px 80px 80px 80px;
 }
 .bigpadding {
-    padding-top: 100px;
+    padding-top: 80px;
     padding-bottom: 50px;
    
 }
