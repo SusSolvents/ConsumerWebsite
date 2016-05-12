@@ -127,7 +127,11 @@
             });
         }
 
-        $scope.closeModal = function () {
+        $scope.closeModalOrganisation = function () {
+            $('#delete-organisation').modal('hide');
+        }
+
+        $scope.closeModalLeave = function () {
             $('#leave-modal').modal('hide');
         }
 

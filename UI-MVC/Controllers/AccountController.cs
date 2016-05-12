@@ -124,6 +124,7 @@ namespace SS.UI.Web.MVC.Controllers
             return _userMgr.ReadUser(email).Id;
         }
         
+        //GET api/Account/GetAllAdminInfo
         [Route("GetAllAdminInfo")]
         public AdminInformationModel GetAdminInfo()
         {
@@ -138,6 +139,7 @@ namespace SS.UI.Web.MVC.Controllers
             return model;
         }
 
+        //GET api/Account/GetAllUsers
         [Route("GetAllUsers")]
         public IEnumerable<IGrouping<int, User>> GetAllUsers()
         {
@@ -158,6 +160,7 @@ namespace SS.UI.Web.MVC.Controllers
             return users.ToList();
         }
 
+        //POST api/Account/AllowUser
         [Route("AllowUser")]
         public async Task<IHttpActionResult> AllowUser(string email)
         {
@@ -166,6 +169,8 @@ namespace SS.UI.Web.MVC.Controllers
             await UserManager.SetLockoutEnabledAsync(user.Id, false);
             return Ok(email + " will now have access to Sussol");
         }
+
+        //POST api/Account/DenyUser
         [Route("DenyUser")]
         public async Task<IHttpActionResult> DenyUser(string email)
         {

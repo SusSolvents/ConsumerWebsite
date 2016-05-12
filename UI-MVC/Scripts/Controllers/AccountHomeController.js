@@ -1,36 +1,46 @@
 ﻿app.controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams, $location, result, organisationsResult, analysesResult) {
     var data = result.data;
 
-            $scope.firstname = data.Firstname;
-            $scope.lastname = data.Lastname;
-            $scope.id = data.Id;
-            var picture = data.Picture;
-            if (picture != null && picture !== "") {
-                $scope.imageSrc = '/Content/Images/Users/' + picture;
-            }
+    $scope.firstname = data.Firstname;
+    $scope.lastname = data.Lastname;
+    $scope.id = data.Id;
+    var picture = data.Picture;
+    if (picture != null && picture !== "") {
+        $scope.imageSrc = '/Content/Images/Users/' + picture;
+    }
     $scope.noOrganisations = true;
     $scope.noAnalyses = true;
     $scope.OrderBy = "DateCreated";
     var organisations = organisationsResult.data;
 
 
-        $scope.organisations = organisations;
-        if (organisations.length !== 0) {
-            $scope.noOrganisations = false;
+    $scope.organisations = organisations;
+    if (organisations.length !== 0) {
+        $scope.noOrganisations = false;
+    }
+
+    for (var i = 0; i < organisations.length; i++) {
+        if (organisations[i].LogoUrl !== null && organisations[i].LogoUrl !== "") {
+            organisations[i].LogoUrl = 'Content/Images/Organisations/' + organisations[i].LogoUrl;
+        } else {
+            organisations[i].LogoUrl = 'Content/Images/organisationLogo.jpg';
         }
+    }
+
+
 
     var analyses = analysesResult.data;
 
-        var i;
-        for (i = 0; i < analyses.length; i++) {
-            analyses[i].image = getRandomImage();
-            analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
-        }
-        
-        $scope.analyses = analyses;
-        if (analyses.length !== 0) {
-            $scope.noAnalyses = false;
-        }
+    var i;
+    for (i = 0; i < analyses.length; i++) {
+        analyses[i].image = getRandomImage();
+        analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated + "+0200")));
+    }
+
+    $scope.analyses = analyses;
+    if (analyses.length !== 0) {
+        $scope.noAnalyses = false;
+    }
 
     function timeSince(date) {
         var seconds = Math.floor((new Date() - date) / 1000);
@@ -59,7 +69,7 @@
     }
 
 
-    $('ul.tabs li').click(function() {
+    $('ul.tabs li').click(function () {
         var tab_id = $(this).attr('data-tab');
 
         $('ul.tabs li').removeClass('current');
@@ -69,10 +79,15 @@
         $("#" + tab_id).addClass('current');
     });
 
+
+    $scope.selectOrganisation = function (id) {
+        $location.path("/organisation/" + id);
+    }
+
     $scope.selectAnalysis = function selectAnalysis($event) {
         $location.path("/analysis/overview/" + $event.currentTarget.id);
     }
-    
+
     $scope.triggerUpload = function () {
         $("#profileImage").click();
     };
@@ -83,21 +98,21 @@
                           var formData = new FormData();
                           formData.append('email', $rootScope.username);
                           formData.append('picture', $scope.file);
-                $http({
-                    method: 'POST',
-                    url: 'api/Account/ChangeAvatar',
-                    headers: {
-                        'Content-Type': undefined
-                    },
-                    transformRequest: angular.identity,
-                    data: formData
-                }).success(function succesCallback(data) {
-                    //$scope.message = data;
-                    //$location.path("/");
-                }).error(function errorCallback(data) {
-                    //$scope.message = data;
-                });
-            });
+                          $http({
+                              method: 'POST',
+                              url: 'api/Account/ChangeAvatar',
+                              headers: {
+                                  'Content-Type': undefined
+                              },
+                              transformRequest: angular.identity,
+                              data: formData
+                          }).success(function succesCallback(data) {
+                              //$scope.message = data;
+                              //$location.path("/");
+                          }).error(function errorCallback(data) {
+                              //$scope.message = data;
+                          });
+                      });
     };
 
     $scope.OrderByFunc = function ($event) {
@@ -105,7 +120,7 @@
         var element = $event.currentTarget.id;
         if (element === "name") {
             $scope.OrderBy = "Name";
-        }else if (element === "namedesc") {
+        } else if (element === "namedesc") {
             $scope.OrderBy = "-Name";
         } else {
             if ($scope.OrderBy === "DateCreated")
@@ -132,14 +147,14 @@
             url: 'api/Account/ChangePassword?currentPassword=' + model.password.currentPassword + '&newPassword=' + model.password.newPassword
         }).success(function succesCallback(data) {
             $scope.success = data;
-           
-            setTimeout(function() {
+
+            setTimeout(function () {
                 $('#password-modal').modal('hide');
                 $scope.account.password.currentPassword = null;
                 $scope.account.password.newPassword = null;
                 $scope.account.password.confirmPassword = null;
-            },2000);
-            
+            }, 2000);
+
             //$location.path("/");
         }).error(function errorCallback(data) {
             $scope.message = data;

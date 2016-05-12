@@ -1805,3 +1805,18 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
         max-height: 200px;
         margin-bottom: .5em;
     }
+
+.organisation-card {
+    text-align: center;
+    border: 2px solid white;
+    height: 250px;
+}
+
+.organisation-card-full:hover {
+    border: 1px solid purple;
+    cursor: pointer;
+}
+
+.organisation-card-full {
+    margin-left: 60px;
+}

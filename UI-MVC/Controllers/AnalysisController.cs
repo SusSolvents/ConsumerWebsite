@@ -61,12 +61,14 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
         }
 
+        //GET api/Analysis/GetAnalysesByMonth
         [Route("GetAnalysesByMonth")]
         public IEnumerable<IGrouping<int, Analysis>> GetAnalyses()
         {
             return _analysisManager.ReadAnalyses().GroupBy(x => x.DateCreated.Month);
         }
         
+        //GET api/Analysis/GetAnalysesDivision
         [Route("GetAnalysesDivision")]
         public List<Analysis> GetAnalysesDivision()
         {
