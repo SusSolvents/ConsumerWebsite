@@ -1247,7 +1247,7 @@ form.ng-submitted .ng-valid {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-
+   
 .analysis-card-post-image {
     background-position: center; 
     background-size: cover;
@@ -1836,7 +1836,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .organisation-logo:hover {
 
     border: 1px solid purple;
-    
+
 }
 
 
@@ -1907,3 +1907,18 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
         margin: 0 auto;
         margin-bottom: 10px;
     }
+
+.organisation-card {
+    text-align: center;
+    border: 2px solid white;
+    height: 250px;
+}
+
+.organisation-card-full:hover {
+    border: 1px solid purple;
+    cursor: pointer;
+}
+
+.organisation-card-full {
+    margin-left: 60px;
+}

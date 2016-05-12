@@ -25,6 +25,7 @@
             notie.alert(1, data, 3.5);
         });
     }
+
     $scope.denyUser = function (email, index) {
         $http({
             method: 'POST',
@@ -124,6 +125,76 @@
         $scope.mostActiveUser = data;
 
     });
+    //Load all users
+    $http({
+        method: 'GET',
+        url: 'api/Account/GetAllUsersForAdmin'
+    }).success(function (data) {
+        $scope.users = data;
+    });
+
+    $scope.changeUser = function (user) {
+        if (!user.LockoutEnabled) {
+            unBlockUser(user.Email);
+        }
+        if (user.LockoutEnabled) {
+            blockUser(user.Email);
+        }
+    }
+
+    function unBlockUser (email) {
+        $http({
+            method: 'POST',
+            url: 'api/Account/AllowUser',
+            params: { email: email }
+        }).success(function (data) {
+            notie.alert(1, data, 2);
+        });
+    }
+
+    function blockUser(email) {
+        $http({
+            method: 'POST',
+            url: 'api/Account/DenyUser',
+            params: { email: email }
+        }).success(function (data) {
+            notie.alert(1, data, 2);
+        });
+    }
+
+    //Load all organisations
+    $http({
+        method: 'GET',
+        url: 'api/Organisation/GetAllOrganisations'
+    }).success(function (data) {
+        $scope.organisations = data;
+    });
+
+    //Delete organisation
+    $scope.DeleteOrganisation = function () {
+        $('#delete-organisation').modal('hide');
+        $http({
+            method: 'DELETE',
+            url: 'api/Organisation/DeleteOrganisation',
+            params: { id: $scope.organsationToDelete }
+        }).success(function succesCallback() {
+            $scope.organisations.splice($scope.indexOrganisationToDelete, 1);
+            notie.alert(1, "The organisation has been removed", 2);
+        });
+    }
+
+
+    $scope.closeModal = function() {
+        $('#delete-organisation').modal('hide');
+    }
+
+    $scope.setOrganisation = function(id, index) {
+        $scope.organsationToDelete = id;
+        $scope.indexOrganisationToDelete = index;
+    }
+
+
+
     function createChart(id, json, type, title, color)
     {
         var chart = new CanvasJS.Chart(id,

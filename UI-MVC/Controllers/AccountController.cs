@@ -124,6 +124,7 @@ namespace SS.UI.Web.MVC.Controllers
             return _userMgr.ReadUser(email).Id;
         }
         
+        //GET api/Account/GetAllAdminInfo
         [Route("GetAllAdminInfo")]
         public AdminInformationModel GetAdminInfo()
         {
@@ -131,13 +132,14 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 BlockedUsers = new List<User>()
             };
-            foreach (var applicationUser in UserManager.Users.Where(u => u.LockoutEnabled))
+            foreach (var applicationUser in UserManager.Users.Where(u => u.LockoutEnabled).Where(p => p.LockoutEndDateUtc == null))
             {
                 model.BlockedUsers.Add(_userMgr.ReadUser(applicationUser.Email));
             }
             return model;
         }
 
+        //GET api/Account/GetAllUsers
         [Route("GetAllUsers")]
         public IEnumerable<IGrouping<int, User>> GetAllUsers()
         {
@@ -149,20 +151,32 @@ namespace SS.UI.Web.MVC.Controllers
             return users.GroupBy(x=>x.DateRegistered.Month);
         }
 
+        //GET api/Account/GetAllUsersForAdmin
+        [Route("GetAllUsersForAdmin")]
+        public List<ApplicationUser> GetAllUsersForAdmin()
+        {
+            var admin = _userMgr.ReadUser(1);
+            IEnumerable<ApplicationUser> users = UserManager.Users.Where(a => !a.Email.Equals(admin.Email)).AsEnumerable();
+            return users.ToList();
+        }
+
+        //POST api/Account/AllowUser
         [Route("AllowUser")]
         public async Task<IHttpActionResult> AllowUser(string email)
         {
             var user = UserManager.Users.Single(u => u.Email == email);
-            await UserManager.SetLockoutEnabledAsync(user.Id, false);
             await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
+            await UserManager.SetLockoutEnabledAsync(user.Id, false);
             return Ok(email + " will now have access to Sussol");
         }
+
+        //POST api/Account/DenyUser
         [Route("DenyUser")]
         public async Task<IHttpActionResult> DenyUser(string email)
         {
             var user = UserManager.Users.Single(u => u.Email == email);
+            await UserManager.SetLockoutEnabledAsync(user.Id, true);
             await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
-            await UserManager.SetLockoutEnabledAsync(user.Id, false);
             return Ok(email + " is blocked from Sussol");
         }
 
@@ -531,7 +545,7 @@ namespace SS.UI.Web.MVC.Controllers
             }
   
 
-                var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEndDateUtc = new DateTime(2100,1,1), LockoutEnabled = true};
+                var applicationUser = new ApplicationUser() { UserName = email, Email = email, LockoutEnabled = true};
                 user = _userMgr.CreateUser(firstname, lastname, email, imagePath);
                 IdentityResult result = await UserManager.CreateAsync(applicationUser, password);
                 if (result.Succeeded)

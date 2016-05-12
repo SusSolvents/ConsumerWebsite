@@ -130,8 +130,12 @@
             });
         }
 
-        $scope.closeModal = function (id) {
-            $('#' + id).modal('hide');
+        $scope.closeModalOrganisation = function () {
+            $('#delete-organisation').modal('hide');
+        }
+
+        $scope.closeModalLeave = function () {
+            $('#leave-modal').modal('hide');
         }
 
         $scope.LeaveOrganisation = function () {
@@ -180,7 +184,7 @@
             };
 
         });
-        
+
 
         //Load activity per user within organisation
         $http({
@@ -222,7 +226,7 @@
                     indexLabelFontColor: "darkgrey",
                     indexLabelLineColor: "darkgrey",
                     color: color,
-                    
+
 
                     lineThickness: 3,
 

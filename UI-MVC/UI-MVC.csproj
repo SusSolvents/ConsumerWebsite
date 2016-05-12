@@ -294,6 +294,7 @@
     <Content Include="Content\Images\solventball.png" />
     <Content Include="Content\Images\test.jpg" />
     <Content Include="Content\notie.css" />
+    <Content Include="Content\onoffswitch.css" />
     <Content Include="Content\tabs.css" />
     <Content Include="Content\filling-section.css" />
     <Content Include="Content\font-awesome.css" />
@@ -328,6 +329,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angucomplete-alt.min.js" />
+    <Content Include="Scripts\angular-bootstrap-switch.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
