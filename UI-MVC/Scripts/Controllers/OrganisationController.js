@@ -26,9 +26,9 @@
         function setInArrayOf5(items) {
             var item = [];
             var counter = 0;
-            for (var i = 0; i < items.length; i += 4) {
+            for (var i = 0; i < items.length; i += 6) {
                 item[counter] = [];
-                for (var j = 0; j < 4; j++) {
+                for (var j = 0; j < 6; j++) {
                     if (items[i + j] !== undefined) {
                         item[counter][j] = items[i + j];
                     }

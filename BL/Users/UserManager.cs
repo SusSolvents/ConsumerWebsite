@@ -32,6 +32,11 @@ namespace SS.BL.Users
             return repo.UpdateUser(user);
         }
 
+        public IEnumerable<User> ReadAllUsers()
+        {
+            return repo.ReadAllUsers();
+        }
+
         public IEnumerable<User> ReadUsersForOrganisation(long id)
         {
             return repo.ReadUsersForOrganisation(id);

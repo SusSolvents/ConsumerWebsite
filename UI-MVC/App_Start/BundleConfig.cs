@@ -42,7 +42,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/tabs.css",
                       "~/Content/notie.css",
                       "~/Content/font-awesome.min.css",
-
+                      "~/Content/onoffswitch.css",
                       "~/Content/animate.css",
                       "~/Content/autocomplete.css",
                       "~/Content/site.css"));
