@@ -37,14 +37,58 @@
             </div>
         </div>
         <div class="col-lg-4 padding-less">
-            <div class="admin-card col-lg-12"></div>
+            <div class="admin-card col-lg-12">
+                <p class="admin-card-title">Solvent Cluster Trend</p>
+                <div id="chartCont" class="chart-container-admin">
+                </div>
+            </div>
         </div>
     </div>
     <div class="row" style="margin-top: 10px;">
         <div class="col-lg-12">
-            <div class="admin-card col-lg-12 col-md-12" style="height: 400px;">
+            <div class="admin-card col-lg-12 col-md-12" style="height: 450px;">
                 <p class="admin-card-title" style="margin: 0">Cluster Analyses</p>
-                <div class="analysis-card-blog-style-1">
+                <div id="myCarousel" class="carousel slide" style="height: 100%">
+                    <ol class="carousel-indicators" >
+                        <li ng-repeat="slide in slideShow" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
+                    </ol>
+                    <!-- Carousel items -->
+                    <div class="carousel-inner" >
+                        <div class="item" ng-class="{active:$first}" ng-repeat="slide in slideShow">
+                            <div class="analysis-card-blog-style-1">
+                                <div ng-repeat="analysis in slide">
+                                    <div class="col-lg-3" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                                        <div class="analysis-card-post">
+                                            <div class="analysis-card-post-image">
+                                                <div class="analysis-card-overlay"></div>
+                                                <img ng-src="{{analysis.image}}" alt="Image">
+                                            </div>
+                                            <div class="analysis-card-post-text">
+                                                <h3>
+                                                    <a href="#">{{analysis.Name}}</a>
+                                                </h3>
+                                                <p>{{analysis.CreatedBy.Email}}</p>
+
+                                                <p>{{analysis.NumberOfSolvents}} Solvents</p>
+                                            </div>
+                                            <div class="analysis-card-post-meta">
+                                                #{{analysis.Id}}<br/>
+                                                <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel nav -->
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+
+
+
+                <!--<div class="analysis-card-blog-style-1">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="col-lg-3" ng-repeat="analysis in analyses" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
@@ -70,7 +114,7 @@
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

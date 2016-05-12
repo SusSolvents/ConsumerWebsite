@@ -208,8 +208,18 @@ app.run([
                 }).error(function succesCallback(data) {
                     $location.path('/404');
                 });
-                
             }
+            if (curr.templateUrl === "Content/Views/Organisation/Home.html") {
+                $http({
+                    method: 'POST',
+                    url: 'api/Organisation/CheckPermission',
+                    params: { userId: $window.sessionStorage.userId, organisationId: curr.params.id }
+                }).error(function succesCallback(data) {
+                    $location.path('/404');
+                });
+            }
+            
+
             if (curr.$$route && curr.$$route.resolve) {
                 // Show a loading message until promises aren't resolved   
                 $root.loadingView = true;

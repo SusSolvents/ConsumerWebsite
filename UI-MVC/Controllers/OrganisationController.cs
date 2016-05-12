@@ -28,6 +28,15 @@ namespace SS.UI.Web.MVC.Controllers
             this._analysisManager = analysisManager;
         }
         
+
+        //GET api/Organisation/GetAllOrganisations
+        [Route("GetAllOrganisations")]
+        public IEnumerable<Organisation> GetAllOrganisations()
+        {
+            return _userManager.ReadAllOrganisations();
+        }
+
+
         //GET api/Organisation/CreateOrganisation
         [Route("CreateOrganisation")]
         public async Task<IHttpActionResult> CreateOrganisation()
@@ -138,6 +147,27 @@ namespace SS.UI.Web.MVC.Controllers
         {
             _userManager.DeleteOrganisation(id);
             return Ok();
+        }
+
+        //GET api/Organisation/GetAnalysesByMonthForOrganisation
+        [Route("GetAnalysesByMonthForOrganisation")]
+        public IEnumerable<IGrouping<int, Analysis>> GetAnalyses(long id)
+        {
+            return _analysisManager.ReadAnalysesForOrganisation(id).GroupBy(x => x.DateCreated.Month);
+        }
+
+        //POST api/Organisation/CheckPermission
+        [Route("CheckPermission")]
+        public async Task<IHttpActionResult> CheckPermission(long userId, long organisationId)
+        {
+            var user = _userManager.ReadUser(userId);
+            var organisations = _userManager.ReadOrganisationsForUser(user);
+            var organisation = _userManager.ReadOrganisation(organisationId);
+            if (organisations.Contains(organisation))
+            {
+                return Ok();
+            }
+            return BadRequest("Access not granted");
         }
 
         //POST api/Organisation/ChangeLogo

@@ -1,4 +1,4 @@
-﻿app.controller('OrganisationController', 
+﻿app.controller('OrganisationController',
     function ($timeout, $window, $scope, $http, fileReader, $route, $location, result, analysesOrganisation, membersOrganisation) {
 
         var organisation = result.data;
@@ -17,26 +17,43 @@
             $scope.organiser = true;
         }
 
-        
+        $scope.slideShow = setInArrayOf5(analyses);
+
         $scope.selectAnalysis = function selectAnalysis($event) {
             $location.path("/analysis/overview/" + $event.currentTarget.id);
         }
+        $('.carousel').carousel("pause");
+        function setInArrayOf5(items) {
+            var item = [];
+            var counter = 0;
+            for (var i = 0; i < items.length; i += 4) {
+                item[counter] = [];
+                for (var j = 0; j < 4; j++) {
+                    if (items[i + j] !== undefined) {
+                        item[counter][j] = items[i + j];
+                    }
+                }
+                counter +=1;
+            }
+            return item;
+        }
+
 
         function createProgress() {
             jQuery("#circle-members").empty();
-                jQuery("#circle-members").radialProgress("init", {
-                    'size': 90,
-                    'fill': 12,
-                    'font-size': 25,
-                    'font-family': "Questrial",
-                    "color": "#44B3C2"
-                }).radialProgress("to", { 'perc': (members.length/4)*100, 'time': 1000 });
+            jQuery("#circle-members").radialProgress("init", {
+                'size': 90,
+                'fill': 12,
+                'font-size': 25,
+                'font-family': "Questrial",
+                "color": "#44B3C2"
+            }).radialProgress("to", { 'perc': (members.length / 4) * 100, 'time': 1000 });
         };
 
         createProgress();
         for (var i = 0; i < analyses.length; i++) {
             analyses[i].image = getRandomImage();
-            analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated +"+0200")));
+            analyses[i].DateCreated = timeSince(new Date(Date.parse(analyses[i].DateCreated + "+0200")));
         }
 
         function timeSince(date) {
@@ -68,7 +85,7 @@
         function getRandomImage() {
             var number = Math.floor((Math.random() * 4) + 1);
             return "/Content/Images/random" + number + ".jpg";
-        } 
+        }
 
         for (var i = 0; i < members.length; i++) {
             if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
@@ -81,16 +98,15 @@
         var logo = organisation.LogoUrl;
         if (logo != null && logo !== "") {
             $scope.imageSrc = 'Content/Images/Organisations/' + logo;
-        } else
-            {
-                $scope.imageSrc = 'Content/Images/organisationLogo.jpg';
-            }
+        } else {
+            $scope.imageSrc = 'Content/Images/organisationLogo.jpg';
+        }
 
         function reloadMembers() {
             $http({
-                    method: 'GET',
-                    url: 'api/Organisation/GetUsersForOrganisation',
-                    params: { id: organisation.Id }
+                method: 'GET',
+                url: 'api/Organisation/GetUsersForOrganisation',
+                params: { id: organisation.Id }
             }).success(function succesCallback(data) {
                 members = data;
                 $scope.members = data;
@@ -128,14 +144,14 @@
 
             });
         }
-        
-        $scope.AddMember = function() {
+
+        $scope.AddMember = function () {
             $http({
                 method: 'POST',
                 url: 'api/Organisation/AddMemberToOrganisation',
                 params: { organisationId: organisation.Id, email: $scope.emailNewMember }
             }).success(function succesCallback(data) {
-                
+
                 notie.alert(1, "User was added to organisation", 2);
                 $scope.emailNewMember = "";
                 reloadMembers();
@@ -143,8 +159,66 @@
             }).error(function errorCallback(data) {
                 $scope.messageNewMember = data.Message;
             });
-            
+
         }
+
+        //Load solvent cluster trend information
+        $http({
+            method: 'GET',
+            url: 'api/Organisation/GetAnalysesByMonthForOrganisation',
+            params: { id: organisation.Id }
+        }).success(function (data) {
+            var json = [];
+            for (var i = 0; i < data.length; i++) {
+                json.push({ 'x': new Date(new Date(data[i][0].DateCreated).getFullYear(), new Date(data[i][0].DateCreated).getMonth(), 1), 'y': data[i].length });
+            }
+
+            createChart("chartCont", json, "line", "Number of solvent clusters", "#1BA5BF");
+
+        });
+
+
+        function createChart(id, json, type, title, color) {
+            var chart = new CanvasJS.Chart(id,
+            {
+                theme: "theme3",
+
+                backgroundColor: "rgba(80,80,80,1)",
+                animationEnabled: true,
+                axisX: {
+                    valueFormatString: "MMM",
+                    interval: 1,
+                    intervalType: "month"
+
+                },
+                axisY: {
+                    title: title
+
+                },
+
+                data: [
+                {
+                    type: type,
+                    indexLabelFontSize: 15,
+                    indexLabelPlacement: "outside",
+                    indexLabelFontColor: "darkgrey",
+                    indexLabelLineColor: "darkgrey",
+                    color: color,
+
+                    lineThickness: 3,
+
+                    dataPoints: json
+                }
+
+
+                ]
+            });
+
+            chart.render();
+        }
+
+
+
 
         $scope.triggerUpload = function () {
             $("#logo").click();
@@ -174,7 +248,7 @@
         };
 
 
-        
+
     }
 );
 
