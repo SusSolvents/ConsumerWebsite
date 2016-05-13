@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity.Owin;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
@@ -22,13 +23,26 @@ namespace SS.UI.Web.MVC.Controllers
     {
         private readonly IUserManager _userManager;
         private readonly IAnalysisManager _analysisManager;
+        private ApplicationUserManager _applicationUserManageruserManager;
 
         public OrganisationController(IUserManager userManager, IAnalysisManager analysisManager)
         {
             this._userManager = userManager;
             this._analysisManager = analysisManager;
         }
-        
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _applicationUserManageruserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _applicationUserManageruserManager = value;
+            }
+        }
+
 
         //GET api/Organisation/GetAllOrganisations
         [Route("GetAllOrganisations")]
@@ -179,13 +193,38 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok();
         }
 
-        //POST api/Organisation/DeleteOrganisation
-        [Route("DeleteOrganisation")]
-        public async Task<IHttpActionResult> DeleteOrganisation(long id)
+        //POST api/Organisation/BlockOrganisation
+        [Route("BlockOrganisation")]
+        public async Task<IHttpActionResult> BlockOrganisation(long id)
         {
-            _userManager.DeleteOrganisation(id);
+            _userManager.BlockOrganisation(id);
+            var users = _userManager.ReadUsersForOrganisation(id).ToList();
+
+            for (var i = 0; i < users.Count(); i++)
+            {
+                var user = UserManager.Users.Single(u => u.Email == users[i].Email);
+                await UserManager.SetLockoutEnabledAsync(user.Id, true);
+                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
+            }
             return Ok();
         }
+
+        //POST api/Organisation/AllowOrganisation
+        [Route("AllowOrganisation")]
+        public async Task<IHttpActionResult> AllowOrganisation(long id)
+        {
+            _userManager.AllowOrganisation(id);
+            var users = _userManager.ReadUsersForOrganisation(id).ToList();
+
+            for (var i = 0; i < users.Count(); i++)
+            {
+                var user = UserManager.Users.Single(u => u.Email == users[i].Email);
+                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
+                await UserManager.SetLockoutEnabledAsync(user.Id, false);
+            }
+            return Ok();
+        }
+
 
         //GET api/Organisation/GetAnalysesByMonthForOrganisation
         [Route("GetAnalysesByMonthForOrganisation")]

@@ -52,7 +52,8 @@ namespace SS.BL.Users
             Organisation organisation = new Organisation()
             {
                 Name = name,
-                LogoUrl = logoUrl
+                LogoUrl = logoUrl,
+                Blocked = true
             };
             return repo.CreateOrganisation(organisation, user);
         }
@@ -82,9 +83,14 @@ namespace SS.BL.Users
             return repo.UpdateOrganisation(organisation);
         }
 
-        public void DeleteOrganisation(long id)
+        public void BlockOrganisation(long id)
         {
-            repo.DeleteOrganisation(id);
+            repo.BlockOrganisation(id);
+        }
+
+        public void AllowOrganisation(long id)
+        {
+            repo.AllowOrganisation(id);
         }
 
         public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)

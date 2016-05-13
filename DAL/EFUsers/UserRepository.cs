@@ -56,17 +56,18 @@ namespace SS.DAL.EFUsers
             return organisation;
         }
 
-        public void DeleteOrganisation(long id)
+        public void BlockOrganisation(long id)
         {
-            var members = _context.OrganisationMembers.Where(a => a.Organisation.Id == id).ToList();
-            var analyses = _context.Analyses.Where(a => a.SharedWith.Id == id).ToList();
-            for (var i = 0; i < analyses.Count; i++)
-            {
-                analyses[i].SharedWith = null;
-            }
+
             var organisation = _context.Organisations.Find(id);
-            _context.OrganisationMembers.RemoveRange(members);
-            _context.Organisations.Remove(organisation);
+            organisation.Blocked = true;
+            _context.SaveChanges();
+        }
+
+        public void AllowOrganisation(long id)
+        {
+            var organisation = _context.Organisations.Find(id);
+            organisation.Blocked = false;
             _context.SaveChanges();
         }
 

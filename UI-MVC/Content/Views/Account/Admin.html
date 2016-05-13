@@ -105,8 +105,12 @@
                     <div id="chartCont-organisations" class="chart-container-admin" style="overflow-y: auto; width: 100%; overflow-x: hidden; padding-bottom: 15px;">
                         <div class="row" ng-repeat="organisation in organisations" style="border-bottom: 1px solid white; margin-top: 5px;">
                             <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisation.Name}} - {{organisation.Organisator.Email}}</div>
-                            <div style="display: inline-block; float: right; margin-right: 50px;">
-                                <a title="delete organisation" href="#" data-toggle="modal" data-target="#delete-organisation" ng-click="setOrganisation(organisation.Id, $index)"><i style="color: white; cursor: pointer" class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+                            <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 50px;">
+                                <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{organisation.Name}}" ng-model="organisation.Blocked" ng-click="changeOrganisation(organisation)">
+                                <label class="onoffswitch-label" for="onoffswitch-{{organisation.Name}}">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
                             </div>
                         </div>
                     </div>

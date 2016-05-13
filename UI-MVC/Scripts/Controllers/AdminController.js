@@ -170,27 +170,39 @@
         $scope.organisations = data;
     });
 
-    //Delete organisation
-    $scope.DeleteOrganisation = function () {
-        $('#delete-organisation').modal('hide');
+    //Allow Organisation
+    function unBlockOrganisation(id) {
         $http({
-            method: 'DELETE',
-            url: 'api/Organisation/DeleteOrganisation',
-            params: { id: $scope.organsationToDelete }
+            method: 'POST',
+            url: 'api/Organisation/AllowOrganisation',
+            params: { id: id }
         }).success(function succesCallback() {
-            $scope.organisations.splice($scope.indexOrganisationToDelete, 1);
-            notie.alert(1, "The organisation has been removed", 2);
+            notie.alert(1, "The organisation has been blocked", 2);
         });
     }
 
+    //Block organisation
+    function blockOrganisation (id) {
+        $http({
+            method: 'POST',
+            url: 'api/Organisation/BlockOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            notie.alert(1, "The organisation has been blocked", 2);
+        });
+    }
 
     $scope.closeModal = function() {
         $('#delete-organisation').modal('hide');
     }
 
-    $scope.setOrganisation = function(id, index) {
-        $scope.organsationToDelete = id;
-        $scope.indexOrganisationToDelete = index;
+    $scope.changeOrganisation = function (organisation) {
+        if (!organisation.Blocked) {
+            unBlockOrganisation(organisation.Id);
+        }
+        if (organisation.Blocked) {
+            blockOrganisation(organisation.Id);
+        }
     }
 
 
