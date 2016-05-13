@@ -107,6 +107,10 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 if (user.LockoutEnabled)
                 {
+                    if (user.LockoutEndDateUtc != null)
+                    {
+                        return Content(HttpStatusCode.BadRequest, "Your account has been blocked.");
+                    }
                     return Content(HttpStatusCode.BadRequest, "Your account hasn't been granted access yet.");
                 }
             }
