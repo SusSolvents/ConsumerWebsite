@@ -78,7 +78,7 @@ namespace SS.UI.Web.MVC.Controllers
 
 
             User user = _userManager.ReadUser(email);
-            if (user.Organisation == null)
+            if (user.Organisation != null)
             {
                 return BadRequest("You already have an organisation");
 
@@ -124,17 +124,26 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisationForUser
         [Route("ReadOrganisationForUser")]
-        public Organisation ReadOrganisations([FromUri] long id)
+        public Organisation ReadOrganisationForUser([FromUri] long id)
         {
             var user = _userManager.ReadUser(id);
-            return user.Organisation;
+            if (!user.Organisation.Blocked)
+            {
+                return user.Organisation;
+            }
+            return null;
         }
 
         //GET api/Organisation/ReadOrganisation
         [Route("ReadOrganisation")]
         public Organisation ReadOrganisation(long id)
         {
-            return _userManager.ReadOrganisation(id);
+            var organisation = _userManager.ReadOrganisation(id);
+            if (organisation != null && !organisation.Blocked)
+            {
+                return organisation;
+            }
+            return null;
         }
 
         //GET api/Organisation/GetAnalysesForOrganisation
@@ -216,9 +225,11 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("CheckPermission")]
         public IHttpActionResult CheckPermission(long userId, long organisationId)
         {
-
-
             var user = _userManager.ReadUser(userId);
+            if (user.Organisation.Blocked)
+            {
+                return BadRequest("Organisation has been blocked");
+            }
             if (user.Organisation.Id == organisationId)
             {
                 return Ok();

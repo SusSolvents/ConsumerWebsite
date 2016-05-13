@@ -1,6 +1,5 @@
 ﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result) {
     var data = result.data;
-    console.log(data);
     notie.setOptions({
         colorSuccess: 'rgba(87,191,87,0.9)',
         colorText: '#FFFFFF',
@@ -23,6 +22,7 @@
             
             $scope.blockedUsers.splice(index, 1);
             notie.alert(1, data, 3.5);
+            loadAllUsers();
         });
     }
 
@@ -32,9 +32,9 @@
             url: 'api/Account/DenyUser',
             params: { email: email }
         }).success(function (data) {
-            console.log(data);
             $scope.blockedUsers.splice(index, 1);
             notie.alert(1, data, 3.5);
+            loadAllUsers();
         });
     }
     //Load solvent cluster trend information
@@ -42,7 +42,6 @@
         method: 'GET',
         url: 'api/Analysis/GetAnalysesByMonth'
     }).success(function (data) {
-        console.log(data);
         var json = [];
         for (var i = 0; i < data.length; i++) {
             json.push({ 'x': new Date(new Date(data[i][0].DateCreated).getFullYear(), new Date(data[i][0].DateCreated).getMonth(),1), 'y': data[i].length });
@@ -56,7 +55,6 @@
         method: 'GET',
         url: 'api/Account/GetAllUsers'
     }).success(function (data) {
-        console.log(data);
         var json = [];
         for (var i = 0; i < data.length; i++) {
             json.push({ 'x': new Date(new Date(data[i][0].DateRegistered).getFullYear(), new Date(data[i][0].DateRegistered).getMonth(), 1), 'y': data[i].length });
@@ -70,7 +68,6 @@
         method: 'GET',
         url: 'api/Analysis/GetAnalysesDivision'
     }).success(function (data) {
-        console.log(data);
         var algorithmNames = ['Canopy', 'EM', 'KMeans', 'SOM', 'XMeans'];
         var algorithmTotals = [];
         var numberAnalyses = 0;
@@ -101,7 +98,6 @@
         algorithmTotals.push(kmeansCounter);
         algorithmTotals.push(somCounter);
         algorithmTotals.push(xmeansCounter);
-        console.log(numberAnalyses);
         var json = [];
         for (var i = 0; i < algorithmNames.length; i++) {
             if (((algorithmTotals[i] / numberAnalyses) * 100) !== 0) {
@@ -164,7 +160,6 @@
             method: 'GET',
             url: 'api/Organisation/GetAllOrganisations'
         }).success(function(data) {
-            console.log(data);
             newOrganisations = [];
             $scope.organisationModels = data;
             for (var i = 0; i < data.length; i++) {

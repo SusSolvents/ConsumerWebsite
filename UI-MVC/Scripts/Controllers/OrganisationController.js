@@ -32,13 +32,13 @@
             
         });
 
-        $scope.slideShow = setInArrayOf5(analyses);
+        $scope.slideShow = setInArrayOf6(analyses);
 
         $scope.selectAnalysis = function selectAnalysis($event) {
             $location.path("/analysis/overview/" + $event.currentTarget.id);
         }
         $('.carousel').carousel("pause");
-        function setInArrayOf5(items) {
+        function setInArrayOf6(items) {
             var item = [];
             var counter = 0;
             for (var i = 0; i < items.length; i += 6) {
@@ -112,6 +112,9 @@
 
         $scope.members = members;
 
+        $scope.membersSlide = setInArrayOf6(members);
+
+
         var logo = organisation.LogoUrl;
         if (logo != null && logo !== "") {
             $scope.imageSrc = 'Content/Images/Organisations/' + logo;
@@ -127,6 +130,7 @@
             }).success(function succesCallback(data) {
                 members = data;
                 $scope.members = data;
+                $scope.membersSlide = setInArrayOf6(members);
                 createProgress();
             });
         }
@@ -316,7 +320,7 @@ app.controller('CreateOrganisationController',
             }).success(function succesCallback(data) {
                 setTimeout($location.path("/organisation/" + data), 1000);
             }).error(function errorCallback(data) {
-                $scope.message = data;
+                $scope.message = data.Message;
             });
         };
 

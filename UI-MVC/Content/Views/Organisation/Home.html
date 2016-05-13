@@ -130,10 +130,25 @@
             <div class="admin-card col-lg-12 col-md-12" style="height: 250px;">
                 <p class="admin-card-title" style="margin: 0">Members</p>
                 <div class="member-container">
-                <div class="about-user col-lg-2" ng-repeat="member in members">
-                        <img title="{{member.Email}}" class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}" />
-                    <p>{{member.Firstname}} {{member.Lastname}}</p>
-                </div>
+
+                    <div id="myMmebers" class="carousel slide">
+                        <ol class="carousel-indicators">
+                            <li ng-repeat="slide in membersSlide" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
+                        </ol>
+
+                        <div class="carousel-inner" style="height: auto">
+                            <div class="item" ng-class="{active:$first}" ng-repeat="slide in membersSlide">
+                                    <div class="about-user col-lg-2" ng-repeat="member in slide">
+                                        <img title="{{member.Email}}" class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}" />
+                                        <p>{{member.Firstname}} {{member.Lastname}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" data-target="#myMembers" data-slide="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                        <a class="carousel-control right" data-target="#myMembers" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
 
             </div>

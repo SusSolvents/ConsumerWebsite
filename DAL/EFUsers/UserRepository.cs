@@ -90,7 +90,7 @@ namespace SS.DAL.EFUsers
 
         public User ReadUser(string email)
         {
-            return _context.Users.FirstOrDefault(e => e.Email.Equals(email));
+            return _context.Users.Include(o => o.Organisation).FirstOrDefault(e => e.Email.Equals(email));
         }
 
         public User ReadUser(long id)
