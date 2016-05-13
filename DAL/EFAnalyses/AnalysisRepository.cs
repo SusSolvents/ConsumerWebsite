@@ -71,23 +71,10 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId)
         {
-            var analyses = _context.Analyses.Where(u => u.CreatedBy.Id == userId).ToList();
-            var members = _context.OrganisationMembers
-                .Include(p => p.Organisation)
-                .Where(u => u.User.Id == userId).ToList();
-            var organisations = new List<Organisation>();
-            for (var i = 0; i < members.Count; i++)
-            {
-                organisations.Add(_context.Organisations.Find(members[i].Organisation.Id));
-            }
-            for (var i = 0; i < organisations.Count; i++)
-            {
-                var analysesTemp = _context.Analyses
-                    .Include(a => a.SharedWith)
-                    .Where(a => a.SharedWith != null).ToList();
-                var analysesTemp2 = analysesTemp.Where(a => a.SharedWith.Id == organisations[i].Id);
+            var organisation = _context.Users.Find(userId).Organisation;
+                var analyses = _context.Analyses.Where(a => a.CreatedBy.Id == userId).ToList();
+                var analysesTemp2 = _context.Analyses.Where(a => a.SharedWith.Id == organisation.Id);
                 analyses.AddRange(analysesTemp2);
-            }
             return analyses;
         }
 

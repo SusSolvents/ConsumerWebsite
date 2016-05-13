@@ -11,6 +11,7 @@ using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
+using SS.DAL.EFUsers;
 using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
 
@@ -23,7 +24,6 @@ namespace SS.UI.Web.MVC.Controllers
     {
         private readonly IUserManager _userManager;
         private readonly IAnalysisManager _analysisManager;
-        private ApplicationUserManager _applicationUserManageruserManager;
 
         public OrganisationController(IUserManager userManager, IAnalysisManager analysisManager)
         {
@@ -31,24 +31,20 @@ namespace SS.UI.Web.MVC.Controllers
             this._analysisManager = analysisManager;
         }
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _applicationUserManageruserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _applicationUserManageruserManager = value;
-            }
-        }
 
 
         //GET api/Organisation/GetAllOrganisations
         [Route("GetAllOrganisations")]
-        public IEnumerable<Organisation> GetAllOrganisations()
+        public List<OrganisationViewModel> GetAllOrganisations()
         {
-            return _userManager.ReadAllOrganisations();
+            var organisations = _userManager.ReadAllOrganisations();
+            List<OrganisationViewModel> models = new List<OrganisationViewModel>();
+            foreach (var organisation in organisations)
+            {
+                var user = _userManager.ReadUser(organisation.OrganisatorId);
+                models.Add(new OrganisationViewModel() {Organisation = organisation, Organisator = user});
+            }
+            return models;
         }
 
 
@@ -93,19 +89,6 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(org.Id);
         }
         
-        //GET api/Organisation/GetMostActive
-        [Route("GetMostActive")]
-        public MostActiveModel GetMostActive()
-        {
-            var test = 0;
-            MostActiveModel mostActiveModel  = new MostActiveModel()
-            {
-                User = _analysisManager.ReadAnalyses().GroupBy(a => a.CreatedBy).OrderByDescending(p => test = p.Count()).Select(g => g.Key).First(),
-                NumberOfUserAnalyses = test
-            };
-            return mostActiveModel;
-            
-        }
 
         [Route("GetActivityPerUser")]
         public List<MostActiveModel> GetActivityPerUser(long id)
@@ -132,13 +115,12 @@ namespace SS.UI.Web.MVC.Controllers
             return mostActiveList;
         }
 
-        //GET api/Organisation/ReadOrganisations
-        [Route("ReadOrganisations")]
-        public List<Organisation> ReadOrganisations([FromUri] long id)
+        //GET api/Organisation/ReadOrganisationForUser
+        [Route("ReadOrganisationForUser")]
+        public Organisation ReadOrganisations([FromUri] long id)
         {
             var user = _userManager.ReadUser(id);
-            List<Organisation> organisations = _userManager.ReadOrganisationsForUser(user).ToList();
-            return organisations;
+            return user.Organisation;
         }
 
         //GET api/Organisation/ReadOrganisation
@@ -164,9 +146,10 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/AddMemberToOrganisation
         [Route("AddMemberToOrganisation")]
-        public async Task<IHttpActionResult> AddMemberToOrganisation(long organisationId, string email)
+        public IHttpActionResult AddMemberToOrganisation(long organisationId, string email)
         {
-            var membersOrganisation = _userManager.ReadUsersForOrganisation(organisationId);
+
+            var membersOrganisation = _userManager.ReadUsersForOrganisation(organisationId).ToList();
             if (membersOrganisation.Count() >= 5)
             {
                 return BadRequest("You can have a max of 5 members in one organisation");
@@ -180,48 +163,31 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 return BadRequest("Member already in organisation");
             }
-            _userManager.AddMemberToOrganisation(organisationId, email);
-
+            _userManager.JoinOrganisation(email, organisationId);
             return Ok("Member has been added to organisation");
         }
 
         //POST api/Organisation/LeaveOrganisation
         [Route("LeaveOrganisation")]
-        public async Task<IHttpActionResult> LeaveOrganisation(long userId, long organisationId)
+        public IHttpActionResult LeaveOrganisation(long userId)
         {
-            _userManager.DeleteOrganisationMember(organisationId, userId);
+            _userManager.LeaveOrganisation(userId);
             return Ok();
         }
 
         //POST api/Organisation/BlockOrganisation
         [Route("BlockOrganisation")]
-        public async Task<IHttpActionResult> BlockOrganisation(long id)
+        public IHttpActionResult BlockOrganisation(long id)
         {
             _userManager.BlockOrganisation(id);
-            var users = _userManager.ReadUsersForOrganisation(id).ToList();
-
-            for (var i = 0; i < users.Count(); i++)
-            {
-                var user = UserManager.Users.Single(u => u.Email == users[i].Email);
-                await UserManager.SetLockoutEnabledAsync(user.Id, true);
-                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
-            }
             return Ok();
         }
 
         //POST api/Organisation/AllowOrganisation
         [Route("AllowOrganisation")]
-        public async Task<IHttpActionResult> AllowOrganisation(long id)
+        public IHttpActionResult AllowOrganisation(long id)
         {
             _userManager.AllowOrganisation(id);
-            var users = _userManager.ReadUsersForOrganisation(id).ToList();
-
-            for (var i = 0; i < users.Count(); i++)
-            {
-                var user = UserManager.Users.Single(u => u.Email == users[i].Email);
-                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
-                await UserManager.SetLockoutEnabledAsync(user.Id, false);
-            }
             return Ok();
         }
 
@@ -235,12 +201,12 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/CheckPermission
         [Route("CheckPermission")]
-        public async Task<IHttpActionResult> CheckPermission(long userId, long organisationId)
+        public IHttpActionResult CheckPermission(long userId, long organisationId)
         {
+
+
             var user = _userManager.ReadUser(userId);
-            var organisations = _userManager.ReadOrganisationsForUser(user);
-            var organisation = _userManager.ReadOrganisation(organisationId);
-            if (organisations.Contains(organisation))
+            if (user.Organisation.Id == organisationId)
             {
                 return Ok();
             }

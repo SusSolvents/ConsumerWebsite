@@ -38,7 +38,7 @@
                     </div>
                     <div style="height: 45%;">
                         <p class="admin-card-general" >
-                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{organisations.length}}
+                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{organisationModels.length}}
                         </p>
                         <p style="color: greenyellow; display: inline">organisations</p>
                     </div>
@@ -103,11 +103,11 @@
                 <div class="admin-card col-lg-12">
                     <p class="admin-card-title">Organisation administration</p>
                     <div id="chartCont-organisations" class="chart-container-admin" style="overflow-y: auto; width: 100%; overflow-x: hidden; padding-bottom: 15px;">
-                        <div class="row" ng-repeat="organisation in organisations" style="border-bottom: 1px solid white; margin-top: 5px;">
-                            <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisation.Name}} - {{organisation.Organisator.Email}}</div>
+                        <div class="row" ng-repeat="organisationModel in organisationModels" style="border-bottom: 1px solid white; margin-top: 5px;">
+                            <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisationModel.Organisation.Name}} - {{organisationModel.Organisator.Email}}</div>
                             <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 50px;">
-                                <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{organisation.Name}}" ng-model="organisation.Blocked" ng-click="changeOrganisation(organisation)">
-                                <label class="onoffswitch-label" for="onoffswitch-{{organisation.Name}}">
+                                <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{organisationModel.Organisation.Name}}" ng-model="organisationModel.Organisation.Blocked" ng-click="changeOrganisation(organisationModel.Organisation)">
+                                <label class="onoffswitch-label" for="onoffswitch-{{organisationModel.Organisation.Name}}">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
                                 </label>

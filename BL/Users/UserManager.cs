@@ -32,6 +32,16 @@ namespace SS.BL.Users
             return repo.UpdateUser(user);
         }
 
+        public User LeaveOrganisation(long id)
+        {
+            return repo.LeaveOrganisation(id);
+        }
+
+        public User JoinOrganisation(string email, long id)
+        {
+            return repo.JoinOrganisation(email, id);
+        }
+
         public IEnumerable<User> ReadAllUsers()
         {
             return repo.ReadAllUsers();
@@ -53,7 +63,8 @@ namespace SS.BL.Users
             {
                 Name = name,
                 LogoUrl = logoUrl,
-                Blocked = true
+                Blocked = true,
+                OrganisatorId = user.Id
             };
             return repo.CreateOrganisation(organisation, user);
         }
@@ -66,16 +77,6 @@ namespace SS.BL.Users
         public IEnumerable<Organisation> ReadAllOrganisations()
         {
             return repo.ReadAllOrganisations();
-        }
-
-        public IEnumerable<Organisation> ReadOrganisationsForUser(User user)
-        {
-            return repo.ReadOrganisationsForUser(user);
-        }
-
-        public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
-        {
-            return repo.ReadOrganisationsForOrganiser(user);
         }
 
         public Organisation UpdateOrganisation(Organisation organisation)
@@ -93,21 +94,6 @@ namespace SS.BL.Users
             repo.AllowOrganisation(id);
         }
 
-        public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
-        {
-            return repo.CreateOrganisationMember(organisation, user);
-        }
-
-        public OrganisationMember AddMemberToOrganisation(long organisationId, string email)
-        {
-            return repo.AddMemberToOrganisation(organisationId, email);
-        }
-
-        public void DeleteOrganisationMember(long organisationId, long userId)
-        {
-            repo.DeleteOrganisationMember(organisationId, userId);
-        }
-
         public User CreateUser(string firstname, string lastname, string email, string avatarUrl)
         {
             User user = new User()
@@ -115,7 +101,8 @@ namespace SS.BL.Users
                 Firstname = firstname,
                 Lastname = lastname,
                 Email = email,
-                AvatarUrl = avatarUrl
+                AvatarUrl = avatarUrl,
+                Organisation = null
             };
             return repo.CreateUser(user);
         }

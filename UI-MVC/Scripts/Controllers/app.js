@@ -35,7 +35,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 return srvLibrary.getUserInfo($route.current.params.id);
             },
             organisationsResult: function($route, srvLibrary) {
-                return srvLibrary.readOrganisations($route.current.params.id);
+                return srvLibrary.readOrganisationForUser($route.current.params.id);
             },
             analysesResult: function($route, srvLibrary) {
                 return srvLibrary.readAnalyses($route.current.params.id);
@@ -75,7 +75,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 return srvLibrary.getSolventClusterResult($route.current.params.id);
             },
             organisations: function(srvLibrary) {
-                return srvLibrary.readOrganisations(window.sessionStorage.userId);
+                return srvLibrary.readOrganisationForUser(window.sessionStorage.userId);
             }
         }
     });
@@ -130,10 +130,10 @@ angular.module('sussol.services')
                     });
                     return promise;
                 },
-                readOrganisations: function(id) {
+                readOrganisationForUser: function(id) {
                     var promise = $http({
                         method: 'POST',
-                        url: 'api/Organisation/ReadOrganisations',
+                        url: 'api/Organisation/ReadOrganisation',
                         params: { id: id }
                     });
                     promise.success(function(data, status, headers, conf) {

@@ -114,24 +114,18 @@
         createChart("chartCont-algo", json, "doughnut", null, null);
 
     });
-    //Load most active user and organisation
-    $http({
-        method: 'GET',
-        url: 'api/Organisation/GetMostActive'
-    }).success(function (data) {
-        if (data.User.AvatarUrl != null && data.User.AvatarUrl !== "") {
-            data.User.AvatarUrl = '/Content/Images/Users/' + data.User.AvatarUrl;
-        }
-        $scope.mostActiveUser = data;
 
-    });
+    loadAllUsers();
     //Load all users
-    $http({
-        method: 'GET',
-        url: 'api/Account/GetAllUsersForAdmin'
-    }).success(function (data) {
-        $scope.users = data;
-    });
+    function loadAllUsers() {
+        $http({
+            method: 'GET',
+            url: 'api/Account/GetAllUsersForAdmin'
+        }).success(function (data) {
+            $scope.users = data;
+        });
+    }
+
 
     $scope.changeUser = function (user) {
         if (!user.LockoutEnabled) {
@@ -167,7 +161,8 @@
         method: 'GET',
         url: 'api/Organisation/GetAllOrganisations'
     }).success(function (data) {
-        $scope.organisations = data;
+        console.log(data);
+        $scope.organisationModels = data;
     });
 
     //Allow Organisation
@@ -177,7 +172,14 @@
             url: 'api/Organisation/AllowOrganisation',
             params: { id: id }
         }).success(function succesCallback() {
-            notie.alert(1, "The organisation has been blocked", 2);
+            notie.alert(1, "The organisation has been allowed", 2);
+        });
+        $http({
+            method: 'POST',
+            url: 'api/Account/AllowUsersForOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            loadAllUsers();
         });
     }
 
@@ -189,6 +191,13 @@
             params: { id: id }
         }).success(function succesCallback() {
             notie.alert(1, "The organisation has been blocked", 2);
+        });
+        $http({
+            method: 'POST',
+            url: 'api/Account/BlockUsersForOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            loadAllUsers();
         });
     }
 

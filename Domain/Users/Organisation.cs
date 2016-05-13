@@ -17,6 +17,6 @@ namespace SS.BL.Domain.Users
         public string Name { get; set; }
         public string LogoUrl { get; set; }
         public bool Blocked { get; set; }
-        public virtual User Organisator { get; set; }
+        public long OrganisatorId { get; set; }
     }
 }

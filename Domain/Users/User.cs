@@ -19,5 +19,6 @@ namespace SS.BL.Domain.Users
         public string Email { get; set; }
         public DateTime DateRegistered { get; set; }
         public string AvatarUrl { get; set; }
+        public Organisation Organisation { get; set; }
     }
 }

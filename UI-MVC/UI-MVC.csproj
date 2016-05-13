@@ -266,6 +266,7 @@
     <Compile Include="Models\AdminInformationModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MostActiveModel.cs" />
+    <Compile Include="Models\OrganisationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

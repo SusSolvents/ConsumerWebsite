@@ -17,6 +17,16 @@ namespace SS.DAL.EFUsers
             this._context = efDbContext;
         }
 
+        public User JoinOrganisation(string email, long id)
+        {
+            var organisation = _context.Organisations.Find(id);
+            var user = _context.Users.Single(a => a.Email.Equals(email));
+            user.Organisation = organisation;
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+            return user;
+        }
+
         public User UpdateUser(User user)
         {
             _context.Entry(user).State = EntityState.Modified;
@@ -32,9 +42,9 @@ namespace SS.DAL.EFUsers
 
         public Organisation CreateOrganisation(Organisation organisation, User user)
         {
-            var organisator = _context.Users.Find(user.Id);
-            organisation.Organisator = organisator;
             organisation =  _context.Organisations.Add(organisation);
+            user.Organisation = organisation;
+            _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
             return organisation;
         }
@@ -42,11 +52,6 @@ namespace SS.DAL.EFUsers
         public Organisation ReadOrganisation(long id)
         {
             return _context.Organisations.Find(id);
-        }
-
-        public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
-        {
-            return _context.Organisations.Where(u => u.Organisator.Id == user.Id).ToList();
         }
 
         public Organisation UpdateOrganisation(Organisation organisation)
@@ -71,34 +76,6 @@ namespace SS.DAL.EFUsers
             _context.SaveChanges();
         }
 
-        public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
-        {
-            OrganisationMember member = new OrganisationMember();
-            member.Organisation = organisation;
-            member.User = user;
-            member = _context.OrganisationMembers.Add(member);
-            _context.SaveChanges();
-            return member;
-        }
-
-        public OrganisationMember AddMemberToOrganisation(long organisationId, string email)
-        {
-            var organisation = _context.Organisations.Find(organisationId);
-            var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
-            if (user == null)
-            {
-                return null;
-            }
-            var member = new OrganisationMember()
-            {
-                Organisation = organisation,
-                User = user
-            };
-            member = _context.OrganisationMembers.Add(member);
-            _context.SaveChanges();
-            return member;
-        }
-
         public User CreateUser(User user)
         {
             user.DateRegistered = DateTime.Now;
@@ -117,31 +94,11 @@ namespace SS.DAL.EFUsers
             return _context.Users.Find(id);
         }
 
-        public IEnumerable<OrganisationMember> ReadAllMembersForOrganisation(Organisation organisation)
-        {
-            return _context.OrganisationMembers.Where(o => o.Organisation.Id == organisation.Id);
-        }
-
         public IEnumerable<Organisation> ReadAllOrganisations()
         {
             return _context.Organisations.ToList();
         }
 
-        public IEnumerable<OrganisationMember> ReadAllOrganisationsForMember(User user)
-        {
-            return _context.OrganisationMembers.Where(u => u.User.Id == user.Id);
-        }
-
-        public void DeleteOrganisationMember(long organisationId, long userId)
-        {
-            List<OrganisationMember> members =
-                _context.OrganisationMembers
-                .Include(u => u.User)
-                .Where(o => o.Organisation.Id == organisationId).ToList();
-            OrganisationMember member = members.FirstOrDefault(u => u.User.Id == userId);
-            _context.OrganisationMembers.Remove(member);
-            _context.SaveChanges();
-        }
 
     
 
@@ -150,32 +107,19 @@ namespace SS.DAL.EFUsers
             return _context.Users;
         }
 
-        public IEnumerable<Organisation> ReadOrganisationsForUser(User user)
-        {
-            IEnumerable<OrganisationMember> organisationMembers = _context.OrganisationMembers
-                .Include(p => p.Organisation)
-                .Where(u => u.User.Id == user.Id);
-            List<Organisation> organisations = new List<Organisation>();
-            foreach (OrganisationMember org in organisationMembers)
-            {
-                organisations.Add(_context.Organisations.Find(org.Organisation.Id));
-            }
-            organisations.AddRange(ReadOrganisationsForOrganiser(user));
-            return organisations.ToList();
-        }
 
         public IEnumerable<User> ReadUsersForOrganisation(long id)
         {
-            List<OrganisationMember> organisationMembers = _context.OrganisationMembers
-                .Include(p => p.User)
-                .Where(o => o.Organisation.Id == id).ToList();
-            List<User> users = new List<User>();
-            foreach (OrganisationMember org in organisationMembers)
-            {
-                var user = _context.Users.Find(org.User.Id);
-                users.Add(user);
-            }
-            return users.AsEnumerable();
+            return _context.Users.Where(u => u.Organisation.Id == id);
+        }
+
+        public User LeaveOrganisation(long id)
+        {
+            var user = _context.Users.Find(id);
+            user.Organisation = null;
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+            return user;
         }
     }
 }
