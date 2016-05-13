@@ -1936,14 +1936,32 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .organisation-card {
     text-align: center;
     border: 2px solid white;
+    border-radius: 5%;
     height: 250px;
+    margin-top: 20px;
 }
 
-.organisation-card-full:hover {
-    border: 1px solid purple;
+.organisation-card:hover {
+    border:2px solid purple;
     cursor: pointer;
 }
 
 .organisation-card-full {
-    margin-left: 60px;
+    margin-left: 5%;
+}
+
+.organisation-card img {
+    margin-top: 15px;
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+}
+
+@media screen and (max-width: 1199px) {
+    .organisation-card {
+        margin-left: 0;
+    }
+    .organisation-card-full {
+        margin-left: 0;
+    }
 }

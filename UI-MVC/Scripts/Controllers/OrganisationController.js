@@ -47,7 +47,7 @@
                 'font-size': 35,
                 'font-family': "Questrial",
                 "color": "#FF0D0D"
-            }).radialProgress("to", { 'perc': (members.length / 4) * 100, 'time': 1000 });
+            }).radialProgress("to", { 'perc': (members.length / 5) * 100, 'time': 1000 });
         };
 
         createProgress();
@@ -92,7 +92,7 @@
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
             }
         }
-        if (organisation.Organisator.AvatarUrl !== null) {
+        if (organisation.Organisator.AvatarUrl !== null && organisation.Organisator.AvatarUrl !== "") {
             organisation.Organisator.AvatarUrl = 'Content/Images/Users/' + organisation.Organisator.AvatarUrl;
         }
 
@@ -197,7 +197,9 @@
                 json.push({ 'y': data[i].NumberOfUserAnalyses, 'indexLabel': data[i].User.Firstname });
             }
             console.log(json);
-            createChart("chartCont-usract", json, "pie", "", null);
+            if (data.length !== 0) {
+                createChart("chartCont-usract", json, "pie", "", null);
+            }
         });
 
         function createChart(id, json, type, title, color) {
