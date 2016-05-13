@@ -867,6 +867,13 @@ progress {
     border-bottom: 1px solid rgba(125,125,125,0.6);
     display: inline-block;
 }
+.user-admin-row i {
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+.user-admin-row i:hover {
+    color: #b92ed1;
+}
 .organisation-container {
     width: 100%;
     height: 100%;
@@ -935,18 +942,25 @@ progress {
 }
 .chart-container-admin {
     width: 95%;
-    height: 95%;
+    height: 94%;
+    display: block;
+    margin-top: -50px;
+    margin: 0 auto;
+}
+.chart-container-fullwidth {
+    width: 100%;
+    height: 94%;
     display: block;
     margin-top: -50px;
     margin: 0 auto;
 }
 .profile-review-alt p{
-    font-size: 23px;
+    font-size: 28px;
     margin-top: 75px;
     text-align: center;
     color: black;
-    text-shadow: 1px 1px 0 black, 
-                1px 1px 0 black;
+    text-shadow: 1px 1px 0 black
+                
 }
 .profile-review i {
     color: black;
@@ -1004,9 +1018,9 @@ progress {
 }
 .ma-user-circle {
     border-radius: 50%;
-    width: 110px;
-    height:110px;
-    border: 2px solid  purple;
+    width: 118px;
+    height:118px;
+    border: 1px solid  white;
     display: block;
     margin: 0 auto;
     margin-top: 18px;
@@ -1823,9 +1837,13 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     display: block;
     margin-bottom: 20px;
     cursor: pointer;
-    border: 2px solid white;
+    border-radius: 6px;
+    border: 1px solid white;
+    transition: all 0.3s ease-in-out;
 }
-
+.logo-img:hover {
+    border: 1px solid purple;    
+}
 
 .organisation-logo {
     width: 55%;
@@ -1908,7 +1926,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     .about-user img {
         display: block;
         width: 120px;
-        height: auto;
+        height: 120px;
         border-radius: 100%;
         border: 2px solid white;
         margin: 0 auto;

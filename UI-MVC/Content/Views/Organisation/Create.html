@@ -1,31 +1,38 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" ng-controller="CreateOrganisationController as organisation">
     <div class="centered-container">
+        <div class="show-container">
+            <div class="progress" id="progressBar">
+
+                <div class="progress-bar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+
+            </div>
+
+        </div>
             <div class="col-lg-12 text-center" style="margin-top: 20px;">
                 <h2 class="margin-top-0 text-primary wow fadeInDown">Create your own organisation</h2>
                 <hr class="primary">
             </div>
-        <form name="organisationForm" novalidate
-              ng-submit="organisation.submit(organisationForm.$valid)">
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <label>Organisation Name</label>
-                <input type="text" name="firstname" class="form-control input-lg" ng-model="organisation.org.name" required/>
-                <div class="messages" ng-messages="registrationForm.name.$error">
-                    <div ng-message="required">Required</div>
+            <form name="organisationForm" novalidate
+                  ng-submit="organisation.submit(organisationForm.$valid)">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <label>Organisation Name</label>
+                    <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required />
+                    
                 </div>
-            </div>
-            <div>
-                <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)"/>
+                <div>
+                    <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" required/>
 
-                <div class="col-xs-7 col-sm-7 col-md-7">
-                    <div style="">
-                        <p>Upload a logo</p>
-                        <img class="logo-img" ng-src="{{imageSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()"/>
+                    <div class="col-xs-7 col-sm-7 col-md-7">
+                        <div>
+                            <label>Upload your logo</label>
+                            <img class="logo-img" ng-src="{{imageSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-8">
-                <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
-            </div>
-        </form>
+                <div class="col-xs-8">
+                    <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>

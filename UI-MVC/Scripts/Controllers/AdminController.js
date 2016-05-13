@@ -211,7 +211,8 @@
             },
             axisY: {
                 title: title,
-                includeZero: false
+                includeZero: false,
+                titleFontColor: "gray"
             },
             
             data: [

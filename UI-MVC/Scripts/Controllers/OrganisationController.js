@@ -303,8 +303,23 @@ app.controller('CreateOrganisationController',
                 $scope.message = data;
             });
         };
-
-
+        var process = 0;
+        $scope.setName = function setName() {
+            
+            if (model.org.name === "" || model.org.name === undefined) {
+                
+                process = process - 40;
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+            } else {
+                
+                if (process === 60 || process === 0)
+                    process = process + 40;
+                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+                }
+                
+            }
+       
+        
         model.submit = function (isValid) {
             if (isValid) {
                 createOrganisation(model, $http);
@@ -321,6 +336,11 @@ app.controller('CreateOrganisationController',
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
                               $scope.imageSrc = result;
+                              if (process === 0 || process === 40) {
+                                  process += 60;
+                                  angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+                              }
                           });
+            
         };
     });

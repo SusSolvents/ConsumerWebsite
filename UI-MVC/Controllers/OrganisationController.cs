@@ -84,13 +84,19 @@ namespace SS.UI.Web.MVC.Controllers
         public MostActiveModel GetMostActive()
         {
             var test = 0;
-            MostActiveModel mostActiveModel  = new MostActiveModel()
+            List<Analysis> analyses = _analysisManager.ReadAnalyses().ToList();
+            if (analyses.Count() != 0)
             {
-                User = _analysisManager.ReadAnalyses().GroupBy(a => a.CreatedBy).OrderByDescending(p => test = p.Count()).Select(g => g.Key).First(),
-                NumberOfUserAnalyses = test
-            };
-            return mostActiveModel;
-            
+                MostActiveModel mostActiveModel = new MostActiveModel()
+                {
+                    User = analyses.GroupBy(a => a.CreatedBy).OrderByDescending(p => test = p.Count()).Select(g => g.Key).First(),
+                    NumberOfUserAnalyses = test
+                };
+                return mostActiveModel;
+            }
+
+            return null;
+
         }
 
         [Route("GetActivityPerUser")]
