@@ -78,7 +78,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/ChangeName
         [Route("ChangeName")]
-        public async Task<IHttpActionResult> ChangeName([FromUri] string name, [FromUri] long analysisId)
+        public IHttpActionResult ChangeName([FromUri] string name, [FromUri] long analysisId)
         {
             var analysis = _analysisManager.ReadAnalysis(analysisId);
             analysis.Name = name;
@@ -211,7 +211,7 @@ namespace SS.UI.Web.MVC.Controllers
                     return Ok();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest("An error occurred while generating the model.");
             }
@@ -219,7 +219,7 @@ namespace SS.UI.Web.MVC.Controllers
         
         //POST api/Analysis/ShareWithOrganisation
         [Route("ShareWithOrganisation")]
-        public async Task<IHttpActionResult> ShareWithOrganisation(long organisationId, long analysisId)
+        public IHttpActionResult ShareWithOrganisation(long organisationId, long analysisId)
         {
             _analysisManager.ShareWithOrganisation(organisationId, analysisId);
             return Ok("Analysis shared with organisation");
@@ -227,7 +227,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/CheckPermission
         [Route("CheckPermission")]
-        public async Task<IHttpActionResult> CheckPermission(long userId, long analysisId)
+        public IHttpActionResult CheckPermission(long userId, long analysisId)
         {
             var analyses = _analysisManager.ReadAnalysesForUserPermission(userId);
             var analysis = _analysisManager.ReadAnalysis(analysisId);

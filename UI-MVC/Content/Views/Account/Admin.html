@@ -38,7 +38,7 @@
                     </div>
                     <div style="height: 45%;">
                         <p class="admin-card-general" >
-                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{organisations.length}}
+                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{organisationModels.length}}
                         </p>
                         <p style="color: greenyellow; display: inline">organisations</p>
                     </div>
@@ -102,11 +102,15 @@
             <div class="col-lg-6  padding-less">
                 <div class="admin-card col-lg-12">
                     <p class="admin-card-title">Organisation administration</p>
-                    <div id="chartCont-organisations" class="chart-container-fullwidth"  style="overflow-y: auto; padding-bottom: 10px; padding-top: 20px;">
-                        <div class="user-admin-row" ng-repeat="organisation in organisations" >
-                            <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisation.Name}} - {{organisation.Organisator.Email}}</div>
-                            <div style="display: inline-block; float: right; margin-right: 50px;">
-                                <a title="delete organisation" href="#" data-toggle="modal" data-target="#delete-organisation" ng-click="setOrganisation(organisation.Id, $index)"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                    <div id="chartCont-organisations" class="chart-container-admin" style="overflow-y: auto; width: 100%; overflow-x: hidden; padding-bottom: 15px;">
+                        <div class="row" ng-repeat="organisationModel in organisationModels" style="border-bottom: 1px solid white; margin-top: 5px;">
+                            <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{organisationModel.Organisation.Name}} - {{organisationModel.Organisator.Email}}</div>
+                            <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 50px;">
+                                <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{organisationModel.Organisation.Name}}" ng-model="organisationModel.Organisation.Blocked" ng-click="changeOrganisation(organisationModel.Organisation)">
+                                <label class="onoffswitch-label" for="onoffswitch-{{organisationModel.Organisation.Name}}">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
                             </div>
                         </div>
                     </div>

@@ -771,18 +771,61 @@ img::-moz-selection {
     color: #fff;
     background: 0 0;
 }
-.avatar-img {
-    width: 165px;
-    height: 165px;
-    border-radius: 100%;
-    border: 2px solid white;
+.profile-info {
+    width: 90%;
+    height: 40px;
+    display: block;
     margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
     
+}
+.profile-info p{
+    
+    line-height: 40px;
+    display: inline;
+}
+.add-org {
+    color: white;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    font-size: 20px;
+}
+.profile-info i {
+    right: 10px;
+    top: 11px;  
+    position: absolute;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+.profile-info i:hover {
+    color: #b92ed1;
+}
+.admin-card-large .small-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.avatar-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 100%;
+    border: 1px solid #b92ed1;
+    margin: 0 auto;
+    margin-top: 20px;
     display: block;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 .avatar-img:hover {
-    border: 2px solid lightblue;
+    border: 1px solid lightblue;
 }
 progress {
     margin: 0 auto;
@@ -824,7 +867,7 @@ progress {
 .admin-card {
     height: 250px;
     border-radius: 2px;
-    background-color: rgba(80,80,80,1);
+    background-color: rgba(60,60,60,1);
     overflow: hidden;
     padding: 0;
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
@@ -835,13 +878,19 @@ progress {
 .admin-card-large {
     height: 515px;
     border-radius: 2px;
-    background-color: rgba(80,80,80,1);
+    background-color: rgba(60,60,60,1);
     overflow: hidden;
     padding: 0;
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
     margin-top: 15px;
     vertical-align: middle;
     
+}
+.ordering {
+    color: white;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 15px;
 }
 .profile-review-row {
     margin: 2%;
@@ -959,7 +1008,7 @@ progress {
     margin-top: 75px;
     text-align: center;
     color: black;
-    text-shadow: 1px 1px 0 black
+    text-shadow: 0.5px .5px 0.5px black
                 
 }
 .profile-review i {
@@ -1056,7 +1105,6 @@ progress {
     padding-bottom: 50px;
    
 }
-
 
 .account-page {
     border-radius: 25px;
@@ -1234,10 +1282,10 @@ form.ng-submitted .ng-valid {
   background: #fff;
   position: relative;
   margin-bottom: 30px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   -webkit-transition: all 0.7s ease;
   -moz-transition: all 0.7s ease;
   -ms-transition: all 0.7s ease;
@@ -1258,22 +1306,22 @@ form.ng-submitted .ng-valid {
 
 
 .analysis-card-blog-style-1 .analysis-card-post img {
-    width: 105%;
+    width: 100%;
 }
 
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-image {
   position: relative;
 
     overflow: hidden;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
 }
    
 .analysis-card-post-image {
     background-position: center; 
     background-size: cover;
     width: 100%;
-    height: 140px;
+    height: 150px;
 }
 
 
@@ -1285,9 +1333,10 @@ form.ng-submitted .ng-valid {
     word-wrap: break-word;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 10px;
   font-weight: 700;
+  
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text h3 a {
   color: #000;
@@ -1297,10 +1346,10 @@ form.ng-submitted .ng-valid {
   text-decoration: none;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-text p {
-  font-size: 17px;
+  font-size: 16px;
   margin-bottom: 0px;
   color: grey;
-  word-wrap: break-word;
+  
 }
 .center {
     width: 100%;
@@ -1324,6 +1373,7 @@ form.ng-submitted .ng-valid {
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:focus {
   text-decoration: none;
 }
+
 
 
 .overlay {

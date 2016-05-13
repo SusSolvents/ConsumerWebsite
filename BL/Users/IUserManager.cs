@@ -14,6 +14,8 @@ namespace SS.BL.Users
         User ReadUser(string email);
         User ReadUser(long id);
         User UpdateUser(User user);
+        User LeaveOrganisation(long id);
+        User JoinOrganisation(string email, long id);
         IEnumerable<User> ReadAllUsers();
         IEnumerable<User> ReadUsersForOrganisation(long id);
         void DeleteUser(User user);
@@ -22,14 +24,9 @@ namespace SS.BL.Users
         Organisation CreateOrganisation(string name, string logoUrl, User user);
         Organisation ReadOrganisation(long id);
         IEnumerable<Organisation> ReadAllOrganisations();
-        IEnumerable<Organisation> ReadOrganisationsForUser(User user);
-        IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user);
         Organisation UpdateOrganisation(Organisation organisation);
-        void DeleteOrganisation(long id);
+        void BlockOrganisation(long id);
+        void AllowOrganisation(long id);
 
-        //OrganisationMember
-        OrganisationMember CreateOrganisationMember(Organisation organisation, User user);
-        OrganisationMember AddMemberToOrganisation(long organisationId, string email);
-        void DeleteOrganisationMember(long organisationId, long userId);
     }
 }

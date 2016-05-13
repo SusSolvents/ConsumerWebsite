@@ -89,7 +89,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/GiveUserAccess
         [Route("GiveUserAccess")]
-        public async Task<IHttpActionResult> GiveUserAccess(string email)
+        public IHttpActionResult GiveUserAccess(string email)
         {
             ApplicationUser user = UserManager.FindByEmail(email);
             user.LockoutEnabled = false;
@@ -100,13 +100,17 @@ namespace SS.UI.Web.MVC.Controllers
         //POST api/Account/IsAccountEnabled
         [AllowAnonymous]
         [Route("IsAccountEnabled")]
-        public async Task<IHttpActionResult> IsAccountEnabled(string email)
+        public IHttpActionResult IsAccountEnabled(string email)
         {
             ApplicationUser user = UserManager.FindByName(email);
             if (user != null)
             {
                 if (user.LockoutEnabled)
                 {
+                    if (user.LockoutEndDateUtc != null)
+                    {
+                        return Content(HttpStatusCode.BadRequest, "Your account has been blocked.");
+                    }
                     return Content(HttpStatusCode.BadRequest, "Your account hasn't been granted access yet.");
                 }
             }
@@ -179,6 +183,38 @@ namespace SS.UI.Web.MVC.Controllers
             await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
             return Ok(email + " is blocked from Sussol");
         }
+
+        //POST api/Account/BlockUsersForOrganisation
+        [Route("BlockUsersForOrganisation")]
+        public async Task<IHttpActionResult> BlockUsersForOrganisation(long id)
+        {
+            var users = _userMgr.ReadUsersForOrganisation(id).ToList();
+            foreach (var usr in users)
+            {
+                var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
+                await UserManager.SetLockoutEnabledAsync(user.Id, true);
+                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
+                
+
+            }
+            return Ok();
+        }
+
+        //POST api/Account/AllowUsersForOrganisation
+        [Route("AllowUsersForOrganisation")]
+        public async Task<IHttpActionResult> AllowUsersForOrganisation(long id)
+        {
+            var users = _userMgr.ReadUsersForOrganisation(id).ToList();
+            foreach (var usr in users)
+            {
+                var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
+                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
+                await UserManager.SetLockoutEnabledAsync(user.Id, false);
+
+            }
+            return Ok();
+        }
+
 
         //GET api/Account/GetUserInfo
         [Route("GetUserInfo")]

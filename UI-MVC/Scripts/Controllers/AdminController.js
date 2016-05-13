@@ -114,24 +114,18 @@
         createChart("chartCont-algo", json, "doughnut", null, null);
 
     });
-    //Load most active user and organisation
-    $http({
-        method: 'GET',
-        url: 'api/Organisation/GetMostActive'
-    }).success(function (data) {
-        if (data.User.AvatarUrl != null && data.User.AvatarUrl !== "") {
-            data.User.AvatarUrl = '/Content/Images/Users/' + data.User.AvatarUrl;
-        }
-        $scope.mostActiveUser = data;
 
-    });
+    loadAllUsers();
     //Load all users
-    $http({
-        method: 'GET',
-        url: 'api/Account/GetAllUsersForAdmin'
-    }).success(function (data) {
-        $scope.users = data;
-    });
+    function loadAllUsers() {
+        $http({
+            method: 'GET',
+            url: 'api/Account/GetAllUsersForAdmin'
+        }).success(function (data) {
+            $scope.users = data;
+        });
+    }
+
 
     $scope.changeUser = function (user) {
         if (!user.LockoutEnabled) {
@@ -167,30 +161,57 @@
         method: 'GET',
         url: 'api/Organisation/GetAllOrganisations'
     }).success(function (data) {
-        $scope.organisations = data;
+        console.log(data);
+        $scope.organisationModels = data;
     });
 
-    //Delete organisation
-    $scope.DeleteOrganisation = function () {
-        $('#delete-organisation').modal('hide');
+    //Allow Organisation
+    function unBlockOrganisation(id) {
         $http({
-            method: 'DELETE',
-            url: 'api/Organisation/DeleteOrganisation',
-            params: { id: $scope.organsationToDelete }
+            method: 'POST',
+            url: 'api/Organisation/AllowOrganisation',
+            params: { id: id }
         }).success(function succesCallback() {
-            $scope.organisations.splice($scope.indexOrganisationToDelete, 1);
-            notie.alert(1, "The organisation has been removed", 2);
+            notie.alert(1, "The organisation has been allowed", 2);
+        });
+        $http({
+            method: 'POST',
+            url: 'api/Account/AllowUsersForOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            loadAllUsers();
         });
     }
 
+    //Block organisation
+    function blockOrganisation (id) {
+        $http({
+            method: 'POST',
+            url: 'api/Organisation/BlockOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            notie.alert(1, "The organisation has been blocked", 2);
+        });
+        $http({
+            method: 'POST',
+            url: 'api/Account/BlockUsersForOrganisation',
+            params: { id: id }
+        }).success(function succesCallback() {
+            loadAllUsers();
+        });
+    }
 
     $scope.closeModal = function() {
         $('#delete-organisation').modal('hide');
     }
 
-    $scope.setOrganisation = function(id, index) {
-        $scope.organsationToDelete = id;
-        $scope.indexOrganisationToDelete = index;
+    $scope.changeOrganisation = function (organisation) {
+        if (!organisation.Blocked) {
+            unBlockOrganisation(organisation.Id);
+        }
+        if (organisation.Blocked) {
+            blockOrganisation(organisation.Id);
+        }
     }
 
 

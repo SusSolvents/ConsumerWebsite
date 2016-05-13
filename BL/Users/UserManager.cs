@@ -32,6 +32,16 @@ namespace SS.BL.Users
             return repo.UpdateUser(user);
         }
 
+        public User LeaveOrganisation(long id)
+        {
+            return repo.LeaveOrganisation(id);
+        }
+
+        public User JoinOrganisation(string email, long id)
+        {
+            return repo.JoinOrganisation(email, id);
+        }
+
         public IEnumerable<User> ReadAllUsers()
         {
             return repo.ReadAllUsers();
@@ -52,7 +62,9 @@ namespace SS.BL.Users
             Organisation organisation = new Organisation()
             {
                 Name = name,
-                LogoUrl = logoUrl
+                LogoUrl = logoUrl,
+                Blocked = true,
+                OrganisatorId = user.Id
             };
             return repo.CreateOrganisation(organisation, user);
         }
@@ -67,39 +79,19 @@ namespace SS.BL.Users
             return repo.ReadAllOrganisations();
         }
 
-        public IEnumerable<Organisation> ReadOrganisationsForUser(User user)
-        {
-            return repo.ReadOrganisationsForUser(user);
-        }
-
-        public IEnumerable<Organisation> ReadOrganisationsForOrganiser(User user)
-        {
-            return repo.ReadOrganisationsForOrganiser(user);
-        }
-
         public Organisation UpdateOrganisation(Organisation organisation)
         {
             return repo.UpdateOrganisation(organisation);
         }
 
-        public void DeleteOrganisation(long id)
+        public void BlockOrganisation(long id)
         {
-            repo.DeleteOrganisation(id);
+            repo.BlockOrganisation(id);
         }
 
-        public OrganisationMember CreateOrganisationMember(Organisation organisation, User user)
+        public void AllowOrganisation(long id)
         {
-            return repo.CreateOrganisationMember(organisation, user);
-        }
-
-        public OrganisationMember AddMemberToOrganisation(long organisationId, string email)
-        {
-            return repo.AddMemberToOrganisation(organisationId, email);
-        }
-
-        public void DeleteOrganisationMember(long organisationId, long userId)
-        {
-            repo.DeleteOrganisationMember(organisationId, userId);
+            repo.AllowOrganisation(id);
         }
 
         public User CreateUser(string firstname, string lastname, string email, string avatarUrl)
@@ -109,7 +101,8 @@ namespace SS.BL.Users
                 Firstname = firstname,
                 Lastname = lastname,
                 Email = email,
-                AvatarUrl = avatarUrl
+                AvatarUrl = avatarUrl,
+                Organisation = null
             };
             return repo.CreateUser(user);
         }

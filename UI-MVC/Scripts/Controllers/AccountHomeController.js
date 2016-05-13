@@ -11,22 +11,17 @@
     $scope.noOrganisations = true;
     $scope.noAnalyses = true;
     $scope.OrderBy = "DateCreated";
-    var organisations = organisationsResult.data;
+    var organisation = organisationsResult.data;
 
-
-    $scope.organisations = organisations;
-    if (organisations.length !== 0) {
-        $scope.noOrganisations = false;
-    }
-
-    for (var i = 0; i < organisations.length; i++) {
-        if (organisations[i].LogoUrl !== null && organisations[i].LogoUrl !== "") {
-            organisations[i].LogoUrl = 'Content/Images/Organisations/' + organisations[i].LogoUrl;
+    if (organisation !== null) {
+        $scope.organisation = organisation;
+        if (organisation.LogoUrl !== null && organisation.LogoUrl !== "") {
+            organisations.LogoUrl = 'Content/Images/Organisations/' + organisations[i].LogoUrl;
         } else {
-            organisations[i].LogoUrl = 'Content/Images/organisationLogo.jpg';
+            organisation.LogoUrl = 'Content/Images/organisationLogo.jpg';
         }
-    }
 
+    }
 
 
     var analyses = analysesResult.data;
