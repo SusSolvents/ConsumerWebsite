@@ -157,13 +157,37 @@
     }
 
     //Load all organisations
-    $http({
-        method: 'GET',
-        url: 'api/Organisation/GetAllOrganisations'
-    }).success(function (data) {
-        console.log(data);
-        $scope.organisationModels = data;
-    });
+    var newOrganisations;
+    getOrganisations();
+    function getOrganisations() {
+        $http({
+            method: 'GET',
+            url: 'api/Organisation/GetAllOrganisations'
+        }).success(function(data) {
+            console.log(data);
+            newOrganisations = [];
+            $scope.organisationModels = data;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Organisation.DateCreated === null) {
+                    newOrganisations.push(data[i]);
+                }
+            }
+            $scope.newOrganisations = newOrganisations;
+        });
+    }
+
+    $scope.allowOrganisation = function (id, index) {
+        unBlockOrganisation(id);
+        $scope.newOrganisations.splice(index, 1);
+        getOrganisations();
+    }
+
+    $scope.denyUser = function (id, index) {
+        blockOrganisation(id);
+        $scope.newOrganisations.splice(index, 1);
+        getOrganisations();
+    }
+
 
     //Allow Organisation
     function unBlockOrganisation(id) {

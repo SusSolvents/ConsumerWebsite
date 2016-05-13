@@ -17,6 +17,7 @@ namespace SS.BL.Domain.Users
         public string Name { get; set; }
         public string LogoUrl { get; set; }
         public bool Blocked { get; set; }
+        public DateTime? DateCreated { get; set; }
         public long OrganisatorId { get; set; }
     }
 }

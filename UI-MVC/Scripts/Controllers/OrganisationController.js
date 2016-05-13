@@ -4,6 +4,7 @@
         var organisation = result.data;
         var analyses = analysesOrganisation.data;
         var members = membersOrganisation.data;
+        var organiser;
         $scope.organisation = organisation;
         $scope.noAnalyses = true;
         $scope.totalAnalyses = analyses.length;
@@ -13,9 +14,23 @@
         }
 
         $scope.organiser = false;
-        if ($window.sessionStorage.userId === organisation.Organisator.Id.toString()) {
+        if ($window.sessionStorage.userId === organisation.OrganisatorId.toString()) {
             $scope.organiser = true;
         }
+
+        $http({
+            method: 'POST',
+            url: 'api/Organisation/ReadOrganiser',
+            params: { id: organisation.Id }
+        }).success(function (data) {
+            organiser = data;
+            
+            if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
+                organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
+            }
+            $scope.organiserUser = organiser;
+            
+        });
 
         $scope.slideShow = setInArrayOf5(analyses);
 
@@ -47,7 +62,7 @@
                 'font-size': 35,
                 'font-family': "Questrial",
                 "color": "#FF0D0D"
-            }).radialProgress("to", { 'perc': (members.length / 5) * 100, 'time': 1000 });
+            }).radialProgress("to", { 'perc': (members.length / 20) * 100, 'time': 1000 });
         };
 
         createProgress();
@@ -92,9 +107,8 @@
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
             }
         }
-        if (organisation.Organisator.AvatarUrl !== null && organisation.Organisator.AvatarUrl !== "") {
-            organisation.Organisator.AvatarUrl = 'Content/Images/Users/' + organisation.Organisator.AvatarUrl;
-        }
+
+
 
         $scope.members = members;
 

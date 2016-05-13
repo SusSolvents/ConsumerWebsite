@@ -75,6 +75,15 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 throw new Exception(e.Message);
             }
+
+
+            User user = _userManager.ReadUser(email);
+            if (user.Organisation == null)
+            {
+                return BadRequest("You already have an organisation");
+
+            }
+
             string imagePath = null;
             if (picture != null && picture.LocalFileName.Length > 0)
             {
@@ -82,10 +91,8 @@ namespace SS.UI.Web.MVC.Controllers
             }
                 
 
-            User user = _userManager.ReadUser(email);
 
             Organisation org = _userManager.CreateOrganisation(name, imagePath, user);
-
             return Ok(org.Id);
         }
         
@@ -150,19 +157,25 @@ namespace SS.UI.Web.MVC.Controllers
         {
 
             var membersOrganisation = _userManager.ReadUsersForOrganisation(organisationId).ToList();
-            if (membersOrganisation.Count() >= 5)
+            if (membersOrganisation.Count() >= 20)
             {
-                return BadRequest("You can have a max of 5 members in one organisation");
+                return BadRequest("You can have a max of 20 members in one organisation");
             }
             var memberToAdd = _userManager.ReadUser(email);
             if (memberToAdd == null)
             {
                 return BadRequest("email wasn't found!");
             }
+            if (memberToAdd.Organisation != null)
+            {
+                return BadRequest("Member is already in an organisation");
+            }
+
             if (membersOrganisation.Contains(memberToAdd))
             {
                 return BadRequest("Member already in organisation");
             }
+            
             _userManager.JoinOrganisation(email, organisationId);
             return Ok("Member has been added to organisation");
         }
@@ -211,6 +224,13 @@ namespace SS.UI.Web.MVC.Controllers
                 return Ok();
             }
             return BadRequest("Access not granted");
+        }
+
+        //GET api/Organisation/ReadOrganiser
+        [Route("ReadOrganiser")]
+        public User ReadOrganiser(long id)
+        {
+            return _userManager.ReadOrganiser(id);
         }
 
         //POST api/Organisation/ChangeLogo

@@ -43,7 +43,9 @@ namespace SS.DAL.EFUsers
         public Organisation CreateOrganisation(Organisation organisation, User user)
         {
             organisation =  _context.Organisations.Add(organisation);
-            user.Organisation = organisation;
+            _context.SaveChanges();
+            var organisationTemp = _context.Organisations.Find(organisation.Id);
+            user.Organisation = organisationTemp;
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
             return organisation;
@@ -66,6 +68,7 @@ namespace SS.DAL.EFUsers
 
             var organisation = _context.Organisations.Find(id);
             organisation.Blocked = true;
+            organisation.DateCreated = DateTime.MaxValue;
             _context.SaveChanges();
         }
 
@@ -73,6 +76,7 @@ namespace SS.DAL.EFUsers
         {
             var organisation = _context.Organisations.Find(id);
             organisation.Blocked = false;
+            organisation.DateCreated = DateTime.Now;
             _context.SaveChanges();
         }
 
@@ -91,7 +95,7 @@ namespace SS.DAL.EFUsers
 
         public User ReadUser(long id)
         {
-            return _context.Users.Find(id);
+            return _context.Users.Include(o => o.Organisation).FirstOrDefault(a => a.Id == id);
         }
 
         public IEnumerable<Organisation> ReadAllOrganisations()
@@ -111,6 +115,12 @@ namespace SS.DAL.EFUsers
         public IEnumerable<User> ReadUsersForOrganisation(long id)
         {
             return _context.Users.Where(u => u.Organisation.Id == id);
+        }
+
+        public User ReadOrganiser(long id)
+        {
+            var userId = _context.Organisations.Find(id).OrganisatorId;
+            return _context.Users.Find(userId);
         }
 
         public User LeaveOrganisation(long id)
