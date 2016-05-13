@@ -42,6 +42,11 @@ namespace SS.BL.Users
             return repo.JoinOrganisation(email, id);
         }
 
+        public User ReadOrganiser(long id)
+        {
+            return repo.ReadOrganiser(id);
+        }
+
         public IEnumerable<User> ReadAllUsers()
         {
             return repo.ReadAllUsers();
@@ -64,7 +69,8 @@ namespace SS.BL.Users
                 Name = name,
                 LogoUrl = logoUrl,
                 Blocked = true,
-                OrganisatorId = user.Id
+                OrganisatorId = user.Id,
+                DateCreated = null
             };
             return repo.CreateOrganisation(organisation, user);
         }

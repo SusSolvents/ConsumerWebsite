@@ -16,6 +16,7 @@ namespace SS.BL.Users
         User UpdateUser(User user);
         User LeaveOrganisation(long id);
         User JoinOrganisation(string email, long id);
+        User ReadOrganiser(long id);
         IEnumerable<User> ReadAllUsers();
         IEnumerable<User> ReadUsersForOrganisation(long id);
         void DeleteUser(User user);

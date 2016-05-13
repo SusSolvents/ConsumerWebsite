@@ -71,10 +71,21 @@
             </div>
             <div class="col-lg-4  padding-less">
                 <div class="admin-card col-lg-12">
-                    <p class="admin-card-title">Most active</p>
-                    <img class="ma-user-circle" ng-src="{{ mostActiveUser.User.AvatarUrl || '/Content/Images/avatar.png'}}"/>
-                    <p style="text-align: center; margin-top: 10px; font-size: 25px; margin-bottom: 0">{{mostActiveUser.User.Firstname}} {{mostActiveUser.User.Lastname}}</p>
-                    <p style="text-align: center; font-size: 12px;">{{mostActiveUser.NumberOfUserAnalyses}} analyses in total</p>
+                    <p class="admin-card-title">Review new organisation</p>
+                    <div class="profile-container" ng-if="newOrganisations.length !== 0">
+                        <div class="profile-review-row" ng-repeat="organisationModel in newOrganisations">
+                            <div class="profile-review">
+                                <img class="img-circle" ng-src="{{organisationModel.Organisation.LogoUrl || '/Content/Images/avatar.png'}}"/>
+                                <p class="profile-review-name">{{organisationModel.Organisation.Name}}</p>
+                                <p class="profile-review-name">{{organisationModel.Organisator.Firstname}} {{organisationModel.Organisator.Lastname}}</p>
+                                <a href="#" ng-click="allowOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-check"></i></a>
+                                <a href="#" ng-click="denyOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-times cross"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-review-alt" ng-if="newOrganisations.length === 0">
+                        <p>No organisations to review</p>
+                    </div>
                 </div>
 
             </div>

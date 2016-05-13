@@ -4,6 +4,7 @@
         var organisation = result.data;
         var analyses = analysesOrganisation.data;
         var members = membersOrganisation.data;
+        var organiser;
         $scope.organisation = organisation;
         $scope.noAnalyses = true;
         $scope.totalAnalyses = analyses.length;
@@ -13,17 +14,31 @@
         }
 
         $scope.organiser = false;
-        if ($window.sessionStorage.userId === organisation.Organisator.Id.toString()) {
+        if ($window.sessionStorage.userId === organisation.OrganisatorId.toString()) {
             $scope.organiser = true;
         }
 
-        $scope.slideShow = setInArrayOf5(analyses);
+        $http({
+            method: 'POST',
+            url: 'api/Organisation/ReadOrganiser',
+            params: { id: organisation.Id }
+        }).success(function (data) {
+            organiser = data;
+            
+            if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
+                organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
+            }
+            $scope.organiserUser = organiser;
+            
+        });
+
+        $scope.slideShow = setInArrayOf6(analyses);
 
         $scope.selectAnalysis = function selectAnalysis($event) {
             $location.path("/analysis/overview/" + $event.currentTarget.id);
         }
         $('.carousel').carousel("pause");
-        function setInArrayOf5(items) {
+        function setInArrayOf6(items) {
             var item = [];
             var counter = 0;
             for (var i = 0; i < items.length; i += 6) {
@@ -47,7 +62,7 @@
                 'font-size': 35,
                 'font-family': "Questrial",
                 "color": "#FF0D0D"
-            }).radialProgress("to", { 'perc': (members.length / 5) * 100, 'time': 1000 });
+            }).radialProgress("to", { 'perc': (members.length / 20) * 100, 'time': 1000 });
         };
 
         createProgress();
@@ -92,11 +107,13 @@
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
             }
         }
-        if (organisation.Organisator.AvatarUrl !== null && organisation.Organisator.AvatarUrl !== "") {
-            organisation.Organisator.AvatarUrl = 'Content/Images/Users/' + organisation.Organisator.AvatarUrl;
-        }
+
+
 
         $scope.members = members;
+
+        $scope.membersSlide = setInArrayOf6(members);
+
 
         var logo = organisation.LogoUrl;
         if (logo != null && logo !== "") {
@@ -113,6 +130,7 @@
             }).success(function succesCallback(data) {
                 members = data;
                 $scope.members = data;
+                $scope.membersSlide = setInArrayOf6(members);
                 createProgress();
             });
         }
@@ -302,7 +320,7 @@ app.controller('CreateOrganisationController',
             }).success(function succesCallback(data) {
                 setTimeout($location.path("/organisation/" + data), 1000);
             }).error(function errorCallback(data) {
-                $scope.message = data;
+                $scope.message = data.Message;
             });
         };
         var process = 0;

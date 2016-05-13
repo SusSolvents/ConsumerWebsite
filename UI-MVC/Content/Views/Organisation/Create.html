@@ -13,26 +13,27 @@
                 <h2 class="margin-top-0 text-primary wow fadeInDown">Create your own organisation</h2>
                 <hr class="primary">
             </div>
-            <form name="organisationForm" novalidate
-                  ng-submit="organisation.submit(organisationForm.$valid)">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <label>Organisation Name</label>
+        {{message}}
+        <form name="organisationForm" novalidate
+              ng-submit="organisation.submit(organisationForm.$valid)">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <label>Organisation Name</label>
                     <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required />
                     
-                </div>
-                <div>
+            </div>
+            <div>
                     <input type="file" id="profileImage" name="profileImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" required/>
 
-                    <div class="col-xs-7 col-sm-7 col-md-7">
+                <div class="col-xs-7 col-sm-7 col-md-7">
                         <div>
                             <label>Upload your logo</label>
                             <img class="logo-img" ng-src="{{imageSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()" />
-                        </div>
                     </div>
                 </div>
-                <div class="col-xs-8">
-                    <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="col-xs-8">
+                <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
+            </div>
+        </form>
     </div>
+</div>

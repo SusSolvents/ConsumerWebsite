@@ -178,6 +178,7 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("DenyUser")]
         public async Task<IHttpActionResult> DenyUser(string email)
         {
+            
             var user = UserManager.Users.Single(u => u.Email == email);
             await UserManager.SetLockoutEnabledAsync(user.Id, true);
             await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
@@ -191,11 +192,13 @@ namespace SS.UI.Web.MVC.Controllers
             var users = _userMgr.ReadUsersForOrganisation(id).ToList();
             foreach (var usr in users)
             {
-                var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
-                await UserManager.SetLockoutEnabledAsync(user.Id, true);
-                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
-                
+                if (usr.Id != 1)
+                {
+                    var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
+                    await UserManager.SetLockoutEnabledAsync(user.Id, true);
+                    await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
 
+                }
             }
             return Ok();
         }
@@ -207,9 +210,12 @@ namespace SS.UI.Web.MVC.Controllers
             var users = _userMgr.ReadUsersForOrganisation(id).ToList();
             foreach (var usr in users)
             {
-                var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
-                await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
-                await UserManager.SetLockoutEnabledAsync(user.Id, false);
+                if (usr.Id != 1)
+                {
+                    var user = UserManager.Users.Single(u => u.Email.Equals(usr.Email));
+                    await UserManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.Now);
+                    await UserManager.SetLockoutEnabledAsync(user.Id, false);
+                }
 
             }
             return Ok();
