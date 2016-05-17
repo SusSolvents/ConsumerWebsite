@@ -250,25 +250,25 @@ namespace SS.UI.Web.MVC.Controllers
         {
             using (var client = new WebClient())
             {
-                foreach (var modelPath in modelPaths)
+                foreach (var analysisModel in model.AnalysisModels)
                 {
-                    var serialized = JsonConvert.SerializeObject(values);
-                    String parameters = "path="+modelPath+"&featureValues=" + serialized;
+                    var serialized = JsonConvert.SerializeObject(model.Values);
+                    String parameters = "path="+analysisModel.Model.ModelPath+"&featureValues=" + serialized;
                     client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                     var classifiedInstance = JsonHelper.ParseJsonToClassifiedInstance(client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters));
-                    classifiedInstance.CasNumber = casNumber;
-                    classifiedInstance.Name = name;
+                    classifiedInstance.CasNumber = model.CasNumber;
+                    classifiedInstance.Name = model.Name;
                     classifiedInstance.Features = new List<Feature>();
-                    for (int i = 0; i < featureNames.Length; i++)
+                    for (int i = 0; i < model.FeatureNames.Length; i++)
                     {
                         Feature f = new Feature()
                         {
-                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i]),
-                            Value = values[i]
+                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), model.FeatureNames[i]),
+                            Value = model.Values[i]
                         };
                         classifiedInstance.Features.Add(f);
                     }
-                    _analysisManager.CreateClassifiedInstance()
+                    _analysisManager.CreateClassifiedInstance(analysisModel.Id, classifiedInstance);
                 }
                 client.Dispose();
                 return Ok();
