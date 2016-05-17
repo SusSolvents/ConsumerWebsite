@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Newtonsoft.Json;
 using SS.BL.Analyses;
 using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
@@ -243,10 +244,19 @@ namespace SS.UI.Web.MVC.Controllers
         }
 
         //POST api/Analysis/AddNewSolvent
+        [AllowAnonymous]
         [Route("AddNewSolvent")]
-        public IHttpActionResult AddNewSolvent(string name, string casNumber, double[] values)
+        public IHttpActionResult AddNewSolvent()
         {
-            return Ok();
+            using (var client = new WebClient())
+            {
+                double[] values = { 45, -72.65, -9, 37.3, 0.7, 0.67 };
+                var serialized = JsonConvert.SerializeObject(values);
+                String parameters = "path=/var/lib/openshift/573adbc92d52716ce700011a/app-root/data/Solvent matrix_12 solvents 6 features Canopy.model&featureValues=" + serialized;
+                client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                var response = client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters);
+                return Ok();
+            }                ;
         }
     }
 }
