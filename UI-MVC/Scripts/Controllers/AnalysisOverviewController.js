@@ -1,5 +1,5 @@
 ﻿app.controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, Constants, result, $timeout, organisations) {
+    function ($scope, $window, $http, $routeParams, Constants, result, $timeout, organisations, minMax) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationsUser = organisations.data;
@@ -7,6 +7,7 @@
         console.log(organisationsUser);
         var prevClusters;
         var clusters;
+        var minMaxValues = minMax.data;
         var algorithms = [];
         var colors = [
             "#44B3C2",
@@ -22,8 +23,8 @@
         var totalSolvents = 0;
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
-        console.log(data);
-        setEnumNames(data);
+
+        setEnumNames();
         selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
 
         $scope.canEdit = false;
@@ -31,6 +32,9 @@
         if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
             $scope.canEdit = true;
         }
+
+
+
 
 
 
@@ -91,23 +95,24 @@
         };
 
 
-
-
-        function setEnumNames(model) {
-            for (var i = 0; i < model.AnalysisModels.length; i++) {
-                model.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[model.AnalysisModels[i].Model.AlgorithmName];
-                algorithms.push(model.AnalysisModels[i].Model.AlgorithmName);
-                for (var j = 0; j < model.AnalysisModels[i].Model.Clusters.length; j++) {
-                    for (var k = 0; k < model.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
-                        solvents.push(model.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
-                        for (var l = 0; l < model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
-                            model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
-                            model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(model.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
+        function setEnumNames() {
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
+                algorithms.push(data.AnalysisModels[i].Model.AlgorithmName);
+                for (var j = 0; j < data.AnalysisModels[i].Model.Clusters.length; j++) {
+                    for (var k = 0; k < data.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
+                        solvents.push(data.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
+                        for (var l = 0; l < data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
+                            data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
+                            data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                         }
                     }
                 }
             }
-
+           for (var i = 0; i < minMaxValues.length; i++) {
+                minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+           }
+            $scope.minMaxValues = minMaxValues;
             $scope.solvents = solvents;
         }
 
@@ -461,4 +466,60 @@ app.constant('Constants', {
         10: 'Solubility_Water_g_L',
         11: 'Dielectric_Constant_20DegreesC'
     }
+});
+
+
+app.directive('ngMin', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elem, attr, ctrl) {
+            scope.$watch(attr.ngMin, function () {
+                if (ctrl.$isDirty) ctrl.$setViewValue(ctrl.$viewValue);
+            });
+
+            var isEmpty = function (value) {
+                return angular.isUndefined(value) || value === "" || value === null;
+            }
+
+            var minValidator = function (value) {
+                var min = scope.$eval(attr.ngMin) || 0;
+                if (!isEmpty(value) && value < min) {
+                    ctrl.$setValidity('ngMin', false);
+                    return undefined;
+                } else {
+                    ctrl.$setValidity('ngMin', true);
+                    return value;
+                }
+            };
+
+            ctrl.$parsers.push(minValidator);
+            ctrl.$formatters.push(minValidator);
+        }
+    };
+});
+
+app.directive('ngMax', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elem, attr, ctrl) {
+            scope.$watch(attr.ngMax, function () {
+                if (ctrl.$isDirty) ctrl.$setViewValue(ctrl.$viewValue);
+            });
+            var maxValidator = function (value) {
+                var max = scope.$eval(attr.ngMax) || Infinity;
+                if (!isEmpty(value) && value > max) {
+                    ctrl.$setValidity('ngMax', false);
+                    return undefined;
+                } else {
+                    ctrl.$setValidity('ngMax', true);
+                    return value;
+                }
+            };
+
+            ctrl.$parsers.push(maxValidator);
+            ctrl.$formatters.push(maxValidator);
+        }
+    };
 });

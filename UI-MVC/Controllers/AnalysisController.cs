@@ -193,7 +193,7 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("CreateModel")]
         public async Task<IHttpActionResult> CreateModels(AlgorithmName algorithmName)
         {
-            
+            var minMaxValues = _analysisManager.ReadMinMaxValues();
             try
             {
                 using (var client = new WebClient())
@@ -204,14 +204,14 @@ namespace SS.UI.Web.MVC.Controllers
                         HttpContext.Current.Server.MapPath(csvLocation));
                         //creatie van model binnen algoritme
                         var jsonResponse = Encoding.Default.GetString(response);
-                        var algorithm = JsonHelper.ParseJson(jsonResponse);
+                        var algorithm = JsonHelper.ParseJson(jsonResponse, minMaxValues.ToList());
                         _analysisManager.CreateAlgorithm(algorithm);
                     }
                     client.Dispose();
                     return Ok();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest("An error occurred while generating the model.");
             }
@@ -236,6 +236,21 @@ namespace SS.UI.Web.MVC.Controllers
                 return Ok();
             }
             return BadRequest("Access not granted");
+        }
+
+
+        //GET api/Analysis/ReadMinMaxValues
+        [Route("ReadMinMaxValues")]
+        public List<MinMaxValue> ReadMinMaxValues(long analysisId)
+        {
+            return _analysisManager.ReadMinMaxValues(analysisId).ToList();
+        }
+
+        //POST api/Analysis/AddNewSolvent
+        [Route("AddNewSolvent")]
+        public IHttpActionResult AddNewSolvent(string name, string casNumber, double[] values)
+        {
+            return Ok();
         }
     }
 }

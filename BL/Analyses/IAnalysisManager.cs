@@ -47,5 +47,9 @@ namespace SS.BL.Analyses
         //AnalysisModel
         AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
         IEnumerable<Analysis> ReadFullAnalyses();
+
+        //MinMaxValue
+        IEnumerable<MinMaxValue> ReadMinMaxValues();
+        IEnumerable<MinMaxValue> ReadMinMaxValues(long id);
     }
 }

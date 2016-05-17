@@ -40,10 +40,12 @@ namespace SS.DAL.EFAnalyses
                 .Include(a => a.CreatedBy)
                 .Include(a => a.AnalysisModels)
                 .Include(a => a.AnalysisModels.Select(an => an.Model))
+                .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.DistanceToClusters))) 
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents)))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.VectorData)))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features))))
+                .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features.Select(b => b.MinMaxValue)))))
                 .FirstOrDefault(i => i.Id == id);
         }
 
@@ -181,6 +183,24 @@ namespace SS.DAL.EFAnalyses
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
         {
             return _context.Models.Where(m => m.AlgorithmName == algorithmName).ToList();
+        }
+
+        public IEnumerable<MinMaxValue> ReadMinMaxValues()
+        {
+            return _context.MinMaxValues;
+        }
+
+        public IEnumerable<MinMaxValue> ReadMinMaxValues(long id)
+        {
+            List<MinMaxValue> minMaxValues = new List<MinMaxValue>();
+            var analysis = ReadAnalysis(id);
+            var clusters = analysis.AnalysisModels[0].Model.Clusters.ToList();
+            var solvents = clusters[0].Solvents.ToList();
+            foreach (var feature in solvents[0].Features)
+            {
+                minMaxValues.Add(feature.MinMaxValue);
+            }
+            return minMaxValues.AsEnumerable();
         }
     }
 }

@@ -47,5 +47,9 @@ namespace SS.DAL.EFAnalyses
         AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
         IEnumerable<Analysis> ReadAnalyses();
         IEnumerable<Analysis> ReadFullAnalyses();
+
+        //MinMaxValue
+        IEnumerable<MinMaxValue> ReadMinMaxValues();
+        IEnumerable<MinMaxValue> ReadMinMaxValues(long id);
     }
 }

@@ -170,5 +170,15 @@ namespace SS.BL.Analyses
         {
             return repo.ReadFullAnalyses();
         }
+
+        public IEnumerable<MinMaxValue> ReadMinMaxValues()
+        {
+            return repo.ReadMinMaxValues();
+        }
+
+        public IEnumerable<MinMaxValue> ReadMinMaxValues(long id)
+        {
+            return repo.ReadMinMaxValues(id);
+        }
     }
 }
