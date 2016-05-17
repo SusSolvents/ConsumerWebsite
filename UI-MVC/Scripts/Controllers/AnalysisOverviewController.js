@@ -4,10 +4,10 @@
         var selectedAlgorithm;
         var organisationsUser = organisations.data;
         $scope.organisationsUser = organisationsUser;
-        console.log(organisationsUser);
         var prevClusters;
         var clusters;
         var minMaxValues = minMax.data;
+        var currentChart;
         var algorithms = [];
         var colors = [
             "#44B3C2",
@@ -33,13 +33,9 @@
             $scope.canEdit = true;
         }
 
-
         $scope.$watch('features.$valid', function (newVal) {
-            //$scope.valid = newVal;
-            $scope.informationStatus = true;
+            $scope.valid = newVal;
         });
-
-
 
         $scope.analysisName = data.Name;
 
@@ -155,7 +151,8 @@
                 url: 'api/Analysis/ClassifyNewSolvent',
                 data: model
             }).success(function succesCallback(data) {
-
+                $('#addSolvent-modal').modal('hide');
+                showClassifyResult(0);
             });
         }
 
@@ -197,7 +194,7 @@
                 var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
                 percentages.push(percentage);
 
-                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length });
+                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length, 'color': colors[i] });
 
             }
             model.maxPercent = Math.max.apply(Math, percentages);
@@ -235,7 +232,6 @@
 
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
-                colorSet: "greenShades",
                 zoomEnabled: true,
                 animationEnabled: true,
                 animationDuration: 500,
@@ -297,7 +293,24 @@
             });
 
             chart.render();
+            console.log(chart);
+            currentChart = chart;
             createProgress(jsonModel);
+        }
+
+        function showClassifyResult(clusterNumber) {
+            var elements = document.getElementsByName('1');
+            console.log(elements);
+            console.log(findPos(elements[0]));
+            var datapoint;
+            for (var i = 0; i < currentChart.options.data[0].dataPoints.length; i++) {
+                if (currentChart.options.data[0].dataPoints[i].name === clusterNumber) {
+                    datapoint = currentChart.options.data[0].dataPoints[i];
+                }
+            }
+            datapoint.color = colors[5];
+            currentChart.render();
+            
         }
 
         $scope.shareWithOrganisation = function () {
@@ -316,9 +329,18 @@
             }
         }
 
-
-
-
+        function findPos(obj) {
+            console.log(obj);
+            var curleft = 0;
+            var curtop = 0;
+            if (obj.offsetParent) {
+                do {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+                return [curleft, curtop];
+            }
+        }
 
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;

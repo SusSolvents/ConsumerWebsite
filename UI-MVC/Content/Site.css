@@ -2015,3 +2015,10 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
         margin-left: 0;
     }
 }
+
+.disabledForm {
+    border: 1.75px solid gray;
+    color: gray;
+    pointer-events: none;
+    cursor: default;
+}
