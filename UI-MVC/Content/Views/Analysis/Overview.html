@@ -187,12 +187,15 @@
                             <tr ng-repeat="feature in minMaxValues">
                                 <td style="padding-left: 15px">{{feature.FeatureName}}</td>
                                 <td style="padding-left: 15px">
-                                    <input type="number" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="test" ng-model="feature.value" required/>
+                                    <input type="number" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max">
+                                        The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
+                                    </span>
                                 </td>
                             </tr>
                         </table>
                         <h2 ng-show="features.test.$invalid">Valid Email Address Required</h2>
-                        <input type="submit" from="features" name="submit" id="submit" class="small-button" style="color: black" />
+                        <input type="submit" from="features" name="submit" id="submit" class="small-button"   />
 
                     </div>
 
