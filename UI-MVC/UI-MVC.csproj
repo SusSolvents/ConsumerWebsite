@@ -269,6 +269,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminInformationModel.cs" />
+    <Compile Include="Models\ClassifySolventModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MostActiveModel.cs" />
     <Compile Include="Models\OrganisationViewModel.cs" />

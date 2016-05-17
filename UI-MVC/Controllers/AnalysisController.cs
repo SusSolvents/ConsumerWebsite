@@ -17,6 +17,7 @@ using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
+using SS.UI.Web.MVC.Models;
 
 namespace SS.UI.Web.MVC.Controllers
 {
@@ -245,9 +246,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
-        public IHttpActionResult ClassifyNewSolvent([FromUri]string name, [FromUri]string casNumber,
-            [FromUri] double[] values, [FromUri] string[] featureNames,
-            [FromUri] string[] modelPaths,[FromUri] long userId, [FromUri] long[] analysisIds)
+        public IHttpActionResult ClassifyNewSolvent([FromBody]ClassifySolventModel model)
         {
             using (var client = new WebClient())
             {

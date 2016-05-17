@@ -34,7 +34,7 @@
         }
 
 
-        $scope.$watch('createBusinessForm.$valid', function (newVal) {
+        $scope.$watch('features.$valid', function (newVal) {
             //$scope.valid = newVal;
             $scope.informationStatus = true;
         });
@@ -142,19 +142,18 @@
                 modelPaths.push(data.AnalysisModels[i].Model.ModelPath);
                 modelIds.push(data.AnalysisModels[i].Id);
             }
-            
+            var model = {
+                'Name': solventName,
+                'CasNumber': casNumber,
+                'Values': featureValues,
+                'FeatureNames': featureNames,
+                'AnalysisModels': data.AnalysisModels,
+                'UserId': $window.sessionStorage.userId
+            };
             $http({
                 method: 'POST',
                 url: 'api/Analysis/ClassifyNewSolvent',
-                params: {
-                    name: solventName,
-                    casNumber: casNumber,
-                    values: featureValues,
-                    featureNames: featureNames,
-                    modelPaths: modelPaths,
-                    userId: $window.sessionStorage.userId,
-                    analysisIds: modelIds
-                }
+                data: model
             }).success(function succesCallback(data) {
 
             });
