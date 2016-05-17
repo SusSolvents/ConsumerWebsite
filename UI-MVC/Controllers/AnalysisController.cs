@@ -246,9 +246,9 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadMinMaxValues(analysisId).ToList();
         }
 
-        //POST api/Analysis/AddNewSolvent
-        [Route("AddNewSolvent")]
-        public IHttpActionResult AddNewSolvent(string name, string casNumber, double[] values)
+        //POST api/Analysis/ClassifyNewSolvent
+        [Route("ClassifyNewSolvent")]
+        public IHttpActionResult ClassifyNewSolvent([FromUri]string name, [FromUri]string casNumber, [FromUri] string[] values, [FromUri] string[] featureNames, [FromUri] string[] modelPaths)
         {
             return Ok();
         }

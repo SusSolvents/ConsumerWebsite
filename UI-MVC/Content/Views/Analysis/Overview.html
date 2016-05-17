@@ -171,12 +171,12 @@
     <div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
         <div class="loginmodal-container password-container add-solvent-modal" style="max-width: 800px;">
             <h4>Add a new Solvent</h4>
-            <form name="features">
+            <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
                 <div>
                     <label for="newSolventName">Name of solvent</label>
-                    <input type="text" id="newSolventName" required />
+                    <input type="text" id="newSolventName" ng-model="minMaxValues.name" required />
                     <label for="newSolventCasNr">Cas-number of solvent</label>
-                    <input type="text" id="newSolventCasNr" required />
+                    <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required />
                     <div>
 
                         <table>
@@ -187,11 +187,12 @@
                             <tr ng-repeat="feature in minMaxValues">
                                 <td style="padding-left: 15px">{{feature.FeatureName}}</td>
                                 <td style="padding-left: 15px">
-                                    <input type="number" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="test" id="{{feature.FeatureName}}" required />
+                                    <input type="number" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="test" ng-model="feature.value" required/>
                                 </td>
                             </tr>
                         </table>
-                        <input type="submit" style="color: black" />
+                        <h2 ng-show="features.test.$invalid">Valid Email Address Required</h2>
+                        <input type="submit" from="features" name="submit" id="submit" class="small-button" style="color: black" />
 
                     </div>
 
