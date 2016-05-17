@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SS.BL.Domain.Analyses;
 
 namespace SS.BL.Domain.Users
 {
@@ -20,5 +21,6 @@ namespace SS.BL.Domain.Users
         public DateTime DateRegistered { get; set; }
         public string AvatarUrl { get; set; }
         public Organisation Organisation { get; set; }
+        public List<ClassifiedInstance> ClassifiedInstances { get; set; }
     }
 }

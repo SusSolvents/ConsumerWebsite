@@ -12,5 +12,7 @@ namespace SS.BL.Domain.Analyses
         [Key]
         public long Id { get; set; }
         public Model Model { get; set; }
+        public ClassifiedInstance ClassifiedInstance { get; set; }
+
     }
 }

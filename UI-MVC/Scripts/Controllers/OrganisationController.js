@@ -225,7 +225,7 @@
             {
                 theme: "theme3",
 
-                backgroundColor: "rgba(80,80,80,1)",
+                backgroundColor: "rgba(60,60,60,1)",
                 animationEnabled: true,
                 axisX: {
                     valueFormatString: "MMM",

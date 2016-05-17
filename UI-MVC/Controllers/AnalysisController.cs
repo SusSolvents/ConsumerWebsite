@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,15 +30,9 @@ namespace SS.UI.Web.MVC.Controllers
         {
             this._analysisManager = analysisManager;
             this._userManager = userManager;
-            _csvLocations = new List<string>();
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_6 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_9 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_12 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_15 solvents 6 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_27 solvents 13 features.csv");
-            _csvLocations.Add("~/Content/Csv/Solvent matrix_80 solvents 6 features.csv");
-
-
+           
+            _csvLocations = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("~/Content/Csv/")).ToList();
+            
         }
 
         //GET api/Analysis/GetAnalysis
@@ -201,7 +197,7 @@ namespace SS.UI.Web.MVC.Controllers
                     foreach (var csvLocation in _csvLocations)
                     {
                         var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
-                        HttpContext.Current.Server.MapPath(csvLocation));
+                        csvLocation);
                         //creatie van model binnen algoritme
                         var jsonResponse = Encoding.Default.GetString(response);
                         var algorithm = JsonHelper.ParseJson(jsonResponse);
