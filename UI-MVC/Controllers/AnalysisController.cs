@@ -31,9 +31,9 @@ namespace SS.UI.Web.MVC.Controllers
         {
             this._analysisManager = analysisManager;
             this._userManager = userManager;
-           
+
             _csvLocations = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("~/Content/Csv/")).ToList();
-            
+
         }
 
         //GET api/Analysis/GetAnalysis
@@ -243,20 +243,35 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadMinMaxValues(analysisId).ToList();
         }
 
-        //POST api/Analysis/AddNewSolvent
-        [AllowAnonymous]
-        [Route("AddNewSolvent")]
-        public IHttpActionResult AddNewSolvent()
+        //POST api/Analysis/ClassifyNewSolvent
+        [Route("ClassifyNewSolvent")]
+        public IHttpActionResult ClassifyNewSolvent([FromUri]string name, [FromUri]string casNumber, [FromUri] double[] values, [FromUri] string[] featureNames, [FromUri] string[] modelPaths)
         {
             using (var client = new WebClient())
             {
-                double[] values = { 45, -72.65, -9, 37.3, 0.7, 0.67 };
-                var serialized = JsonConvert.SerializeObject(values);
-                String parameters = "path=/var/lib/openshift/573adbc92d52716ce700011a/app-root/data/Solvent matrix_12 solvents 6 features Canopy.model&featureValues=" + serialized;
-                client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                var response = client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters);
+                foreach (var modelPath in modelPaths)
+                {
+                    var serialized = JsonConvert.SerializeObject(values);
+                    String parameters = "path="+modelPath+"&featureValues=" + serialized;
+                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                    var classifiedInstance = JsonHelper.ParseJsonToClassifiedInstance(client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters));
+                    classifiedInstance.CasNumber = casNumber;
+                    classifiedInstance.Name = name;
+                    classifiedInstance.Features = new List<Feature>();
+                    for (int i = 0; i < featureNames.Length; i++)
+                    {
+                        Feature f = new Feature()
+                        {
+                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i]),
+                            Value = values[i]
+                        };
+                        classifiedInstance.Features.Add(f);
+                    }
+                    _analysisManager.CreateClassifiedInstance()
+                }
+                client.Dispose();
                 return Ok();
-            }                ;
+            }
         }
     }
 }

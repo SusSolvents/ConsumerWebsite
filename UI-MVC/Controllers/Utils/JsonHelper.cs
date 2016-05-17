@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 using SS.BL.Domain.Analyses;
+using SS.BL.Domain.Users;
 
 namespace SS.UI.Web.MVC.Controllers.Utils
 {
@@ -88,6 +89,11 @@ namespace SS.UI.Web.MVC.Controllers.Utils
             }
             algorithm.Models.Add(model);
             return algorithm;
+        }
+
+        public static ClassifiedInstance ParseJsonToClassifiedInstance(string json)
+        {
+            
         }
     }
 }

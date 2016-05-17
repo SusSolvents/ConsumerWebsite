@@ -12,6 +12,7 @@ namespace SS.BL.Domain.Analyses
         public string Name { get; set; }
         public string CasNumber { get; set; }
         public int ClusterNumber { get; set; }
+        public ICollection<Feature> Features { get; set; }  
         public double DistanceToClusterCenter { get; set; }
     }
 }

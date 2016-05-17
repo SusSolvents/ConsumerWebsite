@@ -110,10 +110,41 @@
                 }
             }
            for (var i = 0; i < minMaxValues.length; i++) {
-                minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+               minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+               minMaxValues[i].value = 0;
            }
+           minMaxValues.name = "";
+            minMaxValues.casNumber = "";
             $scope.minMaxValues = minMaxValues;
             $scope.solvents = solvents;
+        }
+
+        $scope.newSolvent = function newSolvent() {
+                addSolvent(minMaxValues, $http);
+
+        };
+
+        function addSolvent(values, $http) {
+            var solventName = values.name;
+            var casNumber = values.casNumber;
+            var featureNames = [];
+            var featureValues = [];
+            var modelPaths = [];
+            for (var i = 0; i < values.length; i++) {
+                featureNames.push(values[i].FeatureName);
+                featureValues.push(values[i].value);
+            }
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                    modelPaths.push(data.AnalysisModels[i].Model.ModelPath);
+                }
+            
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/ClassifyNewSolvent',
+                params: { name: solventName, casNumber: casNumber, values: featureValues, featureNames: featureNames, modelPaths: modelPaths }
+            }).success(function succesCallback(data) {
+
+            });
         }
 
         function getClusterPosition(cluster) {
