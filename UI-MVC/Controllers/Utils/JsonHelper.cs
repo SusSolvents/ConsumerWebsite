@@ -9,7 +9,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
 {
     public class JsonHelper
     {
-        public static Algorithm ParseJson(String jsonString)
+        public static Algorithm ParseJson(String jsonString, List<MinMaxValue> minMaxValues)
         {
 
             dynamic jsonModel = JsonConvert.DeserializeObject(jsonString);
@@ -69,11 +69,15 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                     solventTemp.Name = solventTemp.Name.Replace("\"", "");
                     foreach (var feature in solvent.features)
                     {
+                        FeatureName featureName;
+                        Enum.TryParse<FeatureName>(feature.name.ToString(), out featureName);
+                        var value = minMaxValues.FirstOrDefault(a => a.FeatureName == featureName);
                         Feature featureTemp = new Feature()
                         {
                             FeatureName = feature.name,
                             Value = feature.value
                         };
+                        featureTemp.MinMaxValue = value;
                         solventTemp.Features.Add(featureTemp);
                     }
                     clusterTemp.Solvents.Add(solventTemp);

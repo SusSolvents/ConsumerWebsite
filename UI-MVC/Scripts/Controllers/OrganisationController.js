@@ -341,6 +341,7 @@ app.controller('CreateOrganisationController',
        
         
         model.submit = function (isValid) {
+            console.log(model);
             if (isValid) {
                 createOrganisation(model, $http);
             } else {
@@ -355,6 +356,7 @@ app.controller('CreateOrganisationController',
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
+                                model.org.logo = result;
                               $scope.imageSrc = result;
                               if (process === 0 || process === 40) {
                                   process += 60;
