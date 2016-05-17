@@ -93,7 +93,13 @@ namespace SS.UI.Web.MVC.Controllers.Utils
 
         public static ClassifiedInstance ParseJsonToClassifiedInstance(string json)
         {
-            
+            dynamic jsonInstance = JsonConvert.DeserializeObject(json);
+            ClassifiedInstance classifiedInstance = new ClassifiedInstance()
+            {
+                DistanceToClusterCenter = jsonInstance.distanceToCluster,
+                ClusterNumber = jsonInstance.clusterNumber
+            };
+            return classifiedInstance;
         }
     }
 }
