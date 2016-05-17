@@ -248,7 +248,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
-        public IHttpActionResult ClassifyNewSolvent([FromUri]string name, [FromUri]string casNumber, [FromUri] string[] values, [FromUri] string[] featureNames, [FromUri] string[] modelPaths)
+        public IHttpActionResult ClassifyNewSolvent([FromUri]string name, [FromUri]string casNumber, [FromUri] double[] values, [FromUri] string[] featureNames, [FromUri] string[] modelPaths)
         {
             return Ok();
         }
