@@ -219,6 +219,7 @@ footer {
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
     margin: 0 auto;
+
 }
 .blur {
     pointer-events: none;
@@ -823,6 +824,7 @@ img::-moz-selection {
     display: block;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    box-shadow: 5px 12px 15px black;
 }
 .avatar-img:hover {
     border: 1px solid lightblue;

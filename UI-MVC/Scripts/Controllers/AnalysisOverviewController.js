@@ -286,7 +286,7 @@
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
                             }
-
+                            console.log(e);
                             createClusterChart(model.Clusters[e.dataPoint.name], colors[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
                             $scope.cluster = e.dataPoint.name;
@@ -297,6 +297,7 @@
             });
 
             chart.render();
+            console.log(chart);
             createProgress(jsonModel);
         }
 

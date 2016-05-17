@@ -1,4 +1,16 @@
 ﻿app.controller('AdminController', function($scope, $rootScope, $http, fileReader, $routeParams, $location, result) {
+    var colors = [
+            "#44B3C2",
+            "#F1A94E",
+            "#F2635F",
+            "#32B92D",
+            "#F20075",
+            "#E0A025",
+
+            "#0093D1"
+
+        ];
+
     var data = result.data;
     notie.setOptions({
         colorSuccess: 'rgba(87,191,87,0.9)',
@@ -101,7 +113,7 @@
         var json = [];
         for (var i = 0; i < algorithmNames.length; i++) {
             if (((algorithmTotals[i] / numberAnalyses) * 100) !== 0) {
-                json.push({ 'y': (algorithmTotals[i] / numberAnalyses) * 100, 'indexLabel': algorithmNames[i] });
+                json.push({ 'y': (algorithmTotals[i] / numberAnalyses) * 100, 'indexLabel': algorithmNames[i], 'color':colors[i] });
             }
             
         }
@@ -263,7 +275,7 @@
                 indexLabelFontColor: "darkgrey",
                 indexLabelLineColor: "darkgrey",
                 color: color,
-                
+                bevelEnabled: false,
                 lineThickness: 3,
                 
                 dataPoints: json
