@@ -30,6 +30,7 @@ namespace SS.UI.Web.MVC
                       "~/Scripts/bootstrap.js",
                        "~/Scripts/notie.js",
                       "~/Scripts/respond.js"
+                      , "~/Scripts/ocanvas-2.8.4.js"
                       ));
 
 

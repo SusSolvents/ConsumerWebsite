@@ -381,6 +381,7 @@
     <Content Include="Scripts\Controllers\AdminController.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
     <Content Include="Scripts\notie.js" />
+    <Content Include="Scripts\ocanvas-2.8.4.js" />
     <Content Include="Scripts\radial-progress-bar.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
