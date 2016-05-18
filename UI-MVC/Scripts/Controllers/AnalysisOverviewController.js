@@ -155,7 +155,7 @@
                 data: model
             }).success(function succesCallback(data) {
                 $('#addSolvent-modal').modal('hide');
-                showClassifyResult(0);
+                showClassifyResult(1);
             });
         }
 
@@ -298,63 +298,75 @@
             });
 
             chart.render();
-            var canvas = document.getElementById("canvas-overlay");
-            var chartCanvas = document.getElementById("chart-container");
             
-            var xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
-            var yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
-            canvas.width = xAxisLength;
-            canvas.height = yAxisLength;
-            
-            oCanvas.create({
-                canvas: "#canvas-overlay"
-            });
-//            var arc = canvaz.display.arc({
-//                x: ,
-//                y: centerY,
-//                radius: 10,
-//                start: 360,
-//                fill: "#fe506e"
-//            });
-//            canvaz.addChild(arc);
-            window.addEventListener("resize", function () {
-                xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
-                yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
-                canvas.width = xAxisLength;
-                canvas.height = yAxisLength;
-                console.log(xAxisLength);
-                oCanvas.create({
-                    canvas: "#canvas-overlay"
-                    
-                });
-            });
-//            arc.animate({
-//                x: 50,
-//                y: 10
-//            }, {
-//                duration: "long",
-//                easing: "linear",
-//                callback: function () {
-//                    this.fill = "#fff";
-//                    canvaz.redraw();
-//                }
-//            });
 
             
             currentChart = chart;
             createProgress(jsonModel);
         }
 
+        function drawClassifySolvent(datapoint) {
+            var canvas = document.getElementById("canvas-overlay");
+            var chartCanvas = document.getElementById("chart-container");
+
+            var xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
+            var yAxisLength = chartCanvas.offsetHeight - 46 - 103; //beginnen tekenen van chartCanvas.offsetHeight - 46
+            canvas.width = xAxisLength;
+            canvas.height = yAxisLength;
+
+            var canvaz = oCanvas.create({
+                canvas: "#canvas-overlay"
+            });
+                        var arc = canvaz.display.arc({
+                            x: xAxisLength / 2,
+                            y: yAxisLength/2,
+                            radius: 10,
+                            start: 360,
+                            fill: "#fe506e"
+                        });
+                        canvaz.addChild(arc);
+            window.addEventListener("resize", function () {
+                xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
+                yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
+                canvas.width = xAxisLength;
+                canvas.height = yAxisLength;
+                canvaz = oCanvas.create({
+                    canvas: "#canvas-overlay"
+                });
+            });
+
+            var datapointX = (((datapoint.x + 0.1) / (1.2)) * 100) * (xAxisLength / 100);
+            var maxX = currentChart.options.axisY.viewportMaximum;
+            var datapointY = canvas.height - (((datapoint.y / maxX) * 100) * (yAxisLength / 100));
+
+                        arc.animate({
+                            x: datapointX,
+                            y: datapointY
+                        }, {
+                            duration: "long",
+                            easing: "linear",
+                            callback: function () {
+                                this.fill = "#fff";
+                                canvaz.redraw();
+                            }
+                        });
+        }
+
+
         function showClassifyResult(clusterNumber) {
-            var datapoint;
+            var datapoint = null;
             for (var i = 0; i < currentChart.options.data[0].dataPoints.length; i++) {
                 if (currentChart.options.data[0].dataPoints[i].name === clusterNumber) {
                     datapoint = currentChart.options.data[0].dataPoints[i];
                 }
             }
-            datapoint.markerBorderThickness = 3;
-            currentChart.render();
-            
+            if (datapoint != null) {
+                drawClassifySolvent(datapoint);
+                datapoint.markerBorderThickness = 3;
+                currentChart.render();
+            }
+
+
         }
 
         $scope.shareWithOrganisation = function () {
