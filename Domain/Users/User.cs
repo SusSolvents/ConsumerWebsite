@@ -21,6 +21,6 @@ namespace SS.BL.Domain.Users
         public DateTime DateRegistered { get; set; }
         public string AvatarUrl { get; set; }
         public Organisation Organisation { get; set; }
-        public List<ClassifiedInstance> ClassifiedInstances { get; set; }
+        public ICollection<ClassifiedInstance> ClassifiedInstances { get; set; }
     }
 }

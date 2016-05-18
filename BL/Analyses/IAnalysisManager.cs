@@ -38,7 +38,7 @@ namespace SS.BL.Analyses
         Model ReadModel(long id);
         Model ReadModel(string dataSet, AlgorithmName algorithmName);
 
-        AnalysisModel CreateClassifiedInstance(long modelId, ClassifiedInstance classifiedInstance);
+        AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
 
         //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);

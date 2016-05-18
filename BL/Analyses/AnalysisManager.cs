@@ -139,9 +139,9 @@ namespace SS.BL.Analyses
             return repo.ReadModel(dataSet, algorithmName);
         }
 
-        public AnalysisModel CreateClassifiedInstance(long modelId, ClassifiedInstance classifiedInstance)
+        public AnalysisModel CreateClassifiedInstance(long modelId, long userId ,ClassifiedInstance classifiedInstance)
         {
-            return repo.CreateClassifiedInstance(modelId, classifiedInstance);
+            return repo.CreateClassifiedInstance(modelId, userId,classifiedInstance);
         }
 
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SS.BL.Domain.Analyses;
 using SS.BL.Domain.Users;
 
 namespace SS.BL.Users
@@ -108,8 +109,10 @@ namespace SS.BL.Users
                 Lastname = lastname,
                 Email = email,
                 AvatarUrl = avatarUrl,
-                Organisation = null
+                Organisation = null,
+                
             };
+            user.ClassifiedInstances = new List<ClassifiedInstance>();
             return repo.CreateUser(user);
         }
     }

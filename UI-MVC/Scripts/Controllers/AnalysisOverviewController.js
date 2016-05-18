@@ -4,19 +4,22 @@
         var selectedAlgorithm;
         var organisationsUser = organisations.data;
         $scope.organisationsUser = organisationsUser;
-        console.log(organisationsUser);
         var prevClusters;
         var clusters;
         var minMaxValues = minMax.data;
+        var currentChart;
         var algorithms = [];
         var colors = [
             "#44B3C2",
             "#F1A94E",
             "#F2635F",
+            "#9F0088",
+            "#4CD4B0",
+            "#8e44ad",
+            "#FC575E",
             "#32B92D",
             "#F20075",
             "#E0A025",
-
             "#0093D1"
 
         ];
@@ -33,13 +36,9 @@
             $scope.canEdit = true;
         }
 
-
         $scope.$watch('features.$valid', function (newVal) {
-            //$scope.valid = newVal;
-            $scope.informationStatus = true;
+            $scope.valid = newVal;
         });
-
-
 
         $scope.analysisName = data.Name;
 
@@ -92,7 +91,7 @@
                     'fill': 12,
                     'font-size': 25,
                     'font-family': "Questrial",
-                    "color": colors[jso[i].name]
+                    "color": colors[i]
                 }).radialProgress("to", { 'perc': ((jso[jso[i].name].solvents / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
             }
         };
@@ -155,7 +154,8 @@
                 url: 'api/Analysis/ClassifyNewSolvent',
                 data: model
             }).success(function succesCallback(data) {
-
+                $('#addSolvent-modal').modal('hide');
+                showClassifyResult(0);
             });
         }
 
@@ -197,7 +197,8 @@
                 var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
                 percentages.push(percentage);
 
-                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length });
+                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "red", //change color here
+                        'markerBorderThickness': 0 });
 
             }
             model.maxPercent = Math.max.apply(Math, percentages);
@@ -235,7 +236,6 @@
 
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
-                colorSet: "greenShades",
                 zoomEnabled: true,
                 animationEnabled: true,
                 animationDuration: 500,
@@ -271,6 +271,7 @@
 
                 data: [
                     {
+                        
                         type: "bubble",
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>#solvents</strong> {solvents} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
                         dataPoints: jsonModel,
@@ -297,8 +298,34 @@
             });
 
             chart.render();
-            console.log(chart);
+            var canvas = document.getElementsByClassName("canvasjs-chart-canvas");
+            var context = canvas[0].getContext('2d');
+            var centerX = canvas[0].width / 2;
+            var centerY = canvas[0].height / 2;
+            var radius = 70;
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.fillStyle = 'green';
+            context.fill();
+            context.lineWidth = 5;
+            context.strokeStyle = '#003300';
+            context.stroke();
+            console.log(centerX);
+            currentChart = chart;
             createProgress(jsonModel);
+        }
+
+        function showClassifyResult(clusterNumber) {
+        
+            var datapoint;
+            for (var i = 0; i < currentChart.options.data[0].dataPoints.length; i++) {
+                if (currentChart.options.data[0].dataPoints[i].name === clusterNumber) {
+                    datapoint = currentChart.options.data[0].dataPoints[i];
+                }
+            }
+            datapoint.markerBorderThickness = 3;
+            currentChart.render();
+
         }
 
         $scope.shareWithOrganisation = function () {
@@ -317,9 +344,7 @@
             }
         }
 
-
-
-
+       
 
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;

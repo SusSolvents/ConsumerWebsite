@@ -209,7 +209,7 @@ namespace SS.UI.Web.MVC.Controllers
                     return Ok();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest("An error occurred while generating the model.");
             }
@@ -259,6 +259,7 @@ namespace SS.UI.Web.MVC.Controllers
                     classifiedInstance.CasNumber = model.CasNumber;
                     classifiedInstance.Name = model.Name;
                     classifiedInstance.Features = new List<Feature>();
+                    
                     for (int i = 0; i < model.FeatureNames.Length; i++)
                     {
                         Feature f = new Feature()
@@ -268,7 +269,7 @@ namespace SS.UI.Web.MVC.Controllers
                         };
                         classifiedInstance.Features.Add(f);
                     }
-                    _analysisManager.CreateClassifiedInstance(analysisModel.Id, classifiedInstance);
+                    _analysisManager.CreateClassifiedInstance(analysisModel.Id,model.UserId, classifiedInstance);
                 }
                 client.Dispose();
                 return Ok();

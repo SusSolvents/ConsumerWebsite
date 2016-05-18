@@ -203,12 +203,17 @@ namespace SS.DAL.EFAnalyses
             return minMaxValues.AsEnumerable();
         }
 
-        public AnalysisModel CreateClassifiedInstance(long modelId, ClassifiedInstance classifiedInstance)
+        public AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance)
         {
             var model = _context.AnalysisModels.Find(modelId);
+            
             model.ClassifiedInstance = classifiedInstance;
             _context.Entry(model).State = EntityState.Modified;
+            var user = _context.Users.Find(userId);
+            user.ClassifiedInstances.Add(classifiedInstance);
+            _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
+
             return model;
         }
     }
