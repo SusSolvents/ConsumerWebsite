@@ -246,7 +246,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
-        public IHttpActionResult ClassifyNewSolvent([FromBody]ClassifySolventModel model)
+        public AnalysisModel[] ClassifyNewSolvent([FromBody]ClassifySolventModel model)
         {
             using (var client = new WebClient())
             {
@@ -272,7 +272,7 @@ namespace SS.UI.Web.MVC.Controllers
                     _analysisManager.CreateClassifiedInstance(analysisModel.Id,model.UserId, classifiedInstance);
                 }
                 client.Dispose();
-                return Ok();
+                return model.AnalysisModels;
             }
         }
     }
