@@ -35,18 +35,14 @@
                     getSolventsFromCluster(modelsTemp[i].Model, solvent.ClusterNumber).push(solvent);
                 }
             }
-            console.log(modelsTemp);
-
+            
             models = modelsTemp;
             setEnumNames();
             for (var i = 0; i < models.length; i++) {
                 clusters = getClusters(models[i].Model);
-
                 var clusterPositions = [];
-
                 for (var j = 0; j < clusters.length; j++) {
                     clusterPositions.push(getClusterPosition(clusters[j]));
-
                 }
                 var normalizedValues = getNormalizedValues(clusterPositions);
                 models[i].Model.NormalizedValues = normalizedValues;
@@ -96,7 +92,13 @@
         }
 
         function createProgress(analysisModel) {
+            var totalSolvents = data.NumberOfSolvents;
+            if (analysisModel.ClassifiedInstance !== null) {
+                totalSolvents++;
+            }
             prevClusters = analysisModel.Model.Clusters;
+            console.log(prevClusters);
+            
             for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
                     'size': 90,
@@ -104,7 +106,7 @@
                     'font-size': 25,
                     'font-family': "Questrial",
                     "color": colors[i]
-                }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
+                }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / totalSolvents) * 100) - 0.2, 'time': 1000 });
             }
         };
 
