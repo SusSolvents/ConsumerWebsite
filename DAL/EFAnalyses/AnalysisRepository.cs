@@ -39,9 +39,11 @@ namespace SS.DAL.EFAnalyses
             return _context.Analyses
                 .Include(a => a.CreatedBy)
                 .Include(a => a.AnalysisModels)
+                .Include(a => a.AnalysisModels.Select(an => an.ClassifiedInstance))
                 .Include(a => a.AnalysisModels.Select(an => an.Model))
                 .Include(a => a.AnalysisModels.Select(an => an.ClassifiedInstance))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters))
+                .Include(a => a.AnalysisModels.Select(an => an.ClassifiedInstance).Select(p => p.Features))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.DistanceToClusters))) 
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.Solvents)))
                 .Include(a => a.AnalysisModels.Select(an => an.Model).Select(p => p.Clusters.Select(pt => pt.VectorData)))
