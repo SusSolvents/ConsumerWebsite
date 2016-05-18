@@ -246,10 +246,11 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
-        public AnalysisModel[] ClassifyNewSolvent([FromBody]ClassifySolventModel model)
+        public List<AnalysisModel> ClassifyNewSolvent([FromBody]ClassifySolventModel model)
         {
             using (var client = new WebClient())
             {
+                List<AnalysisModel> analysisModels = new List<AnalysisModel>();
                 foreach (var analysisModel in model.AnalysisModels)
                 {
                     var serialized = JsonConvert.SerializeObject(model.Values);
@@ -269,10 +270,11 @@ namespace SS.UI.Web.MVC.Controllers
                         };
                         classifiedInstance.Features.Add(f);
                     }
-                    _analysisManager.CreateClassifiedInstance(analysisModel.Id,model.UserId, classifiedInstance);
+                    analysisModels.Add(_analysisManager.CreateClassifiedInstance(analysisModel.Id,model.UserId, classifiedInstance));
+                    
                 }
                 client.Dispose();
-                return model.AnalysisModels;
+                return analysisModels;
             }
         }
     }

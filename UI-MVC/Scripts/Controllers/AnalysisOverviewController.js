@@ -29,9 +29,16 @@
         showClusterAnalysis(result.data.AnalysisModels);
 
         function showClusterAnalysis(modelsTemp) {
+            for (var i = 0; i < modelsTemp.length; i++) {
+                if (modelsTemp[i].ClassifiedInstance !== null) {
+                    var solvent = modelsTemp[i].ClassifiedInstance;
+                    getSolventsFromCluster(modelsTemp[i].Model, solvent.ClusterNumber).push(solvent);
+                }
+            }
+            console.log(modelsTemp);
+
             models = modelsTemp;
             setEnumNames();
-            
             for (var i = 0; i < models.length; i++) {
                 clusters = getClusters(models[i].Model);
 
@@ -66,8 +73,6 @@
 
 
                     $timeout(function () {
-
-
                 for (var i = 0; i < algorithms.length; i++) {
                     if (i === 0) {
                         $('#' + algorithms[i]).addClass("active");
@@ -114,11 +119,7 @@
                     for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
                         solvents.push(models[i].Model.Clusters[j].Solvents[k]);
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
-                            if (models[i].ClassifiedInstance !== null) {
-                                models[i].ClassifiedInstance.Features[i].FeatureName = Constants.FeatureName[models[i].ClassifiedInstance.Features[i].FeatureName];
-                                models[i].ClassifiedInstance.Features[i].Value = Number(models[i].ClassifiedInstance.Features[i].Value.toFixed(2));
-                                
-                            }
+                            
                             models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                         }
@@ -224,7 +225,6 @@
 
 
         $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
-
             e.preventDefault();
             $(this).siblings('a.active').removeClass("active");
             $(this).addClass("active");
@@ -236,9 +236,8 @@
 
             $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
             createChart(findModelOnName(e.currentTarget.id));
-
-
         });
+
         function resetProgress() {
             for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).empty();
@@ -313,7 +312,7 @@
             });
 
             chart.render();
-
+            
             currentChart = chart;
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
         }
@@ -474,7 +473,10 @@
             .attr("width", width)
             .attr("height", height);
 
+            
+            console.log(cluster);
             var distances = [];
+
             for (var i = 0; i < cluster.Solvents.length; i++) {
                 distances.push(cluster.Solvents[i].DistanceToClusterCenter);
             }
@@ -490,6 +492,7 @@
                 "casNumber": "None"
             });
             var maxSolvent, minSolvent;
+            
             for (var i = 0; i < cluster.Solvents.length; i++) {
                 if (maxSolvent === undefined || cluster.Solvents[i].DistanceToClusterCenter > maxSolvent.DistanceToClusterCenter) {
                     maxSolvent = cluster.Solvents[i];
@@ -501,12 +504,9 @@
                 jsonNodes.push(node);
                 var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) + 33 };
                 jsonLinks.push(link);
+               
             }
-            if (findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== null) {
-                var solvent = findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance;
-                var classifiedNode = { "name": solvent.Name, "group": 1, "casNumber": solvent.CasNumber, "distance": solvent.DistanceToClusterCenter.toFixed(2), "value": 10, "solvent": solvent };
-                jsonNodes.push(classifiedNode);
-            };
+            
             $scope.maxDistance = maxSolvent.DistanceToClusterCenter.toFixed(2);
             $scope.minDistance = minSolvent.DistanceToClusterCenter.toFixed(2);
             $scope.maxSolvent = maxSolvent;
@@ -538,13 +538,21 @@
                     .attr("class", "node")
                     .attr("r", function (d) { return d.value; })
                     .style("fill", function (d) {
+                        switch (d.casNumber) {
+                            case maxSolvent.CasNumber:
+                                return "#E68364";
+                                break;
+                            case minSolvent.CasNumber:
+                                return "#26A65B";
+                                break;
+                            case findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance.CasNumber:
+                                return "#F4FE00";
+                                break;
 
-                        if (d.casNumber === maxSolvent.CasNumber) {
-                            return "#E68364";
-                        } else if (d.casNumber === minSolvent.CasNumber) return "#26A65B";
-                        else {
+                        default:
                             return color(d.group);
                         }
+                       
                     })
                     .on("click", function (d) {
                         if (d.solvent !== undefined) {
