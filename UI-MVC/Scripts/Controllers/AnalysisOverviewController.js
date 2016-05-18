@@ -299,37 +299,47 @@
 
             chart.render();
             var canvas = document.getElementById("canvas-overlay");
-            var context = canvas.getContext('2d');
-            var centerX = canvas.width / 2;
-            var centerY = canvas.height / 2;
-            var canvaz = oCanvas.create({
+            var chartCanvas = document.getElementById("chart-container");
+            
+            var xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
+            var yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
+            canvas.width = xAxisLength;
+            canvas.height = yAxisLength;
+            
+            oCanvas.create({
                 canvas: "#canvas-overlay"
-                
             });
-            var arc = canvaz.display.arc({
-                x: centerX,
-                y: centerY,
-                radius: 3,
-                start: 360,
-                fill: "#fe506e"
+//            var arc = canvaz.display.arc({
+//                x: ,
+//                y: centerY,
+//                radius: 10,
+//                start: 360,
+//                fill: "#fe506e"
+//            });
+//            canvaz.addChild(arc);
+            window.addEventListener("resize", function () {
+                xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
+                yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
+                canvas.width = xAxisLength;
+                canvas.height = yAxisLength;
+                console.log(xAxisLength);
+                oCanvas.create({
+                    canvas: "#canvas-overlay"
+                    
+                });
             });
+//            arc.animate({
+//                x: 50,
+//                y: 10
+//            }, {
+//                duration: "long",
+//                easing: "linear",
+//                callback: function () {
+//                    this.fill = "#fff";
+//                    canvaz.redraw();
+//                }
+//            });
 
-            arc.animate({
-                x: 50,
-                y: 10
-            }, {
-                duration: "long",
-                easing: "linear",
-                callback: function () {
-                    this.fill = "#fff";
-                    canvaz.redraw();
-                }
-            });
-
-            canvaz.addChild(arc);
-            
-            
-            
             
             currentChart = chart;
             createProgress(jsonModel);
