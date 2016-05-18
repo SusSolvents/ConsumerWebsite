@@ -201,7 +201,10 @@
         function createJsonModel(model) {
             var json = [];
             var percentages = [];
-
+            var totalSolvents = model.Model.NumberOfSolvents;
+            if (model.Model.ClassifiedInstance !== null) {
+                totalSolvents++;
+            }
             for (var i = 0; i < model.Model.Clusters.length; i++) {
                 var valuesSolvents = [];
                 for (var j = 0; j < model.Model.Clusters[i].Solvents.length; j++) {
@@ -209,8 +212,9 @@
                     valuesSolvents.push(model.Model.Clusters[i].Solvents[j].DistanceToClusterCenter);
                 }
                 var max = Math.max.apply(Math, valuesSolvents);
-
-                var percentage = (valuesSolvents.length / model.Model.NumberOfSolvents) * 100;
+                
+                
+                var percentage = (valuesSolvents.length / totalSolvents) * 100;
                 percentages.push(percentage);
 
                 json[i] = ({ 'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "red", //change color here
