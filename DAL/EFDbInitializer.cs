@@ -17,74 +17,86 @@ namespace SS.DAL
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Boiling_Point_Minimum_DegreesC,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = -150,
+                MaxValue = 500,
+                StepValue = 20
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Melting_Point_Minimum_DegreesC,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = -200,
+                MaxValue = 20,
+                StepValue = 5
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Flash_Point_Minimum_DegreesC,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = -85,
+                MaxValue = 360,
+                StepValue = 15
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Vapour_Pressure_25DegreesC_mmHg,
                 MinValue = 0,
-                MaxValue = 10
+                MaxValue = 24500,
+                StepValue = 100
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Density_25DegreesC_Minimum_kg_L,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = 0.6,
+                MaxValue = 3.5,
+                StepValue = 0.1
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Viscosity_25DegreesC_Minimum_mPa_s,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = 0.01,
+                MaxValue = 1000,
+                StepValue = 10
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Autoignition_Temperature_Minimum_DegreesC,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = 100,
+                MaxValue = 800,
+                StepValue = 20
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Hansen_Delta_D_MPa1_2,
                 MinValue = 0,
-                MaxValue = 10
+                MaxValue = 30,
+                StepValue = 1
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Hansen_Delta_P_MPa1_2,
                 MinValue = 0,
-                MaxValue = 10
+                MaxValue = 30,
+                StepValue = 1
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Hansen_Delta_H_MPa1_2,
                 MinValue = 0,
-                MaxValue = 10
+                MaxValue = 50,
+                StepValue = 2
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Solubility_Water_g_L,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = -1,
+                MaxValue = Double.MaxValue,
+                StepValue = 2
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
                 FeatureName = FeatureName.Dielectric_Constant_20DegreesC,
-                MinValue = 0,
-                MaxValue = 10
+                MinValue = 1,
+                MaxValue = 100,
+                StepValue = 2
             });
             context.SaveChanges();
         }

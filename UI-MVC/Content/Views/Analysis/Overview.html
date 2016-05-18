@@ -75,7 +75,9 @@
 
                             <div id="chartContainer_{{model.Model.AlgorithmName}}" class="chartContainer">
                             </div>
-
+                            <canvas class="canvas-overlay" id="canvas-overlay">
+                                
+                            </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
                                 <div class="closecross" style="cursor: pointer" ng-click="closeOverlay(model.Model.AlgorithmName)">X</div>
                                 <div class="col-lg-4" style="text-align: initial; position: absolute; color: white">
@@ -185,11 +187,15 @@
                                 <th style="padding-left: 15px">Value</th>
                             </tr>
                             <tr ng-repeat="feature in minMaxValues">
-                                <td style="padding-left: 15px">{{feature.FeatureName}}</td>
+                                <td style="padding-left: 15px">{{feature.FeatureName}}
+                                    <p ng-if="$index === 10" style="font-size: small; display: inline">  ( -1 = Infinity )</p></td>
                                 <td style="padding-left: 15px">
-                                    <input type="number" step="0.01" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
-                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max">
+                                    <input type="number" step="{{feature.StepValue}}" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="color: red;">
                                         The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
+                                    </span>
+                                    <span ng-show="features['feature_' + $index].$error.required" style="color: red;">
+                                        This value cannot be empty!
                                     </span>
                                 </td>
                             </tr>

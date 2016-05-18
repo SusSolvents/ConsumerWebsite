@@ -113,7 +113,7 @@
             }
            for (var i = 0; i < minMaxValues.length; i++) {
                minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
-               minMaxValues[i].value = 0;
+               minMaxValues[i].value = minMaxValues[i].MinValue;
            }
            minMaxValues.name = "";
             minMaxValues.casNumber = "";
@@ -298,10 +298,10 @@
             });
 
             chart.render();
-            var canvas = document.getElementsByClassName("canvasjs-chart-canvas");
-            var context = canvas[0].getContext('2d');
-            var centerX = canvas[0].width / 2;
-            var centerY = canvas[0].height / 2;
+            var canvas = document.getElementById("canvas-overlay");
+            var context = canvas.getContext('2d');
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
             var radius = 70;
             context.beginPath();
             context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
@@ -310,13 +310,13 @@
             context.lineWidth = 5;
             context.strokeStyle = '#003300';
             context.stroke();
+            
             console.log(centerX);
             currentChart = chart;
             createProgress(jsonModel);
         }
 
         function showClassifyResult(clusterNumber) {
-        
             var datapoint;
             for (var i = 0; i < currentChart.options.data[0].dataPoints.length; i++) {
                 if (currentChart.options.data[0].dataPoints[i].name === clusterNumber) {
@@ -325,7 +325,7 @@
             }
             datapoint.markerBorderThickness = 3;
             currentChart.render();
-
+            
         }
 
         $scope.shareWithOrganisation = function () {
@@ -535,60 +535,4 @@ app.constant('Constants', {
         10: 'Solubility_Water_g_L',
         11: 'Dielectric_Constant_20DegreesC'
     }
-});
-
-
-app.directive('ngMin', function () {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, elem, attr, ctrl) {
-            scope.$watch(attr.ngMin, function () {
-                if (ctrl.$isDirty) ctrl.$setViewValue(ctrl.$viewValue);
-            });
-
-            var isEmpty = function (value) {
-                return angular.isUndefined(value) || value === "" || value === null;
-            }
-
-            var minValidator = function (value) {
-                var min = scope.$eval(attr.ngMin) || 0;
-                if (!isEmpty(value) && value < min) {
-                    ctrl.$setValidity('ngMin', false);
-                    return undefined;
-                } else {
-                    ctrl.$setValidity('ngMin', true);
-                    return value;
-                }
-            };
-
-            ctrl.$parsers.push(minValidator);
-            ctrl.$formatters.push(minValidator);
-        }
-    };
-});
-
-app.directive('ngMax', function () {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, elem, attr, ctrl) {
-            scope.$watch(attr.ngMax, function () {
-                if (ctrl.$isDirty) ctrl.$setViewValue(ctrl.$viewValue);
-            });
-            var maxValidator = function (value) {
-                var max = scope.$eval(attr.ngMax) || Infinity;
-                if (!isEmpty(value) && value > max) {
-                    ctrl.$setValidity('ngMax', false);
-                    return undefined;
-                } else {
-                    ctrl.$setValidity('ngMax', true);
-                    return value;
-                }
-            };
-
-            ctrl.$parsers.push(maxValidator);
-            ctrl.$formatters.push(maxValidator);
-        }
-    };
 });

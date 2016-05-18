@@ -209,7 +209,7 @@ namespace SS.DAL.EFAnalyses
             
             model.ClassifiedInstance = classifiedInstance;
             _context.Entry(model).State = EntityState.Modified;
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Include(p=>p.ClassifiedInstances).Single(u => u.Id == userId);
             user.ClassifiedInstances.Add(classifiedInstance);
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
