@@ -317,14 +317,18 @@
             var canvaz = oCanvas.create({
                 canvas: "#canvas-overlay"
             });
-                        var arc = canvaz.display.arc({
+                        var arc = canvaz.display.polygon({
                             x: xAxisLength / 2,
                             y: yAxisLength/2,
-                            radius: 10,
-                            start: 360,
-                            fill: "#fe506e"
+                            radius: 20,
+                            sides: 6,
+                            fill: "#F4FE00"
                         });
                         canvaz.addChild(arc);
+            canvaz.setLoop(function() {
+                arc.rotation++;
+            });
+            canvaz.timeline.start();
             window.addEventListener("resize", function () {
                 xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
                 yAxisLength = chartCanvas.offsetHeight - 46 - 117; //beginnen tekenen van chartCanvas.offsetHeight - 46
@@ -338,18 +342,18 @@
             var datapointX = (((datapoint.x + 0.1) / (1.2)) * 100) * (xAxisLength / 100);
             var maxX = currentChart.options.axisY.viewportMaximum;
             var datapointY = canvas.height - (((datapoint.y / maxX) * 100) * (yAxisLength / 100));
+            arc.animate({
+                x: datapointX,
+                y: datapointY
+            }, {
+                duration: 7000,
+                easing: "ease-in-elastic",
+                callback: function() {
+                    this.fill = "transparent";
+                    canvaz.redraw();
+                }
+            });
 
-                        arc.animate({
-                            x: datapointX,
-                            y: datapointY
-                        }, {
-                            duration: "long",
-                            easing: "linear",
-                            callback: function () {
-                                this.fill = "#fff";
-                                canvaz.redraw();
-                            }
-                        });
         }
 
 
@@ -427,7 +431,18 @@
 
             return model;
         }
+        function findAnalysisModelOnName(name) {
+            var model = null;
+            for (var i = 0; i < data.AnalysisModels.length; i++) {
+                if (data.AnalysisModels[i].Model.AlgorithmName === name) {
+                    model = data.AnalysisModels[i];
+                }
 
+                return model;
+            }
+        }
+
+        console.log(data);
 
         function createClusterChart(cluster, clustercentercolor) {
             var width = 700, height = 410;
@@ -474,11 +489,16 @@
                 var link = { "source": i + 1, "target": 0, "distance": (distancesNormalized[i] * 160) + 33 };
                 jsonLinks.push(link);
             }
+            if (findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== null) {
+                var solvent = findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance;
+                var classifiedNode = { "name": solvent.Name, "group": 1, "casNumber": solvent.CasNumber, "distance": solvent.DistanceToClusterCenter.toFixed(2), "value": 10, "solvent": solvent };
+                jsonNodes.push(classifiedNode);
+            };
             $scope.maxDistance = maxSolvent.DistanceToClusterCenter.toFixed(2);
             $scope.minDistance = minSolvent.DistanceToClusterCenter.toFixed(2);
             $scope.maxSolvent = maxSolvent;
             $scope.minSolvent = minSolvent;
-
+            
             var jsonGraph = {
                 "nodes": jsonNodes,
                 "links": jsonLinks
