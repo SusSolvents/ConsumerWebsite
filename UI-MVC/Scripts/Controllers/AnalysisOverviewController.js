@@ -90,21 +90,22 @@
             return clusters;
         }
 
-        function createProgress(jso) {
-            prevClusters = jso;
-            for (var i = 0; i < jso.length; i++) {
+        function createProgress(analysisModel) {
+            prevClusters = analysisModel.Model.Clusters;
+            for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
                     'size': 90,
                     'fill': 12,
                     'font-size': 25,
                     'font-family': "Questrial",
                     "color": colors[i]
-                }).radialProgress("to", { 'perc': ((jso[jso[i].name].solvents / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
+                }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / data.NumberOfSolvents) * 100) - 0.2, 'time': 1000 });
             }
         };
 
 
         function setEnumNames() {
+            console.log(models[0].ClassifiedInstance);
             for (var i = 0; i < models.length; i++) {
                 models[i].Model.AlgorithmName = Constants.AlgorithmName[models[i].Model.AlgorithmName];
                 algorithms.push(models[i].Model.AlgorithmName);
@@ -116,6 +117,7 @@
                             if (models[i].ClassifiedInstance !== null) {
                                 models[i].ClassifiedInstance.Features[i].FeatureName = Constants.FeatureName[models[i].ClassifiedInstance.Features[i].FeatureName];
                                 models[i].ClassifiedInstance.Features[i].Value = Number(models[i].ClassifiedInstance.Features[i].Value.toFixed(2));
+                                
                             }
                             models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
@@ -311,11 +313,9 @@
             });
 
             chart.render();
-            
 
-            
             currentChart = chart;
-            createProgress(jsonModel);
+            createProgress(findAnalysisModelOnName(selectedAlgorithm));
         }
 
         function drawClassifySolvent(datapoint) {
