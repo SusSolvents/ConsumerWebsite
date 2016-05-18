@@ -7,6 +7,7 @@
         var prevClusters;
         var clusters;
         var minMaxValues = minMax.data;
+        var models;
         var currentChart;
         var algorithms = [];
         var colors = [
@@ -23,12 +24,19 @@
             "#0093D1"
 
         ];
+
+        function showClusterAnalysis(modelsTemp) {
+            models = modelsTemp;
+            setEnumNames();
+
+        }
         var totalSolvents = 0;
         $scope.models = result.data.AnalysisModels;
+        models = result.data.AnalysisModels;
         var data = result.data;
 
         setEnumNames();
-        selectedAlgorithm = data.AnalysisModels[0].Model.AlgorithmName;
+        selectedAlgorithm = models[0].Model.AlgorithmName;
 
         $scope.canEdit = false;
 
@@ -44,8 +52,8 @@
 
         $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
 
-        for (var i = 0; i < data.AnalysisModels.length; i++) {
-            clusters = getClusters(data.AnalysisModels[i].Model);
+        for (var i = 0; i < models.length; i++) {
+            clusters = getClusters(models[i].Model);
 
             var clusterPositions = [];
 
@@ -54,7 +62,7 @@
 
             }
             var normalizedValues = getNormalizedValues(clusterPositions);
-            data.AnalysisModels[i].Model.NormalizedValues = normalizedValues;
+            models[i].Model.NormalizedValues = normalizedValues;
         }
 
         $timeout(function () {
@@ -70,7 +78,7 @@
             }
 
 
-            createChart(data.AnalysisModels[0].Model);
+            createChart(models[0].Model);
 
         });
 
@@ -98,15 +106,20 @@
 
 
         function setEnumNames() {
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
-                data.AnalysisModels[i].Model.AlgorithmName = Constants.AlgorithmName[data.AnalysisModels[i].Model.AlgorithmName];
-                algorithms.push(data.AnalysisModels[i].Model.AlgorithmName);
-                for (var j = 0; j < data.AnalysisModels[i].Model.Clusters.length; j++) {
-                    for (var k = 0; k < data.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
-                        solvents.push(data.AnalysisModels[i].Model.Clusters[j].Solvents[k]);
-                        for (var l = 0; l < data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
-                            data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
-                            data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(data.AnalysisModels[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
+            for (var i = 0; i < models.length; i++) {
+                models[i].Model.AlgorithmName = Constants.AlgorithmName[models[i].Model.AlgorithmName];
+                algorithms.push(models[i].Model.AlgorithmName);
+
+                for (var j = 0; j < models[i].Model.Clusters.length; j++) {
+                    for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
+                        solvents.push(models[i].Model.Clusters[j].Solvents[k]);
+                        for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
+                            if (models[i].ClassifiedInstance !== null) {
+                                models[i].ClassifiedInstance.Features[i].FeatureName = Constants.FeatureName[models[i].ClassifiedInstance.Features[i].FeatureName];
+                                models[i].ClassifiedInstance.Features[i].Value = Number(models[i].ClassifiedInstance.Features[i].FeatureName.toFixed(2));
+                            }
+                            models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
+                            models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                         }
                     }
                 }
@@ -137,16 +150,16 @@
                 featureNames.push(values[i].FeatureName);
                 featureValues.push(values[i].value);
             }
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
-                modelPaths.push(data.AnalysisModels[i].Model.ModelPath);
-                modelIds.push(data.AnalysisModels[i].Id);
+            for (var i = 0; i < models.length; i++) {
+                modelPaths.push(models[i].Model.ModelPath);
+                modelIds.push(models[i].Id);
             }
             var model = {
                 'Name': solventName,
                 'CasNumber': casNumber,
                 'Values': featureValues,
                 'FeatureNames': featureNames,
-                'AnalysisModels': data.AnalysisModels,
+                'AnalysisModels': models,
                 'UserId': $window.sessionStorage.userId
             };
             $http({
@@ -419,9 +432,9 @@
 
         function findModelOnName(name) {
             var model = null;
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
-                if (data.AnalysisModels[i].Model.AlgorithmName === name) {
-                    model = data.AnalysisModels[i].Model;
+            for (var i = 0; i < models.length; i++) {
+                if (models[i].Model.AlgorithmName === name) {
+                    model = models[i].Model;
                 }
             }
 
