@@ -10,6 +10,7 @@
         var models;
         var currentChart;
         var algorithms = [];
+        var totalSolvents = 0;
         var colors = [
             "#44B3C2",
             "#F1A94E",
@@ -25,17 +26,29 @@
 
         ];
 
+        showClusterAnalysis(result.data.AnalysisModels);
+
         function showClusterAnalysis(modelsTemp) {
             models = modelsTemp;
             setEnumNames();
+            
+            for (var i = 0; i < models.length; i++) {
+                clusters = getClusters(models[i].Model);
+
+                var clusterPositions = [];
+
+                for (var j = 0; j < clusters.length; j++) {
+                    clusterPositions.push(getClusterPosition(clusters[j]));
+
+                }
+                var normalizedValues = getNormalizedValues(clusterPositions);
+                models[i].Model.NormalizedValues = normalizedValues;
+            }
+
 
         }
-        var totalSolvents = 0;
         $scope.models = result.data.AnalysisModels;
-        models = result.data.AnalysisModels;
         var data = result.data;
-
-        setEnumNames();
         selectedAlgorithm = models[0].Model.AlgorithmName;
 
         $scope.canEdit = false;
@@ -50,38 +63,24 @@
 
         $scope.analysisName = data.Name;
 
-        $scope.clusters = getClusters(findModelOnName(selectedAlgorithm));
-
-        for (var i = 0; i < models.length; i++) {
-            clusters = getClusters(models[i].Model);
-
-            var clusterPositions = [];
-
-            for (var j = 0; j < clusters.length; j++) {
-                clusterPositions.push(getClusterPosition(clusters[j]));
-
-            }
-            var normalizedValues = getNormalizedValues(clusterPositions);
-            models[i].Model.NormalizedValues = normalizedValues;
-        }
-
-        $timeout(function () {
 
 
-            for (var i = 0; i < algorithms.length; i++) {
-                if (i === 0) {
-                    $('#' + algorithms[i]).addClass("active");
-                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
+                    $timeout(function () {
+
+
+                for (var i = 0; i < algorithms.length; i++) {
+                    if (i === 0) {
+                        $('#' + algorithms[i]).addClass("active");
+                        $('#' + algorithms[i] + '_CONTENT').addClass("active");
+                    }
+                    $('#' + algorithms[i]).removeClass("disabled");
+                    $('#' + algorithms[i]).removeClass("blurless");
                 }
-                $('#' + algorithms[i]).removeClass("disabled");
-                $('#' + algorithms[i]).removeClass("blurless");
-            }
 
 
-            createChart(models[0].Model);
+                createChart(models[0].Model);
 
-        });
-
+            });
         function getClusters(model) {
             clusters = [];
             for (var i = 0; i < model.Clusters.length; i++) {
@@ -116,7 +115,7 @@
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
                             if (models[i].ClassifiedInstance !== null) {
                                 models[i].ClassifiedInstance.Features[i].FeatureName = Constants.FeatureName[models[i].ClassifiedInstance.Features[i].FeatureName];
-                                models[i].ClassifiedInstance.Features[i].Value = Number(models[i].ClassifiedInstance.Features[i].FeatureName.toFixed(2));
+                                models[i].ClassifiedInstance.Features[i].Value = Number(models[i].ClassifiedInstance.Features[i].Value.toFixed(2));
                             }
                             models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
@@ -200,21 +199,22 @@
             var json = [];
             var percentages = [];
 
-            for (var i = 0; i < model.Clusters.length; i++) {
+            for (var i = 0; i < model.Model.Clusters.length; i++) {
                 var valuesSolvents = [];
-                for (var j = 0; j < model.Clusters[i].Solvents.length; j++) {
-                    valuesSolvents.push(model.Clusters[i].Solvents[j].DistanceToClusterCenter);
+                for (var j = 0; j < model.Model.Clusters[i].Solvents.length; j++) {
+
+                    valuesSolvents.push(model.Model.Clusters[i].Solvents[j].DistanceToClusterCenter);
                 }
                 var max = Math.max.apply(Math, valuesSolvents);
 
-                var percentage = (valuesSolvents.length / model.NumberOfSolvents) * 100;
+                var percentage = (valuesSolvents.length / model.Model.NumberOfSolvents) * 100;
                 percentages.push(percentage);
 
-                json[i] = ({ 'x': model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "red", //change color here
+                json[i] = ({ 'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "red", //change color here
                         'markerBorderThickness': 0 });
 
             }
-            model.maxPercent = Math.max.apply(Math, percentages);
+            model.Model.maxPercent = Math.max.apply(Math, percentages);
 
 
             return json;
@@ -245,7 +245,7 @@
         function createChart(model) {
             CanvasJS.addColorSet("greenShades", colors
                 );
-            var jsonModel = createJsonModel(model);
+            var jsonModel = createJsonModel(findAnalysisModelOnName(selectedAlgorithm));
 
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
