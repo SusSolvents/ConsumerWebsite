@@ -143,19 +143,26 @@
 
 
         function setEnumNames() {
+            
             for (var i = 0; i < models.length; i++) {
                 models[i].Model.AlgorithmName = Constants.AlgorithmName[models[i].Model.AlgorithmName];
                 algorithms.push(models[i].Model.AlgorithmName);
 
                 for (var j = 0; j < models[i].Model.Clusters.length; j++) {
                     for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
-                        solvents.push(models[i].Model.Clusters[j].Solvents[k]);
+                        
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
 
                             models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                         }
                     }
+                }
+            }
+
+            for (var i = 0; i < models[0].Model.Clusters.length; i++) {
+                for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
+                    solvents.push(models[0].Model.Clusters[i].Solvents[j]);
                 }
             }
 
