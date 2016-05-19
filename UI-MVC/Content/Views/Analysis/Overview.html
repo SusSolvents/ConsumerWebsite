@@ -66,7 +66,8 @@
 
             </div>
         </div>
-        <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10 bhoechie-tab" ng-repeat="model in models">
+        <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10 centered-container-overview">
+            <div class="col-lg-12 bhoechie-tab" ng-repeat="model in models">
 
             <div class="bhoechie-tab-content" id="{{model.Model.AlgorithmName}}_CONTENT">
 
@@ -100,26 +101,26 @@
                                     <h4>#Solvents: {{solventsInCluster.length}}</h4>
                                     <div class="solvent-legend">
                                         <div>
-                                            <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
+                                                <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Clustercenter</p>
                                         </div>
                                         <div style="margin-top: 10px;">
-                                            <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
+                                                <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Solvent</p>
                                         </div>
                                         <div style="margin-top: 10px;">
-                                            <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
+                                                <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Max. Distance Solvent</p>
                                         </div>
                                         <div style="margin-top: 10px;">
-                                            <img src="/Content/Images/closestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
+                                                <img src="/Content/Images/closestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Min. Distance Solvent</p>
                                         </div>
                                     </div>
                                 </div>
                                 <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
                                 <div class="selected-node" id="selected-node-{{model.Model.AlgorithmName}}">
-                                    No solvent selected <br/> Click on a node
+                                        No solvent selected <br /> Click on a node
                                 </div>
                             </div>
                         </div>
@@ -132,7 +133,6 @@
                                  placeholder="Search solvent"
                                  maxlength="50"
                                  pause="100"
-
                                  selected-object="selectedSolventFunc"
                                  local-data="solvents"
                                  search-fields="Name"
@@ -161,7 +161,7 @@
             </div>
 
         </div>
-
+        </div>
     </div>
     <div class="modal fade" id="organisation-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="loginmodal-container password-container">
