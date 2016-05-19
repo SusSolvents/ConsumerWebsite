@@ -115,8 +115,12 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
-        public Analysis CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet, [FromUri] string name)
+        public IHttpActionResult CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet, [FromUri] string name)
         {
+            if (_analysisManager.ReadAnalysis(name) != null)
+            {
+                return BadRequest("Name already in use!");
+            }
             List<Model> models = GetFullModels(algorithms, dataSet);
             Analysis analysis = new Analysis()
             {
@@ -135,7 +139,7 @@ namespace SS.UI.Web.MVC.Controllers
                 
             }
             analysis = _analysisManager.CreateAnalysis(analysis, User.Identity.Name);
-            return analysis;
+            return Ok(analysis);
         }
 
         //GET api/Analysis/SetStringsToAlgorithmNames
@@ -246,19 +250,23 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/ReadClassifiedInstances
         [Route("ReadClassifiedInstances")]
-        public List<ClassifiedInstance> ReaClassifiedInstances(long userId)
+        public List<ClassifiedInstance> ReadClassifiedInstances(long userId, long analysisId)
         {
-            return _analysisManager.ReadClassifiedInstancesForUser(userId).ToList();
+            return _analysisManager.ReadClassifiedInstancesForUser(userId, analysisId).ToList();
         }
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
-        public List<AnalysisModel> ClassifyNewSolvent([FromBody]ClassifySolventModel model)
+        public IHttpActionResult ClassifyNewSolvent([FromBody]ClassifySolventModel model, [FromUri] long analysisId)
         {
-            var instances = _analysisManager.ReadClassifiedInstancesForUser(model.UserId);
+            var instances = _analysisManager.ReadClassifiedInstancesForUser(model.UserId, analysisId).ToList();
             if (instances.FirstOrDefault(a => a.Name.Equals(model.Name)) != null)
             {
-                
+                return BadRequest("Name already in use!");
+            }
+            if (instances.FirstOrDefault(a => a.CasNumber == model.CasNumber) != null)
+            {
+                return BadRequest("Cas number already in use!");
             }
 
             using (var client = new WebClient())
@@ -287,7 +295,7 @@ namespace SS.UI.Web.MVC.Controllers
                     
                 }
                 client.Dispose();
-                return analysisModels;
+                return Ok(analysisModels);
             }
         }
 

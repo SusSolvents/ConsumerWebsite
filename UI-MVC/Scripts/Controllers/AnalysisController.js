@@ -107,14 +107,14 @@
         }
 
         $scope.showAlgorithms = function showAlgorithms() {
-            $rootScope.loadingView = true;
             $http({
                 method: 'POST',
                 url: 'api/Analysis/CreateAnalysis',
                 params: { algorithms: algorithms, dataSet: selectedModel.id, name: analyseName }
             }).success(function (data) {
                 $location.path("/analysis/overview/" + data.Id);
-                $rootScope.loadingView = false;
+            }).error(function (data) {
+                $scope.errorMessage = data.Message;
             });
         }
 

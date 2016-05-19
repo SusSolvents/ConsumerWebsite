@@ -26,6 +26,9 @@
             "#0093D1"
 
         ];
+
+        $scope.models = result.data.AnalysisModels;
+        var data = result.data;
         setMinMaxValues();
         showClusterAnalysis(result.data.AnalysisModels);
 
@@ -63,8 +66,7 @@
             }
 
         }
-        $scope.models = result.data.AnalysisModels;
-        var data = result.data;
+        
         selectedAlgorithm = models[0].Model.AlgorithmName;
 
         $scope.canEdit = false;
@@ -98,7 +100,7 @@
                 $http({
                     method: 'POST',
                     url: 'api/Analysis/ReadClassifiedInstances',
-                    params: { userId: $window.sessionStorage.userId }
+                    params: { userId: $window.sessionStorage.userId, analysisId: data.Id }
                 }).success(function succesCallback(data) {
                     prevClassifiedInstances = data;
                     $scope.prevClassifiedInstances = prevClassifiedInstances;
@@ -196,10 +198,13 @@
             $http({
                 method: 'POST',
                 url: 'api/Analysis/ClassifyNewSolvent',
+                params: {analysisId: data.Id},
                 data: model
             }).success(function succesCallback(data) {
                 $('#addSolvent-modal').modal('hide');
                 showClusterAnalysis(data);
+            }).error(function errorCallback(data) {
+                $scope.errorMessage = data.Message;
             });
         }
 
@@ -399,7 +404,8 @@
             }, {
                 duration: 7000,
                 easing: "ease-in-elastic",
-                callback: function() {
+                callback: function () {
+                    this.fill = "transparent";
                     canvaz.redraw();
                 }
             });

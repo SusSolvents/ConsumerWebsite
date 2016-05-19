@@ -190,10 +190,11 @@
             <h1 >Classify a new Solvent</h1>
             <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
                 <div>
+                    <p>{{errorMessage}}</p>
                     <label for="newSolventName">Name of solvent</label>
-                    <input type="text" id="newSolventName" ng-model="minMaxValues.name" required />
+                    <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
                     <label for="newSolventCasNr">Cas-number of solvent</label>
-                    <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required />
+                    <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required/>
                     <div>
 
                         <table>
@@ -203,7 +204,7 @@
                             </tr>
                             <tr ng-repeat="feature in minMaxValues">
                                 <td style="padding-left: 15px">{{feature.FeatureName}}
-                                    <p ng-if="$index === 10" style="font-size: small; display: inline">  ( -1 = Infinity )</p></td>
+                                    <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
                                 <td style="padding-left: 15px">
                                     <input type="number" step="{{feature.StepValue}}" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
                                     <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="color: red;">
@@ -215,7 +216,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <input type="submit" from="features" name="submit" id="submit" value="Classify solvent" class="small-button" ng-class="{disabledForm: !valid}"   />
+                        <input type="submit" from="features" name="submit" id="submit" value="Classify solvent" class="small-button" ng-class="{disabledForm: !valid}"/>
 
                     </div>
 

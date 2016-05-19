@@ -16,6 +16,7 @@ namespace SS.DAL.EFAnalyses
         //Analysis
         Analysis CreateAnalysis(Analysis analysis, User createdBy);
         Analysis ReadAnalysis(long id);
+        Analysis ReadAnalysis(string name);
         Analysis CreateAnalysis(Analysis analysis, string email);
         IEnumerable<Analysis> ReadAnalysesForUser(User user);
         IEnumerable<Analysis> ReadAnalysesForOrganisation(long id);
@@ -54,7 +55,7 @@ namespace SS.DAL.EFAnalyses
 
         //ClassifiedInstance
         IEnumerable<ClassifiedInstance> ReadAllClassifiedInstances(long userId, string name);
-        IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId);
+        IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId, long analysisId);
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
         AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
     }
