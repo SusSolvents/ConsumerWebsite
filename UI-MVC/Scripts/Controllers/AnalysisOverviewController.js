@@ -204,6 +204,7 @@
             }).success(function succesCallback(data) {
                 $('#addSolvent-modal').modal('hide');
                 showClusterAnalysis(data);
+                $scope.errorMessage = undefined;
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
             });
@@ -489,7 +490,10 @@
                 notie.alert(1, "Name has been changed", 2);
                 $scope.analysisName = $scope.newName;
                 $scope.newName = "";
+                $scope.errorChangeName = undefined;
                 $('#changeName-model').modal('hide');
+            }).error(function errorCallback(data) {
+                $scope.errorChangeName = data.Message;
             });
         }
 

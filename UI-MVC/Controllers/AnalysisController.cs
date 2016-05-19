@@ -78,6 +78,10 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("ChangeName")]
         public IHttpActionResult ChangeName([FromUri] string name, [FromUri] long analysisId)
         {
+            if (_analysisManager.ReadAnalysis(name) != null)
+            {
+                return BadRequest("Name is already in use!");
+            }
             var analysis = _analysisManager.ReadAnalysis(analysisId);
             analysis.Name = name;
             _analysisManager.UpdateAnalysis(analysis);
