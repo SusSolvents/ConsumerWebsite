@@ -127,7 +127,7 @@ namespace SS.UI.Web.MVC.Controllers
         public Organisation ReadOrganisationForUser([FromUri] long id)
         {
             var user = _userManager.ReadUser(id);
-            if (!user.Organisation.Blocked)
+            if (user.Organisation != null && !user.Organisation.Blocked)
             {
                 return user.Organisation;
             }

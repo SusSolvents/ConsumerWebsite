@@ -27,11 +27,19 @@
 
                 <div class="admin-card-large col-lg-12 col-md-12 " style="height: 235px;">
                     <p class="admin-card-title">Your organisation</p>
-                    <div class="profile-review-alt" ng-if="noOrganisations">
-                        <p>Oops, no organisation</p>
+                    <div ng-if="noOrganisations">
+                        <div class="profile-review-alt">
+                            <p>Oops, no organisation</p>
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#organisation-modal" class="add-org"><i class="fa fa-plus" aria-hidden="true"></i></a>
                     </div>
-                    <a ng-if="noOrganisations" href="/organisation/create" class="add-org"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
+                    <div ng-if="!noOrganisations">
+                        <a href="/organisation/{{organisation.Id}}"><img class="avatar-img" title="{{organisation.Name}}" ng-src="{{organisation.LogoUrl}}" style="width: 100px; height: 100px;" /></a>
+                        <div class="profile-info" style="margin-top: 25px;">
+                            <p>{{organisation.Name}}</p>
+                        </div>
+                    </div>
+                    </div>
             </div>
 
             <div class="col-lg-9 col-md-9 padding-less right">
@@ -78,89 +86,7 @@
             </div>
            
         </div>
-<!--        <div class="upper-profile center-block text-center">-->
-<!---->
-<!--            <a href="#" data-toggle="modal" data-target="#password-modal"><i style="color: white; float: right; cursor: pointer" class="fa fa-key fa-2x"></i></a>-->
-<!--            <input type="file" id="profileImage" name="profileImage" style="display: none" ng-file-select="onFileSelect($files)"/>-->
-<!--            <img class="avatar-img" id="profile_click" ng-src="{{imageSrc || '/Content/Images/avatar.png'}}" ng-click="triggerUpload()"/>-->
-<!--            
-<!--            <div class="small-text">{{username}}</div>-->
-<!---->
-<!--        </div>-->
-<!---->
-<!---->
-<!--        <ul class="tabs">-->
-<!--            <li class="tab-link current" data-tab="tab-1">Solvent Clusters</li>-->
-<!--            <li class="tab-link" data-tab="tab-2">Organisations</li>-->
-<!---->
-<!--        </ul>-->
-<!---->
-<!--        <div id="tab-1" class="tab-content current">-->
-<!--            <i title="sort on name asc" class="fa fa-sort-alpha-asc" aria-hidden="true" id="name" ng-click="OrderByFunc($event)" style="cursor: pointer;" ng-if="OrderBy !== 'Name'"/>-->
-<!--            <i title="sort on name desc" class="fa fa-sort-alpha-desc" aria-hidden="true" id="namedesc" ng-click="OrderByFunc($event)" style="cursor: pointer;" ng-if="OrderBy === 'Name'" />-->
-<!--            <i title="sort on date asc" class="fa fa-calendar" aria-hidden="true" id="date" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)" ng-if="OrderBy !== 'DateCreated'"/>-->
-<!--            <i title="sort on date desc" class="fa fa-calendar-o" aria-hidden="true" id="datedesc" style="display: inline; cursor: pointer; margin-left: 10px;" ng-click="OrderByFunc($event)" ng-if="OrderBy === 'DateCreated'" />-->
-<!---->
-<!--            <div class="analysis-card-blog-style-1" ng-if="!noAnalyses">-->
-<!--                <div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-12">-->
-<!--                            <div class="col-lg-3 col-md-3"  ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">-->
-<!--                                <div class="analysis-card-post">-->
-<!--                                    <div class="analysis-card-post-image">-->
-<!--                                        <div class="analysis-card-overlay"></div>-->
-<!--                                        <img ng-src="{{analysis.image}}" alt="Image">-->
-<!--                                    </div>-->
-<!--                                    <div class="analysis-card-post-text">-->
-<!--                                        <h3>-->
-<!--                                            <a href="#">{{analysis.Name}}</a>-->
-<!--                                        </h3>-->
-<!---->
-<!--                                        <p>{{analysis.NumberOfSolvents}} Solvents</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="analysis-card-post-meta">-->
-<!--                                        #{{analysis.Id}}<br/>-->
-<!--                                        <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="clearfix visible-sm-block"></div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div ng-if="noAnalyses">-->
-<!--                You have no solvent clusters!-->
-<!--            </div>-->
-<!--            <a href="/analysis/start" class="small-button" style="margin-left: 20px;">Create new solvent cluster</a>-->
-<!--        </div>-->
-<!--        <div id="tab-2" class="tab-content">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-12">-->
-<!--                    <div class="organisation-card-full col-lg-3" ng-repeat="organisation in organisations" ng-click="selectOrganisation(organisation.Id)">-->
-<!--                        <div class="organisation-card">-->
-<!--                            <div >-->
-<!--                                <img class="user-img" ng-src="{{organisation.LogoUrl}}" />-->
-<!--                                <h2>{{organisation.Name}}</h2>-->
-<!--                                <h4>{{organisation.Organisator.Firstname}} {{organisation.Organisator.Lastname}}</h4>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div ng-if="noOrganisations">-->
-<!--                    You aren't a member of an organisation!-->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!--            <a href="/organisation/create" class="button small-button">Create new organisation</a>-->
-<!--        </div>-->
-<!---->
-<!--        -->
-<!---->
-<!---->
-<!---->
-<!---->
-<!---->
+
   </div>
 
     <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -187,11 +113,55 @@
 
                 </div>
                 <div>
-                    <button type="submit" class="button small-button" style="width: 100%;margin: 0 auto; margin-top: 10px;">save</button>
+                    <button type="submit" class="button small-button" style="width: 100%; margin: 0 auto; margin-top: 10px;">save</button>
 
                 </div>
                 <div>
                     <i ng-if="success!==undefined" style="color: green" class="fa fa-check fa-2x"></i> {{success}}
+                </div>
+            </form>
+
+
+
+
+        </div>
+    </div>
+    <div class="modal fade" id="organisation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+
+        <div class="loginmodal-container password-container add-solvent-modal" ng-controller="CreateOrganisationController as organisation">
+            <div class="show-container">
+                <div class="progress" id="progressBar">
+
+                    <div class="progress-bar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-12 text-center" style="margin-top: 20px;">
+                <h2 class="margin-top-0 text-primary wow fadeInDown">Create your own organisation</h2>
+                <hr class="primary">
+            </div>
+            {{message}}
+            <form name="organisationForm" novalidate
+                  ng-submit="organisation.submit(organisationForm.$valid)">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <label>Organisation Name</label>
+                    <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required />
+
+                </div>
+                <div>
+                    <input type="file" id="logoImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" />
+
+                    <div class="col-xs-7 col-sm-7 col-md-7">
+                        <div>
+                            <label>Upload your logo</label>
+                            <img class="logo-img" ng-src="{{logoSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <button type="submit" class="login loginmodal-submit" style="width:300px;">Create organisation</button>
                 </div>
             </form>
 

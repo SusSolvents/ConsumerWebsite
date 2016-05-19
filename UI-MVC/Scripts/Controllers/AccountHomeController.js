@@ -12,15 +12,15 @@
     $scope.noAnalyses = true;
     $scope.OrderBy = "DateCreated";
     var organisation = organisationsResult.data;
-
-    if (organisation !== null) {
-        $scope.organisation = organisation;
+    if (organisation !== null && organisation !== undefined) {
+        
+        $scope.noOrganisations = false;
         if (organisation.LogoUrl !== null && organisation.LogoUrl !== "") {
-            organisations.LogoUrl = 'Content/Images/Organisations/' + organisations[i].LogoUrl;
+            organisation.LogoUrl = 'Content/Images/Organisations/' + organisation.LogoUrl;
         } else {
             organisation.LogoUrl = 'Content/Images/organisationLogo.jpg';
         }
-
+        $scope.organisation = organisation;
     }
 
 

@@ -96,7 +96,8 @@
                 </div>
             </div>
             <div style="text-align: center">
-                <input type="text" class="input-analyse-name" ng-model="analysisName" placeholder="Name for your analysis (Required)" ng-change="setName(analysisName)" />
+                <h4 ng-if="errorMessage" style="color: red">{{errorMessage}}</h4>
+                <input type="text" class="input-analyse-name" ng-model="analysisName" placeholder="Name for your analysis (Required)" ng-change="setName(analysisName)"/>
             </div>
             <div>
                 <a ng-class="btnclass" ng-disabled="modelDisabled" ng-click="showAlgorithms()">Start Solvent Cluster <i class="fa fa-arrow-right" aria-hidden="true"></i></a>

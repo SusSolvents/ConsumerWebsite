@@ -18,8 +18,12 @@
                 <p class="admin-card-title">General information</p>
                 <div class="organisation-container">
                     <input type="file" id="logo" name="logo" style="display: none" ng-file-select="onFileSelect($files)" />
-                    <img title="logo" class="organisation-logo" src="{{imageSrc}}" ng-click="triggerUpload()" />
-
+                    <div ng-if="organiser">
+                        <img title="logo" class="organisation-logo" src="{{imageSrc}}" ng-click="triggerUpload()" />
+                    </div>
+                    <div ng-if="!organiser">
+                        <img title="logo" class="organisation-logo" src="{{imageSrc}}" style="cursor: default;"/>
+                    </div>
                     <img class="organisation-container-img img-circle" title="{{organiserUser.Email}}" ng-src="{{organiserUser.AvatarUrl || '/Content/Images/avatar.png'}}"/>
                     <p style="margin-bottom: 2px;">{{organiserUser.Firstname}} {{organiserUser.Lastname}}</p>
                     <p>{{organisation.Organisator.Email}}</p>

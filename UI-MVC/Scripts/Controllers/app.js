@@ -74,7 +74,7 @@ app.config(function ($routeProvider, $locationProvider) {
             result: function ($route, srvLibrary) {
                 return srvLibrary.getSolventClusterResult($route.current.params.id);
             },
-            organisations: function(srvLibrary) {
+            organisation: function(srvLibrary) {
                 return srvLibrary.readOrganisationForUser(window.sessionStorage.userId);
             },
             minMax: function($route, srvLibrary) {
@@ -136,7 +136,7 @@ angular.module('sussol.services')
                 readOrganisationForUser: function(id) {
                     var promise = $http({
                         method: 'POST',
-                        url: 'api/Organisation/ReadOrganisation',
+                        url: 'api/Organisation/ReadOrganisationForUser',
                         params: { id: id }
                     });
                     promise.success(function(data, status, headers, conf) {

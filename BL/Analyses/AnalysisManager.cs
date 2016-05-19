@@ -49,6 +49,11 @@ namespace SS.BL.Analyses
             return repo.ReadAnalysis(id);
         }
 
+        public Analysis ReadAnalysis(string name)
+        {
+            return repo.ReadAnalysis(name);
+        }
+
         public Analysis CreateAnalysis(Analysis analysis, string email)
         { 
             return repo.CreateAnalysis(analysis, email);
@@ -144,9 +149,9 @@ namespace SS.BL.Analyses
             return repo.ReadAllClassifiedInstances(userId, name);
         }
 
-        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId)
+        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId, long analysisId)
         {
-            return repo.ReadClassifiedInstancesForUser(userId);
+            return repo.ReadClassifiedInstancesForUser(userId, analysisId);
         }
 
         public AnalysisModel CreateClassifiedInstance(long modelId, long userId ,ClassifiedInstance classifiedInstance)

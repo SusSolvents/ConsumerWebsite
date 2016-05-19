@@ -52,6 +52,11 @@ namespace SS.DAL.EFAnalyses
                 .FirstOrDefault(i => i.Id == id);
         }
 
+        public Analysis ReadAnalysis(string name)
+        {
+            return _context.Analyses.FirstOrDefault(a => a.Name.Equals(name));
+        }
+
         public Analysis CreateAnalysis(Analysis analysis, string email)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
@@ -65,6 +70,7 @@ namespace SS.DAL.EFAnalyses
         {
             return _context.Analyses.Where(u => u.CreatedBy.Id == user.Id)
                 .Include(p=>p.CreatedBy).ToList();
+
         }
 
         public IEnumerable<Analysis> ReadAnalysesForOrganisation(long id)
@@ -76,7 +82,9 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId)
         {
-            var organisation = _context.Users.Find(userId).Organisation;
+            var organisation = _context.Users
+                .Include(o => o.Organisation)
+                .Single(u => u.Id == userId).Organisation;
             var analyses = _context.Analyses.Where(a => a.CreatedBy.Id == userId).ToList();
 
             if (organisation != null)
@@ -215,12 +223,25 @@ namespace SS.DAL.EFAnalyses
             return instances.Where(a => a.Name.Equals(name));
         }
 
-        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId)
+        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId, long analysisId)
         {
             IEnumerable<ClassifiedInstance> instances = _context.Users
                 .Include(a => a.ClassifiedInstances)
                 .Single(a => a.Id == userId).ClassifiedInstances;
-            return instances.GroupBy(a => a.Name).Select(group => group.First());
+            var instancesDistinct = instances.GroupBy(a => a.Name).Select(group => group.First()).ToList();
+            var analysis = ReadAnalysis(analysisId);
+            var instancesToReturn = new List<ClassifiedInstance>();
+            foreach (var instance in instancesDistinct)
+            {
+                var model = _context.AnalysisModels
+                    .Include(a => a.Model)
+                    .Single(a => a.Id == instance.AnalysisModelId).Model;
+                if (model.DataSet.Equals(analysis.AnalysisModels.First().Model.DataSet))
+                {
+                    instancesToReturn.Add(instance);
+                }
+            }
+            return instancesToReturn;
         }
 
         public AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance)
