@@ -108,7 +108,7 @@ namespace SS.DAL.EFUsers
 
         public IEnumerable<User> ReadAllUsers()
         {
-            return _context.Users;
+            return _context.Users.Include(o => o.Organisation);
         }
 
 

@@ -136,7 +136,7 @@ angular.module('sussol.services')
                 readOrganisationForUser: function(id) {
                     var promise = $http({
                         method: 'POST',
-                        url: 'api/Organisation/ReadOrganisation',
+                        url: 'api/Organisation/ReadOrganisationForUser',
                         params: { id: id }
                     });
                     promise.success(function(data, status, headers, conf) {

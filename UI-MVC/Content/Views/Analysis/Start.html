@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div style="text-align: center">
-                <p>{{errorMessage}}</p>
+                <h4 ng-if="errorMessage" style="color: red">{{errorMessage}}</h4>
                 <input type="text" class="input-analyse-name" ng-model="analysisName" placeholder="Name for your analysis (Required)" ng-change="setName(analysisName)"/>
             </div>
             <div>

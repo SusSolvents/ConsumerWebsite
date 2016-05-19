@@ -190,7 +190,7 @@
             <h1 >Classify a new Solvent</h1>
             <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
                 <div>
-                    <p>{{errorMessage}}</p>
+                    <p style="color: red;">{{errorMessage}}</p>
                     <label for="newSolventName">Name of solvent</label>
                     <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
                     <label for="newSolventCasNr">Cas-number of solvent</label>

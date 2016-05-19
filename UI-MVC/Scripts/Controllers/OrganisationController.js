@@ -12,7 +12,11 @@
             $scope.noAnalyses = false;
             $scope.analyses = analyses;
         }
-
+        for (var i = 0; i < members.length; i++) {
+            if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
+                members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
+            }
+        }
         $scope.organiser = false;
         if ($window.sessionStorage.userId === organisation.OrganisatorId.toString()) {
             $scope.organiser = true;
@@ -102,11 +106,7 @@
             return "/Content/Images/random" + number + ".jpg";
         }
 
-        for (var i = 0; i < members.length; i++) {
-            if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
-                members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
-            }
-        }
+       
 
 
 
@@ -350,14 +350,14 @@ app.controller('CreateOrganisationController',
         };
 
         $scope.triggerUpload = function () {
-            $("#profileImage").click();
+            $("#logoImage").click();
         };
         $scope.getFile = function () {
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
                                 model.org.logo = result;
-                              $scope.imageSrc = result;
+                              $scope.logoSrc = result;
                               if (process === 0 || process === 40) {
                                   process += 60;
                                   angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);

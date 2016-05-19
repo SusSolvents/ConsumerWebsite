@@ -82,7 +82,9 @@ namespace SS.DAL.EFAnalyses
 
         public IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId)
         {
-            var organisation = _context.Users.Find(userId).Organisation;
+            var organisation = _context.Users
+                .Include(o => o.Organisation)
+                .Single(u => u.Id == userId).Organisation;
             var analyses = _context.Analyses.Where(a => a.CreatedBy.Id == userId).ToList();
 
             if (organisation != null)
