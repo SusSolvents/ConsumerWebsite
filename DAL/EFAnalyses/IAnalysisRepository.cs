@@ -51,6 +51,11 @@ namespace SS.DAL.EFAnalyses
         //MinMaxValue
         IEnumerable<MinMaxValue> ReadMinMaxValues();
         IEnumerable<MinMaxValue> ReadMinMaxValues(long id);
+
+        //ClassifiedInstance
+        IEnumerable<ClassifiedInstance> ReadAllClassifiedInstances(long userId, string name);
+        IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId);
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
+        AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
     }
 }

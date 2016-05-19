@@ -38,7 +38,11 @@ namespace SS.BL.Analyses
         Model ReadModel(long id);
         Model ReadModel(string dataSet, AlgorithmName algorithmName);
 
+        //ClassifiedInstances
+        IEnumerable<ClassifiedInstance> ReadAllClassifiedInstances(long userId, string name);
+        IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId);
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
+        AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
 
         //Solvent
         Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);
@@ -49,8 +53,6 @@ namespace SS.BL.Analyses
         //AnalysisModel
         AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
         IEnumerable<Analysis> ReadFullAnalyses();
-
-
 
         //MinMaxValue
         IEnumerable<MinMaxValue> ReadMinMaxValues();

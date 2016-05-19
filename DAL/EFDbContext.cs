@@ -28,6 +28,7 @@ namespace SS.DAL
         public DbSet<AnalysisModel> AnalysisModels { get; set; }
         public DbSet<VectorData> VectorData { get; set; }
         public DbSet<MinMaxValue> MinMaxValues { get; set; }
+        public DbSet<ClassifiedInstance> ClassifiedInstances { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

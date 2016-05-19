@@ -10,6 +10,21 @@
         <div >
             <div style="margin-top: 10px; float: left;">
                 <a href="#" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal"><i style="color: white; cursor: pointer" class="fa fa-share fa-2x"></i></a>
+                <div angucomplete-alt
+                     id="ex2"
+                     placeholder="Previous classified solvents"
+                     maxlength="50"
+                     pause="100"
+                     selected-object="selectClassifiedSolvent"
+                     local-data="prevClassifiedInstances"
+                     search-fields="Name"
+                     title-field="Name"
+                     description-field="CasNumber"
+                     minlength="1"
+                     input-class="form-control form-control-small"
+                     style="margin-top: 12px; display: block; width: 100%"
+                     match-class="highlight"
+                     clear-selected="true"></div>
             </div>
             <div class="analysis-header">
                 <h1>{{analysisName}}</h1>
@@ -70,12 +85,12 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8 col-md-8 padding-less">
-                        <div class="grid grid-graph col-lg-12 text-center" id="chart-container">
+                        <div class="grid grid-graph col-lg-12 text-center" id="chart-container-{{model.Model.AlgorithmName}}">
                             <h3 class="text-primary">Solvent Cluster Graph</h3>
 
                             <div id="chartContainer_{{model.Model.AlgorithmName}}" class="chartContainer">
                             </div>
-                            <canvas class="canvas-overlay" id="canvas-overlay">
+                            <canvas class="canvas-overlay" id="canvas-overlay-{{model.Model.AlgorithmName}}">
                                 
                             </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">

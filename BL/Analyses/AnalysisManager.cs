@@ -139,10 +139,26 @@ namespace SS.BL.Analyses
             return repo.ReadModel(dataSet, algorithmName);
         }
 
+        public IEnumerable<ClassifiedInstance> ReadAllClassifiedInstances(long userId, string name)
+        {
+            return repo.ReadAllClassifiedInstances(userId, name);
+        }
+
+        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId)
+        {
+            return repo.ReadClassifiedInstancesForUser(userId);
+        }
+
         public AnalysisModel CreateClassifiedInstance(long modelId, long userId ,ClassifiedInstance classifiedInstance)
         {
             return repo.CreateClassifiedInstance(modelId, userId,classifiedInstance);
         }
+
+        public AnalysisModel SetClassifiedSolvent(long modelId, long instanceId)
+        {
+            return repo.SetClassifiedSolvent(modelId, instanceId);
+        }
+
 
         public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)
         {

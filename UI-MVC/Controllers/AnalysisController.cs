@@ -244,10 +244,23 @@ namespace SS.UI.Web.MVC.Controllers
             return _analysisManager.ReadMinMaxValues(analysisId).ToList();
         }
 
+        //GET api/Analysis/ReadClassifiedInstances
+        [Route("ReadClassifiedInstances")]
+        public List<ClassifiedInstance> ReaClassifiedInstances(long userId)
+        {
+            return _analysisManager.ReadClassifiedInstancesForUser(userId).ToList();
+        }
+
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
         public List<AnalysisModel> ClassifyNewSolvent([FromBody]ClassifySolventModel model)
         {
+            var instances = _analysisManager.ReadClassifiedInstancesForUser(model.UserId);
+            if (instances.FirstOrDefault(a => a.Name.Equals(model.Name)) != null)
+            {
+                
+            }
+
             using (var client = new WebClient())
             {
                 List<AnalysisModel> analysisModels = new List<AnalysisModel>();
@@ -277,5 +290,56 @@ namespace SS.UI.Web.MVC.Controllers
                 return analysisModels;
             }
         }
+
+        //POST api/Analysis/SetClassifiedSolvent
+        [Route("SetClassifiedSolvent")]
+        public List<AnalysisModel> SetClassifiedSolvent(string name, long analysisId)
+        {
+            var analysis = _analysisManager.ReadAnalysis(analysisId);
+            var classifiedInstances = _analysisManager.ReadAllClassifiedInstances(analysis.CreatedBy.Id, name).ToList();
+            foreach (var model in analysis.AnalysisModels)
+            {
+                var instance = classifiedInstances.FirstOrDefault(a => a.AnalysisModelId == model.Id);
+                if (instance != null)
+                {
+                    _analysisManager.SetClassifiedSolvent(model.Id, instance.Id);
+                }
+                else
+                {
+                    ArrayList values = new ArrayList();
+                    var featureNames = new ArrayList();
+                    foreach (var feature in classifiedInstances.First().Features)
+                    {
+                        values.Add(feature.Value);
+                        featureNames.Add(feature.FeatureName);
+                    }
+                    using (var client = new WebClient())
+                    {
+                        
+                            var serialized = JsonConvert.SerializeObject(values);
+                            String parameters = "path=" + model.Model.ModelPath + "&featureValues=" + serialized;
+                            client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                            var classifiedInstance = JsonHelper.ParseJsonToClassifiedInstance(client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters));
+                            classifiedInstance.CasNumber = classifiedInstances.First().CasNumber;
+                            classifiedInstance.Name = classifiedInstances.First().Name;
+                            classifiedInstance.Features = new List<Feature>();
+
+                            for (int i = 0; i < featureNames.Count; i++)
+                            {
+                                Feature f = new Feature()
+                                {
+                                    FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i].ToString()),
+                                    Value = Double.Parse(values[i].ToString())
+                                };
+                                classifiedInstance.Features.Add(f);
+                            }
+                            _analysisManager.CreateClassifiedInstance(model.Id, analysis.CreatedBy.Id, classifiedInstance);
+                        client.Dispose();
+                    }
+                }
+                
+            }
+            return _analysisManager.ReadAnalysis(analysisId).AnalysisModels;
+        } 
     }
 }

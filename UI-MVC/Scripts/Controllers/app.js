@@ -187,8 +187,7 @@ angular.module('sussol.services')
                         return data;
                     });
                     return promise;
-                }
-                ,
+                },
                 readMinMaxValues: function (id) {
                     var promise = $http({
                         method: 'POST',

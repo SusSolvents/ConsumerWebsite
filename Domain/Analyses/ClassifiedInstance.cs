@@ -14,5 +14,6 @@ namespace SS.BL.Domain.Analyses
         public int ClusterNumber { get; set; }
         public ICollection<Feature> Features { get; set; }  
         public double DistanceToClusterCenter { get; set; }
+        public long AnalysisModelId { get; set; }
     }
 }

@@ -4,11 +4,12 @@
         var selectedAlgorithm;
         var organisationsUser = organisations.data;
         $scope.organisationsUser = organisationsUser;
+        var prevClassifiedInstances;
         var prevClusters;
         var clusters;
         var minMaxValues = minMax.data;
         var models;
-        var currentChart;
+        var currentChart = null;
         var algorithms = [];
         var totalSolvents = 0;
         var colors = [
@@ -25,10 +26,13 @@
             "#0093D1"
 
         ];
-
+        setMinMaxValues();
         showClusterAnalysis(result.data.AnalysisModels);
 
+
         function showClusterAnalysis(modelsTemp) {
+            getClassifiedInstances();
+            console.log(modelsTemp);
             for (var i = 0; i < modelsTemp.length; i++) {
                 if (modelsTemp[i].ClassifiedInstance !== null) {
                     var solvent = modelsTemp[i].ClassifiedInstance;
@@ -48,6 +52,15 @@
                 models[i].Model.NormalizedValues = normalizedValues;
             }
 
+            if (currentChart !== null) {
+                for (var i = 0; i < models.length; i++) {
+                    if (models[i].Model.AlgorithmName === selectedAlgorithm) {
+                        resetProgress();
+                        createChart(models[i].Model);
+                        showClassifyResult(models[i].ClassifiedInstance.ClusterNumber);
+                    }
+                }
+            }
 
         }
         $scope.models = result.data.AnalysisModels;
@@ -66,22 +79,34 @@
 
         $scope.analysisName = data.Name;
 
-
-
-                    $timeout(function () {
-                for (var i = 0; i < algorithms.length; i++) {
-                    if (i === 0) {
-                        $('#' + algorithms[i]).addClass("active");
-                        $('#' + algorithms[i] + '_CONTENT').addClass("active");
-                    }
-                    $('#' + algorithms[i]).removeClass("disabled");
-                    $('#' + algorithms[i]).removeClass("blurless");
+        $timeout(function () {
+            for (var i = 0; i < algorithms.length; i++) {
+                if (i === 0) {
+                    $('#' + algorithms[i]).addClass("active");
+                    $('#' + algorithms[i] + '_CONTENT').addClass("active");
                 }
+                $('#' + algorithms[i]).removeClass("disabled");
+                $('#' + algorithms[i]).removeClass("blurless");
+            }
 
 
-                createChart(models[0].Model);
+            createChart(models[0].Model);
 
-            });
+        });
+
+        function getClassifiedInstances() {
+                $http({
+                    method: 'POST',
+                    url: 'api/Analysis/ReadClassifiedInstances',
+                    params: { userId: $window.sessionStorage.userId }
+                }).success(function succesCallback(data) {
+                    prevClassifiedInstances = data;
+                    $scope.prevClassifiedInstances = prevClassifiedInstances;
+                });
+               
+        }
+
+                 
         function getClusters(model) {
             clusters = [];
             for (var i = 0; i < model.Clusters.length; i++) {
@@ -97,7 +122,6 @@
                 totalSolvents++;
             }
             prevClusters = analysisModel.Model.Clusters;
-            console.log(prevClusters);
             
             for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
@@ -112,7 +136,6 @@
 
 
         function setEnumNames() {
-            console.log(models[0].ClassifiedInstance);
             for (var i = 0; i < models.length; i++) {
                 models[i].Model.AlgorithmName = Constants.AlgorithmName[models[i].Model.AlgorithmName];
                 algorithms.push(models[i].Model.AlgorithmName);
@@ -128,11 +151,15 @@
                     }
                 }
             }
-           for (var i = 0; i < minMaxValues.length; i++) {
-               minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
-               minMaxValues[i].value = minMaxValues[i].MinValue;
-           }
-           minMaxValues.name = "";
+
+        }
+
+        function setMinMaxValues() {
+            for (var i = 0; i < minMaxValues.length; i++) {
+                minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+                minMaxValues[i].value = minMaxValues[i].MinValue;
+            }
+            minMaxValues.name = "";
             minMaxValues.casNumber = "";
             $scope.minMaxValues = minMaxValues;
             $scope.solvents = solvents;
@@ -172,7 +199,7 @@
                 data: model
             }).success(function succesCallback(data) {
                 $('#addSolvent-modal').modal('hide');
-                showClassifyResult(1);
+                showClusterAnalysis(data);
             });
         }
 
@@ -307,7 +334,6 @@
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
                             }
-                            console.log(e);
                             createClusterChart(model.Clusters[e.dataPoint.name], colors[e.dataPoint.name]);
                             $scope.solventsInCluster = solventen;
                             $scope.cluster = e.dataPoint.name;
@@ -318,32 +344,37 @@
             });
 
             chart.render();
-            
+
             currentChart = chart;
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
         }
 
+        var canvaz;
         function drawClassifySolvent(datapoint) {
-            var canvas = document.getElementById("canvas-overlay");
-            var chartCanvas = document.getElementById("chart-container");
-
+            if (canvaz !== undefined) {
+                canvaz.timeline.stop();
+                canvaz.clear();
+            }
+            var canvas = document.getElementById("canvas-overlay-" + selectedAlgorithm);
+            var chartCanvas = document.getElementById("chart-container-" + selectedAlgorithm);
             var xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
             var yAxisLength = chartCanvas.offsetHeight - 46 - 103; //beginnen tekenen van chartCanvas.offsetHeight - 46
             canvas.width = xAxisLength;
             canvas.height = yAxisLength;
-
-            var canvaz = oCanvas.create({
-                canvas: "#canvas-overlay"
+             canvaz = oCanvas.create({
+                canvas: "#canvas-overlay-" + selectedAlgorithm
             });
-                        var arc = canvaz.display.polygon({
-                            x: xAxisLength / 2,
-                            y: yAxisLength/2,
-                            radius: 20,
-                            sides: 6,
-                            fill: "#F4FE00"
-                        });
-                        canvaz.addChild(arc);
-            canvaz.setLoop(function() {
+            
+            var arc = canvaz.display.polygon({
+                x: xAxisLength / 2,
+                y: yAxisLength / 2,
+                radius: 20,
+                sides: 6,
+                fill: "#F4FE00"
+            });
+            canvaz.addChild(arc);
+
+            canvaz.setLoop(function () {
                 arc.rotation++;
             });
             canvaz.timeline.start();
@@ -353,21 +384,22 @@
                 canvas.width = xAxisLength;
                 canvas.height = yAxisLength;
                 canvaz = oCanvas.create({
-                    canvas: "#canvas-overlay"
+                    canvas: "#canvas-overlay-" + selectedAlgorithm
                 });
             });
 
             var datapointX = (((datapoint.x + 0.1) / (1.2)) * 100) * (xAxisLength / 100);
             var maxX = currentChart.options.axisY.viewportMaximum;
             var datapointY = canvas.height - (((datapoint.y / maxX) * 100) * (yAxisLength / 100));
+
             arc.animate({
                 x: datapointX,
-                y: datapointY
+                y: datapointY,
+                radius: 5
             }, {
                 duration: 7000,
                 easing: "ease-in-elastic",
                 callback: function() {
-                    this.fill = "transparent";
                     canvaz.redraw();
                 }
             });
@@ -392,7 +424,6 @@
         }
 
         $scope.shareWithOrganisation = function () {
-            console.log($scope.selectedOrganisation);
             if ($scope.selectedOrganisation === undefined) {
                 $scope.SharedWithOrganisation = "First select an organisation!";
             } else {
@@ -421,6 +452,17 @@
             //console.log(name);
         }
 
+        $scope.selectClassifiedSolvent = function ($item) {
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/SetClassifiedSolvent',
+                params: { name: $item.originalObject.Name, analysisId: $routeParams.id }
+            }).success(function succesCallback(data) {
+                showClusterAnalysis(data);
+            });
+
+        }
+
         $scope.changeName = function changeName() {
             $http({
                 method: 'POST',
@@ -446,21 +488,18 @@
                     model = models[i].Model;
                 }
             }
-
             return model;
         }
-        function findAnalysisModelOnName(name) {
-            var model = null;
-            for (var i = 0; i < data.AnalysisModels.length; i++) {
-                if (data.AnalysisModels[i].Model.AlgorithmName === name) {
-                    model = data.AnalysisModels[i];
-                }
 
-                return model;
+        function findAnalysisModelOnName(name) {
+            for (var i = 0; i < models.length; i++) {
+                if (models[i].Model.AlgorithmName === name) {
+                    return models[i];
+                }
             }
+            return null;
         }
 
-        console.log(data);
 
         function createClusterChart(cluster, clustercentercolor) {
             var width = 700, height = 410;
@@ -480,7 +519,6 @@
             .attr("height", height);
 
             
-            console.log(cluster);
             var distances = [];
 
             for (var i = 0; i < cluster.Solvents.length; i++) {

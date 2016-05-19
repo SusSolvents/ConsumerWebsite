@@ -206,10 +206,35 @@ namespace SS.DAL.EFAnalyses
             return minMaxValues.AsEnumerable();
         }
 
+        public IEnumerable<ClassifiedInstance> ReadAllClassifiedInstances(long userId, string name)
+        {
+            var instances = _context.Users
+                .Include(a => a.ClassifiedInstances)
+                .Include(a => a.ClassifiedInstances.Select(p => p.Features))
+                .Single(a => a.Id == userId).ClassifiedInstances;
+            return instances.Where(a => a.Name.Equals(name));
+        }
+
+        public IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId)
+        {
+            IEnumerable<ClassifiedInstance> instances = _context.Users
+                .Include(a => a.ClassifiedInstances)
+                .Single(a => a.Id == userId).ClassifiedInstances;
+            return instances.GroupBy(a => a.Name).Select(group => group.First());
+        }
+
         public AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance)
         {
-            var model = _context.AnalysisModels.Find(modelId);
-            
+            var model = _context.AnalysisModels
+                .Include(a => a.Model)
+                .Include(a => a.Model.Clusters)
+                .Include(a => a.Model.Clusters.Select(an => an.DistanceToClusters))
+                .Include(a => a.Model.Clusters.Select(p => p.VectorData))
+                .Include(a => a.Model.Clusters.Select(p => p.Solvents))
+                .Include(a => a.Model.Clusters.Select(p => p.Solvents.Select(m => m.Features)))
+                .Include(a => a.Model.Clusters.Select(p => p.Solvents.Select(m => m.Features.Select(o => o.MinMaxValue))))
+                .Single(a => a.Id == modelId);
+            classifiedInstance.AnalysisModelId = modelId;
             model.ClassifiedInstance = classifiedInstance;
             _context.Entry(model).State = EntityState.Modified;
             var user = _context.Users.Include(p=>p.ClassifiedInstances).Single(u => u.Id == userId);
@@ -219,5 +244,18 @@ namespace SS.DAL.EFAnalyses
 
             return model;
         }
+
+        public AnalysisModel SetClassifiedSolvent(long modelId, long instanceId)
+        {
+            var model = _context.AnalysisModels.Find(modelId);
+            var classifiedInstance =
+                _context.ClassifiedInstances.Find(instanceId);
+            model.ClassifiedInstance = classifiedInstance;
+            _context.Entry(model).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return model;
+        }
+
     }
 }
