@@ -196,6 +196,7 @@
         <div class="loginmodal-container password-container">
             <h1>Change the name of your analysis</h1>
             <div>
+                <h2 class="text-center" style="color: red;">{{errorChangeName}}</h2>
                 <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}"/>
                 <button ng-click="changeName()" style="width: 100%;" class="login loginmodal-submit">Change name</button>
             </div>
