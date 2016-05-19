@@ -52,15 +52,20 @@
                 models[i].Model.NormalizedValues = normalizedValues;
             }
 
+            var currentClassifiedInstance = null;
             if (currentChart !== null) {
                 for (var i = 0; i < models.length; i++) {
                     if (models[i].Model.AlgorithmName === selectedAlgorithm) {
                         resetProgress();
                         createChart(models[i].Model);
                         showClassifyResult(models[i].ClassifiedInstance.ClusterNumber);
+                        currentClassifiedInstance = models[i].ClassifiedInstance;
                     }
                 }
             }
+            $scope.ClassifiedInstance = currentClassifiedInstance;
+            console.log(currentClassifiedInstance);
+
 
         }
         $scope.models = result.data.AnalysisModels;
@@ -125,9 +130,9 @@
             
             for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
-                    'size': 90,
-                    'fill': 12,
-                    'font-size': 25,
+                    'size': 100,
+                    'fill': 13,
+                    'font-size': 24,
                     'font-family': "Questrial",
                     "color": colors[i]
                 }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / totalSolvents) * 100) - 0.2, 'time': 1000 });
@@ -283,13 +288,13 @@
 
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
-                zoomEnabled: true,
+                
                 animationEnabled: true,
                 animationDuration: 500,
-                title: {
-                    text: "Clusters"
+                theme: "theme3",
 
-                },
+                backgroundColor: "rgba(30,30,30,1)",
+                
                 axisX: {
                     title: "Relative cluster position",
                     valueFormatString: " ",
@@ -299,8 +304,9 @@
                     interval: 0.05,
                     gridThickness: 1,
                     tickThickness: 1,
-                    gridColor: "lightgrey",
-                    tickColor: "lightgrey",
+                    gridColor: "grey",
+                    tickColor: "grey",
+                    titleFontColor: "gray",
                     lineThickness: 0
                 },
                 axisY: {
@@ -309,10 +315,11 @@
                     gridThickness: 1,
                     tickThickness: 1,
                     viewportMaximum: model.maxPercent + 15,
-                    gridColor: "lightgrey",
-                    tickColor: "lightgrey",
+                    gridColor: "grey",
+                    tickColor: "grey",
                     lineThickness: 0,
-                    valueFormatString: "#0'%'"
+                    valueFormatString: "#0'%'",
+                    titleFontColor: "gray"
 
                 },
 
@@ -357,8 +364,8 @@
             }
             var canvas = document.getElementById("canvas-overlay-" + selectedAlgorithm);
             var chartCanvas = document.getElementById("chart-container-" + selectedAlgorithm);
-            var xAxisLength = chartCanvas.offsetWidth - 87 - 24; //beginnen tekenen op 87
-            var yAxisLength = chartCanvas.offsetHeight - 46 - 103; //beginnen tekenen van chartCanvas.offsetHeight - 46
+            var xAxisLength = chartCanvas.offsetWidth - 82 - 24; //beginnen tekenen op 87
+            var yAxisLength = chartCanvas.offsetHeight - 46 - 73; //beginnen tekenen van chartCanvas.offsetHeight - 46
             canvas.width = xAxisLength;
             canvas.height = yAxisLength;
              canvaz = oCanvas.create({

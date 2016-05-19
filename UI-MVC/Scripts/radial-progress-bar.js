@@ -11,7 +11,7 @@ function radialProgress($obj, options) {
     "symbol": "",
     "margin": 0,
     "color": "rgb(55,123,181)",
-    "background": "rgba(0,0,0,0.1)",
+    "background": "rgba(0,0,0,1)",
     "size": $obj.outerWidth(),
     "fill": "5px",
     "range": [0, 100]
@@ -153,7 +153,7 @@ radialProgress.prototype.toPerc = function(options) {
         var text = Math.round(value + self.options['symbol']);
         for (var ti = 0; ti < self.options['line']; ti++) text = "&nbsp;<br>" + text;
         for (var ti = self.options['lines'] - (self.options['line'] + 1); ti > 0; ti--) text = text + "<br>&nbsp;";
-        self.$radialLabel.html(text);
+        self.$radialLabel.html(text + "%");
       }
     }, interval_delay);
   } else {
