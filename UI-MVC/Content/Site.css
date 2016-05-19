@@ -1282,6 +1282,22 @@ form.ng-submitted .ng-valid {
     }
 
 }
+
+.classified-solvent-alt{
+    display: inline;
+    color: black;
+    
+}
+.classified-solvent-alt p{
+    font-size: 30px;
+    color: black;
+    text-shadow: 0.5px .5px 0.5px black;
+    text-align: center;
+    margin-top: 20px;
+           
+     
+}
+
 @media screen and (max-width: 1300px) {
 .analysis-card-post-image {
     
@@ -1652,9 +1668,17 @@ form.ng-submitted .ng-valid {
 .canvasjs-chart-credit {
     visibility: hidden !important;
 }
+.classified-solvent p:first-child {
+    margin-top: 10px;
+}
+.classified-solvent p{
+    font-size: 18px;
+    margin-bottom: 0;
+    margin-left: 25px;
+}
 .main-cluster-info {
     
-    height: 140px;
+    height: 135px;
     background-color: rgba(60, 60, 60, 0.8);
 }
 /*  bhoechie tab */

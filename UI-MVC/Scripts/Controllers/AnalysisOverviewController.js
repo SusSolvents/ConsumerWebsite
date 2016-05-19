@@ -55,20 +55,18 @@
                 models[i].Model.NormalizedValues = normalizedValues;
             }
 
-            var currentClassifiedInstance = null;
+            
             if (currentChart !== null) {
                 for (var i = 0; i < models.length; i++) {
                     if (models[i].Model.AlgorithmName === selectedAlgorithm) {
                         resetProgress();
                         createChart(models[i].Model);
                         showClassifyResult(models[i].ClassifiedInstance.ClusterNumber);
-                        currentClassifiedInstance = models[i].ClassifiedInstance;
+                        $scope.ClassifiedInstance = models[i].ClassifiedInstance;
                     }
                 }
             }
-            $scope.ClassifiedInstance = currentClassifiedInstance;
-            console.log(currentClassifiedInstance);
-
+            
 
         }
 
@@ -98,6 +96,7 @@
             createChart(models[0].Model);
             if (models[0].ClassifiedInstance !== null) {
                 var datapoint = getDatapoint(models[0].ClassifiedInstance.ClusterNumber);
+                $scope.ClassifiedInstance = models[0].ClassifiedInstance;
                 setBorderDatapoint(datapoint);
             }
         });
@@ -258,7 +257,7 @@
                 percentages.push(percentage);
 
                 json[i] = ({
-                    'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "red", //change color here
+                    'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "#F4FE00", //change color here
                     'markerBorderThickness': 0
                 });
 
@@ -284,6 +283,7 @@
             createChart(findModelOnName(e.currentTarget.id));
             if (models[0].ClassifiedInstance !== null) {
                 var datapoint = getDatapoint(findAnalysisModelOnName(e.currentTarget.id).ClassifiedInstance.ClusterNumber);
+                $scope.ClassifiedInstance = findAnalysisModelOnName(e.currentTarget.id).ClassifiedInstance;
                 setBorderDatapoint(datapoint);
             }
         });
@@ -387,7 +387,7 @@
             var arc = canvaz.display.polygon({
                 x: xAxisLength / 2,
                 y: yAxisLength / 2,
-                radius: 20,
+                radius: 24,
                 sides: 6,
                 fill: "#F4FE00"
             });
@@ -414,10 +414,10 @@
             arc.animate({
                 x: datapointX,
                 y: datapointY,
-                radius: 5
+                radius: 0
             }, {
-                duration: 7000,
-                easing: "ease-in-elastic",
+                duration: 5000,
+                easing: "ease-in-out-elastic",
                 callback: function () {
                     this.fill = "transparent";
                     canvaz.redraw();

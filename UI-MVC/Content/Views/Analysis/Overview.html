@@ -26,28 +26,37 @@
         <div class="col-lg-5 overview-top-right">
             <div class="col-lg-12 main-cluster-info">
                 <p class="admin-card-title">Classified Solvent</p>
-                <div class="analysis-settings">
+                <div class="analysis-settings" style="top: 65%">
                     <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal">Classify</a>
                 </div>
-                
-                <div style="margin-top: 10px; float: left;">
-                    <p>{{ClassifiedInstance.ClusterNumber}}</p>    
-<!--                    <div angucomplete-alt-->
-<!--                         id="ex2"-->
-<!--                         placeholder="Previous classified solvents"-->
-<!--                         maxlength="50"-->
-<!--                         pause="100"-->
-<!--                         selected-object="selectClassifiedSolvent"-->
-<!--                         local-data="prevClassifiedInstances"-->
-<!--                         search-fields="Name"-->
-<!--                         title-field="Name"-->
-<!--                         description-field="CasNumber"-->
-<!--                         minlength="1"-->
-<!--                         input-class="form-control form-control-small"-->
-<!--                         style="margin-top: 12px; display: block; width: 100%"-->
-<!--                         match-class="highlight"-->
-<!--                         clear-selected="true"></div>-->
+                <div class="classified-solvent-info">
+                    <div class="classified-solvent" ng-if="ClassifiedInstance !== null">
+                        <p>Name: {{ClassifiedInstance.Name}} with {{ClassifiedInstance.Features.length}} features</p>
+                        <p>CAS - number: {{ClassifiedInstance.CasNumber}}</p>
+                        <p>Cluster: {{ClassifiedInstance.ClusterNumber}}</p>
+                    </div>
+                    <div class="classified-solvent-alt" ng-if="ClassifiedInstance === null">
+                        <p>No solvent classified</p>
+                    </div>
                 </div>
+<!--                <div style="margin-top: 10px; float: left;">-->
+<!--                    <p>{{ClassifiedInstance.ClusterNumber}}</p>    -->
+<!--$1$                    <div angucomplete-alt#1#-->
+<!--$1$                         id="ex2"#1#-->
+<!--$1$                         placeholder="Previous classified solvents"#1#-->
+<!--$1$                         maxlength="50"#1#-->
+<!--$1$                         pause="100"#1#-->
+<!--$1$                         selected-object="selectClassifiedSolvent"#1#-->
+<!--$1$                         local-data="prevClassifiedInstances"#1#-->
+<!--$1$                         search-fields="Name"#1#-->
+<!--$1$                         title-field="Name"#1#-->
+<!--$1$                         description-field="CasNumber"#1#-->
+<!--$1$                         minlength="1"#1#-->
+<!--$1$                         input-class="form-control form-control-small"#1#-->
+<!--$1$                         style="margin-top: 12px; display: block; width: 100%"#1#-->
+<!--$1$                         match-class="highlight"#1#-->
+<!--$1$                         clear-selected="true"></div>#1#-->
+<!--                </div>-->
 
             </div>
 
