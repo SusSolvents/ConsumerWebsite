@@ -128,6 +128,14 @@ namespace SS.DAL.EFUsers
             var user = _context.Users
                 .Include(o => o.Organisation)
                 .Single(u => u.Id == id);
+            var analyses = _context.Analyses
+                .Include(a => a.SharedWith)
+                .Where(o => o.CreatedBy.Id == id);
+            foreach (var analysis in analyses)
+            {
+                analysis.SharedWith = null;
+                _context.Entry(analysis).State = EntityState.Modified;
+            }
             user.Organisation = null;
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
