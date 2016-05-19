@@ -16,10 +16,11 @@
             "#44B3C2",
             "#F1A94E",
             "#F2635F",
-            "#9F0088",
+            
             "#4CD4B0",
             "#8e44ad",
             "#FC575E",
+            "#9F0088",
             "#32B92D",
             "#F20075",
             "#E0A025",
@@ -128,12 +129,13 @@
             if (analysisModel.ClassifiedInstance !== null) {
                 totalSolvents++;
             }
+            $scope.totalSolvents = totalSolvents;
             prevClusters = analysisModel.Model.Clusters;
 
             for (var i = 0; i < prevClusters.length; i++) {
                 jQuery("#circle-" + selectedAlgorithm + "-" + i).radialProgress("init", {
-                    'size': 100,
-                    'fill': 13,
+                    'size': 110,
+                    'fill': 14,
                     'font-size': 24,
                     'font-family': "Questrial",
                     "color": colors[i]
@@ -417,7 +419,7 @@
                 y: datapointY,
                 radius: 0
             }, {
-                duration: 5000,
+                duration: 6000,
                 easing: "ease-in-out-elastic",
                 callback: function () {
                     this.fill = "transparent";
@@ -611,16 +613,16 @@
                     .attr("r", function (d) { return d.value; })
                     .style("fill", function (d) {
                         switch (d.casNumber) {
+                            case findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance.CasNumber:
+                                return "#F4FE00";
+                                break;
                             case maxSolvent.CasNumber:
                                 return "#E68364";
                                 break;
                             case minSolvent.CasNumber:
                                 return "#26A65B";
                                 break;
-                            case findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance.CasNumber:
-                                return "#F4FE00";
-                                break;
-
+                            
                             default:
                                 return color(d.group);
                         }

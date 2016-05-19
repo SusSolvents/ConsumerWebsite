@@ -287,6 +287,7 @@
     <Content Include="Content\cards.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cd-arrow.svg" />
+    <Content Include="Content\Images\classifiedsolventball.png" />
     <Content Include="Content\Images\closestsolvent.png" />
     <Content Include="Content\Images\clusterball.png" />
     <Content Include="Content\Images\down_arrow_select.jpg" />

@@ -1,6 +1,6 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding" style="min-width: 840px;" >
 
-    <div class="row">
+    <div class="row" style="margin-top: 10px">
         <div class="col-lg-7 overview-top-left">
             <div class="col-lg-12 main-cluster-info" >
                 <p class="admin-card-title">general cluster analysis information</p>
@@ -30,12 +30,12 @@
                     <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal">Classify</a>
                 </div>
                 <div class="classified-solvent-info">
-                    <div class="classified-solvent" ng-if="ClassifiedInstance !== null">
+                    <div class="classified-solvent" ng-if="ClassifiedInstance !== null && ClassifiedInstance !== undefined">
                         <p>Name: {{ClassifiedInstance.Name}} with {{ClassifiedInstance.Features.length}} features</p>
                         <p>CAS - number: {{ClassifiedInstance.CasNumber}}</p>
                         <p>Cluster: {{ClassifiedInstance.ClusterNumber}}</p>
                     </div>
-                    <div class="classified-solvent-alt" ng-if="ClassifiedInstance === null">
+                    <div class="classified-solvent-alt" ng-if="ClassifiedInstance === null || ClassifiedInstance === undefined">
                         <p>No solvent classified</p>
                     </div>
                 </div>
@@ -99,7 +99,10 @@
                             <div class="circle-container" id="circle-{{model.Model.AlgorithmName}}-{{$index}}">
 
                             </div>
-                            <p style="color: lightgray"> of total solvents</p>
+                            <div class="absolute-counter">{{model.Model.Clusters[$index].Solvents.length}} / {{totalSolvents}} solvents</div>
+                            
+                            
+                            
 
                         </div>
                     </div>
@@ -108,15 +111,16 @@
                     <div class="col-lg-8 col-md-8 padding-less">
                         <div class="grid grid-graph col-lg-12 text-center" id="chart-container-{{model.Model.AlgorithmName}}">
                             <h3 class="text-primary">Solvent Cluster Graph</h3>
-
+                            <div class="chart-legend">Size of Bubble: Max. Solvent Distance</div>
                             <div id="chartContainer_{{model.Model.AlgorithmName}}" class="chartContainer">
                             </div>
+                            
                             <canvas class="canvas-overlay" id="canvas-overlay-{{model.Model.AlgorithmName}}">
                                 
                             </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
                                 <div class="closecross" style="cursor: pointer" ng-click="closeOverlay(model.Model.AlgorithmName)">X</div>
-                                <div class="col-lg-4" style="text-align: initial; position: absolute; color: white">
+                                <div class="col-lg-4" style="text-align: initial; position: absolute; color: white;  background: none; pointer-events: none;">
                                     <h4>Cluster: {{cluster}}</h4>
                                     <h4>#Solvents: {{solventsInCluster.length}}</h4>
                                     <div class="solvent-legend">
@@ -124,17 +128,21 @@
                                                 <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Clustercenter</p>
                                         </div>
-                                        <div style="margin-top: 10px;">
+                                        <div style="margin-top: 6px;">
                                                 <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Solvent</p>
                                         </div>
-                                        <div style="margin-top: 10px;">
+                                        <div style="margin-top: 6px;">
                                                 <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
                                             <p style="display: inline">Max. Distance Solvent</p>
                                         </div>
-                                        <div style="margin-top: 10px;">
-                                                <img src="/Content/Images/closestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                        <div style="margin-top: 6px;">
+                                            <img src="/Content/Images/closestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
                                             <p style="display: inline">Min. Distance Solvent</p>
+                                        </div>
+                                        <div ng-if="ClassifiedInstance !== null && ClassifiedInstance.ClusterNumber === cluster" style="margin-top: 6px;">
+                                            <img src="/Content/Images/classifiedsolventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                            <p style="display: inline">Classified Solvent</p>
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +155,9 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 padding-less">
-                        <div class="grid grid-right col-lg-12" style="overflow: scroll; color: black; font-size: 15px; padding-left: 20px; padding-right: 15px;">
+                        <div class="grid grid-right col-lg-12" style="color: lightgray; font-size: 15px; padding-left: 20px; padding-right: 15px;">
+                            <h3 class="text-primary text-center">Solvent Details</h3>
+
                             <div angucomplete-alt
                                  id="ex1"
                                  placeholder="Search solvent"
@@ -162,7 +172,7 @@
                                  style="margin-top: 12px; display: block; width: 100%"
                                  match-class="highlight"
                                  clear-selected="true"></div>
-                            <h4 ng-if="selectedSolvent">Solvent: {{selectedSolvent.Name}}</h4>
+                            <h4 ng-if="selectedSolvent" style="margin-top: 10px;">Solvent: {{selectedSolvent.Name}}</h4>
                             <table ng-if="selectedSolvent">
                                 <tr>
                                     <th style="padding-left: 15px">Feature name</th>
