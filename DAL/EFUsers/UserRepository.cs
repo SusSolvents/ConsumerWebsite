@@ -125,7 +125,9 @@ namespace SS.DAL.EFUsers
 
         public User LeaveOrganisation(long id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users
+                .Include(o => o.Organisation)
+                .Single(u => u.Id == id);
             user.Organisation = null;
             _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();

@@ -166,12 +166,8 @@
     <div class="modal fade" id="organisation-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="loginmodal-container password-container">
                 <h1>Share your analysis with an organisation</h1>
-                <div>
-                    <select class="styled-select"
-                            ng-model="selectedOrganisation"
-                            ng-init="selectedOrganisation = organisationsUser[0]" 
-                            ng-options="organisation.Name for organisation in organisationsUser">
-                    </select>
+                <div class="text-center">
+                    <h2>{{organisationUser.Name}}</h2>
                     <button class="login loginmodal-submit" style="width: 100%;" ng-click="shareWithOrganisation()">Share with organisation</button>
                 </div>
             </div>
