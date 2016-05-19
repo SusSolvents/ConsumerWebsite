@@ -10,7 +10,7 @@
                 </div>
                 <div class="analysis-settings" ng-if="canEdit">
                     <ul style="list-style: none;">
-                        <li>
+                        <li ng-if="organisationUser">
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#organisation-model">Share</a>
                             
                         </li>
