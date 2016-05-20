@@ -912,7 +912,10 @@ progress {
     cursor: default;
     
 }
-.profile-review {
+.organisation-review {
+    
+}
+.profile-review, .organisation-review {
     margin-top: 5px;
 }
 .profile-review-row:hover {
@@ -970,7 +973,16 @@ progress {
     text-align: left;
     margin-left: 4%;
 }
-.profile-review img {
+
+.organisation-review p {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+    margin-left: 4px;
+}
+
+
+.profile-review, .organisation-review img {
     
     width: 50px;
     height: 50px;
@@ -1023,15 +1035,15 @@ progress {
     text-shadow: 0.5px .5px 0.5px black
                 
 }
-.profile-review i {
+.profile-review, .organisation-review i {
     color: black;
     margin-left: 3%;
     font-size: 20px;
 }
-.profile-review .cross:hover {
+.profile-review, .organisation-review .cross:hover {
     color: red;
 }
-.profile-review i:hover {
+.profile-review, .organisation-review i:hover {
     color: greenyellow;
 }
 .xs-button{
