@@ -208,6 +208,7 @@
             params: { id: id }
         }).success(function succesCallback() {
             notie.alert(1, "The organisation has been allowed", 2);
+            getOrganisations();
         });
         $http({
             method: 'POST',
@@ -226,6 +227,7 @@
             params: { id: id }
         }).success(function succesCallback() {
             notie.alert(1, "The organisation has been blocked", 2);
+            getOrganisations();
         });
         $http({
             method: 'POST',
