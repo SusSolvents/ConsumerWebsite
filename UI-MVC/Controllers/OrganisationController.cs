@@ -213,6 +213,15 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok();
         }
 
+        //DELETE api/Organisation/DeleteOrganisation
+        [Route("DeleteOrganisation")]
+        public IHttpActionResult DeleteOrganisation(long id)
+        {
+            _userManager.DeleteOrganisation(id);
+            return Ok();
+        }
+
+
 
         //GET api/Organisation/GetAnalysesByMonthForOrganisation
         [Route("GetAnalysesByMonthForOrganisation")]

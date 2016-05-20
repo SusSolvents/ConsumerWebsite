@@ -80,6 +80,25 @@ namespace SS.DAL.EFUsers
             _context.SaveChanges();
         }
 
+        public void DeleteOrganisation(long id)
+        {
+            var analyses = _context.Analyses.Where(a => a.SharedWith.Id == id);
+            foreach (var analysis in analyses)
+            {
+                analysis.SharedWith = null;
+                _context.Entry(analysis).State= EntityState.Modified;
+            }
+            var users = _context.Users.Where(a => a.Organisation.Id == id);
+            foreach (var user in users)
+            {
+                user.Organisation = null;
+                _context.Entry(user).State = EntityState.Modified;
+            }
+
+            _context.Organisations.Remove(_context.Organisations.Find(id));
+            _context.SaveChanges();
+        }
+
         public User CreateUser(User user)
         {
             user.DateRegistered = DateTime.Now;

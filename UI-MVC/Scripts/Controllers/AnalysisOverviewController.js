@@ -28,6 +28,9 @@
 
         ];
 
+
+        $scope.sharedWith = result.data.SharedWith;
+        console.log(result.data);
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setMinMaxValues();
@@ -469,6 +472,7 @@
             }).success(function succesCallback(data) {
                 notie.alert(1, "Cluster Analysis shard with the organisation", 2);
                 $('#organisation-model').modal('hide');
+                $scope.sharedWith = data.SharedWith;
             });
         }
 
@@ -510,6 +514,16 @@
                 $('#changeName-model').modal('hide');
             }).error(function errorCallback(data) {
                 $scope.errorChangeName = data.Message;
+            });
+        }
+
+        $scope.undoShare = function() {
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/UndoShare',
+                params: { id: data.Id }
+            }).success(function succesCallback(data) {
+                $scope.sharedWith = null;
             });
         }
 

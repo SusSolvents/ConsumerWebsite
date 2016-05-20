@@ -13,9 +13,11 @@
                         <li ng-style="!organisationUser && {'margin-top': '42px'}" >
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#changeName-model">Settings</a>
                         </li>
-                        <li ng-if="organisationUser" style="margin-top: 10px;">
+                        <li ng-if="organisationUser && sharedWith === null" style="margin-top: 10px;">
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#organisation-model">Share</a>
-                            
+                        </li>
+                        <li ng-if="sharedWith !== null" style="margin-top: 10px;">
+                            <a href="#" class="xs-button" ng-click="undoShare()">Undo Share</a>
                         </li>
                         
                     </ul>

@@ -227,8 +227,8 @@ namespace SS.UI.Web.MVC.Controllers
         [Route("ShareWithOrganisation")]
         public IHttpActionResult ShareWithOrganisation(long organisationId, long analysisId)
         {
-            _analysisManager.ShareWithOrganisation(organisationId, analysisId);
-            return Ok("Analysis shared with organisation");
+            var analysis = _analysisManager.ShareWithOrganisation(organisationId, analysisId);
+            return Ok(analysis);
         }
 
         //POST api/Analysis/CheckPermission
@@ -242,6 +242,14 @@ namespace SS.UI.Web.MVC.Controllers
                 return Ok();
             }
             return BadRequest("Access not granted");
+        }
+
+        //POST api/Analysis/UndoShare
+        [Route("UndoShare")]
+        public IHttpActionResult UndoShare(long id)
+        {
+            var analysis = _analysisManager.UndoShare(id);
+            return Ok(analysis);
         }
 
 
