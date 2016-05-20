@@ -74,12 +74,16 @@
                     <p class="admin-card-title">Review new organisation</p>
                     <div class="profile-container" ng-if="newOrganisations.length !== 0">
                         <div class="profile-review-row" ng-repeat="organisationModel in newOrganisations">
-                            <div class="profile-review">
-                                <img class="img-circle" ng-src="{{organisationModel.Organisation.LogoUrl || '/Content/Images/avatar.png'}}"/>
-                                <p class="profile-review-name">{{organisationModel.Organisation.Name}}</p>
-                                <p class="profile-review-name">{{organisationModel.Organisator.Firstname}} {{organisationModel.Organisator.Lastname}}</p>
-                                <a href="#" ng-click="allowOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-check"></i></a>
-                                <a href="#" ng-click="denyOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-times cross"></i></a>
+                            <div class="organisation-review">
+
+                                        <img class="img-circle" ng-src="{{organisationModel.Organisation.LogoUrl || '/Content/Images/organisationLogo.png'}}" />
+                                        <p>{{organisationModel.Organisation.Name}}</p>
+
+                                        <p>{{organisationModel.Organisator.Firstname}} {{organisationModel.Organisator.Lastname}}</p>
+
+                                        <a href="#" ng-click="allowOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-check"></i></a>
+
+                                        <a href="#" ng-click="denyOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-times cross"></i></a>
                             </div>
                         </div>
                     </div>

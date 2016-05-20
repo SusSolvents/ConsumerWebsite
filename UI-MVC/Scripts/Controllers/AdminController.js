@@ -10,8 +10,13 @@
             "#0093D1"
 
         ];
-
-    var data = result.data;
+        var data = result.data;
+    for (var i = 0; i < data.BlockedUsers.length; i++) {
+        if (data.BlockedUsers[i].AvatarUrl !== "" && data.BlockedUsers[i].AvatarUrl !== null) {
+            data.BlockedUsers[i].AvatarUrl = "/Content/Images/Users/" + data.BlockedUsers[i].AvatarUrl;
+        }
+    }
+    
     notie.setOptions({
         colorSuccess: 'rgba(87,191,87,0.9)',
         colorText: '#FFFFFF',
@@ -19,11 +24,7 @@
         backgroundClickDismiss: true
     });
            
-    for (var i = 0; i < data.BlockedUsers.length; i++) {
-        if (data.BlockedUsers[i].AvatarUrl !== "" && data.BlockedUsers[i].AvatarUrl !== null) {
-            data.BlockedUsers[i].AvatarUrl = "/Content/Images/Users/" + data.BlockedUsers[i].AvatarUrl;
-        }
-    }
+    
     $scope.blockedUsers = data.BlockedUsers;
     $scope.allowUser = function(email, index) {
         $http({
@@ -176,6 +177,9 @@
             $scope.organisationModels = data;
             for (var i = 0; i < data.length; i++) {
                 if (data[i].Organisation.DateCreated === null) {
+                    if (data[i].Organisation.LogoUrl !== "" && data[i].Organisation.LogoUrl !== null) {
+                        data[i].Organisation.LogoUrl = "/Content/Images/Organisations/" + data[i].Organisation.LogoUrl;
+                    }
                     newOrganisations.push(data[i]);
                 }
             }
@@ -189,7 +193,7 @@
         getOrganisations();
     }
 
-    $scope.denyUser = function (id, index) {
+    $scope.denyOrganisation = function (id, index) {
         blockOrganisation(id);
         $scope.newOrganisations.splice(index, 1);
         getOrganisations();
@@ -204,6 +208,7 @@
             params: { id: id }
         }).success(function succesCallback() {
             notie.alert(1, "The organisation has been allowed", 2);
+            getOrganisations();
         });
         $http({
             method: 'POST',
@@ -222,6 +227,7 @@
             params: { id: id }
         }).success(function succesCallback() {
             notie.alert(1, "The organisation has been blocked", 2);
+            getOrganisations();
         });
         $http({
             method: 'POST',
