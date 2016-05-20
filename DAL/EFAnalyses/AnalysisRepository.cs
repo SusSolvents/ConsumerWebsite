@@ -38,6 +38,7 @@ namespace SS.DAL.EFAnalyses
         {
             return _context.Analyses
                 .Include(a => a.CreatedBy)
+                .Include(a => a.SharedWith)
                 .Include(a => a.AnalysisModels)
                 .Include(a => a.AnalysisModels.Select(an => an.ClassifiedInstance))
                 .Include(a => a.AnalysisModels.Select(an => an.Model))
@@ -105,12 +106,24 @@ namespace SS.DAL.EFAnalyses
             return currentAnalysis;
         }
 
-        public void ShareWithOrganisation(long organisationId, long analysisId)
+        public Analysis UndoShare(long id)
+        {
+            var analysis = _context.Analyses
+                .Include(a => a.SharedWith)
+                .Single(a => a.Id == id);
+            analysis.SharedWith = null;
+            _context.Entry(analysis).State = EntityState.Modified;
+            _context.SaveChanges();
+            return analysis;
+        }
+
+        public Analysis ShareWithOrganisation(long organisationId, long analysisId)
         {
             var organisation = _context.Organisations.Find(organisationId);
             var analysis = _context.Analyses.Find(analysisId);
             analysis.SharedWith = organisation;
             _context.SaveChanges();
+            return analysis;
         }
 
         public Cluster CreateCluster(Cluster cluster)

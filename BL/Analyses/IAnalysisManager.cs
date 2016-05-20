@@ -24,7 +24,8 @@ namespace SS.BL.Analyses
         IEnumerable<Analysis> ReadAnalysesForOrganisation(long id);
         IEnumerable<Analysis> ReadAnalysesForUserPermission(long userId);
         Analysis UpdateAnalysis(Analysis analysis);
-        void ShareWithOrganisation(long organisationId, long analysisId);
+        Analysis UndoShare(long id);
+        Analysis ShareWithOrganisation(long organisationId, long analysisId);
 
         //Cluster
         Cluster CreateCluster(int number);

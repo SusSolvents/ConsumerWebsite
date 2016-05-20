@@ -101,6 +101,11 @@ namespace SS.BL.Users
             repo.AllowOrganisation(id);
         }
 
+        public void DeleteOrganisation(long id)
+        {
+            repo.DeleteOrganisation(id);
+        }
+
         public User CreateUser(string firstname, string lastname, string email, string avatarUrl)
         {
             User user = new User()

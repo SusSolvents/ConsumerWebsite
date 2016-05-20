@@ -28,6 +28,7 @@ namespace SS.BL.Users
         Organisation UpdateOrganisation(Organisation organisation);
         void BlockOrganisation(long id);
         void AllowOrganisation(long id);
+        void DeleteOrganisation(long id);
 
     }
 }

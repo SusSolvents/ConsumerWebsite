@@ -84,9 +84,14 @@ namespace SS.BL.Analyses
             return repo.UpdateAnalysis(analysis);
         }
 
-        public void ShareWithOrganisation(long organisationId, long analysisId)
+        public Analysis UndoShare(long id)
         {
-            repo.ShareWithOrganisation(organisationId, analysisId);
+            return repo.UndoShare(id);
+        }
+
+        public Analysis ShareWithOrganisation(long organisationId, long analysisId)
+        {
+            return repo.ShareWithOrganisation(organisationId, analysisId);
         }
 
         public Cluster CreateCluster(int number)
