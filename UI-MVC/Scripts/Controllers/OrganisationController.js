@@ -302,7 +302,8 @@ app.controller('CreateOrganisationController',
             name: "",
             logo: ""
         };
-
+        getUserInfo($window.sessionStorage.userId);
+        
         var createOrganisation = function (model, $http) {
             var formData = new FormData();
             formData.append('name', model.org.name);
@@ -318,9 +319,21 @@ app.controller('CreateOrganisationController',
                 transformRequest: angular.identity,
                 data: formData
             }).success(function succesCallback(data) {
-                setTimeout($location.path("/organisation/" + data), 1000);
+
+                $scope.organisationRegistered = true;
             }).error(function errorCallback(data) {
+                $scope.organisationRegistered = false;
                 $scope.message = data.Message;
+            });
+        };
+
+        function getUserInfo(id) {
+            $http({
+                method: 'GET',
+                url: 'api/Account/GetUserInfo',
+                params: { id: id }
+            }).success(function(data, status, headers, conf) {
+                console.log(data);
             });
         };
         var process = 0;

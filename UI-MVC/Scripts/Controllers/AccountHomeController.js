@@ -11,6 +11,7 @@
     $scope.noOrganisations = true;
     $scope.noAnalyses = true;
     $scope.OrderBy = "DateCreated";
+    
     var organisation = organisationsResult.data;
     if (organisation !== null && organisation !== undefined) {
         

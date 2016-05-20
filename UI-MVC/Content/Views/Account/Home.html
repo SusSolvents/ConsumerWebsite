@@ -27,8 +27,8 @@
 
                 <div class="admin-card-large col-lg-12 col-md-12 " style="height: 235px;">
                     <p class="admin-card-title">Your organisation</p>
-                    <div ng-if="noOrganisations">
-                        <div class="profile-review-alt">
+                    <div ng-if="noOrganisations" style="margin-top: -30px;">
+                        <div class="profile-review-alt" >
                             <p>Oops, no organisation</p>
                         </div>
                         <a href="#" data-toggle="modal" data-target="#organisation-modal" class="add-org"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -126,9 +126,10 @@
 
         </div>
     </div>
-    <div class="modal fade" id="organisation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="organisation-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 
-        <div class="loginmodal-container password-container organisation-modal"  ng-controller="CreateOrganisationController as organisation">
+    <div class="loginmodal-container password-container organisation-modal" ng-controller="CreateOrganisationController as organisation">
+        <div ng-show="!organisationRegistered">
             <div class="show-container">
                 <div class="progress" id="progressBar">
 
@@ -147,30 +148,36 @@
                   ng-submit="organisation.submit(organisationForm.$valid)">
                 <div class="col-lg-12">
                     <label>Organisation Name</label>
-                    <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required />
+                    <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required/>
 
-                </div>
-                <div>
-                    <input type="file" id="logoImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" />
-
+                </div>                      
                     <div class="col-lg-12">
                         <div>
+                            <input type="file" id="logoImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" />
                             <label>Upload your logo</label>
-                            <img class="logo-img" ng-src="{{logoSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()" />
+                            <img class="logo-img" ng-src="{{logoSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()"/>
                         </div>
                     </div>
-                </div>
+               
                 <div class="col-lg-12">
-                    <button type="submit" class="login loginmodal-submit" style="width:300px; margin-top: 15px;">Create organisation</button>
+                    <button type="submit" class="login loginmodal-submit" style="width: 300px; margin-top: 15px;">Create organisation</button>
                 </div>
             </form>
 
-
-
-
+        </div>
+        <div ng-show="organisationRegistered">
+            <div class="col-lg-12 text-center" style="margin-top: 20px;">
+                <h2 class="margin-top-0 text-primary wow fadeInDown">Thank you</h2>
+                <hr class="primary">
+            </div>
+            <div class="waiting">
+                Your organisation is successfully created.
+                You can access your organisation after it has been reviewed by the superadministrator of Sussol.
+            </div>
         </div>
     </div>
 </div>
+    </div>
 
 
 
