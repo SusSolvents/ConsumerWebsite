@@ -514,6 +514,7 @@
         }
 
         $scope.closeOverlay = function closeOverlay(name) {
+            delete $scope.selectedNodeObject;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
         }
@@ -637,12 +638,20 @@
                     })
                     .on("click", function (d) {
                         if (d.solvent !== undefined) {
+                            var selectedNodeObject = {
+                                Name: d.solvent.Name,
+                                CasNumber: d.solvent.CasNumber,
+                                DistanceToClusterCenter: d.solvent.DistanceToClusterCenter.toFixed(3)
+                            };
+
+                            $scope.selectedNodeObject = selectedNodeObject;
+                            /*d.solvent.DistanceToClusterCenter.toFixed(3));
                             $("#selected-node-" + selectedAlgorithm).html("<h4>Selected solvent:</h4>"
                                 + d.solvent.Name
                                 + "<h4> Cas Number: </h4>" +
                                 d.solvent.CasNumber
                                 + "<h4> Distance to center: </h4>" +
-                                d.solvent.DistanceToClusterCenter.toFixed(3));
+                                d.solvent.DistanceToClusterCenter.toFixed(3));*/
                             if (selectedNode !== undefined) {
                                 d3.select(selectedNode).style("stroke", "white");
                             }
