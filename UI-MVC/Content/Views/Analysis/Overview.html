@@ -148,7 +148,16 @@
                                 </div>
                                 <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
                                 <div class="selected-node" id="selected-node-{{model.Model.AlgorithmName}}">
-                                        No solvent selected <br /> Click on a node
+                                    <div ng-if="!selectedNodeObject">No solvent selected <br/> Click on a node
+                                    </div>
+                                    <div ng-if="selectedNodeObject">
+                                        <h4>Selected solvent:</h4>
+                                        {{selectedNodeObject.Name}}
+                                        <h4> Cas Number: </h4>
+                                        {{selectedNodeObject.CasNumber}}
+                                        <h4> Distance to center: </h4>
+                                        {{selectedNodeObject.DistanceToClusterCenter}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +226,7 @@
             <h1 >Classify a new Solvent</h1>
             <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
                 <div>
-                    <p style="color: red;">{{errorMessage}}</p>
+                    <p style="color: darkorange;">{{errorMessage}}</p>
                     <label for="newSolventName">Name of solvent</label>
                     <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
                     <label for="newSolventCasNr">Cas-number of solvent</label>
@@ -234,10 +243,10 @@
                                     <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
                                 <td style="padding-left: 15px">
                                     <input type="number" step="{{feature.StepValue}}" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
-                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="color: red;">
+                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
                                         The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                     </span>
-                                    <span ng-show="features['feature_' + $index].$error.required" style="color: red;">
+                                    <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px;color: darkorange;">
                                         This value cannot be empty!
                                     </span>
                                 </td>
