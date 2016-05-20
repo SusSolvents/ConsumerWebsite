@@ -10,10 +10,10 @@
                 </div>
                 <div class="analysis-settings" ng-if="canEdit">
                     <ul style="list-style: none;">
-                        <li ng-style="!organisationUser && {'margin-top': '42px'}" style="margin-top: 10px;">
+                        <li ng-style="!organisationUser && {'margin-top': '42px'}" >
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#changeName-model">Settings</a>
                         </li>
-                        <li ng-if="organisationUser">
+                        <li ng-if="organisationUser" style="margin-top: 10px;">
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#organisation-model">Share</a>
                             
                         </li>

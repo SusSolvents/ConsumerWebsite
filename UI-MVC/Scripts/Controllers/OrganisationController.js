@@ -198,7 +198,7 @@
                 json.push({ 'x': new Date(new Date(data[i][0].DateCreated).getFullYear(), new Date(data[i][0].DateCreated).getMonth(), 1), 'y': data[i].length });
             }
             if (data.length !== 0) {
-                createChart("chartCont-solv", json, "line", "Number of solvent clusters", "#25DA45");
+                createChart("chartCont-solv", json, "line", "Number of analyses", "#25DA45");
             };
 
         });
