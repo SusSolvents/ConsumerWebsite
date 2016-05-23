@@ -2146,3 +2146,20 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     pointer-events: none;
     cursor: default;
 }
+
+.prev-instances ul {
+    margin-left: 0; 
+    padding-left: 0;
+    list-style: none;
+     width: 100%
+}
+.prev-instances li {
+     margin-left: 0; 
+    padding-left: 0;
+    border-bottom: white solid 1px;
+    height: 80px;
+}
+
+.prev-instance {
+    
+}

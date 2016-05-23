@@ -29,8 +29,16 @@
         <div class="col-lg-5 overview-top-right">
             <div class="col-lg-12 main-cluster-info">
                 <p class="admin-card-title">Classified Solvent</p>
-                <div class="analysis-settings" style="top: 65%">
-                    <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal">Classify</a>
+                <div class="analysis-settings">
+                    <ul style="list-style: none;">
+                        <li>
+                            <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#prevClassified-modal">Previous</a>
+                        </li>
+                        <li style="margin-top: 10px;">
+                            <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal">Classify</a>
+                        </li>
+
+                    </ul>
                 </div>
                 <div class="classified-solvent-info">
                     <div class="classified-solvent" ng-if="ClassifiedInstance !== null && ClassifiedInstance !== undefined">
@@ -42,28 +50,7 @@
                         <p>No solvent classified</p>
                     </div>
                 </div>
-<!--                <div style="margin-top: 10px; float: left;">-->
-<!--                    <p>{{ClassifiedInstance.ClusterNumber}}</p>    -->
-<!--$1$                    <div angucomplete-alt#1#-->
-<!--$1$                         id="ex2"#1#-->
-<!--$1$                         placeholder="Previous classified solvents"#1#-->
-<!--$1$                         maxlength="50"#1#-->
-<!--$1$                         pause="100"#1#-->
-<!--$1$                         selected-object="selectClassifiedSolvent"#1#-->
-<!--$1$                         local-data="prevClassifiedInstances"#1#-->
-<!--$1$                         search-fields="Name"#1#-->
-<!--$1$                         title-field="Name"#1#-->
-<!--$1$                         description-field="CasNumber"#1#-->
-<!--$1$                         minlength="1"#1#-->
-<!--$1$                         input-class="form-control form-control-small"#1#-->
-<!--$1$                         style="margin-top: 12px; display: block; width: 100%"#1#-->
-<!--$1$                         match-class="highlight"#1#-->
-<!--$1$                         clear-selected="true"></div>#1#-->
-<!--                </div>-->
-
             </div>
-
-
         </div>
     </div>
 
@@ -103,10 +90,6 @@
 
                             </div>
                             <div class="absolute-counter">{{model.Model.Clusters[$index].Solvents.length}} / {{totalSolvents}} solvents</div>
-                            
-                            
-                            
-
                         </div>
                     </div>
                 </div>
@@ -214,17 +197,38 @@
                 </div>
             </div>
     </div>
-    <div class="modal fade analysis-modals" id="changeName-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade analysis-modals" id="changeName-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="loginmodal-container password-container">
+        <h1>Change the name of your analysis</h1>
+        <div>
+            <h2 class="text-center" style="color: red;">{{errorChangeName}}</h2>
+            <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}"/>
+            <button ng-click="changeName()" style="width: 100%;" class="login loginmodal-submit">Change name</button>
+        </div>
+    </div>
+</div>
+    <div class="modal fade analysis-modals" id="prevClassified-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="loginmodal-container password-container">
-            <h1>Change the name of your analysis</h1>
-            <div>
-                <h2 class="text-center" style="color: red;">{{errorChangeName}}</h2>
-                <input type="text" id="analysisName" ng-model="newName" placeholder="{{analysisName}}"/>
-                <button ng-click="changeName()" style="width: 100%;" class="login loginmodal-submit">Change name</button>
+            <h1>Previous classified solvents</h1>
+            <div class="prev-instances">
+                <ul style="">
+                    <li ng-repeat="instance in prevClassifiedInstances"  class="col-lg-12">
+                        <div class="prev-instance" style="margin: 5px;">
+                            <div class="col-lg-8 ">
+                                <h4>{{instance.Name}}</h4>
+                                <h5>{{instance.CasNumber}}</h5>
+                            </div>
+                            <div style="top: 20px; right: 2px;" class="col-lg-4 ">
+                                <a href="#" class="xs-button" ng-click="selectClassifiedSolvent(instance)" >Classify</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
+
+<div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
         <div class="loginmodal-container password-container add-solvent-modal" style="max-width: 800px;">
             <h1 >Classify a new Solvent</h1>
             <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
