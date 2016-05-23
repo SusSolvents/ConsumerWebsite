@@ -29,13 +29,15 @@
 
         ];
 
-
         $scope.sharedWith = result.data.SharedWith;
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setMinMaxValues();
         showClusterAnalysis(result.data.AnalysisModels);
 
+        if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
+            $scope.isOwner = true;
+        }
 
         function showClusterAnalysis(modelsTemp) {
             getClassifiedInstances();
@@ -95,6 +97,8 @@
                 $('#' + algorithms[i]).removeClass("disabled");
                 $('#' + algorithms[i]).removeClass("blurless");
             }
+
+
             createChart(models[0].Model);
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
             /*if (models[0].ClassifiedInstance !== null) {
@@ -255,9 +259,7 @@
             var json = [];
             var percentages = [];
             var totalSolvents = model.Model.NumberOfSolvents;
-            if (model.Model.ClassifiedInstance !== null) {
-                totalSolvents++;
-            }
+
             for (var i = 0; i < model.Model.Clusters.length; i++) {
                 var valuesSolvents = [];
                 for (var j = 0; j < model.Model.Clusters[i].Solvents.length; j++) {
@@ -267,7 +269,8 @@
                 var max = Math.max.apply(Math, valuesSolvents);
 
 
-                var percentage = (valuesSolvents.length / totalSolvents) * 100;
+                var percentage = ((valuesSolvents.length) / totalSolvents) * 100;
+                
                 percentages.push(percentage);
 
                 json[i] = ({
