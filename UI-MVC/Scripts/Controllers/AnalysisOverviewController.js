@@ -325,13 +325,12 @@
 
             var chart = new CanvasJS.Chart("chartContainer_" + model.AlgorithmName,
             {
-                
                 animationEnabled: true,
                 animationDuration: 500,
                 theme: "theme3",
 
                 backgroundColor: "rgba(30,30,30,1)",
-                
+
                 axisX: {
                     title: "Relative cluster position",
                     valueFormatString: " ",
@@ -361,9 +360,9 @@
                 },
 
                 data: [
-                    {
-
-                        type: "bubble",
+                {
+                   
+                    type: "bubble",
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>#solvents</strong> {solvents} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
                         dataPoints: jsonModel,
                         click: function (e) {
