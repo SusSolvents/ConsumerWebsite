@@ -15,5 +15,7 @@ namespace SS.BL.Domain.Analyses
         public string CasNumber { get; set; }
         public double DistanceToClusterCenter { get; set; }
         public ICollection<Feature> Features { get; set; }
+
+        public SolventMetaData MetaData { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace SS.UI.Web.MVC.Controllers.Utils
     {
         public static Algorithm ParseJson(String jsonString, List<MinMaxValue> minMaxValues)
         {
-
             dynamic jsonModel = JsonConvert.DeserializeObject(jsonString);
             Algorithm algorithm = new Algorithm()
             {
@@ -67,7 +66,11 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         CasNumber = solvent.casNumber,
                         Name = solvent.name,
                         DistanceToClusterCenter = solvent.distanceToCluster,
-                        Features = new List<Feature>()
+                        Features = new List<Feature>(),
+                        MetaData = new SolventMetaData()
+                        {
+                                Label = solvent.predictLabel
+                        }
                     };
                     solventTemp.CasNumber = solventTemp.CasNumber.Replace("\"", "");
                     solventTemp.Name = solventTemp.Name.Replace("\"", "");
