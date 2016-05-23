@@ -30,7 +30,6 @@
 
 
         $scope.sharedWith = result.data.SharedWith;
-        console.log(result.data);
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
         setMinMaxValues();
@@ -39,7 +38,6 @@
 
         function showClusterAnalysis(modelsTemp) {
             getClassifiedInstances();
-            console.log(modelsTemp);
             for (var i = 0; i < modelsTemp.length; i++) {
                 if (modelsTemp[i].ClassifiedInstance !== null) {
                     var solvent = modelsTemp[i].ClassifiedInstance;

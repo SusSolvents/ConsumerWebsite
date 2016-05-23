@@ -28,12 +28,12 @@
             params: { id: organisation.Id }
         }).success(function (data) {
             organiser = data;
-            
+
             if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
                 organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
             }
             $scope.organiserUser = organiser;
-            
+
         });
 
         $scope.slideShow = setInArrayOf6(analyses);
@@ -52,7 +52,7 @@
                         item[counter][j] = items[i + j];
                     }
                 }
-                counter +=1;
+                counter += 1;
             }
             return item;
         }
@@ -106,7 +106,7 @@
             return "/Content/Images/random" + number + ".jpg";
         }
 
-       
+
 
 
 
@@ -303,6 +303,7 @@ app.controller('CreateOrganisationController',
             logo: ""
         };
 
+
         var createOrganisation = function (model, $http) {
             var formData = new FormData();
             formData.append('name', model.org.name);
@@ -325,21 +326,21 @@ app.controller('CreateOrganisationController',
         };
         var process = 0;
         $scope.setName = function setName() {
-            
+
             if (model.org.name === "" || model.org.name === undefined) {
-                
+
                 process = process - 40;
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
             } else {
-                
+
                 if (process === 60 || process === 0)
                     process = process + 40;
-                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
-                }
-                
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
             }
-       
-        
+
+        }
+
+
         model.submit = function (isValid) {
             console.log(model);
             if (isValid) {
@@ -356,13 +357,13 @@ app.controller('CreateOrganisationController',
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
-                                model.org.logo = result;
+                              model.org.logo = result;
                               $scope.logoSrc = result;
                               if (process === 0 || process === 40) {
                                   process += 60;
                                   angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                               }
                           });
-            
+
         };
     });
