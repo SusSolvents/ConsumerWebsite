@@ -88,8 +88,8 @@ namespace SS.DAL
             {
                 FeatureName = FeatureName.Solubility_Water_g_L,
                 MinValue = -1,
-                MaxValue = Double.MaxValue,
-                StepValue = 2
+                MaxValue = 1000,
+                StepValue = 20
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
