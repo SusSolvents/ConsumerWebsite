@@ -1059,6 +1059,12 @@ progress {
 .profile-review i:hover, .organisation-review i:hover {
     color: greenyellow;
 }
+
+.waiting {
+    font-size: 18px;
+    padding: 30px;
+    margin-top: 20px;
+}
 .xs-button{
       /* border: 1px solid #3079ed; */
   border: 1.75px solid white;

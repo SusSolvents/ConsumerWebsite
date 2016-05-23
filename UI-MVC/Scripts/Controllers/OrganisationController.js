@@ -28,12 +28,12 @@
             params: { id: organisation.Id }
         }).success(function (data) {
             organiser = data;
-
+            
             if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
                 organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
             }
             $scope.organiserUser = organiser;
-
+            
         });
 
         $scope.slideShow = setInArrayOf6(analyses);
@@ -106,7 +106,7 @@
             return "/Content/Images/random" + number + ".jpg";
         }
 
-
+       
 
 
 
@@ -302,6 +302,7 @@ app.controller('CreateOrganisationController',
             name: "",
             logo: ""
         };
+        getUserInfo($window.sessionStorage.userId);
 
 
         var createOrganisation = function (model, $http) {
@@ -319,28 +320,40 @@ app.controller('CreateOrganisationController',
                 transformRequest: angular.identity,
                 data: formData
             }).success(function succesCallback(data) {
-                setTimeout($location.path("/organisation/" + data), 1000);
+
+                $scope.organisationRegistered = true;
             }).error(function errorCallback(data) {
+                $scope.organisationRegistered = false;
                 $scope.message = data.Message;
+            });
+        };
+
+        function getUserInfo(id) {
+            $http({
+                method: 'GET',
+                url: 'api/Account/GetUserInfo',
+                params: { id: id }
+            }).success(function(data, status, headers, conf) {
+                console.log(data);
             });
         };
         var process = 0;
         $scope.setName = function setName() {
-
+            
             if (model.org.name === "" || model.org.name === undefined) {
-
+                
                 process = process - 40;
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
             } else {
-
+                
                 if (process === 60 || process === 0)
                     process = process + 40;
-                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+                }
+                
             }
-
-        }
-
-
+       
+        
         model.submit = function (isValid) {
             console.log(model);
             if (isValid) {
@@ -357,13 +370,13 @@ app.controller('CreateOrganisationController',
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
-                              model.org.logo = result;
+                                model.org.logo = result;
                               $scope.logoSrc = result;
                               if (process === 0 || process === 40) {
                                   process += 60;
                                   angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                               }
                           });
-
+            
         };
     });

@@ -632,21 +632,37 @@
                     .attr("class", "node")
                     .attr("r", function (d) { return d.value; })
                     .style("fill", function (d) {
-                        switch (d.casNumber) {
-                            case findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance.CasNumber:
-                                return "#F4FE00";
-                                break;
-                            case maxSolvent.CasNumber:
-                                return "#E68364";
-                                break;
-                            case minSolvent.CasNumber:
-                                return "#26A65B";
-                                break;
-                            
-                            default:
-                                return color(d.group);
-                        }
+                        if (findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== null && findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== undefined) {
+                            switch (d.casNumber) {
+                                case
+                                    findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance.CasNumber:
+                                    return "#F4FE00";
+                                    break;
+                                case maxSolvent.CasNumber:
+                                    return "#E68364";
+                                    break;
+                                case minSolvent.CasNumber:
+                                    return "#26A65B";
+                                    break;
 
+                                default:
+                                    return color(d.group);
+                            }
+
+                        } else {
+                            switch (d.casNumber) {
+                                case maxSolvent.CasNumber:
+                                    return "#E68364";
+                                    break;
+                                case minSolvent.CasNumber:
+                                    return "#26A65B";
+                                    break;
+
+                                default:
+                                    return color(d.group);
+                            }
+                        }
+                        
                     })
                     .on("click", function (d) {
                         if (d.solvent !== undefined) {
