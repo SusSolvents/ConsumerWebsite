@@ -600,7 +600,7 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     UserManager.AddToRole(applicationUser.Id, "User");
                     Authentication.SignIn();
-                return Ok("Registration was successful. Your application has been send to an administrator. " +
+                return Ok("Registration was successful. Your application has been sent to an administrator. " +
                               "When you're accepted you can login.");
                 }
                 _userMgr.DeleteUser(user);

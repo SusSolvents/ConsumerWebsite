@@ -441,11 +441,13 @@
                 y: datapointY,
                 radius: 0
             }, {
-                duration: 6000,
-                easing: "ease-in-out-elastic",
+                duration: 5000,
+                easing: "ease-in-expo",
                 callback: function () {
+                    currentChart.render();
                     this.fill = "transparent";
                     canvaz.redraw();
+                    
                 }
             });
 
@@ -467,13 +469,11 @@
             if (datapoint != null) {
                 drawClassifySolvent(datapoint);
                 setBorderDatapoint(datapoint);
-
             }
         }
 
         function setBorderDatapoint(datapoint) {
             datapoint.markerBorderThickness = 5;
-            currentChart.render();
         }
 
         $scope.shareWithOrganisation = function () {
@@ -789,6 +789,7 @@ app.constant('Constants', {
         8: 'Hansen_Delta_P_MPa1_2',
         9: 'Hansen_Delta_H_MPa1_2',
         10: 'Solubility_Water_g_L',
-        11: 'Dielectric_Constant_20DegreesC'
+        11: 'Dielectric_Constant_20DegreesC',
+        12: 'Hildebrandt_Par_MPa1_2'
     }
 });

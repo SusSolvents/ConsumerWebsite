@@ -217,7 +217,7 @@ namespace SS.UI.Web.MVC.Controllers
                     return Ok();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest("An error occurred while generating the model.");
             }

@@ -19,6 +19,7 @@ namespace SS.BL.Domain.Analyses
         Hansen_Delta_P_MPa1_2,
         Hansen_Delta_H_MPa1_2,
         Solubility_Water_g_L,
-        Dielectric_Constant_20DegreesC
+        Dielectric_Constant_20DegreesC,
+        Hildebrandt_Par_MPa1_2
     }
 }
