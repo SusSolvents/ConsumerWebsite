@@ -37,17 +37,19 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                     Number = cluster.clusterNumber,
                     Solvents = new List<Solvent>(),
                     VectorData = new List<VectorData>(),
-                    Centroids = new List<Centroid>()
+                   
                 };
                 foreach (var vector in cluster.vectorData)
                 {
                     VectorData vectorData = new VectorData()
                     {
-                        Value =  vector
+                        Value =  vector.value,
+                        FeatureName = vector.name
                     };
 
                     clusterTemp.VectorData.Add(vectorData);
                 }
+                
                 foreach (var distance in cluster.distanceToCluster)
                 {
                     ClusterDistanceCenter clusterDistanceCenter = new ClusterDistanceCenter()
