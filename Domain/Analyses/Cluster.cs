@@ -15,6 +15,5 @@ namespace SS.BL.Domain.Analyses
         public ICollection<ClusterDistanceCenter> DistanceToClusters { get; set; } 
         public ICollection<Solvent> Solvents { get; set; }
         public ICollection<VectorData> VectorData { get; set; }  
-        public ICollection<Centroid> Centroids { get; set; } 
     }
 }

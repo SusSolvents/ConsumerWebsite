@@ -272,6 +272,14 @@ namespace SS.UI.Web.MVC.Controllers
         public IHttpActionResult ClassifyNewSolvent([FromBody]ClassifySolventModel model, [FromUri] long analysisId)
         {
             var instances = _analysisManager.ReadClassifiedInstancesForUser(model.UserId, analysisId).ToList();
+            foreach (var cluster in model.AnalysisModels[0].Model.Clusters)
+            {
+                if (cluster.Solvents.FirstOrDefault(a => a.CasNumber.Equals(model.CasNumber)) != null)
+                {
+                    return BadRequest("Solvent is already in training set!");
+                }
+            }
+
             if (instances.FirstOrDefault(a => a.Name.Equals(model.Name)) != null)
             {
                 return BadRequest("Name already in use!");

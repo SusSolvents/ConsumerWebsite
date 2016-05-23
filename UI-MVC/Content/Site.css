@@ -2156,7 +2156,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .prev-instances li {
      margin-left: 0; 
     padding-left: 0;
-    border-bottom: white solid 1px;
+    border-top: white solid 1px;
     height: 80px;
 }
 
