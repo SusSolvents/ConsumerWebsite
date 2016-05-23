@@ -381,7 +381,11 @@
                             $scope.solventsInCluster = solventen;
                             $scope.cluster = e.dataPoint.name;
                             $scope.$apply();
-                        }
+                        },
+                    mouseout: function(e) {
+                        var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
+                        tooltip[0].style.display = "none";
+                    }
                     }
                 ]
             });
