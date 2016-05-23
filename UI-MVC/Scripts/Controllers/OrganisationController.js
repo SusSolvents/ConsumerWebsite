@@ -334,7 +334,11 @@ app.controller('CreateOrganisationController',
                 url: 'api/Account/GetUserInfo',
                 params: { id: id }
             }).success(function(data, status, headers, conf) {
-                console.log(data);
+                if (data.HasOrganisation) {
+                    $scope.organisationRegistered = true;
+                } else {
+                    $scope.organisationRegistered = false;
+                }
             });
         };
         var process = 0;

@@ -77,22 +77,22 @@
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   position: relative;
   left: 50%;
   top: 50%;
-  margin-left: -12px;
-  margin-top: -12px;
+  margin-left: -20px;
+  margin-top: -19px;
 }
 .cd-timeline-img.cd-first {
-  background: #DCC6E0;
+  background: #F2784B;
 }
 .cd-timeline-img.cd-second {
   background: #9A12B3;
 }
 .cd-timeline-img.cd-third {
-  background: #4183D7;
+  background: #65C6BB;
 }
 .cd-timeline-img.cd-fourth {
   background: #87D37C;

@@ -47,5 +47,7 @@ namespace SS.UI.Web.MVC.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Picture { get; set; }
+
+        public bool HasOrganisation { get; set; }
     }
 }

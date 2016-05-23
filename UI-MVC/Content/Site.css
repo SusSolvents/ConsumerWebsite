@@ -1062,8 +1062,15 @@ progress {
 
 .waiting {
     font-size: 18px;
-    padding: 30px;
-    margin-top: 20px;
+    padding: 15px;    
+    margin-top: 30px;
+    text-align: center;
+}
+
+.waiting a {
+    
+    margin-top: 60px;
+    width: 300px;
 }
 .xs-button{
       /* border: 1px solid #3079ed; */
@@ -2139,7 +2146,11 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     }
    
 }
-
+.container-special {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    padding: 80px 0px 20px 0px;
+}
 .disabledForm {
     border: 1.75px solid gray;
     color: gray;

@@ -42,6 +42,7 @@ namespace SS.UI.Web.MVC
                       "~/Content/cards.css",
                       "~/Content/tabs.css",
                       "~/Content/notie.css",
+                      "~/Content/goalbanner.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/onoffswitch.css",
                       "~/Content/animate.css",
