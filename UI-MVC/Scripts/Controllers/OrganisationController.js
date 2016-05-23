@@ -52,7 +52,7 @@
                         item[counter][j] = items[i + j];
                     }
                 }
-                counter +=1;
+                counter += 1;
             }
             return item;
         }
@@ -303,7 +303,8 @@ app.controller('CreateOrganisationController',
             logo: ""
         };
         getUserInfo($window.sessionStorage.userId);
-        
+
+
         var createOrganisation = function (model, $http) {
             var formData = new FormData();
             formData.append('name', model.org.name);
