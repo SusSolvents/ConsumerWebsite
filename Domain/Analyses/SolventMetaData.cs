@@ -9,6 +9,7 @@ namespace SS.BL.Domain.Analyses
 {
     public class SolventMetaData
     {
+        public long Id { get; set; }
         public string Label { get; set; }
         public string Input { get; set; }
         [DisplayName("ID_Name_1")]
