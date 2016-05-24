@@ -19,16 +19,6 @@ namespace SS.BL.Analyses
             this.repo = iAnalysisRepository;
         }
 
-        public Algorithm CreateAlgorithm(AlgorithmName algorithmName)
-        {
-            Algorithm algorithm = new Algorithm()
-            {
-                AlgorithmName = algorithmName
-              
-            };
-            return repo.CreateAlgorithm(algorithm);
-        }
-
         public Algorithm CreateAlgorithm(Algorithm algorithm)
         {
             return repo.CreateAlgorithm(algorithm);
@@ -94,54 +84,9 @@ namespace SS.BL.Analyses
             return repo.ShareWithOrganisation(organisationId, analysisId);
         }
 
-        public Cluster CreateCluster(int number)
-        {
-            Cluster cluster = new Cluster()
-            {
-                Number = number,
-                DistanceToClusters = new Collection<ClusterDistanceCenter>(),
-                Solvents = new Collection<Solvent>(),
-                VectorData = new Collection<VectorData>()
-            };
-            return repo.CreateCluster(cluster);
-        }
-
-        public IEnumerable<Cluster> ReadClustersForModel(Model model)
-        {
-            return repo.ReadClustersForModel(model);
-        }
-
-        public Feature CreateFeature(FeatureName featureName, double value)
-        {
-            Feature feature = new Feature()
-            {
-                FeatureName = featureName,
-                Value = value
-            };
-            return repo.CreateFeature(feature);
-        }
-
-        public Model CreateModel(string dataSet, DateTime date, string modelPath, AlgorithmName algorithmName)
-        {
-            Model model = new Model()
-            {
-                DataSet = dataSet,
-                Date = date,
-                ModelPath = modelPath,
-                Clusters = new Collection<Cluster>(),
-                AlgorithmName = algorithmName
-            };
-            return repo.CreateModel(model);
-        }
-
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
         {
             return repo.ReadModelsForAlgorithm(algorithmName);
-        }
-
-        public Model ReadModel(long id)
-        {
-            return repo.ReadModel(id);
         }
 
         public Model ReadModel(string dataSet, AlgorithmName algorithmName)
@@ -169,33 +114,6 @@ namespace SS.BL.Analyses
             return repo.SetClassifiedSolvent(modelId, instanceId);
         }
 
-
-        public Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter)
-        {
-            Solvent solvent = new Solvent()
-            {
-                Name = name,
-                CasNumber = casNr,
-                DistanceToClusterCenter = distanceToClusterCenter,
-                Features = new Collection<Feature>()
-            };
-            return repo.CreateSolvent(solvent);
-        }
-
-        public ClusterDistanceCenter CreateClusterDistanceCenter(long clusterId, double distance)
-        {
-            ClusterDistanceCenter clusterDistanceCenter = new ClusterDistanceCenter()
-            {
-                ToClusterId = clusterId,
-                Distance = distance
-            };
-            return repo.CreateClusterDistanceCenter(clusterDistanceCenter);
-        }
-
-        public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
-        {
-            return repo.CreateAnalysisModel(analysisModel);
-        }
 
         public IEnumerable<Analysis> ReadFullAnalyses()
         {

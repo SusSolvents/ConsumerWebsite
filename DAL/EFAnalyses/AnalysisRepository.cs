@@ -126,42 +126,6 @@ namespace SS.DAL.EFAnalyses
             return analysis;
         }
 
-        public Cluster CreateCluster(Cluster cluster)
-        {
-            cluster = _context.Clusters.Add(cluster);
-            _context.SaveChanges();
-            return cluster;
-        }
-
-        public IEnumerable<Cluster> ReadClustersForModel(Model model)
-        {
-            return _context.Models.Find(model.Id).Clusters.ToList();
-        }
-
-        public Feature CreateFeature(Feature feature)
-        {
-            feature = _context.Features.Add(feature);
-            _context.SaveChanges();
-            return feature;
-        }
-
-        public Model CreateModel(Model model)
-        {
-            model = _context.Models.Add(model);
-            _context.SaveChanges();
-            return model;
-        }
-
-        public Model ReadModel(long id)
-        {
-            return _context.Models
-                .Include(p => p.Clusters)
-                .Include(p => p.Clusters.Select(pt => pt.DistanceToClusters))
-                .Include(p => p.Clusters.Select(pt => pt.Solvents))
-                .Include(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features)))
-                .FirstOrDefault(i => i.Id == id);
-        }
-
         public Model ReadModel(string dataSet, AlgorithmName algorithmName)
         {
              return _context.Models
@@ -171,27 +135,6 @@ namespace SS.DAL.EFAnalyses
                 .Include(p => p.Clusters.Select(pt => pt.Solvents.Select(v => v.Features)))
                 .Where(t => t.DataSet.Equals(dataSet))
                 .FirstOrDefault(a => a.AlgorithmName == algorithmName);
-        }
-
-        public Solvent CreateSolvent(Solvent solvent)
-        {
-            solvent = _context.Solvents.Add(solvent);
-            _context.SaveChanges();
-            return solvent;
-        }
-
-        public ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter)
-        {
-            clusterDistanceCenter = _context.ClusterDistanceCenters.Add(clusterDistanceCenter);
-            _context.SaveChanges();
-            return clusterDistanceCenter;
-        }
-
-        public AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel)
-        {
-            analysisModel = _context.AnalysisModels.Add(analysisModel);
-            _context.SaveChanges();
-            return analysisModel;
         }
 
         public IEnumerable<Analysis> ReadAnalyses()
