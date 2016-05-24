@@ -153,6 +153,9 @@
                     }
                 }
                 for (var j = 0; j < models[i].Model.Clusters.length; j++) {
+                    for (var k = 0; k < models[i].Model.Clusters[j].VectorData.length; k++) {
+                        models[i].Model.Clusters[j].VectorData[k].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].VectorData[k].FeatureName];
+                    }
                     for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
                         
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
@@ -162,6 +165,8 @@
                     }
                 }
             }
+
+
             
             for (var i = 0; i < models[0].Model.Clusters.length; i++) {
                 for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
@@ -298,6 +303,8 @@
                 
                 setBorderDatapoint(datapoint);
             }
+            delete $scope.selectedCluster;
+            delete $scope.selectedNodeObject;
         });
 
         function changeInstance(instance) {
@@ -496,6 +503,7 @@
 
         $scope.selectedSolventFunc = function ($item) {
             $scope.selectedSolvent = $item.originalObject;
+            delete $scope.selectedCluster;
             getClusterFromSolvent($scope.selectedSolvent);
         }
 
@@ -604,6 +612,11 @@
                     cluster.Solvents.push(currentModel.ClassifiedInstance);
                 }
             }
+            for (var i = 0; i < cluster.DistanceToClusters.length; i++) {
+                cluster.DistanceToClusters[i].Distance = Number(cluster.DistanceToClusters[i].Distance.toFixed(2));
+            }
+
+
             var width = 700, height = 410;
 
             var color = d3.scale.category20();
@@ -678,7 +691,9 @@
                     .attr("class", "link")
                     .style("stroke-width", 1)
                 ;
+                
                 var selectedNode;
+                var selectedCluster;
                 var node = svg.selectAll(".node")
                     .data(jsonGraph.nodes)
                     .enter().append("circle")
@@ -691,6 +706,7 @@
                                 CasNumber: d.casNumber,
                                 DistanceToClusterCenter: d.distance
                             };
+                            selectedNode = this;
                             $scope.selectedNodeObject = selectedNodeObject;
                             $scope.$apply();
                             return "red";
@@ -734,7 +750,12 @@
                     .on("click", function (d) {
                         if (d.casNumber === "None") {
                             $scope.selectedCluster = d.cluster;
-                            console.log(d.cluster);
+                            if (selectedNode !== undefined) {
+                                d3.select(selectedNode).style("stroke", "white");
+                            }
+                            d3.select(this).style("stroke", "red");
+                            selectedCluster = this;
+
                         } else {
                             delete $scope.selectedCluster;
                             if (d.solvent !== undefined) {
@@ -748,6 +769,10 @@
                                 if (selectedNode !== undefined) {
                                     d3.select(selectedNode).style("stroke", "white");
                                 }
+                                if (selectedCluster !== null) {
+                                    d3.select(selectedCluster).style("stroke", "white");
+                                }
+                                selectedCluster = null;
                                 d3.select(this).style("stroke", "red");
                                 selectedNode = this;
                                 $scope.selectedSolvent = d.solvent;
@@ -785,18 +810,17 @@ app.constant('Constants', {
         4: 'XMEANS'
     },
     FeatureName: {
-        0: 'Boiling_Point_Minimum_DegreesC',
-        1: 'Melting_Point_Minimum_DegreesC',
-        2: 'Flash_Point_Minimum_DegreesC',
-        3: 'Vapour_Pressure_25DegreesC_mmHg',
-        4: 'Density_25DegreesC_Minimum_kg_L',
-        5: 'Viscosity_25DegreesC_Minimum_mPa_s',
-        6: 'Autoignition_Temperature_Minimum_DegreesC',
+        0: 'Boiling_Point_Minimum_°C',
+        1: 'Melting_Point_Minimum_°C',
+        2: 'Flash_Point_Minimum_°C',
+        3: 'Vapour_Pressure_25°C_mmHg',
+        4: 'Density_25°C_Minimum_kg/L',
+        5: 'Viscosity_25°C_Minimum_mPa.s',
+        6: 'Autoignition_Temperature_Minimum_°C',
         7: 'Hansen_Delta_D_MPa1_2',
         8: 'Hansen_Delta_P_MPa1_2',
         9: 'Hansen_Delta_H_MPa1_2',
-        10: 'Solubility_Water_g_L',
-        11: 'Dielectric_Constant_20DegreesC',
-        12: 'Hildebrandt_Par_MPa1_2'
+        10: 'Solubility_Water_g/L',
+        11: 'Dielectric_Constant_20°C'
     }
 });
