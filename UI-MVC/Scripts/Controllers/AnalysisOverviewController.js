@@ -524,8 +524,15 @@
             delete $scope.selectedCluster;
             getClusterFromSolvent($scope.selectedSolvent);
         }
-
-        $scope.selectClassifiedSolvent = function (item) {
+       
+        $scope.selectClassifiedSolvent = function (item, index) {
+            var btns = document.getElementsByClassName('classifiedBtn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].className += ' disabled-element';
+            }
+            $('#closecross-solvents').addClass('disabled-element');
+           
+            $('#classBtn_' + index).button("loading");
             $http({
                 method: 'POST',
                 url: 'api/Analysis/SetClassifiedSolvent',
@@ -535,6 +542,8 @@
                 $('#prevClassified-modal').modal('hide');
                 showInstance = true;
                 showClusterAnalysis(data);
+                $('#closecross-solvents').removeClass('disabled-element');
+                $('#classBtn_' + index).button("reset");
             });
 
         }

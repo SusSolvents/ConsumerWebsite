@@ -2183,8 +2183,20 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 .classified-solvents-container {
     margin-top: 4%;
-    max-width: 400px;
+    max-width: 500px;
     max-height: 700px;
+    padding: 0;
+    padding-top: 15px;
+    
+}
+.modal-overflow {
+    overflow-y: auto;
+    width: 100%;
+    margin: 0;
+    height: 600px;
+}
+.disabled-element {
+    pointer-events: none;
 }
 .classify-solvent-row input:focus{
     outline: none;
@@ -2199,8 +2211,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
      width: 100%
 }
 .prev-instances li {
-     margin-left: 0; 
+    margin-left: 0; 
     padding-left: 0;
-    border-top: white solid 1px;
+    border-top: grey dotted 1px;
     height: 80px;
 }
