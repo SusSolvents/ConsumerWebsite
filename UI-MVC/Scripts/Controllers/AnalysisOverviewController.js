@@ -32,7 +32,7 @@
         $scope.sharedWith = result.data.SharedWith;
         $scope.models = result.data.AnalysisModels;
         var data = result.data;
-        setMinMaxValues();
+        setEnumMinMax();
         showClusterAnalysis(result.data.AnalysisModels);
 
         if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
@@ -44,6 +44,7 @@
             
             models = modelsTemp;
             setEnumNames();
+            setMinMaxValues();
             for (var i = 0; i < models.length; i++) {
                 clusters = getClusters(models[i].Model);
                 var clusterPositions = [];
@@ -173,7 +174,7 @@
             }
 
 
-            
+
             for (var i = 0; i < models[0].Model.Clusters.length; i++) {
                 for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
                     solvents.push(models[0].Model.Clusters[i].Solvents[j]);
@@ -181,10 +182,15 @@
             }
 
         }
-       
-        function setMinMaxValues() {
+
+        function setEnumMinMax() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+            }
+        }
+
+        function setMinMaxValues() {
+            for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = minMaxValues[i].MinValue;
             }
             minMaxValues.name = "";
@@ -237,7 +243,7 @@
                 $('#load').button('reset');
 
                 document.getElementById('closecross').disabled = false;
-                
+                setMinMaxValues();
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
             });

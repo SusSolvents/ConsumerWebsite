@@ -12,12 +12,10 @@
             $scope.noAnalyses = false;
             $scope.analyses = analyses;
         }
-        console.log(organisation);
-        for (var i = 0; i < members.length; i++) {
-            if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
-                members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
-            }
-        }
+        setImageUrlsMembers();
+
+
+        
         $scope.organiser = false;
         if ($window.sessionStorage.userId === organisation.OrganisatorId.toString()) {
             $scope.organiser = true;
@@ -50,6 +48,14 @@
             return item;
         }
 
+
+        function setImageUrlsMembers() {
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
+                    members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
+                }
+            }
+        }
 
         function createProgress() {
             jQuery("#circle-members").empty();
@@ -122,6 +128,7 @@
                 params: { id: organisation.Id }
             }).success(function succesCallback(data) {
                 members = data;
+                setImageUrlsMembers();
                 $scope.members = data;
                 $scope.membersSlide = setInArrayOf6(members);
                 createProgress();
@@ -169,10 +176,10 @@
                 url: 'api/Organisation/AddMemberToOrganisation',
                 params: { organisationId: organisation.Id, email: $scope.emailNewMember }
             }).success(function succesCallback(data) {
-
+                reloadMembers();
                 notie.alert(1, "User was added to organisation", 2);
                 $scope.emailNewMember = "";
-                reloadMembers();
+                
                 $('#add-member-modal').modal('hide');
             }).error(function errorCallback(data) {
                 $scope.messageNewMember = data.Message;
