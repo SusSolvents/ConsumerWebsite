@@ -1,5 +1,6 @@
-﻿app.controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, Constants, result, $timeout, organisation, minMax) {
+﻿angular.module('sussol.controllers')
+    .controller('AnalysisOverviewController',
+    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
@@ -151,22 +152,22 @@
         function setEnumNames() {
             
             for (var i = 0; i < models.length; i++) {
-                models[i].Model.AlgorithmName = Constants.AlgorithmName[models[i].Model.AlgorithmName];
+                models[i].Model.AlgorithmName = constants.AlgorithmName[models[i].Model.AlgorithmName];
                 algorithms.push(models[i].Model.AlgorithmName);
                 if (showInstance) {
                     for (var j = 0; j < models[i].ClassifiedInstance.Features.length; j++) {
-                        models[i].ClassifiedInstance.Features[j].FeatureName = Constants.FeatureName[models[i].ClassifiedInstance.Features[j].FeatureName];
+                        models[i].ClassifiedInstance.Features[j].FeatureName = constants.FeatureName[models[i].ClassifiedInstance.Features[j].FeatureName];
                         models[i].ClassifiedInstance.Features[j].Value = Number(models[i].ClassifiedInstance.Features[j].Value.toFixed(2));
                     }
                 }
                 for (var j = 0; j < models[i].Model.Clusters.length; j++) {
                     for (var k = 0; k < models[i].Model.Clusters[j].VectorData.length; k++) {
-                        models[i].Model.Clusters[j].VectorData[k].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].VectorData[k].FeatureName];
+                        models[i].Model.Clusters[j].VectorData[k].FeatureName = constants.FeatureName[models[i].Model.Clusters[j].VectorData[k].FeatureName];
                     }
                     for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
                         
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
-                            models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
+                            models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName = constants.FeatureName[models[i].Model.Clusters[j].Solvents[k].Features[l].FeatureName];
                             models[i].Model.Clusters[j].Solvents[k].Features[l].Value = Number(models[i].Model.Clusters[j].Solvents[k].Features[l].Value.toFixed(2));
                         }
                     }
@@ -185,7 +186,7 @@
 
         function setEnumMinMax() {
             for (var i = 0; i < minMaxValues.length; i++) {
-                minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
+                minMaxValues[i].FeatureName = constants.FeatureName[minMaxValues[i].FeatureName];
             }
         }
        
@@ -246,6 +247,8 @@
                 for (var i = 0; i < document.getElementsByClassName("feature-input").length; i++) {
                     document.getElementsByClassName("feature-input")[i].style.borderColor = "black";
                 }
+                document.getElementById("newSolventCasNr").style.borderColor = "black";
+                document.getElementById("newSolventName").style.borderColor = "black";
                 setMinMaxValues();
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
@@ -827,28 +830,3 @@
             });
         };
     });
-
-
-app.constant('Constants', {
-    AlgorithmName: {
-        0: 'CANOPY',
-        1: 'EM',
-        2: 'KMEANS',
-        3: 'SOM',
-        4: 'XMEANS'
-    },
-    FeatureName: {
-        0: 'Boiling_Point_Minimum_°C',
-        1: 'Melting_Point_Minimum_°C',
-        2: 'Flash_Point_Minimum_°C',
-        3: 'Vapour_Pressure_25°C_mmHg',
-        4: 'Density_25°C_Minimum_kg/L',
-        5: 'Viscosity_25°C_Minimum_mPa.s',
-        6: 'Autoignition_Temperature_Minimum_°C',
-        7: 'Hansen_Delta_D_MPa1_2',
-        8: 'Hansen_Delta_P_MPa1_2',
-        9: 'Hansen_Delta_H_MPa1_2',
-        10: 'Solubility_Water_g/L',
-        11: 'Dielectric_Constant_20°C'
-    }
-});

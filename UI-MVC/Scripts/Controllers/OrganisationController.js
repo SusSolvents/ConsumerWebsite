@@ -1,4 +1,5 @@
-﻿app.controller('OrganisationController',
+﻿angular.module('sussol.controllers')
+    .controller('OrganisationController',
     function ($timeout, $window, $scope, $http, fileReader, $route, $location, result, analysesOrganisation, membersOrganisation, organiserOrganisation) {
 
         var organisation = result.data;
@@ -15,7 +16,7 @@
         setImageUrlsMembers();
 
 
-        
+
         $scope.organiser = false;
         if ($window.sessionStorage.userId === organisation.OrganisatorId.toString()) {
             $scope.organiser = true;
@@ -179,7 +180,7 @@
                 reloadMembers();
                 notie.alert(1, "User was added to organisation", 2);
                 $scope.emailNewMember = "";
-                
+
                 $('#add-member-modal').modal('hide');
             }).error(function errorCallback(data) {
                 $scope.messageNewMember = data.Message;
@@ -294,7 +295,8 @@
     }
 );
 
-app.controller('CreateOrganisationController',
+angular.module('sussol.controllers')
+    .controller('CreateOrganisationController',
     function ($window, $scope, $http, fileReader, $location) {
         var model = this;
         model.org = {

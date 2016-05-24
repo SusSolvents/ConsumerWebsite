@@ -25,28 +25,11 @@ namespace SS.DAL.EFAnalyses
         Analysis UndoShare(long id);
         Analysis ShareWithOrganisation(long organisationId, long analysisId);
 
-
-         //Cluster
-        Cluster CreateCluster(Cluster cluster);
-        IEnumerable<Cluster> ReadClustersForModel(Model model);
-
-        //Feature
-        Feature CreateFeature(Feature feature);
-
         //Model
-        Model CreateModel(Model model);
-        Model ReadModel(long id);
         Model ReadModel(string dataSet, AlgorithmName algorithmName);
         List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
 
-        //Solvent
-        Solvent CreateSolvent(Solvent solvent);
-
-        //ClusterDistanceCenter
-        ClusterDistanceCenter CreateClusterDistanceCenter(ClusterDistanceCenter clusterDistanceCenter);
-        
         //AnalysisModel
-        AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
         IEnumerable<Analysis> ReadAnalyses();
         IEnumerable<Analysis> ReadFullAnalyses();
 

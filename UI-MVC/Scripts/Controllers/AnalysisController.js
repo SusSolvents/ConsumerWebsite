@@ -1,4 +1,5 @@
-﻿app.controller('AnalysisController', 
+﻿angular.module('sussol.controllers')
+    .controller('AnalysisController',
     function ($scope, $window, $http, $location, $rootScope, srvLibrary) {
         var algorithms = [];
         var models = [];

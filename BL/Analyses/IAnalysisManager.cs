@@ -11,11 +11,9 @@ namespace SS.BL.Analyses
     public interface IAnalysisManager
     {
         //Algorithm
-        Algorithm CreateAlgorithm(AlgorithmName algorithmName);
         Algorithm CreateAlgorithm(Algorithm algorithm);
 
         //Analysis
-        Analysis CreateAnalysis(string name, DateTime dateCreated, User createdBy);
         Analysis ReadAnalysis(long id);
         Analysis ReadAnalysis(string name);
         Analysis CreateAnalysis(Analysis analysis, string email);
@@ -27,17 +25,8 @@ namespace SS.BL.Analyses
         Analysis UndoShare(long id);
         Analysis ShareWithOrganisation(long organisationId, long analysisId);
 
-        //Cluster
-        Cluster CreateCluster(int number);
-        IEnumerable<Cluster> ReadClustersForModel(Model model);
-
-        //Feature
-        Feature CreateFeature(FeatureName featureName, double value);
-
         //Model
-        Model CreateModel(string dataSet, DateTime date, string modelPath, AlgorithmName algorithmName);
         List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);
-        Model ReadModel(long id);
         Model ReadModel(string dataSet, AlgorithmName algorithmName);
 
         //ClassifiedInstances
@@ -46,14 +35,7 @@ namespace SS.BL.Analyses
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
         AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
 
-        //Solvent
-        Solvent CreateSolvent(int number, string name, string casNr, double distanceToClusterCenter);
-
-        //ClusterDistanceCenter
-        ClusterDistanceCenter CreateClusterDistanceCenter(long clusterId, double distance);
-
         //AnalysisModel
-        AnalysisModel CreateAnalysisModel(AnalysisModel analysisModel);
         IEnumerable<Analysis> ReadFullAnalyses();
 
         //MinMaxValue

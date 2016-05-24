@@ -274,15 +274,18 @@
                         </tr>
                         <tr ng-repeat="feature in minMaxValues">
                             <td class="col-lg-7">{{feature.FeatureName}}
-                                <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
+                                <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p>
+                                <br/>
+                                <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
+                                    The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
+                                </span>
+                                <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
+                                    This value cannot be empty!
+                                </span>
+                            </td>
+
                             <td class="classify-solvent-row col-lg-3">
                                 <input class="feature-input" type="number" step="{{feature.StepValue}}" min="{{feature.MinValue}}" ng-change="SetStyle($index)" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
-                                <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
-                                        The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
-                                    </span>
-                                <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
-                                        This value cannot be empty!
-                                    </span>
                             </td>
                         </tr>
                     </table>

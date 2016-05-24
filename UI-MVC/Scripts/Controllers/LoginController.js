@@ -95,7 +95,7 @@ angular.module('sussol.services', [])
 
 
 
-angular.module('sussol.controllers', ['sussol.services'])
+angular.module('sussol.controllers', ['sussol.services', 'sussol.constants'])
 
     .controller('LoginController', ['$scope', '$location', '$window', '$rootScope', 'UserService', 'AuthenticationService', '$http', '$timeout',
     function LoginController($scope, $location, $window, $rootScope, UserService, AuthenticationService, $http, $timeout) {
@@ -166,3 +166,29 @@ angular.module('sussol.controllers', ['sussol.services'])
         }
     }
 ]);
+
+
+angular.module('sussol.constants', [])
+.constant('constants', {
+    AlgorithmName: {
+        0: 'CANOPY',
+        1: 'EM',
+        2: 'KMEANS',
+        3: 'SOM',
+        4: 'XMEANS'
+    },
+    FeatureName: {
+        0: 'Boiling_Point_Minimum_°C',
+        1: 'Melting_Point_Minimum_°C',
+        2: 'Flash_Point_Minimum_°C',
+        3: 'Vapour_Pressure_25°C_mmHg',
+        4: 'Density_25°C_Minimum_kg/L',
+        5: 'Viscosity_25°C_Minimum_mPa.s',
+        6: 'Autoignition_Temperature_Minimum_°C',
+        7: 'Hansen_Delta_D_MPa1_2',
+        8: 'Hansen_Delta_P_MPa1_2',
+        9: 'Hansen_Delta_H_MPa1_2',
+        10: 'Solubility_Water_g/L',
+        11: 'Dielectric_Constant_20°C'
+    }
+});

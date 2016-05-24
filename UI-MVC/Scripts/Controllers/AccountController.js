@@ -1,4 +1,5 @@
-﻿    var RegistrationController = function($scope, $http, $location, fileReader) {
+﻿angular.module('sussol.controllers')
+    .controller("RegistrationController", function ($scope, $http, $location, fileReader) {
         var model = this;
 
         model.message = "";
@@ -18,9 +19,9 @@
         $scope.getFile = function () {
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
-                          .then(function (result) {
-                              $scope.imageSrc = result;
-                          });
+                .then(function (result) {
+                    $scope.imageSrc = result;
+                });
         };
 
         $scope.$on("fileProgress", function (e, progress) {
@@ -54,7 +55,7 @@
             });
 
         }
-        model.submit = function(isValid) {
+        model.submit = function (isValid) {
             if (isValid) {
                 registration(model, $http);
                 model.message = $scope.details;
@@ -62,41 +63,38 @@
                 model.message = "There are still invalid fields below";
             }
         };
+    });
 
-    };
 
 
-    var compareTo = function() {
+angular.module('sussol.services')
+    .directive("compareTo", function () {
         return {
             require: "ngModel",
             scope: {
                 otherModelValue: "=compareTo"
             },
-            link: function(scope, element, attributes, ngModel) {
+            link: function (scope, element, attributes, ngModel) {
 
-                ngModel.$validators.compareTo = function(modelValue) {
+                ngModel.$validators.compareTo = function (modelValue) {
                     return modelValue === scope.otherModelValue;
                 };
 
-                scope.$watch("otherModelValue", function() {
+                scope.$watch("otherModelValue", function () {
                     ngModel.$validate();
                 });
             }
         };
-    };
-
-    app.directive("compareTo", compareTo);
-    app.controller("RegistrationController", RegistrationController);
-    
-    app.directive("ngFileSelect", function () {
-        return {
-            link: function ($scope, el) {
-                el.bind("change", function (e) {
-                    $scope.file = (e.srcElement || e.target).files[0];
-                    $scope.getFile();
-                });
-
-            }
+    })
+.directive("ngFileSelect", function () {
+    return {
+        link: function ($scope, el) {
+            el.bind("change", function (e) {
+                $scope.file = (e.srcElement || e.target).files[0];
+                $scope.getFile();
+            });
 
         }
-    });
+
+    }
+});
