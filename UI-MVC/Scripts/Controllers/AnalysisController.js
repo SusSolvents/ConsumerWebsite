@@ -68,7 +68,6 @@
         var selectedModel;
         var analyseName;
         $scope.selectModel = function selectModel($event) {
-            console.log(selectedModel);
             if (selectedModel !== undefined) {
                 selectedModel.style.borderColor = "lightgray";
                 selectedModel.style.backgroundColor = "rgba(255, 255, 255, 0.1)";

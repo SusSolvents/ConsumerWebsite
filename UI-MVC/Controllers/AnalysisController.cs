@@ -304,6 +304,8 @@ namespace SS.UI.Web.MVC.Controllers
                     
                     for (int i = 0; i < model.FeatureNames.Length; i++)
                     {
+                        model.FeatureNames[i] =
+                            model.FeatureNames[i].Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
                         Feature f = new Feature()
                         {
                             FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), model.FeatureNames[i]),
@@ -354,7 +356,9 @@ namespace SS.UI.Web.MVC.Controllers
 
                             for (int i = 0; i < featureNames.Count; i++)
                             {
-                                Feature f = new Feature()
+                            featureNames[i] =
+                            featureNames[i].ToString().Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
+                            Feature f = new Feature()
                                 {
                                     FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i].ToString()),
                                     Value = Double.Parse(values[i].ToString())

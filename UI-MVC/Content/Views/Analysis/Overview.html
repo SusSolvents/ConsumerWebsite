@@ -208,9 +208,12 @@
     <div class="modal fade" id="organisation-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="loginmodal-container password-container">
                 <h1>Share your analysis with an organisation</h1>
-                <div class="text-center">
+                <div class="text-center" ng-if="organisationUser !== null">
                     <h2>{{organisationUser.Name}}</h2>
                     <button class="login loginmodal-submit" style="width: 100%;" ng-click="shareWithOrganisation()">Share with organisation</button>
+                </div>
+                <div class="text-center" ng-if="organisationUser === null">
+                    <h2>You have no organisation</h2>
                 </div>
             </div>
     </div>

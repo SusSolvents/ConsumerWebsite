@@ -274,7 +274,7 @@
                 percentages.push(percentage);
 
                 json[i] = ({
-                    'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "#F4FE00", //change color here
+                    'x': model.Model.NormalizedValues[i], 'y': Number(percentage.toFixed(3)), 'z': Number(max.toFixed(3)), 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "#F4FE00", //change color here
                     'markerBorderThickness': 0
                 });
 
@@ -550,6 +550,7 @@
 
         $scope.closeOverlay = function closeOverlay(name) {
             delete $scope.selectedNodeObject;
+            delete $scope.selectedCluster;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
         }
@@ -692,9 +693,11 @@
                     .attr("class", "link")
                     .style("stroke-width", 1)
                 ;
-                
-                var selectedNode;
-                var selectedCluster;
+                delete $scope.selectedNodeObject;
+                delete $scope.selectedCluster;
+                $scope.$apply();
+                var selectedNode = null;
+                var selectedCluster = null;
                 var node = svg.selectAll(".node")
                     .data(jsonGraph.nodes)
                     .enter().append("circle")
