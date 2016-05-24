@@ -237,7 +237,9 @@
                 $('#load').button('reset');
 
                 document.getElementById('closecross').disabled = false;
-                
+                for (var i = 0; i < document.getElementsByClassName("feature-input").length; i++) {
+                    document.getElementsByClassName("feature-input")[i].style.borderColor = "black";
+                }
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
             });
@@ -325,7 +327,9 @@
             $scope.ClassifiedInstance = instance;
             $scope.$apply();
         }
-
+        $scope.SetStyle = function (index) {
+            document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
+        }
        
 
         function resetProgress() {
