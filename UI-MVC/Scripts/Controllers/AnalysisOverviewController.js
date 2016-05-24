@@ -641,7 +641,8 @@
                 "group": 2,
                 "value": 20,
                 "distance": 0,
-                "casNumber": "None"
+                "casNumber": "None",
+                "cluster": cluster
             });
             var maxSolvent, minSolvent;
 
@@ -737,23 +738,29 @@
                         
                     })
                     .on("click", function (d) {
-                        if (d.solvent !== undefined) {
-                            var selectedNodeObject = {
-                                Name: d.solvent.Name,
-                                CasNumber: d.solvent.CasNumber,
-                                DistanceToClusterCenter: Number(d.solvent.DistanceToClusterCenter.toFixed(3))
-                        };
+                        if (d.casNumber === "None") {
+                            $scope.selectedCluster = d.cluster;
+                            console.log(d.cluster);
+                        } else {
+                            delete $scope.selectedCluster;
+                            if (d.solvent !== undefined) {
+                                var selectedNodeObject = {
+                                    Name: d.solvent.Name,
+                                    CasNumber: d.solvent.CasNumber,
+                                    DistanceToClusterCenter: Number(d.solvent.DistanceToClusterCenter.toFixed(3))
+                                };
 
-                            $scope.selectedNodeObject = selectedNodeObject;
-                            if (selectedNode !== undefined) {
-                                d3.select(selectedNode).style("stroke", "white");
+                                $scope.selectedNodeObject = selectedNodeObject;
+                                if (selectedNode !== undefined) {
+                                    d3.select(selectedNode).style("stroke", "white");
+                                }
+                                d3.select(this).style("stroke", "red");
+                                selectedNode = this;
+                                $scope.selectedSolvent = d.solvent;
                             }
-                            d3.select(this).style("stroke", "red");
-                            selectedNode = this;
-                            $scope.selectedSolvent = d.solvent;
-                            $scope.$apply();
+                            
                         }
-
+                        $scope.$apply();
                     });
 
 

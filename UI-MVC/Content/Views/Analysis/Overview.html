@@ -134,17 +134,28 @@
                                 </div>
                                 <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
                                 <div class="selected-node" id="selected-node-{{model.Model.AlgorithmName}}">
-                                    <div ng-if="!selectedNodeObject">No solvent selected <br/> Click on a node
+                                    <div ng-if="selectedCluster === undefined">
+                                        <div ng-if="!selectedNodeObject">
+                                            No solvent selected <br/> Click on a node
+                                        </div>
+                                        <div ng-if="selectedNodeObject">
+                                            <h4>Selected solvent:</h4>
+                                            {{selectedNodeObject.Name}}
+                                            <h4> Cas Number: </h4>
+                                            {{selectedNodeObject.CasNumber}}
+                                            <h4> Distance to center: </h4>
+                                            {{selectedNodeObject.DistanceToClusterCenter}}
+                                        </div>
                                     </div>
-                                    <div ng-if="selectedNodeObject">
-                                        <h4>Selected solvent:</h4>
-                                        {{selectedNodeObject.Name}}
-                                        <h4> Cas Number: </h4>
-                                        {{selectedNodeObject.CasNumber}}
-                                        <h4> Distance to center: </h4>
-                                        {{selectedNodeObject.DistanceToClusterCenter}}
+                                    <div ng-if="selectedCluster !== undefined">
+                                        <div>
+                                            <h4>Distance to clusters</h4>
+                                            <div ng-repeat="cluster in selectedCluster.DistanceToClusters">
+                                                To cluster {{cluster.ToClusterId}}: {{cluster.Distance}}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -167,15 +178,20 @@
                                  style="margin-top: 12px; display: block; width: 100%"
                                  match-class="highlight"
                                  clear-selected="true"></div>
-                            <h4 ng-if="selectedSolvent" style="margin-top: 10px;">Solvent: {{selectedSolvent.Name}}</h4>
-                            <table ng-if="selectedSolvent">
+                            <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster Centroids</h4>
+                            <h4 ng-if="selectedSolvent && selectedCluster === undefined" style="margin-top: 10px;">Solvent: {{selectedSolvent.Name}}</h4>
+                            <table ng-if="selectedSolvent || selectedCluster">
                                 <tr>
                                     <th style="padding-left: 15px">Feature name</th>
                                     <th style="padding-left: 15px">Value</th>
                                 </tr>
-                                <tr ng-repeat="feature in selectedSolvent.Features">
+                                <tr ng-repeat="feature in selectedSolvent.Features" ng-if="selectedCluster === undefined">
                                     <td style="padding-left: 15px">{{feature.FeatureName}}</td>
                                     <td style="padding-left: 15px">{{feature.Value}}</td>
+                                </tr>
+                                <tr ng-repeat="vectorData in selectedCluster.VectorData" ng-if="selectedCluster !== undefined">
+                                    <td style="padding-left: 15px">{{vectorData.FeatureName}}</td>
+                                    <td style="padding-left: 15px">{{vectorData.Value}}</td>
                                 </tr>
                             </table>
 
