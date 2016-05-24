@@ -323,10 +323,10 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/SetClassifiedSolvent
         [Route("SetClassifiedSolvent")]
-        public List<AnalysisModel> SetClassifiedSolvent(string name, long analysisId)
+        public List<AnalysisModel> SetClassifiedSolvent(string name, long analysisId, long userId)
         {
             var analysis = _analysisManager.ReadAnalysis(analysisId);
-            var classifiedInstances = _analysisManager.ReadAllClassifiedInstances(analysis.CreatedBy.Id, name).ToList();
+            var classifiedInstances = _analysisManager.ReadAllClassifiedInstances(userId, name).ToList();
             foreach (var model in analysis.AnalysisModels)
             {
                 var instance = classifiedInstances.FirstOrDefault(a => a.AnalysisModelId == model.Id);

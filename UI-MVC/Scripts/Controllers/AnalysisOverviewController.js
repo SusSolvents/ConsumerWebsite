@@ -315,6 +315,7 @@
                 changeInstance(findAnalysisModelOnName(e.currentTarget.id).ClassifiedInstance);
                 
                 setBorderDatapoint(datapoint);
+                currentChart.render();
             }
             delete $scope.selectedCluster;
             delete $scope.selectedNodeObject;
@@ -524,7 +525,7 @@
             $http({
                 method: 'POST',
                 url: 'api/Analysis/SetClassifiedSolvent',
-                params: { name: item.Name, analysisId: $routeParams.id }
+                params: { name: item.Name, analysisId: $routeParams.id, userId: $window.sessionStorage.userId }
             }).success(function succesCallback(data) {
                 $scope.closeOverlay(selectedAlgorithm);
                 $('#prevClassified-modal').modal('hide');

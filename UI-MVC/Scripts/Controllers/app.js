@@ -59,6 +59,9 @@ app.config(function ($routeProvider, $locationProvider) {
             },
             analysesOrganisation: function($route, srvLibrary) {
                 return srvLibrary.readAnalysesForOrganisation($route.current.params.id);
+            },
+            organiserOrganisation: function($route, srvLibrary) {
+                return srvLibrary.readOrganiser($route.current.params.id);
             }
         }
     });
@@ -193,6 +196,17 @@ angular.module('sussol.services')
                         method: 'POST',
                         url: 'api/Analysis/ReadMinMaxValues',
                         params: { analysisId: id }
+                    });
+                    promise.success(function (data, status, headers, conf) {
+                        return data;
+                    });
+                    return promise;
+                },
+                readOrganiser: function (id) {
+                    var promise = $http({
+                        method: 'POST',
+                        url: 'api/Organisation/ReadOrganiser',
+                        params: { id: id }
                     });
                     promise.success(function (data, status, headers, conf) {
                         return data;

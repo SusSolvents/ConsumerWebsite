@@ -1,10 +1,10 @@
 ﻿app.controller('OrganisationController',
-    function ($timeout, $window, $scope, $http, fileReader, $route, $location, result, analysesOrganisation, membersOrganisation) {
+    function ($timeout, $window, $scope, $http, fileReader, $route, $location, result, analysesOrganisation, membersOrganisation, organiserOrganisation) {
 
         var organisation = result.data;
         var analyses = analysesOrganisation.data;
         var members = membersOrganisation.data;
-        var organiser;
+        var organiser = organiserOrganisation.data;
         $scope.organisation = organisation;
         $scope.noAnalyses = true;
         $scope.totalAnalyses = analyses.length;
@@ -12,6 +12,7 @@
             $scope.noAnalyses = false;
             $scope.analyses = analyses;
         }
+        console.log(organisation);
         for (var i = 0; i < members.length; i++) {
             if (members[i].AvatarUrl !== "" && members[i].AvatarUrl !== null) {
                 members[i].AvatarUrl = "/Content/Images/Users/" + members[i].AvatarUrl;
@@ -22,19 +23,11 @@
             $scope.organiser = true;
         }
 
-        $http({
-            method: 'POST',
-            url: 'api/Organisation/ReadOrganiser',
-            params: { id: organisation.Id }
-        }).success(function (data) {
-            organiser = data;
-            
-            if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
-                organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
-            }
-            $scope.organiserUser = organiser;
-            
-        });
+        if (organiser.AvatarUrl !== null && organiser.AvatarUrl !== "") {
+            organiser.AvatarUrl = 'Content/Images/Users/' + organiser.AvatarUrl;
+        }
+        $scope.organiserUser = organiser;
+
 
         $scope.slideShow = setInArrayOf6(analyses);
 
@@ -106,7 +99,7 @@
             return "/Content/Images/random" + number + ".jpg";
         }
 
-       
+
 
 
 
@@ -332,7 +325,7 @@ app.controller('CreateOrganisationController',
                 method: 'GET',
                 url: 'api/Account/GetUserInfo',
                 params: { id: id }
-            }).success(function(data, status, headers, conf) {
+            }).success(function (data, status, headers, conf) {
                 if (data.HasOrganisation) {
                     $scope.organisationRegistered = true;
                 } else {
@@ -342,21 +335,21 @@ app.controller('CreateOrganisationController',
         };
         var process = 0;
         $scope.setName = function setName() {
-            
+
             if (model.org.name === "" || model.org.name === undefined) {
-                
+
                 process = process - 40;
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
             } else {
-                
+
                 if (process === 60 || process === 0)
                     process = process + 40;
-                    angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
-                }
-                
+                angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
             }
-       
-        
+
+        }
+
+
         model.submit = function (isValid) {
             console.log(model);
             if (isValid) {
@@ -373,13 +366,13 @@ app.controller('CreateOrganisationController',
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                           .then(function (result) {
-                                model.org.logo = result;
+                              model.org.logo = result;
                               $scope.logoSrc = result;
                               if (process === 0 || process === 40) {
                                   process += 60;
                                   angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                               }
                           });
-            
+
         };
     });
