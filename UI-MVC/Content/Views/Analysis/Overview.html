@@ -35,7 +35,7 @@
                             <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#prevClassified-modal">Previous</a>
                         </li>
                         <li style="margin-top: 10px;">
-                            <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-target="#addSolvent-modal">Classify</a>
+                            <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#addSolvent-modal">Classify</a>
                         </li>
 
                     </ul>
@@ -105,21 +105,22 @@
                                 
                             </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
-                                <div class="closecross" style="cursor: pointer" ng-click="closeOverlay(model.Model.AlgorithmName)">X</div>
-                                <div class="col-lg-4" style="text-align: initial; position: absolute; color: white;  background: none; pointer-events: none;">
+                                <i class="fa fa-times closecross" data-dismiss="modal" ng-click="closeOverlay(model.Model.AlgorithmName)" aria-hidden="true"></i>
+                                
+                                <div class="col-lg-4" style="text-align: initial; position: absolute; color: white; background: none; pointer-events: none;">
                                     <h4>Cluster: {{cluster}}</h4>
                                     <h4>#Solvents: {{solventsInCluster.length}}</h4>
                                     <div class="solvent-legend">
                                         <div>
-                                                <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                            <img src="/Content/Images/clusterball.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
                                             <p style="display: inline">Clustercenter</p>
                                         </div>
                                         <div style="margin-top: 6px;">
-                                                <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                            <img src="/Content/Images/solventball.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
                                             <p style="display: inline">Solvent</p>
                                         </div>
                                         <div style="margin-top: 6px;">
-                                                <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                            <img src="/Content/Images/farrestsolvent.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
                                             <p style="display: inline">Max. Distance Solvent</p>
                                         </div>
                                         <div style="margin-top: 6px;">
@@ -127,7 +128,7 @@
                                             <p style="display: inline">Min. Distance Solvent</p>
                                         </div>
                                         <div ng-if="ClassifiedInstance !== null && ClassifiedInstance.ClusterNumber === cluster" style="margin-top: 6px;">
-                                            <img src="/Content/Images/classifiedsolventball.png" style="width: 22px; height: 22px; margin-right: 8px;" />
+                                            <img src="/Content/Images/classifiedsolventball.png" style="width: 22px; height: 22px; margin-right: 8px;"/>
                                             <p style="display: inline">Classified Solvent</p>
                                         </div>
                                     </div>
@@ -155,7 +156,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -254,42 +255,43 @@
     </div>
 
 <div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
-        <div class="loginmodal-container classify-container">
-            <h1 >Classify a new Solvent</h1>
-            <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
+    <div class="loginmodal-container classify-container">
+        <i class="fa fa-times closecross" id="closecross" data-dismiss="modal"  aria-hidden="true"></i>
+        <h1 >Classify a new Solvent</h1>
+        <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
+            <div>
+                <p style="color: darkorange;">{{errorMessage}}</p>
+                <label for="newSolventName">Name of solvent</label>
+                <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
+                <label for="newSolventCasNr">Cas-number of solvent</label>
+                <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required/>
                 <div>
-                    <p style="color: darkorange;">{{errorMessage}}</p>
-                    <label for="newSolventName">Name of solvent</label>
-                    <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
-                    <label for="newSolventCasNr">Cas-number of solvent</label>
-                    <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required/>
-                    <div>
 
-                        <table class="classify-solvent-table col-lg-12">
-                            <tr>
-                                <th class="col-lg-7">Feature name</th>
-                                <th class="col-lg-3" style="padding-left: 16%">Value</th>
-                            </tr>
-                            <tr ng-repeat="feature in minMaxValues" >
-                                <td class="col-lg-7">{{feature.FeatureName}}
-                                    <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
-                                <td class="classify-solvent-row col-lg-3">
-                                    <input type="number" step="{{feature.StepValue}}"  min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
-                                    <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
+                    <table class="classify-solvent-table col-lg-12">
+                        <tr>
+                            <th class="col-lg-7">Feature name</th>
+                            <th class="col-lg-3" style="padding-left: 16%">Value</th>
+                        </tr>
+                        <tr ng-repeat="feature in minMaxValues">
+                            <td class="col-lg-7">{{feature.FeatureName}}
+                                <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
+                            <td class="classify-solvent-row col-lg-3">
+                                <input class="feature-input" type="number" step="{{feature.StepValue}}" min="{{feature.MinValue}}" ng-focus="focusFeatureInput($event)" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                                <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
                                         The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                     </span>
-                                    <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px;color: darkorange;">
+                                <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
                                         This value cannot be empty!
                                     </span>
-                                </td>
-                            </tr>
-                        </table>
-                        <button type="submit" from="features" name="submit" id="load" class="small-button" ng-class="{disabledForm: !valid}" data-loading-text="<i class='fa fa-spinner fa-pulse fa-fw'></i>Classifying...">Classify solvent</button>
-
-                    </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" from="features" name="submit" id="load" class="small-button" ng-class="{disabledForm: !valid}" data-loading-text="<i class='fa fa-spinner fa-spin fa-fw'></i>Classifying...">Classify solvent</button>
 
                 </div>
-            </form>
-        </div>
+
+            </div>
+        </form>
+    </div>
     </div>
     </div>

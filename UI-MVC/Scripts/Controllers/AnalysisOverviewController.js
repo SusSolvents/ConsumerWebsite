@@ -81,7 +81,7 @@
         });
 
         $scope.analysisName = data.Name;
-
+        
         $timeout(function () {
             for (var i = 0; i < algorithms.length; i++) {
                 if (i === 0) {
@@ -101,6 +101,12 @@
                 setBorderDatapoint(datapoint);
             }*/
         });
+
+        
+        $scope.focusFeatureInput = function(event) {
+            event.currentTarget.style.borderColor = "purple";
+        }
+
 
         function getClassifiedInstances() {
             $http({
@@ -175,7 +181,7 @@
             }
 
         }
-
+       
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
@@ -191,9 +197,11 @@
             addSolvent(minMaxValues, $http);
 
         };
-
+        
         function addSolvent(values, $http) {
             $('#load').button('loading');
+            
+            document.getElementById('closecross').disabled = true;
             var solventName = values.name;
             var casNumber = values.casNumber;
             var featureNames = [];
@@ -226,6 +234,10 @@
                 showInstance = true;
                 showClusterAnalysis(data);
                 $scope.errorMessage = undefined;
+                $('#load').button('reset');
+
+                document.getElementById('closecross').disabled = false;
+                
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
             });
