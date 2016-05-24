@@ -193,6 +193,7 @@
         };
 
         function addSolvent(values, $http) {
+            $('#load').button('loading');
             var solventName = values.name;
             var casNumber = values.casNumber;
             var featureNames = [];
