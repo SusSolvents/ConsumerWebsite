@@ -2181,8 +2181,10 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     background-color: lightgray;
     border: 2px solid black;
 }
-.been-there{
-    border: 2px solid purple;
+.classified-solvents-container {
+    margin-top: 4%;
+    max-width: 400px;
+    max-height: 700px;
 }
 .classify-solvent-row input:focus{
     outline: none;

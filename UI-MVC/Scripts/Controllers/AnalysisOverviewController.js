@@ -174,7 +174,7 @@
             }
 
 
-
+            
             for (var i = 0; i < models[0].Model.Clusters.length; i++) {
                 for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
                     solvents.push(models[0].Model.Clusters[i].Solvents[j]);
@@ -188,7 +188,7 @@
                 minMaxValues[i].FeatureName = Constants.FeatureName[minMaxValues[i].FeatureName];
             }
         }
-
+       
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = minMaxValues[i].MinValue;
@@ -243,6 +243,9 @@
                 $('#load').button('reset');
 
                 document.getElementById('closecross').disabled = false;
+                for (var i = 0; i < document.getElementsByClassName("feature-input").length; i++) {
+                    document.getElementsByClassName("feature-input")[i].style.borderColor = "black";
+                }
                 setMinMaxValues();
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
@@ -331,7 +334,9 @@
             $scope.ClassifiedInstance = instance;
             $scope.$apply();
         }
-
+        $scope.SetStyle = function (index) {
+            document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
+        }
        
 
         function resetProgress() {

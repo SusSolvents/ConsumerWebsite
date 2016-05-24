@@ -229,7 +229,7 @@
     </div>
 </div>
     <div class="modal fade analysis-modals" id="prevClassified-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="loginmodal-container password-container">
+        <div class="loginmodal-container password-container classified-solvents-container">
             <h1>Previous classified solvents</h1>
             <div ng-if="prevClassifiedInstances.length === 0">
                 <h2 style="text-align: center;">
@@ -276,7 +276,7 @@
                             <td class="col-lg-7">{{feature.FeatureName}}
                                 <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
                             <td class="classify-solvent-row col-lg-3">
-                                <input ng-style="myStyle" class="feature-input" type="number" step="{{feature.StepValue}}" min="{{feature.MinValue}}" ng-change="myStyle={'border-color':'purple'}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                                <input class="feature-input" type="number" step="{{feature.StepValue}}" min="{{feature.MinValue}}" ng-change="SetStyle($index)" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
                                 <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
                                         The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                     </span>
