@@ -4,6 +4,7 @@
         var selectedAlgorithm;
         var organisationUser = organisation.data;
         $scope.organisationUser = organisationUser;
+        console.log(organisationUser);
         var prevClassifiedInstances;
         var prevClusters;
         var clusters;
@@ -279,7 +280,7 @@
                 percentages.push(percentage);
 
                 json[i] = ({
-                    'x': model.Model.NormalizedValues[i], 'y': percentage, 'z': max, 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "#F4FE00", //change color here
+                    'x': model.Model.NormalizedValues[i], 'y': Number(percentage.toFixed(3)), 'z': Number(max.toFixed(3)), 'name': model.Model.Clusters[i].Number, 'cursor': 'pointer', 'solvents': model.Model.Clusters[i].Solvents.length, 'color': colors[i], 'markerBorderColor': "#F4FE00", //change color here
                     'markerBorderThickness': 0
                 });
 
