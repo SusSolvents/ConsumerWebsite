@@ -254,7 +254,7 @@
     </div>
 
 <div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
-        <div class="loginmodal-container password-container add-solvent-modal" style="max-width: 800px;">
+        <div class="loginmodal-container classify-container">
             <h1 >Classify a new Solvent</h1>
             <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
                 <div>
@@ -265,16 +265,16 @@
                     <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required/>
                     <div>
 
-                        <table>
+                        <table class="classify-solvent-table col-lg-12">
                             <tr>
-                                <th style="padding-left: 15px">Feature name</th>
-                                <th style="padding-left: 15px">Value</th>
+                                <th class="col-lg-7">Feature name</th>
+                                <th class="col-lg-3" style="padding-left: 16%">Value</th>
                             </tr>
-                            <tr ng-repeat="feature in minMaxValues">
-                                <td style="padding-left: 15px">{{feature.FeatureName}}
+                            <tr ng-repeat="feature in minMaxValues" >
+                                <td class="col-lg-7">{{feature.FeatureName}}
                                     <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p></td>
-                                <td style="padding-left: 15px">
-                                    <input type="number" step="{{feature.StepValue}}" style="width: 100px; margin-top: 10px; color: black;" min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                                <td class="classify-solvent-row col-lg-3">
+                                    <input type="number" step="{{feature.StepValue}}"  min="{{feature.MinValue}}" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
                                     <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
                                         The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                     </span>
@@ -284,7 +284,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <input type="submit" from="features" name="submit" id="submit" value="Classify solvent" class="small-button" ng-class="{disabledForm: !valid}"/>
+                        <button type="submit" from="features" name="submit" id="load" class="small-button" ng-class="{disabledForm: !valid}" data-loading-text="<i class='fa fa-spinner fa-pulse fa-fw'></i>Classifying...">Classify solvent</button>
 
                     </div>
 

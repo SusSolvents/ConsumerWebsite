@@ -2162,7 +2162,30 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     pointer-events: none;
     cursor: default;
 }
+.classify-solvent-table {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.classify-solvent-row {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 16%;
+}
+.classify-solvent-row input{
+    width: 70px;
+    color: black;
+    border-radius: 4px;
+    padding: 4px;
+    padding-left: 8px;
+    background-color: lightgray;
 
+}
+.classify-solvent-row input:focus{
+    outline: none;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    cursor: text;
+}
 .prev-instances ul {
     margin-left: 0; 
     padding-left: 0;
@@ -2174,8 +2197,4 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     padding-left: 0;
     border-top: white solid 1px;
     height: 80px;
-}
-
-.prev-instance {
-    
 }

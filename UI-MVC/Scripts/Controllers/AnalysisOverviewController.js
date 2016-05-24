@@ -41,13 +41,7 @@
 
         function showClusterAnalysis(modelsTemp) {
             getClassifiedInstances();
-            for (var i = 0; i < modelsTemp.length; i++) {
-                if (modelsTemp[i].ClassifiedInstance !== null) {
-                    var solvent = modelsTemp[i].ClassifiedInstance;
-                    //getSolventsFromCluster(modelsTemp[i].Model, solvent.ClusterNumber).push(solvent);
-                }
-            }
-
+            
             models = modelsTemp;
             setEnumNames();
             for (var i = 0; i < models.length; i++) {
@@ -199,6 +193,7 @@
         };
 
         function addSolvent(values, $http) {
+            $('#load').button('loading');
             var solventName = values.name;
             var casNumber = values.casNumber;
             var featureNames = [];
