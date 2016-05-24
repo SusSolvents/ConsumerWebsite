@@ -5,7 +5,7 @@
   padding: 20px;
   max-width: 350px;
   width: 100% !important;
-  background-color: rgba(100,100,100,0.8);
+  background-color: rgba(65,65,65,0.8);
   margin: 0 auto;
   border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -27,7 +27,7 @@
     
     .loginmodal-container {
         float: inherit;
-        background-color: grey;
+        background-color: rgba(65,65,65,0.9);
         margin: 0 auto;
         margin-top: 65px;
     }
@@ -142,5 +142,13 @@
 
 .login-help{
   font-size: 12px;
+}
+.classify-container {
+    float: none;
+    
+    max-width:600px;
+    margin: 0 auto;
+    margin-top: 4%;
+    display: block;
 }
  
