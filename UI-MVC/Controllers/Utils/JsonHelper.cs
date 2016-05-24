@@ -69,7 +69,12 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         Features = new List<Feature>(),
                         MetaData = new SolventMetaData()
                         {
-                                Label = solvent.predictLabel
+                                Label = solvent.predictLabel,
+                                IdCasNr = solvent.iD_CAS_Nr_1,
+                                IdEgNr = solvent.iD_EG_Nr,
+                                IdEgAnnexNr = solvent.iD_EG_Annex_Nr,
+                                Input = solvent.input,
+                                IdName1 = solvent.iD_Name_1
                         }
                     };
                     solventTemp.CasNumber = solventTemp.CasNumber.Replace("\"", "");

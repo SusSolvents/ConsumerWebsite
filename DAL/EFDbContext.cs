@@ -24,6 +24,7 @@ namespace SS.DAL
         public DbSet<Feature> Features { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Solvent> Solvents { get; set; }
+        public DbSet<SolventMetaData> SolventMetaDatas { get; set; }
         public DbSet<ClusterDistanceCenter> ClusterDistanceCenters { get; set; }
         public DbSet<AnalysisModel> AnalysisModels { get; set; }
         public DbSet<VectorData> VectorData { get; set; }
