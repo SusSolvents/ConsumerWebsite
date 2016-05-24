@@ -382,9 +382,11 @@
                             $scope.cluster = e.dataPoint.name;
                             $scope.$apply();
                         },
-                    mouseout: function(e) {
+                        mouseout: function (e) {       
                         var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
-                        tooltip[0].style.display = "none";
+                        for (var i = 0; i < tooltip.length; i++) {
+                            tooltip[i].style.display = "none";    
+                        }
                     }
                     }
                 ]
