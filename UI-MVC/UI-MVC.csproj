@@ -380,6 +380,8 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Csv\Solvent matrix_80 solvents 6 features.csv" />
     <Content Include="Content\Csv\Solvent matrix 12 solvents 6 features.csv" />
+    <Content Include="Content\Csv\Solvent matrix 15a solvents 12 features.csv" />
+    <Content Include="Content\Csv\Solvent matrix 15a solvents 6 features.csv" />
     <Content Include="Content\Csv\Solvent matrix 27 solvents 12 features.csv" />
     <Content Include="Content\Csv\Solvent matrix 9 solvents 6 features.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -1,0 +1,18 @@
+Input	ID_Name_1	Label	ID_CAS_Nr_1	ID_EG_Nr	ID_EG_Annex_Nr	Boiling_Point_Minimum_°C	Melting_Point_Minimum_°C	Flash_Point_Minimum_°C	Vapour_Pressure_25°C_mmHg	Density_25°C_Minimum_kg/L	Viscosity_25°C_Minimum_mPa.s
+DataType	string	string	string	string	string	numeric	numeric	numeric	numeric	numeric	numeric
+Randomisation Range	NAV	NAV	NAV	NAV	NAV						
+Chemtec Solvent Database	Diisopropyl ketone	2	565-80-0	209-294-6	NAV	124	-69	13.43	0.805	0.626	22.1
+PARIS III	4-ethyl-3-methyl-heptane	1	52896-89-6	NAV	NAV	165	-118.28	2.33	0.73	0.99	84.42
+PARIS III	dipropylether	4	111-43-3	203-869-6	NAV	90	-122	62.56	0.74	0.4	-20
+PARIS III	propan-2-ol	0	67-63-0	NAV	NAV	82.3	-89.5	45.3787318215	0.79	2.04	11.67
+PARIS III	4-ethyl-2-methyl-heptane	1	52896-88-5	NAV	NAV	158	-108.2	2.58	0.73	0.94	81.89
+PARIS III	5-methylheptan-3-one	2	541-85-5	NAV	NAV	159	-56.39	1.94	0.81	0.79	43.9
+PARIS III	ethanol	0	64-17-5	200-578-6	NAV	78.2	-114.1	59.3298791253	0.78	1.07	8.89
+PARIS III	propan-1-ol	0	71-23-8	200-746-9	NAV	97.2	-126.1	21.001727124	0.8	1.96	15
+PARIS III	2-methylpropan-1-amine	3	78-81-9	201-145-4	NAV	68.5	-85	13.8	0.72	0.56	-9
+PARIS III	ethyl isopropyl ketone	2	565-69-5	NAV	NAV	113.5	-82.16	18.08	0.8	0.45	10.8
+PARIS III	3-ethyl-5-methyl-heptane	1	52896-90-9	NAV	NAV	158.2	-107.85	2.54	0.73	1	82.7
+PARIS III	Butylamine, tert-	3	75-64-9	200-888-1	NAV	45	-72.65	37.28	0.7	0.67	-38
+PARIS III	Diethyl ether	4	60-29-7	200-467-2	NAV	34.6	-116.3	537.04	0.73	0.22	-45
+PARIS III	2-methylbutan-1-amine	3	96-15-1	202-483-5	NAV	92.39	-105.09	35.7	0.74	0.68	3.3
+DNCP	Diisopropyl ether	4	108-20-3	204-881-4	NAV	68	-86.8	149.26	0.7192	0.38	-29

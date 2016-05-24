@@ -159,6 +159,9 @@
                     }
                 }
                 for (var j = 0; j < models[i].Model.Clusters.length; j++) {
+                    for (var k = 0; k < models[i].Model.Clusters[j].VectorData.length; k++) {
+                        models[i].Model.Clusters[j].VectorData[k].FeatureName = Constants.FeatureName[models[i].Model.Clusters[j].VectorData[k].FeatureName];
+                    }
                     for (var k = 0; k < models[i].Model.Clusters[j].Solvents.length; k++) {
                         
                         for (var l = 0; l < models[i].Model.Clusters[j].Solvents[k].Features.length; l++) {
@@ -168,6 +171,8 @@
                     }
                 }
             }
+
+
             
             for (var i = 0; i < models[0].Model.Clusters.length; i++) {
                 for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
@@ -811,18 +816,17 @@ app.constant('Constants', {
         4: 'XMEANS'
     },
     FeatureName: {
-        0: 'Boiling_Point_Minimum_DegreesC',
-        1: 'Melting_Point_Minimum_DegreesC',
-        2: 'Flash_Point_Minimum_DegreesC',
-        3: 'Vapour_Pressure_25DegreesC_mmHg',
-        4: 'Density_25DegreesC_Minimum_kg_L',
-        5: 'Viscosity_25DegreesC_Minimum_mPa_s',
-        6: 'Autoignition_Temperature_Minimum_DegreesC',
+        0: 'Boiling_Point_Minimum_°C',
+        1: 'Melting_Point_Minimum_°C',
+        2: 'Flash_Point_Minimum_°C',
+        3: 'Vapour_Pressure_25°C_mmHg',
+        4: 'Density_25°C_Minimum_kg/L',
+        5: 'Viscosity_25°C_Minimum_mPa.s',
+        6: 'Autoignition_Temperature_Minimum_°C',
         7: 'Hansen_Delta_D_MPa1_2',
         8: 'Hansen_Delta_P_MPa1_2',
         9: 'Hansen_Delta_H_MPa1_2',
-        10: 'Solubility_Water_g_L',
-        11: 'Dielectric_Constant_20DegreesC',
-        12: 'Hildebrandt_Par_MPa1_2'
+        10: 'Solubility_Water_g/L',
+        11: 'Dielectric_Constant_20°C'
     }
 });
