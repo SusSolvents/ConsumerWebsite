@@ -1121,6 +1121,11 @@ progress {
     border-bottom: 1px dotted black;
     margin-bottom: 0;
 }
+
+.admin-card-title p {
+    margin: 0px;
+    font-size: 13px;
+}
 .ma-user-circle {
     border-radius: 50%;
     width: 118px;
@@ -1952,7 +1957,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     top: 50px;
     cursor: text;
     color: white;
-    
+    pointer-events: none;
 }
 .solvent-legend {
     font-size: 19px;

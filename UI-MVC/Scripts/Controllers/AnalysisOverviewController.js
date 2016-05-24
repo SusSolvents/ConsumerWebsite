@@ -4,7 +4,6 @@
         var selectedAlgorithm;
         var organisationUser = organisation.data;
         $scope.organisationUser = organisationUser;
-        console.log(organisationUser);
         var prevClassifiedInstances;
         var prevClusters;
         var clusters;
@@ -556,6 +555,7 @@
 
         $scope.closeOverlay = function closeOverlay(name) {
             delete $scope.selectedNodeObject;
+            delete $scope.selectedCluster;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
         }
@@ -698,9 +698,11 @@
                     .attr("class", "link")
                     .style("stroke-width", 1)
                 ;
-                
-                var selectedNode;
-                var selectedCluster;
+                delete $scope.selectedNodeObject;
+                delete $scope.selectedCluster;
+                $scope.$apply();
+                var selectedNode = null;
+                var selectedCluster = null;
                 var node = svg.selectAll(".node")
                     .data(jsonGraph.nodes)
                     .enter().append("circle")

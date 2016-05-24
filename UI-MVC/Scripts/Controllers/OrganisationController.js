@@ -214,7 +214,6 @@
             for (var i = 0; i < data.length; i++) {
                 json.push({ 'y': data[i].NumberOfUserAnalyses, 'indexLabel': data[i].User.Firstname });
             }
-            console.log(json);
             if (data.length !== 0) {
                 createChart("chartCont-usract", json, "pie", "", null);
             }
