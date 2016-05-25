@@ -598,6 +598,8 @@
             delete $scope.selectedCluster;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
+            $scope.selectedSolvent = undefined;
+            $scope.selectedCluster = undefined;
         }
 
         function findModelOnName(name) {
