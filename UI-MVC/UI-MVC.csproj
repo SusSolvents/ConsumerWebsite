@@ -298,6 +298,9 @@
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
     <Content Include="Content\Images\java-logo.svg" />
     <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\magnifier.png" />
+    <Content Include="Content\Images\magnifying-glas.png" />
+    <Content Include="Content\Images\magnifying-glass.png" />
     <Content Include="Content\Images\molecule.svg" />
     <Content Include="Content\Images\molecules-bag.jpg" />
     <Content Include="Content\Images\organisationLogo.jpg" />

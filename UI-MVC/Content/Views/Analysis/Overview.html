@@ -95,18 +95,41 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8 col-md-8 padding-less">
+
                         <div class="grid grid-graph col-lg-12 text-center" id="chart-container-{{model.Model.AlgorithmName}}">
+                            
+                                
+                                <div angucomplete-alt
+                                     id="ex1"
+                                     placeholder="Search solvent"
+                                     maxlength="50"
+                                     pause="100"
+                                     selected-object="selectedSolventFunc"
+                                     local-data="solvents"
+                                     search-fields="Name"
+                                     title-field="Name"
+                                     focus-in="focusSearch()"
+                                     focus-out="focusOutSearch()"
+                                     minlength="1"
+                                     input-class="form-control form-control-small"
+                                     style="margin-top: 12px; display: block;"
+                                     match-class="highlight"
+                                     clear-selected="true">
+
+                                </div>
+                                
+                            
                             <h3 class="text-primary">Cluster analysis Graph</h3>
                             <div class="chart-legend">Size of Bubble: Max. Solvent Distance</div>
                             <div id="chartContainer_{{model.Model.AlgorithmName}}" class="chartContainer">
                             </div>
-                            
+
                             <canvas class="canvas-overlay" id="canvas-overlay-{{model.Model.AlgorithmName}}">
-                                
+
                             </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
                                 <i class="fa fa-times closecross" data-dismiss="modal" ng-click="closeOverlay(model.Model.AlgorithmName)" aria-hidden="true"></i>
-                                
+
                                 <div class="col-lg-4" style="text-align: initial; position: absolute; color: white; background: none; pointer-events: none;">
                                     <h4>Cluster: {{cluster}}</h4>
                                     <h4>#Solvents: {{solventsInCluster.length}}</h4>
@@ -166,22 +189,12 @@
                             <h3 class="text-primary text-center" ng-if="selectedCluster === undefined">Solvent Details</h3>
                             <h3 class="text-primary text-center" ng-if="selectedCluster !== undefined">Cluster Details</h3>
 
-                            <div angucomplete-alt
-                                 id="ex1"
-                                 placeholder="Search solvent"
-                                 maxlength="50"
-                                 pause="100"
-                                 selected-object="selectedSolventFunc"
-                                 local-data="solvents"
-                                 search-fields="Name"
-                                 title-field="Name"
-                                 minlength="1"
-                                 input-class="form-control form-control-small"
-                                 style="margin-top: 12px; display: block; width: 100%"
-                                 match-class="highlight"
-                                 clear-selected="true"></div>
+                            <div class="classified-solvent-alt" ng-if="selectedCluster === undefined">
+                                <p style="margin-top: 140px;">No solvent selected</p>
+                            </div>
+                            
                             <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster Centroids</h4>
-                            <h4 ng-if="selectedSolvent && selectedCluster === undefined" style="margin-top: 10px;">Solvent: {{selectedSolvent.Name}}</h4>
+                            <h4 ng-if="selectedSolvent && selectedCluster === undefined" style="margin-top: 25px;">Solvent: {{selectedSolvent.Name}}</h4>
                             <table ng-if="selectedSolvent || selectedCluster">
                                 <tr>
                                     <th style="padding-left: 15px">Feature name</th>

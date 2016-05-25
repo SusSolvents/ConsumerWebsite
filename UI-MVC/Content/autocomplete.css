@@ -1,7 +1,29 @@
 ﻿.angucomplete-holder {
-    position: relative;
+    position: absolute;
+    right: 17px;
+    width: 50px;
+    transition: all 0.5s ease-in-out;
+    
+    
 }
-
+.angucomplete-holder input{
+    background-color: transparent;
+    background: url(/Content/Images/magnifying-glass.png) no-repeat scroll 14px 8px;
+    border: 1px solid grey;
+    height: 35px;
+    padding-left: 40px;
+    width: 100%;
+    color: white;
+}
+.angucomplete-holder input:hover{
+    border-color: darkgray;
+}
+.angucomplete-holder input:focus{
+    background-color: transparent;
+    outline: none;
+    color: white;
+    border-color: darkgray;
+}
 .angucomplete-dropdown {
     border-color: grey;
     border-width: 1px;
@@ -15,6 +37,7 @@
     /*top: 32px;
     left: 0px;
     */
+    text-align: left;
     margin-top: -6px;
     background-color: #ffffff;
     overflow-y: auto;

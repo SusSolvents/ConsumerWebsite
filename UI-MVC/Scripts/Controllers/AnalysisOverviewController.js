@@ -533,8 +533,17 @@
             $scope.selectedSolvent = $item.originalObject;
             delete $scope.selectedCluster;
             getClusterFromSolvent($scope.selectedSolvent);
+            var element = document.getElementsByClassName('angucomplete-holder');
+            element[0].style.width = '50px';
         }
-       
+        $scope.focusSearch = function() {
+            var element = document.getElementsByClassName('angucomplete-holder');
+            element[0].style.width = '250px';
+        }
+        $scope.focusOutSearch = function () {
+            var element = document.getElementsByClassName('angucomplete-holder');
+            element[0].style.width = '50px';
+        }
         $scope.selectClassifiedSolvent = function (item, index) {
             var btns = document.getElementsByClassName('classifiedBtn');
             for (var i = 0; i < btns.length; i++) {
