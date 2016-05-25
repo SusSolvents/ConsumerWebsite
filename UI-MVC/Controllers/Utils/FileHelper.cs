@@ -71,7 +71,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
             string imagePath = null;
 
                 var imageFileName = Path.GetFileName(image.LocalFileName + (".jpg"));
-                imagePath = NextAvailableFilename(Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings[mapPath]), imageFileName));
+                imagePath = NextAvailableFilename(Path.Combine(HostingEnvironment.MapPath(ConfigurationManager.AppSettings[mapPath]), imageFileName));
                 File.Move(image.LocalFileName, imagePath);
                 imagePath = Path.GetFileName(imagePath);
 

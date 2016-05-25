@@ -175,7 +175,7 @@ namespace SS.UI.Web.MVC.Controllers
             return algorithmNames;
         }
 
-        //GET api/Analysis/StartAnalysis
+        //POST api/Analysis/StartAnalysis
         [Route("StartAnalysis")]
         public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
         {
@@ -255,7 +255,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/ReadMinMaxValues
         [Route("ReadMinMaxValues")]
-        public List<MinMaxValue> ReadMinMaxValues(long analysisId)
+        public List<MinMaxValue> ReadMinMaxValues([FromUri]long analysisId)
         {
             return _analysisManager.ReadMinMaxValues(analysisId).ToList();
         }
