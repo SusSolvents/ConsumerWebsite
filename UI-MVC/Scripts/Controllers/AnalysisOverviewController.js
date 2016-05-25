@@ -536,13 +536,13 @@
             var element = document.getElementsByClassName('angucomplete-holder');
             element[0].style.width = '50px';
         }
-        $scope.focusSearch = function() {
+        $scope.focusSearch = function(index) {
             var element = document.getElementsByClassName('angucomplete-holder');
-            element[0].style.width = '250px';
+            element[index].style.width = '250px';
         }
-        $scope.focusOutSearch = function () {
+        $scope.focusOutSearch = function (index) {
             var element = document.getElementsByClassName('angucomplete-holder');
-            element[0].style.width = '50px';
+            element[index].style.width = '50px';
         }
         $scope.selectClassifiedSolvent = function (item, index) {
             var btns = document.getElementsByClassName('classifiedBtn');
