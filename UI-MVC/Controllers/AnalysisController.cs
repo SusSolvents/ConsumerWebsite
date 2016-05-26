@@ -175,7 +175,7 @@ namespace SS.UI.Web.MVC.Controllers
             return algorithmNames;
         }
 
-        //GET api/Analysis/StartAnalysis
+        //POST api/Analysis/StartAnalysis
         [Route("StartAnalysis")]
         public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
         {
@@ -237,6 +237,10 @@ namespace SS.UI.Web.MVC.Controllers
         {
             var analyses = _analysisManager.ReadAnalysesForUserPermission(userId);
             var analysis = _analysisManager.ReadAnalysis(analysisId);
+            if (analysis == null)
+            {
+                return BadRequest("Analysis not found");
+            }
             if (analyses.Contains(analysis))
             {
                 return Ok();
@@ -255,9 +259,13 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/ReadMinMaxValues
         [Route("ReadMinMaxValues")]
-        public List<MinMaxValue> ReadMinMaxValues(long analysisId)
+        public IHttpActionResult ReadMinMaxValues([FromUri]long analysisId)
         {
-            return _analysisManager.ReadMinMaxValues(analysisId).ToList();
+            if (_analysisManager.ReadAnalysis(analysisId) != null)
+            {
+                return Ok(_analysisManager.ReadMinMaxValues(analysisId).ToList());
+            }
+            return BadRequest("Analysis not found");
         }
 
         //GET api/Analysis/ReadClassifiedInstances

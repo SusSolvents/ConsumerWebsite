@@ -235,6 +235,11 @@ namespace SS.UI.Web.MVC.Controllers
         public IHttpActionResult CheckPermission(long userId, long organisationId)
         {
             var user = _userManager.ReadUser(userId);
+            var organisation = _userManager.ReadOrganisation(organisationId);
+            if (organisation == null || user.Organisation == null)
+            {
+                return BadRequest("Organisation not found");
+            }
             if (user.Organisation.Blocked)
             {
                 return BadRequest("Organisation has been blocked");
@@ -248,9 +253,13 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganiser
         [Route("ReadOrganiser")]
-        public User ReadOrganiser(long id)
+        public IHttpActionResult ReadOrganiser(long id)
         {
-            return _userManager.ReadOrganiser(id);
+            if (_userManager.ReadOrganisation(id) != null)
+            {
+                return Ok(_userManager.ReadOrganiser(id));
+            }
+            return BadRequest("organisation not found");
         }
 
         //POST api/Organisation/ChangeLogo
