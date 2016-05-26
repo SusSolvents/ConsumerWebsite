@@ -124,6 +124,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisationForUser
         [Route("ReadOrganisationForUser")]
+        [HttpGet]
         public IHttpActionResult ReadOrganisationForUser([FromUri] long id)
         {
             var user = _userManager.ReadUser(id);
@@ -133,7 +134,9 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     return Ok(user.Organisation);
                 }
+                return Ok();
             }
+            
             return BadRequest("user not found");
         }
 
