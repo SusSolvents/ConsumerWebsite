@@ -228,6 +228,10 @@ namespace SS.UI.Web.MVC.Controllers
         public IHttpActionResult GetUserInformation(long id)
         {
             User user = _userMgr.ReadUser(id);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
             if (User.Identity.Name == user.Email)
             {
                 var model = new UserInformationViewModel()

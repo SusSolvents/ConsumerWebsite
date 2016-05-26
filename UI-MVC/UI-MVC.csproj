@@ -426,7 +426,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Content\Views\Home.html" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\timeline.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

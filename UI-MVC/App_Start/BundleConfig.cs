@@ -11,12 +11,10 @@ namespace SS.UI.Web.MVC
                 
                 "~/Scripts/jquery-{version}.js"
                         , "~/Scripts/site.js"
-                        , "~/Scripts/timeline.js"
                         , "~/Scripts/tabs.js"
                         , "~/Scripts/jquery-easing.js"
                         , "~/Scripts/morphext.min.js"
                         , "~/Scripts/canvasjs.min.js"
-                        , "~/Scripts/circle-progress.js"
                         , "~/Scripts/radial-progress-bar.js"
                         
                         ));

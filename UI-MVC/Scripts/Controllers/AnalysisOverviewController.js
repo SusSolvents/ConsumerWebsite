@@ -18,7 +18,6 @@
             "#44B3C2",
             "#F1A94E",
             "#F2635F",
-            
             "#4CD4B0",
             "#8e44ad",
             "#FC575E",
@@ -97,11 +96,6 @@
 
             createChart(models[0].Model);
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
-            /*if (models[0].ClassifiedInstance !== null) {
-                var datapoint = getDatapoint(models[0].ClassifiedInstance.ClusterNumber);
-                $scope.ClassifiedInstance = models[0].ClassifiedInstance;
-                setBorderDatapoint(datapoint);
-            }*/
         });
 
         
@@ -317,6 +311,8 @@
 
             $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
             $("#" + e.currentTarget.id + "_CONTENT").addClass("active");
+            $scope.closeOverlay(selectedAlgorithm);
+
             resetProgress();
             selectedAlgorithm = e.currentTarget.id;
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
@@ -329,8 +325,7 @@
                 setBorderDatapoint(datapoint);
                 currentChart.render();
             }
-            delete $scope.selectedCluster;
-            delete $scope.selectedNodeObject;
+            $scope.$apply();
         });
 
         function changeInstance(instance) {
@@ -596,10 +591,9 @@
         $scope.closeOverlay = function closeOverlay(name) {
             delete $scope.selectedNodeObject;
             delete $scope.selectedCluster;
+            delete $scope.selectedSolvent;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
-            $scope.selectedSolvent = undefined;
-            $scope.selectedCluster = undefined;
         }
 
         function findModelOnName(name) {
