@@ -52,7 +52,7 @@
                         <a class="page-scroll" href="home.html#section-3">How it works</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Machine Learning</a>
+                        <a class="page-scroll" data-toggle="modal" data-target="#ml-modal" href="#">Machine Learning</a>
                     </li>
 
 
@@ -98,6 +98,7 @@
 <div ng-controller="LoginController as login" class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="login-dialog">
             <div class="loginmodal-container">
+                <i class="fa fa-times closecross" id="closecross" data-dismiss="modal" aria-hidden="true"></i>
                 <h1>Login to your account</h1><br>
                 <form id="logform">
                     {{errorlogin}}
@@ -113,7 +114,37 @@
             
         </div>
     </div>
-    
+
+    <div class="modal fade" id="ml-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="login-dialog">
+            <div class="loginmodal-container ml-modal-container">
+                <i class="fa fa-times closecross" id="closecross" data-dismiss="modal" aria-hidden="true"></i>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1 class="margin-top-0 text-primary wow fadeInDown">Machine Learning</h1>
+                        <hr class="primary">
+                    </div>
+                </div>
+                <div class="ml-container">
+                    <img src="~/Content/Images/mlchain.PNG"/>
+                    <p style="margin-top: 30px;">
+                        Hierboven wordt de ML ketting grafisch voorgesteld om de plaats van het algoritme te verduidelijken.
+                    </p>
+                    <p>    
+                        De flow wordt bepaald door de data. 80 Procent van de data worden gebruikt voor het leerproces in de trainingfase. De data worden in een bepaald formaat aangeboden aan het algoritme dat van de data leert en er een kennismodel van maakt. Dit proces valt uiteen in een preprocessing fase waarin de data in de juiste vorm worden gezet, en het effectief verwerken van de data door het algoritme. Beide stappen kunnen worden geparametriseerd.
+                        Voor de preprocessing moeten we zelf software schrijven. We werken met een ML engine met de naam Weka (http://www.cs.waikato.ac.nz/ml/weka/index.html) van de universiteit van Waikato, New Zealand, waarin de meeste algoritmes al geïmplementeerd zijn. Weka verwacht de data in een bepaald formaat, dat verderop nog behandeld wordt. De preprocessing software zet de raw data om naar dat Weka formaat. In deze fase leggen we ook alle details vast die te maken hebben met de data, zoals de naamgeving, de datatypes, de character encoding, de ranges en wat te doen met missing data.
+                    </p>
+                    <p>    
+                        Bij de parametrisatie van de algoritmes zelf zijn er meer beperkingen omdat die vastgelegd zijn door de implementatie binnen Weka. Zo kan je bijvoorbeeld het aantal clustercenters op voorhand vastleggen, of juist niet. Elk algoritme heeft zijn eigen specifieke parameterset.
+                        20 Procent van de data wordt gebruikt om het model te valideren of te testen. De vraag wordt beantwoord of het model wel op de juiste manier op nieuwe data reageert. Het is pas wanneer de confidence levels van deze fase hoog genoeg zijn, dat we het model stabiel kunnen verklaren. Als dat niet het geval is, moeten we de ketting terug doorlopen. ML is een zeer iteratief proces.
+                        Nieuwe data die niet gebruikt werd in de train en de test fase, kan dan worden aangeboden aan het stabiele model ter classificatie.
+                    </p>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
     @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script>

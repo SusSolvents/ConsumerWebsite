@@ -109,7 +109,10 @@ p {
 .text-dark {
     color: #111;
 }
-
+.ml-container {
+    height: 700px;
+    overflow-y: auto;
+}
 .text-primary {
     color: #b92ed1;
 }
@@ -2027,14 +2030,14 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 
 .organisation-logo {
-    width: 55%;
-    height: auto;
-    min-width: 250px;
+    height: 160px;
+    width: 170px;
     max-width: 270px;
     display: block;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 35px;
     border-radius: 5px;
+    
     cursor: pointer;
     border: 2px solid black;
     transition: all 0.2s ease-in-out;
