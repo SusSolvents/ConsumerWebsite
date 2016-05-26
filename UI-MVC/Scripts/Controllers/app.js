@@ -126,10 +126,7 @@ angular.module('sussol.services')
                     var promise = $http({
                         method: 'GET',
                         url: 'api/Account/GetAllAdminInfo'
-                        
-                    }).error(function errorCallback(data) {
-                        console.log(data);
-                        $location.path("/404");
+
                     });
                     promise.success(function (data, status, headers, conf) {
                         return data;
@@ -138,7 +135,7 @@ angular.module('sussol.services')
                 },
                 readOrganisationForUser: function(id) {
                     var promise = $http({
-                        method: 'POST',
+                        method: 'GET',
                         url: 'api/Organisation/ReadOrganisationForUser',
                         params: { id: id }
                     });
@@ -222,46 +219,7 @@ angular.module('sussol.services')
 
 
 
-app.run([
-    '$rootScope','$window','$location', '$http', function($root, $window, $location, $http) {
-        $root.$on('$routeChangeStart', function (e, curr, prev) {
-            if (curr.templateUrl === "Content/Views/Account/Admin.html") {
-                if ($window.sessionStorage.role !== "SuperAdministrator") {
-                    $location.path('/');
-                }
-            }
-            if (curr.templateUrl === "Content/Views/Analysis/Overview.html") {
-                $http({
-                    method: 'POST',
-                    url: 'api/Analysis/CheckPermission',
-                    params: {userId: $window.sessionStorage.userId, analysisId: curr.params.id}
-                }).error(function succesCallback(data) {
-                    $location.path('/404');
-                });
-            }
-            if (curr.templateUrl === "Content/Views/Organisation/Home.html") {
-                $http({
-                    method: 'POST',
-                    url: 'api/Organisation/CheckPermission',
-                    params: { userId: $window.sessionStorage.userId, organisationId: curr.params.id }
-                }).error(function succesCallback(data) {
-                    $location.path('/404');
-                });
-            }
-            
 
-            if (curr.$$route && curr.$$route.resolve) {
-                // Show a loading message until promises aren't resolved   
-                $root.loadingView = true;
-            }
-        });
-        $root.$on('$routeChangeSuccess', function(e, curr, prev) {
-            // Hide loading message
-            $root.loadingView = false;
-        });
-        $root.footer = true;
-    }
-]);
 
 angular.module('sussol.controllers')
     .controller('homeController', 
@@ -325,21 +283,54 @@ angular.module('sussol.controllers')
 angular.bootstrap(document.body, ['sussol']);
 
 app.run([
-    '$rootScope', '$location', 'AuthenticationService', '$window', function($rootScope, $location, AuthenticationService, $window) {
-        $rootScope.$on('$routeChangeStart', function (event, tostate) {
+    '$rootScope', '$location', 'AuthenticationService', '$window', '$http', function($root, $location, AuthenticationService, $window, $http) {
+        $root.$on('$routeChangeStart', function (event, curr) {
             
-            $rootScope.username = $window.sessionStorage.username;
-            $rootScope.userId = $window.sessionStorage.userId;
-            $rootScope.admin = $window.sessionStorage.admin;
+            $root.username = $window.sessionStorage.username;
+            $root.userId = $window.sessionStorage.userId;
+            $root.admin = $window.sessionStorage.admin;
             if ($window.sessionStorage.username !== undefined) {
                 AuthenticationService.isLogged = true;
             }
-            if (tostate.authenticate && !AuthenticationService.isLogged) {
+            if (curr.authenticate && !AuthenticationService.isLogged) {
                 event.preventDefault();
                 $location.path('/');
                 $('#login-modal').modal('show');
+            } else {
+                if (curr.templateUrl === "Content/Views/Account/Admin.html") {
+                    if ($window.sessionStorage.role !== "SuperAdministrator") {
+                        $location.path('/');
+                    }
+                }
+                if (curr.templateUrl === "Content/Views/Analysis/Overview.html") {
+                    $http({
+                        method: 'POST',
+                        url: 'api/Analysis/CheckPermission',
+                        params: { userId: $window.sessionStorage.userId, analysisId: curr.params.id }
+                    }).error(function succesCallback(data) {
+                        $location.path('/404');
+                    });
+                }
+                if (curr.templateUrl === "Content/Views/Organisation/Home.html") {
+                    $http({
+                        method: 'POST',
+                        url: 'api/Organisation/CheckPermission',
+                        params: { userId: $window.sessionStorage.userId, organisationId: curr.params.id }
+                    }).error(function succesCallback(data) {
+                        $location.path('/404');
+                    });
+                }
             }
 
+            if (curr.$$route && curr.$$route.resolve) {
+                // Show a loading message until promises aren't resolved   
+                $root.loadingView = true;
+            }
         });
+        $root.$on('$routeChangeSuccess', function (e, curr, prev) {
+            // Hide loading message
+            $root.loadingView = false;
+        });
+        $root.footer = true;
     }
 ]);
