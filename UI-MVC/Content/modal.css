@@ -16,6 +16,34 @@
     float: right;
     margin-right: 7px;
 }
+.ml-modal-container {
+    float: inherit;
+    margin: 0 auto;
+    max-width: 900px;
+    margin-top: 80px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    height: 800px;
+    max-height: 800px;
+    
+}
+.ml-container p {
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: justify;
+}
+.ml-modal-container h1{
+    color: #b92ed1 !important;
+    font-size: 2.2em !important;
+    
+}
+.ml-modal-container img{
+    width: 800px;
+    margin: 0 auto;
+    display: block;
+}
+
 
 .password-container {
     float: inherit;
