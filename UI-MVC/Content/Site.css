@@ -112,6 +112,7 @@ p {
 .ml-container {
     height: 700px;
     overflow-y: auto;
+    padding-bottom: 50px
 }
 .text-primary {
     color: #b92ed1;
