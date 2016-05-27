@@ -90,6 +90,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/GiveUserAccess
         [System.Web.Http.Route("GiveUserAccess")]
+        [System.Web.Http.HttpPost]
         public IHttpActionResult GiveUserAccess(string email)
         {
             ApplicationUser user = UserManager.FindByEmail(email);
@@ -100,6 +101,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/IsAccountEnabled
         [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpPost]
         [System.Web.Http.Route("IsAccountEnabled")]
         public IHttpActionResult IsAccountEnabled(string email)
         {
@@ -124,14 +126,16 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Account/GetUserId
         [System.Web.Http.Route("GetUserId")]
-        public long GetUserId(string email)
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetUserId(string email)
         {
-            return _userMgr.ReadUser(email).Id;
+            return Ok(_userMgr.ReadUser(email).Id);
         }
         
         //GET api/Account/GetAllAdminInfo
         [System.Web.Http.Route("GetAllAdminInfo")]
-        public AdminInformationModel GetAdminInfo()
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetAdminInfo()
         {
             AdminInformationModel model = new AdminInformationModel()
             {
@@ -141,32 +145,35 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 model.BlockedUsers.Add(_userMgr.ReadUser(applicationUser.Email));
             }
-            return model;
+            return Ok(model);
         }
 
         //GET api/Account/GetAllUsers
         [System.Web.Http.Route("GetAllUsers")]
-        public IEnumerable<IGrouping<int, User>> GetAllUsers()
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetAllUsers()
         {
             List<User> users = new List<User>();
             foreach (var applicationUser in UserManager.Users)
             {
                 users.Add(_userMgr.ReadUser(applicationUser.Email));
             }
-            return users.GroupBy(x=>x.DateRegistered.Month);
+            return Ok(users.GroupBy(x=>x.DateRegistered.Month));
         }
 
         //GET api/Account/GetAllUsersForAdmin
         [System.Web.Http.Route("GetAllUsersForAdmin")]
-        public List<ApplicationUser> GetAllUsersForAdmin()
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetAllUsersForAdmin()
         {
             var admin = _userMgr.ReadUser(1);
             IEnumerable<ApplicationUser> users = UserManager.Users.Where(a => !a.Email.Equals(admin.Email)).AsEnumerable();
-            return users.ToList();
+            return Ok(users.ToList());
         }
 
         //POST api/Account/AllowUser
         [System.Web.Http.Route("AllowUser")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> AllowUser(string email)
         {
             var user = UserManager.Users.Single(u => u.Email == email);
@@ -177,6 +184,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/DenyUser
         [System.Web.Http.Route("DenyUser")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> DenyUser(string email)
         {
             
@@ -188,6 +196,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/BlockUsersForOrganisation
         [System.Web.Http.Route("BlockUsersForOrganisation")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> BlockUsersForOrganisation(long id)
         {
             var users = _userMgr.ReadUsersForOrganisation(id).ToList();
@@ -206,6 +215,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/AllowUsersForOrganisation
         [System.Web.Http.Route("AllowUsersForOrganisation")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> AllowUsersForOrganisation(long id)
         {
             var users = _userMgr.ReadUsersForOrganisation(id).ToList();
@@ -225,6 +235,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Account/GetUserInfo
         [System.Web.Http.Route("GetUserInfo")]
+        [System.Web.Http.HttpGet]
         public IHttpActionResult GetUserInformation(long id)
         {
             User user = _userMgr.ReadUser(id);
@@ -258,6 +269,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Account/ChangeAvatar
         [System.Web.Http.Route("ChangeAvatar")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> ChangeAvatar()
         {
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
@@ -299,6 +311,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         // POST api/Account/Logout
         [System.Web.Http.Route("Logout")]
+        [System.Web.Http.HttpPost]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -309,6 +322,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         // POST api/Account/ChangePassword
         [System.Web.Http.Route("ChangePassword")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> ChangePassword(string currentPassword, string newPassword)
         {
             if (!ModelState.IsValid)
@@ -330,6 +344,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         // POST api/Account/SetPassword
         [System.Web.Http.Route("SetPassword")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -352,6 +367,7 @@ namespace SS.UI.Web.MVC.Controllers
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("ExternalLogin", Name = "ExternalLogin")]
+        [System.Web.Http.HttpGet]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
@@ -407,6 +423,7 @@ namespace SS.UI.Web.MVC.Controllers
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> Register()
         {
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
@@ -469,6 +486,7 @@ namespace SS.UI.Web.MVC.Controllers
         [System.Web.Http.OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [System.Web.Http.Route("RegisterExternal")]
+        [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
