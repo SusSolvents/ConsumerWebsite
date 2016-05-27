@@ -146,7 +146,7 @@ angular.module('sussol.services')
                 },
                 readOrganisation: function(id) {
                     var promise = $http({
-                        method: 'POST',
+                        method: 'GET',
                         url: 'api/Organisation/ReadOrganisation',
                         params: { id: id }
                     });
@@ -190,7 +190,7 @@ angular.module('sussol.services')
                 },
                 readMinMaxValues: function (id) {
                     var promise = $http({
-                        method: 'POST',
+                        method: 'GET',
                         url: 'api/Analysis/ReadMinMaxValues',
                         params: { analysisId: id }
                     });
@@ -201,7 +201,7 @@ angular.module('sussol.services')
                 },
                 readOrganiser: function (id) {
                     var promise = $http({
-                        method: 'POST',
+                        method: 'GET',
                         url: 'api/Organisation/ReadOrganiser',
                         params: { id: id }
                     });

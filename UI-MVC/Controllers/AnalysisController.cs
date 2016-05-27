@@ -39,43 +39,49 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/GetAnalysis
         [Route("GetAnalysis")]
-        public Analysis GetAnalysis([FromUri]long id)
+        [HttpGet]
+        public IHttpActionResult GetAnalysis([FromUri]long id)
         {
-            return _analysisManager.ReadAnalysis(id);
+            return Ok(_analysisManager.ReadAnalysis(id));
         }
 
         //GET api/Analysis/GetAnalysesForUser
         [Route("GetAnalysesForUser")]
-        public List<Analysis> GetAnalysesForUser([FromUri] long id)
+        [HttpGet]
+        public IHttpActionResult GetAnalysesForUser([FromUri] long id)
         {
             var user = _userManager.ReadUser(id);
-            return _analysisManager.ReadAnalysesForUser(user).ToList();
+            return Ok(_analysisManager.ReadAnalysesForUser(user).ToList());
         } 
 
         //GET api/Analysis/GetAnalysesForOrganisation
         [Route("GetAnalysesForOrganisation")]
-        public List<Analysis> GetAnalysesForOrganisation(long id)
+        [HttpGet]
+        public IHttpActionResult GetAnalysesForOrganisation(long id)
         {
-            return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
+            return Ok(_analysisManager.ReadAnalysesForOrganisation(id).ToList());
         }
 
         //GET api/Analysis/GetAnalysesByMonth
         [Route("GetAnalysesByMonth")]
-        public IEnumerable<IGrouping<int, Analysis>> GetAnalyses()
+        [HttpGet]
+        public IHttpActionResult GetAnalyses()
         {
-            return _analysisManager.ReadAnalyses().GroupBy(x => x.DateCreated.Month);
+            return Ok(_analysisManager.ReadAnalyses().GroupBy(x => x.DateCreated.Month));
         }
         
         //GET api/Analysis/GetAnalysesDivision
         [Route("GetAnalysesDivision")]
-        public List<Analysis> GetAnalysesDivision()
+        [HttpGet]
+        public IHttpActionResult GetAnalysesDivision()
         {
             var analyses = _analysisManager.ReadFullAnalyses();
-            return analyses.ToList();
+            return Ok(analyses.ToList());
         }
 
         //POST api/Analysis/ChangeName
         [Route("ChangeName")]
+        [HttpPost]
         public IHttpActionResult ChangeName([FromUri] string name, [FromUri] long analysisId)
         {
             if (_analysisManager.ReadAnalysis(name) != null)
@@ -90,7 +96,8 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/GetSolvents
         [Route("GetSolvents")]
-        public List<Solvent> GetSolvents(long id)
+        [HttpGet]
+        public IHttpActionResult GetSolvents(long id)
         {
             List<Solvent> solvents = new List<Solvent>();
             var analysis = _analysisManager.ReadAnalysis(id);
@@ -101,11 +108,12 @@ namespace SS.UI.Web.MVC.Controllers
                     solvents.Add(solvent);
                 }
             }
-            return solvents;
+            return Ok(solvents);
         }
 
         //GET api/Analysis/GetFullModels
         [Route("GetFullModels")]
+        [HttpGet]
         public List<Model> GetFullModels(List<string> algorithms, string dataSet)
         {
             List<AlgorithmName> algorithmNames = SetStringsToAlgorithmNames(algorithms);
@@ -119,6 +127,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
+        [HttpPost]
         public IHttpActionResult CreateAnalysis([FromUri] List<string> algorithms, [FromUri] string dataSet, [FromUri] string name)
         {
             if (_analysisManager.ReadAnalysis(name) != null)
@@ -148,6 +157,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/SetStringsToAlgorithmNames
         [Route("SetStringsToAlgorithmNames")]
+        [HttpGet]
         public List<AlgorithmName> SetStringsToAlgorithmNames(List<string> algorithms)
         {
             List<AlgorithmName> algorithmNames = new List<AlgorithmName>();
@@ -177,7 +187,8 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/StartAnalysis
         [Route("StartAnalysis")]
-        public async Task<List<Model>> StartAnalysis([FromUri] List<string> algorithms )
+        [HttpPost]
+        public async Task<IHttpActionResult> StartAnalysis([FromUri] List<string> algorithms )
         {
             List<AlgorithmName> algorithmNames = SetStringsToAlgorithmNames(algorithms);
             List<Model> models = new List<Model>();
@@ -191,12 +202,13 @@ namespace SS.UI.Web.MVC.Controllers
                 }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
             }
-            return models.GroupBy(x => x.DataSet).Select(y => y.First()).ToList();
+            return Ok(models.GroupBy(x => x.DataSet).Select(y => y.First()).ToList());
         }
 
         //POST api/Analysis/CreateModel
         [AllowAnonymous]
         [Route("CreateModel")]
+        [HttpPost]
         public async Task<IHttpActionResult> CreateModels(AlgorithmName algorithmName)
         {
             var minMaxValues = _analysisManager.ReadMinMaxValues();
@@ -225,6 +237,7 @@ namespace SS.UI.Web.MVC.Controllers
         
         //POST api/Analysis/ShareWithOrganisation
         [Route("ShareWithOrganisation")]
+        [HttpPost]
         public IHttpActionResult ShareWithOrganisation(long organisationId, long analysisId)
         {
             var analysis = _analysisManager.ShareWithOrganisation(organisationId, analysisId);
@@ -233,6 +246,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/CheckPermission
         [Route("CheckPermission")]
+        [HttpPost]
         public IHttpActionResult CheckPermission(long userId, long analysisId)
         {
             var analyses = _analysisManager.ReadAnalysesForUserPermission(userId);
@@ -250,6 +264,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/UndoShare
         [Route("UndoShare")]
+        [HttpPost]
         public IHttpActionResult UndoShare(long id)
         {
             var analysis = _analysisManager.UndoShare(id);
@@ -259,6 +274,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/ReadMinMaxValues
         [Route("ReadMinMaxValues")]
+        [HttpGet]
         public IHttpActionResult ReadMinMaxValues([FromUri]long analysisId)
         {
             if (_analysisManager.ReadAnalysis(analysisId) != null)
@@ -270,13 +286,15 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Analysis/ReadClassifiedInstances
         [Route("ReadClassifiedInstances")]
-        public List<ClassifiedInstance> ReadClassifiedInstances(long userId, long analysisId)
+        [HttpGet]
+        public IHttpActionResult ReadClassifiedInstances(long userId, long analysisId)
         {
-            return _analysisManager.ReadClassifiedInstancesForUser(userId, analysisId).ToList();
+            return Ok(_analysisManager.ReadClassifiedInstancesForUser(userId, analysisId).ToList());
         }
 
         //POST api/Analysis/ClassifyNewSolvent
         [Route("ClassifyNewSolvent")]
+        [HttpPost]
         public IHttpActionResult ClassifyNewSolvent([FromBody]ClassifySolventModel model, [FromUri] long analysisId)
         {
             var instances = _analysisManager.ReadClassifiedInstancesForUser(model.UserId, analysisId).ToList();
@@ -335,7 +353,8 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Analysis/SetClassifiedSolvent
         [Route("SetClassifiedSolvent")]
-        public List<AnalysisModel> SetClassifiedSolvent(string name, long analysisId, long userId)
+        [HttpPost]
+        public IHttpActionResult SetClassifiedSolvent(string name, long analysisId, long userId)
         {
             var analysis = _analysisManager.ReadAnalysis(analysisId);
             var classifiedInstances = _analysisManager.ReadAllClassifiedInstances(userId, name).ToList();
@@ -383,7 +402,7 @@ namespace SS.UI.Web.MVC.Controllers
                 }
                 
             }
-            return _analysisManager.ReadAnalysis(analysisId).AnalysisModels;
+            return Ok(_analysisManager.ReadAnalysis(analysisId).AnalysisModels);
         } 
     }
 }

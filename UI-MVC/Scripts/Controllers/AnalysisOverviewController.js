@@ -4,7 +4,7 @@
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
-        $scope.organisationUser = organisationUser;
+        
         var prevClassifiedInstances;
         var prevClusters;
         var clusters;
@@ -34,6 +34,11 @@
         var data = result.data;
         setEnumMinMax();
         showClusterAnalysis(result.data.AnalysisModels);
+
+        if (organisationUser === "") {
+            organisationUser = null;
+        }
+        $scope.organisationUser = organisationUser;
 
         if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
             $scope.isOwner = true;
@@ -106,7 +111,7 @@
 
         function getClassifiedInstances() {
             $http({
-                method: 'POST',
+                method: 'GET',
                 url: 'api/Analysis/ReadClassifiedInstances',
                 params: { userId: $window.sessionStorage.userId, analysisId: data.Id }
             }).success(function succesCallback(data) {
@@ -169,12 +174,13 @@
             }
 
 
-            
+            solvents = [];
             for (var i = 0; i < models[0].Model.Clusters.length; i++) {
                 for (var j = 0; j < models[0].Model.Clusters[i].Solvents.length; j++) {
                     solvents.push(models[0].Model.Clusters[i].Solvents[j]);
                 }
             }
+            $scope.solvents = solvents;
 
         }
 
@@ -198,7 +204,7 @@
             minMaxValues.name = "";
             minMaxValues.casNumber = "";
             $scope.minMaxValues = minMaxValues;
-            $scope.solvents = solvents;
+            
         }
 
         $scope.newSolvent = function newSolvent() {

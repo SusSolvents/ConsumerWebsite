@@ -35,7 +35,8 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/GetAllOrganisations
         [Route("GetAllOrganisations")]
-        public List<OrganisationViewModel> GetAllOrganisations()
+        [HttpGet]
+        public IHttpActionResult GetAllOrganisations()
         {
             var organisations = _userManager.ReadAllOrganisations();
             List<OrganisationViewModel> models = new List<OrganisationViewModel>();
@@ -44,12 +45,13 @@ namespace SS.UI.Web.MVC.Controllers
                 var user = _userManager.ReadUser(organisation.OrganisatorId);
                 models.Add(new OrganisationViewModel() {Organisation = organisation, Organisator = user});
         }
-            return models;
+            return Ok(models);
         }
 
 
-        //GET api/Organisation/CreateOrganisation
+        //POST api/Organisation/CreateOrganisation
         [Route("CreateOrganisation")]
+        [HttpPost]
         public async Task<IHttpActionResult> CreateOrganisation()
         {
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
@@ -96,9 +98,10 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(org.Id);
         }
         
-            
+        //GET api/Organisation/GetActivityPerUser
         [Route("GetActivityPerUser")]
-        public List<MostActiveModel> GetActivityPerUser(long id)
+        [HttpGet]
+        public IHttpActionResult GetActivityPerUser(long id)
         {
             var mostActiveList = new List<MostActiveModel>();
             var analyses = _analysisManager.ReadAnalysesForOrganisation(id);
@@ -119,7 +122,7 @@ namespace SS.UI.Web.MVC.Controllers
                     
                 }
             }
-            return mostActiveList;
+            return Ok(mostActiveList);
         }
 
         //GET api/Organisation/ReadOrganisationForUser
@@ -142,32 +145,36 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganisation
         [Route("ReadOrganisation")]
-        public Organisation ReadOrganisation(long id)
+        [HttpGet]
+        public IHttpActionResult ReadOrganisation(long id)
         {
             var organisation = _userManager.ReadOrganisation(id);
             if (organisation != null && !organisation.Blocked)
             {
-                return organisation;
+                return Ok(organisation);
             }
-            return null;
+            return BadRequest("Organisation not found");
         }
 
         //GET api/Organisation/GetAnalysesForOrganisation
         [Route("GetAnalysesForOrganisation")]
-        public List<Analysis> GetAnalysesForOrganisation(long id)
+        [HttpGet]
+        public IHttpActionResult GetAnalysesForOrganisation(long id)
         {
-            return _analysisManager.ReadAnalysesForOrganisation(id).ToList();
+            return Ok(_analysisManager.ReadAnalysesForOrganisation(id).ToList());
         }
 
         //GET api/Organisation/GetUsersForOrganisation
         [Route("GetUsersForOrganisation")]
-        public List<User> GetUsersForOrganisation(long id)
+        [HttpGet]
+        public IHttpActionResult GetUsersForOrganisation(long id)
         {
-            return _userManager.ReadUsersForOrganisation(id).ToList();
+            return Ok(_userManager.ReadUsersForOrganisation(id).ToList());
         }
 
         //POST api/Organisation/AddMemberToOrganisation
         [Route("AddMemberToOrganisation")]
+        [HttpPost]
         public IHttpActionResult AddMemberToOrganisation(long organisationId, string email)
         {
 
@@ -197,6 +204,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/LeaveOrganisation
         [Route("LeaveOrganisation")]
+        [HttpPost]
         public IHttpActionResult LeaveOrganisation(long userId)
         {
             _userManager.LeaveOrganisation(userId);
@@ -205,6 +213,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/BlockOrganisation
         [Route("BlockOrganisation")]
+        [HttpPost]
         public IHttpActionResult BlockOrganisation(long id)
         {
             _userManager.BlockOrganisation(id);
@@ -213,6 +222,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/AllowOrganisation
         [Route("AllowOrganisation")]
+        [HttpPost]
         public IHttpActionResult AllowOrganisation(long id)
         {
             _userManager.AllowOrganisation(id);
@@ -221,6 +231,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //DELETE api/Organisation/DeleteOrganisation
         [Route("DeleteOrganisation")]
+        [HttpDelete]
         public IHttpActionResult DeleteOrganisation(long id)
         {
             _userManager.DeleteOrganisation(id);
@@ -231,13 +242,15 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/GetAnalysesByMonthForOrganisation
         [Route("GetAnalysesByMonthForOrganisation")]
-        public IEnumerable<IGrouping<int, Analysis>> GetAnalyses(long id)
+        [HttpGet]
+        public IHttpActionResult GetAnalyses(long id)
         {
-            return _analysisManager.ReadAnalysesForOrganisation(id).GroupBy(x => x.DateCreated.Month);
+            return Ok(_analysisManager.ReadAnalysesForOrganisation(id).GroupBy(x => x.DateCreated.Month));
         }
 
         //POST api/Organisation/CheckPermission
         [Route("CheckPermission")]
+        [HttpPost]
         public IHttpActionResult CheckPermission(long userId, long organisationId)
         {
             var user = _userManager.ReadUser(userId);
@@ -259,6 +272,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //GET api/Organisation/ReadOrganiser
         [Route("ReadOrganiser")]
+        [HttpGet]
         public IHttpActionResult ReadOrganiser(long id)
         {
             if (_userManager.ReadOrganisation(id) != null)
@@ -270,6 +284,7 @@ namespace SS.UI.Web.MVC.Controllers
 
         //POST api/Organisation/ChangeLogo
         [Route("ChangeLogo")]
+        [HttpPost]
         public async Task<IHttpActionResult> ChangeLogo()
         {
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
