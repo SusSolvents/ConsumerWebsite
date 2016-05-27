@@ -190,7 +190,7 @@
                             <h3 class="text-primary text-center" ng-if="selectedCluster !== undefined">Cluster Details</h3>
 
                             <div class="classified-solvent-alt" ng-if="selectedSolvent === undefined && selectedCluster === undefined">
-                                <p style="margin-top: 140px;">No solvent selected</p>
+                                <p style="margin-top: 140px; color:rgba(80,80,80,1)">No solvent selected</p>
                             </div>
                             
                             <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster Centroids</h4>
@@ -285,30 +285,31 @@
             <div>
                 <p style="color: darkorange;">{{errorMessage}}</p>
                 <label for="newSolventName">Name of solvent</label>
-                <input type="text" id="newSolventName" ng-model="minMaxValues.name" required/>
+                <input type="text"  id="newSolventName" ng-model="minMaxValues.name"   required/>
                 <label for="newSolventCasNr">Cas-number of solvent</label>
-                <input type="text" id="newSolventCasNr" ng-model="minMaxValues.casNumber" required/>
+                <input type="text" id="newSolventCasNr" name="regex"  ng-pattern="/^\d{2,6}-\d{2}-\d$/" ng-model="minMaxValues.casNumber" required/>
                 <div>
-
+                    <span style="color: darkorange;" ng-show="features.regex.$error.pattern">Not a valid CAS number!</span>
                     <table class="classify-solvent-table col-lg-12">
-                        <tr>
+                        <tr style="padding-bottom: 10px;">
                             <th class="col-lg-7">Feature name</th>
-                            <th class="col-lg-3" style="padding-left: 16%">Value</th>
+                            <th class="col-lg-3" style="padding-left: 20%; padding-bottom: 12px">Value</th>
                         </tr>
                         <tr ng-repeat="feature in minMaxValues">
                             <td class="col-lg-7">{{feature.FeatureName}}
                                 <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p>
                                 <br/>
-                                <span ng-show="features['feature_' + $index].$error.min || features['feature_' + $index].$error.max" style="margin-left: 5px; color: darkorange;">
+                                <span ng-if="feature.valid === false" style="margin-left: 5px; color: darkorange;">
                                     The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                 </span>
-                                <span ng-show="features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
+                                <span ng-show="features['feature_' + $index].$dirty && features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
                                     This value cannot be empty!
                                 </span>
+                               
                             </td>
 
-                            <td class="classify-solvent-row col-lg-3">
-                                <input class="feature-input" type="number" step="{{feature.StepValue}}" min="{{feature.MinValue}}" ng-change="SetStyle($index)" max="{{feature.MaxValue}}" name="feature_{{$index}}" ng-model="feature.value" required/>
+                            <td class="classify-solvent-row col-lg-4">
+                                <input class="feature-input" type="text" ng-change="SetStyle($index)" id="feature_{{$index}}" reg-exp-require="/{{feature.Regex}}/" name="feature_{{$index}}" ng-model="feature.value" placeholder="{{feature.MinValue}} - {{feature.MaxValue}}" required/>
                             </td>
                         </tr>
                     </table>

@@ -184,9 +184,16 @@
             }
         }
        
+        $scope.test = function(id) {
+            $("#" + id).val(function (index, value) { return value.substr(0, value.length - 1) });
+            
+        }
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
-                minMaxValues[i].value = minMaxValues[i].MinValue;
+                minMaxValues[i].value = "";
+                minMaxValues[i].valid = true;
+                //minMaxValues[i].Regex = new RegExp(minMaxValues[i].Regex);
+
             }
             minMaxValues.name = "";
             minMaxValues.casNumber = "";
@@ -246,6 +253,14 @@
                 setMinMaxValues();
             }).error(function errorCallback(data) {
                 $scope.errorMessage = data.Message;
+                $('#load').button('reset');
+                document.getElementById('closecross').disabled = false;
+                for (var i = 0; i < document.getElementsByClassName("feature-input").length; i++) {
+                    document.getElementsByClassName("feature-input")[i].style.borderColor = "black";
+                }
+                document.getElementById("newSolventCasNr").style.borderColor = "black";
+                document.getElementById("newSolventName").style.borderColor = "black";
+
             });
         }
 
@@ -333,7 +348,16 @@
             $scope.$apply();
         }
         $scope.SetStyle = function (index) {
+            
             document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
+            var value = document.getElementsByClassName("feature-input")[index].value;
+            if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue) {
+                minMaxValues[index].valid = false;
+            } else {
+                minMaxValues[index].valid = true;
+            }
+          
+            
         }
        
 
