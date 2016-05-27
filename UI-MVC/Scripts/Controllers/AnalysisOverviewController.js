@@ -1,6 +1,6 @@
 ﻿angular.module('sussol.controllers')
     .controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax) {
+    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, fileReader, $filter) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
@@ -651,6 +651,70 @@
             }
         }
 
+        $scope.triggerUpload = function () {
+            $("#csvFile").click();
+        };
+        $scope.csvFile = [];
+        $scope.getFile = function (e, files) {
+            $scope.progress = 0;
+            var reader = new FileReader();
+            reader.onload=function(e) {
+                var string = reader.result;
+                var csv = string.split("\n");
+                var headers = csv[0].split("\t");
+                var values = csv[1].split("\t");
+                headers[0] = headers[0].substr(1);
+                headers[headers.length - 1] = headers[headers.length - 1].substr(0, headers[headers.length-1].length - 2);
+                values[0] = values[0].substr(1);
+                values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);
+                if (checkHeaders(headers)) {
+                    checkValues(values);
+                }
+
+                console.log(headers);
+                console.log(values);
+            }
+            reader.readAsText(files[0]);
+
+
+        };
+
+        function checkValues(arrValues) {
+            minMaxValues.name = arrValues[1];
+            minMaxValues.casNumber = arrValues[3];
+            for (var i = 0; i < minMaxValues.length; i++) {
+                minMaxValues[i].value = Number(arrValues[i + 6]);
+            }
+            console.log(minMaxValues);
+            delete $scope.csvMessage;
+            $scope.$apply();
+        }
+
+        function checkHeaders(arrHeaders) {
+            var metaData = [];
+            metaData.push("Input");
+            metaData.push("ID_Name_1");
+            metaData.push("Label");
+            metaData.push("ID_CAS_Nr_1");
+            metaData.push("ID_EG_Nr");
+            metaData.push("ID_EG_Annex_Nr");
+            for (var i = 0; i < 6; i++) {
+                if (arrHeaders[i] !== metaData[i]) {
+                    console.log(arrHeaders[i]);
+                    $scope.csvMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                }
+            }
+
+            for (var i = 6; i < arrHeaders.length; i++) {
+                if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
+                    $scope.csvMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                }
+            }
+            
+            $scope.$apply();
+            return true;
+        }
+
 
 
         function createClusterChart(clusterTemp) {
@@ -856,3 +920,20 @@
             });
         };
     });
+
+angular.module('sussol.services')
+.directive('fileChange', ['$parse', function ($parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function ($scope, element, attrs, ngModel) {
+            var attrHandler = $parse(attrs['fileChange']);
+            var handler = function (e) {
+                $scope.$apply(function () {
+                    attrHandler($scope, { $event: e, files: e.target.files });
+                });
+            };
+            element[0].addEventListener('change', handler, false);
+        }
+    }
+}]);
