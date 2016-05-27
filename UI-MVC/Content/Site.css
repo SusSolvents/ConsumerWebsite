@@ -2172,16 +2172,17 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     margin-bottom: 15px;
 }
 .classify-solvent-row {
-    padding-bottom: 5px;
-    padding-top: 5px;
+
     padding-left: 16%;
 }
-.classify-solvent-row input{
-    width: 70px;
+.loginmodal-container .feature-input{
+    width: 80px;
     color: black;
+    height: 32px !important;
     border-radius: 4px;
     padding: 4px;
-    padding-left: 8px;
+    padding-left: 10px;
+    font-size: 13.5px !important;
     background-color: lightgray;
     border: 2px solid black;
 }
@@ -2203,7 +2204,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .disabled-element {
     pointer-events: none;
 }
-.classify-solvent-row input:focus{
+.feature-input{
     outline: none;
     background-color: white;
     transition: all 0.3s ease-in-out;

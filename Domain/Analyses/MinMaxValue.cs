@@ -12,6 +12,7 @@ namespace SS.BL.Domain.Analyses
         public FeatureName FeatureName { get; set; }
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
-        public double StepValue { get; set; }
+        
+        public string Regex { get; set; }
     }
 }

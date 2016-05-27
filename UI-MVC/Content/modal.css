@@ -193,7 +193,9 @@
     float: none;
     max-width:620px;
     margin: 0 auto;
-    margin-top: 3%;
+    margin-top: 2.5%;
     display: block;
 }
- 
+.classify-container h1 {
+    margin-top: 20px;
+} 

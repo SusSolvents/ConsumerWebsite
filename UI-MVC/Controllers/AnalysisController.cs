@@ -302,17 +302,21 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 if (cluster.Solvents.FirstOrDefault(a => a.CasNumber.Equals(model.CasNumber)) != null)
                 {
-                    return BadRequest("Solvent is already in training set!");
+                    return BadRequest("Cas number is already in use!");
+                }
+                if (cluster.Solvents.FirstOrDefault(a => a.Name.Equals(model.Name)) != null)
+                {
+                    return BadRequest("Name is already in use!");
                 }
             }
 
             if (instances.FirstOrDefault(a => a.Name.Equals(model.Name)) != null)
             {
-                return BadRequest("Name already in use!");
+                return BadRequest("You used this name already for a classified solvent!");
             }
             if (instances.FirstOrDefault(a => a.CasNumber == model.CasNumber) != null)
             {
-                return BadRequest("Cas number already in use!");
+                return BadRequest("You used this cas nr already for a classified solvent!");
             }
 
             using (var client = new WebClient())
