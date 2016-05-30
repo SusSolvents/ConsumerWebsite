@@ -50,6 +50,7 @@
             models = modelsTemp;
             setEnumNames();
             setMinMaxValues();
+            
             for (var i = 0; i < models.length; i++) {
                 clusters = getClusters(models[i].Model);
                 var clusterPositions = [];
@@ -81,6 +82,8 @@
         if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
             $scope.canEdit = true;
         }
+
+
 
         $scope.$watch('features.$valid', function (newVal) {
             $scope.valid = newVal;
@@ -685,25 +688,50 @@
             reader.onload=function(e) {
                 var string = reader.result;
                 var csv = string.split("\n");
+                if (csv.length < 2) {
+                    $scope.csvMessage = "Your csv doesn't contain enough lines";
+                    $scope.$apply();
+                    return false;
+                }
                 var headers = csv[0].split("\t");
+                if (headers.length < minMaxValues.length + 6) {
+                    $scope.csvMessage = "Your csv doens't contain enough headers or it isn't split on tabs";
+                    $scope.$apply();
+                    return false;
+                }
                 var values = csv[1].split("\t");
+                if (values.length < minMaxValues.length + 6) {
+                    $scope.csvMessage = "Your csv doens't contain enough values or it isn't split on tabs";
+                    $scope.$apply();
+                    return false;
+                }
                 headers[0] = headers[0].substr(1);
                 headers[headers.length - 1] = headers[headers.length - 1].substr(0, headers[headers.length-1].length - 2);
                 values[0] = values[0].substr(1);
                 values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);
                 if (checkHeaders(headers)) {
-                    checkValues(values);
+                    checkValues(values, headers);
                 }
-
+                console.log(csv);
                 console.log(headers);
-                console.log(values);
+                return true;
             }
             reader.readAsText(files[0]);
 
 
         };
 
-        function checkValues(arrValues) {
+        function checkValues(arrValues, arrHeaders) {
+            for (var i = 0; i < minMaxValues.length; i++) {
+                if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
+                    console.log("check");
+                    $scope.csvMessage = "One of the values is incorrect: " + arrHeaders[i];
+                    $scope.$apply();
+                    return false;
+                }
+            }
+
+
             minMaxValues.name = arrValues[1];
             minMaxValues.casNumber = arrValues[3];
             for (var i = 0; i < minMaxValues.length; i++) {
@@ -712,6 +740,7 @@
             console.log(minMaxValues);
             delete $scope.csvMessage;
             $scope.$apply();
+            return true;
         }
 
         function checkHeaders(arrHeaders) {
@@ -726,16 +755,20 @@
                 if (arrHeaders[i] !== metaData[i]) {
                     console.log(arrHeaders[i]);
                     $scope.csvMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                    $scope.$apply();
+                    return false;
                 }
             }
 
             for (var i = 6; i < arrHeaders.length; i++) {
                 if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
                     $scope.csvMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                    $scope.$apply();
+                    return false;
                 }
             }
             
-            $scope.$apply();
+            
             return true;
         }
 
