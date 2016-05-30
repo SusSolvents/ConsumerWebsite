@@ -368,7 +368,11 @@
           
             
         }
-       
+
+        $scope.downloadPdf = function() {
+            var docDef = { content: "hello, this is the pdf of susol hehe" };
+            pdfMake.createPdf(docDef).open();
+        }
 
         function resetProgress() {
             for (var i = 0; i < prevClusters.length; i++) {

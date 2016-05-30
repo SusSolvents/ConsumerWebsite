@@ -32,7 +32,7 @@
                 <div class="analysis-settings">
                     <ul style="list-style: none;">
                         <li>
-                            <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#prevClassified-modal">Previous</a>
+                            <a href="#" ng-click="downloadPdf()" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#prevClassified-modal">History</a>
                         </li>
                         <li style="margin-top: 10px;">
                             <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#addSolvent-modal">Classify</a>
@@ -47,7 +47,7 @@
                         <p>Cluster: {{ClassifiedInstance.ClusterNumber}}</p>
                     </div>
                     <div class="classified-solvent-alt" ng-if="ClassifiedInstance === null || ClassifiedInstance === undefined">
-                        <p>No solvent classified</p>
+                        <p style="color :rgba(80,80,80,1)">No solvent classified</p>
                     </div>
                 </div>
             </div>

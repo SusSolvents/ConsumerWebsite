@@ -403,6 +403,7 @@
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
     <Content Include="Scripts\notie.js" />
     <Content Include="Scripts\ocanvas-2.8.4.js" />
+    <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Scripts\radial-progress-bar.js" />
     <Content Include="Scripts\tabs.js" />
     <Content Include="Scripts\Controllers\AccountController.js" />
@@ -427,6 +428,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Content\Views\Home.html" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\vfs_fonts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
