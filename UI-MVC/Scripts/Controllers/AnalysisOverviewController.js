@@ -12,7 +12,7 @@
         var models;
         var currentChart = null;
         var showInstance = false;
-        var allValuesValid = false;
+        $scope.allValuesValid = false;
         var algorithms = [];
         var totalSolvents = 0;
         var colors = [
@@ -86,8 +86,8 @@
 
 
 
-        $scope.$watch('form.features.$valid', function (newVal) {
-            if (allValuesValid && newVal) {
+        $scope.$watchGroup(['form.features.$valid', 'allValuesValid'], function (newVal) {
+            if (newVal[1] && newVal[0]) {
                 $scope.valid = true;
             } else {
                 $scope.valid = false;
@@ -370,7 +370,7 @@
             if (value === "") {
                 minMaxValues[index].valid = true;
             } else {
-                if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue) {
+                if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue || value === "-") {
                     minMaxValues[index].valid = false;
                 } else {
                     minMaxValues[index].valid = true;
@@ -378,11 +378,11 @@
             }
             for (var i = 0; i < minMaxValues.length; i++) {
                 if (minMaxValues[i].valid === false) {
-                    allValuesValid = false;
+                    $scope.allValuesValid = false;
                     return false;
                 }
             }
-            allValuesValid = true;
+            $scope.allValuesValid = true;
             return true;
         }
 
