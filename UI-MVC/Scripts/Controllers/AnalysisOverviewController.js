@@ -192,11 +192,7 @@
                 minMaxValues[i].FeatureName = constants.FeatureName[minMaxValues[i].FeatureName];
             }
         }
-       
-        $scope.test = function(id) {
-            $("#" + id).val(function (index, value) { return value.substr(0, value.length - 1) });
-            
-        }
+
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = "";
@@ -687,25 +683,24 @@
         };
         $scope.csvFile = [];
         $scope.getFile = function (e, files) {
-            $scope.progress = 0;
             var reader = new FileReader();
             reader.onload=function(e) {
                 var string = reader.result;
                 var csv = string.split("\n");
                 if (csv.length < 2) {
-                    $scope.csvMessage = "Your csv doesn't contain enough lines";
+                    $scope.errorMessage = "Your csv doesn't contain enough lines";
                     $scope.$apply();
                     return false;
                 }
                 var headers = csv[0].split("\t");
-                if (headers.length < minMaxValues.length + 6) {
-                    $scope.csvMessage = "Your csv doens't contain enough headers or it isn't split on tabs";
+                if (headers.length !== minMaxValues.length + 6) {
+                    $scope.errorMessage = "Your csv doens't contain the right amount of headers or it isn't split on tabs";
                     $scope.$apply();
                     return false;
                 }
                 var values = csv[1].split("\t");
-                if (values.length < minMaxValues.length + 6) {
-                    $scope.csvMessage = "Your csv doens't contain enough values or it isn't split on tabs";
+                if (values.length !== minMaxValues.length + 6) {
+                    $scope.errorMessage = "Your csv doens't contain the right amount of values or it isn't split on tabs";
                     $scope.$apply();
                     return false;
                 }
@@ -718,23 +713,29 @@
                 }
                 console.log(csv);
                 console.log(headers);
+                $scope.$apply();
+                $("#csvFile").val('');
                 return true;
             }
             reader.readAsText(files[0]);
 
-
         };
 
         function checkValues(arrValues, arrHeaders) {
-            for (var i = 0; i < minMaxValues.length; i++) {
-                if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
-                    console.log("check");
-                    $scope.csvMessage = "One of the values is incorrect: " + arrHeaders[i];
-                    $scope.$apply();
-                    return false;
+            try {
+                for (var i = 0; i < minMaxValues.length; i++) {
+                    if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
+                        console.log("check");
+                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i];
+                        $scope.$apply();
+                        return false;
+                    }
                 }
+            }catch (e) {
+                $scope.errorMessage = "There is incorrent data in the file";
+                $scope.$apply();
+                return false;
             }
-
 
             minMaxValues.name = arrValues[1];
             minMaxValues.casNumber = arrValues[3];
@@ -742,8 +743,7 @@
                 minMaxValues[i].value = Number(arrValues[i + 6]);
             }
             console.log(minMaxValues);
-            delete $scope.csvMessage;
-            $scope.$apply();
+            delete $scope.errorMessage;
             return true;
         }
 
@@ -758,7 +758,7 @@
             for (var i = 0; i < 6; i++) {
                 if (arrHeaders[i] !== metaData[i]) {
                     console.log(arrHeaders[i]);
-                    $scope.csvMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in headers metaData: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }
@@ -766,7 +766,7 @@
 
             for (var i = 6; i < arrHeaders.length; i++) {
                 if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
-                    $scope.csvMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in headers feature names: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }
