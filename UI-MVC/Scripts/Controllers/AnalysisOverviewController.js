@@ -745,9 +745,8 @@
         function checkValues(arrValues, arrHeaders) {
             try {
                 for (var i = 0; i < minMaxValues.length; i++) {
-                    if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
-                        console.log("check");
-                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i];
+                    if (minMaxValues[i].MinValue > arrValues[i+6] || minMaxValues[i].MaxValue < arrValues[i+6]) {
+                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i+6];
                         $scope.$apply();
                         return false;
                     }
@@ -777,7 +776,6 @@
             metaData.push("ID_EG_Annex_Nr");
             for (var i = 0; i < 6; i++) {
                 if (arrHeaders[i] !== metaData[i]) {
-                    console.log(arrHeaders[i]);
                     $scope.errorMessage = "Wrong input in header metaData: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
