@@ -401,6 +401,7 @@
     <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\Controllers\AdminController.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />
+    <Content Include="Scripts\html2canvas.js" />
     <Content Include="Scripts\notie.js" />
     <Content Include="Scripts\ocanvas-2.8.4.js" />
     <Content Include="Scripts\pdfmake.min.js" />
