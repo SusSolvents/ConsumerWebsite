@@ -53,17 +53,16 @@
                         </div>
                         <p>Your cluster analyses</p>
                     </div>
-                    
-                    <a href="/analysis/start" class="small-button" style="margin-left: 20px;">Create new cluster analysis</a>
+
 
                     <div class="analysis-card-blog-style-1" style="margin-bottom: 40px;" ng-if="!noAnalyses">
 
 
                         <div>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12" style="margin-bottom: 25px;">
 
-                                    <div class="col-lg-3 col-md-3" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                                    <div class="col-lg-3 col-md-3 same-height" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
                                         <div class="analysis-card-post">
                                             <div class="analysis-card-post-image" ng-style="{'background-image': 'url('+analysis.image +')'}">
                                                 <div class="analysis-card-overlay"></div>
@@ -90,7 +89,10 @@
                     <div class="profile-review-alt" ng-if="analyses.length === 0">
                         <p>You don't own a cluster analysis, create one below!</p>
                     </div>
+                    <a href="/analysis/start" class="small-button" style="margin-left: 20px;">Create new cluster analysis</a>
+
                 </div>
+                
             </div>
            
         </div>

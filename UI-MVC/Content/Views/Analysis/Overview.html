@@ -10,16 +10,19 @@
                 </div>
                 <div class="analysis-settings" ng-if="canEdit">
                     <ul style="list-style: none;">
-                        <li ng-if="isOwner" >
+                        <li>
+                            <a href="#" ng-click="downloadPdf()" class="xs-button">To PDF</a>
+                        </li>
+                        <li ng-if="isOwner" style="margin-top: 5px;">
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#changeName-model">Settings</a>
                         </li>
-                        <li ng-if="isOwner && sharedWith === null" style="margin-top: 10px;">
+                        <li ng-if="isOwner && sharedWith === null" style="margin-top: 5px;">
                             <a href="#" class="xs-button" data-toggle="modal" data-target="#organisation-model">Share</a>
                         </li>
-                        <li ng-if="sharedWith !== null && isOwner" style="margin-top: 10px;">
+                        <li ng-if="sharedWith !== null && isOwner" style="margin-top: 5px;">
                             <a href="#" class="xs-button" ng-click="undoShare()">Undo Share</a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -32,9 +35,9 @@
                 <div class="analysis-settings">
                     <ul style="list-style: none;">
                         <li>
-                            <a href="#" ng-click="downloadPdf()" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#prevClassified-modal">History</a>
+                            <a href="#"  class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#prevClassified-modal">History</a>
                         </li>
-                        <li style="margin-top: 10px;">
+                        <li style="margin-top: 5px;">
                             <a href="#" class="xs-button" title="Classify solvent" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#addSolvent-modal">Classify</a>
                         </li>
 
