@@ -218,9 +218,6 @@ angular.module('sussol.services')
     ]);
 
 
-
-
-
 angular.module('sussol.controllers')
     .controller('homeController', 
     function ($timeout, $rootScope, $scope) {

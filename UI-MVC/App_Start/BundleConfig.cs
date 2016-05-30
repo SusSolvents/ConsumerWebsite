@@ -27,8 +27,11 @@ namespace SS.UI.Web.MVC
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                        "~/Scripts/notie.js",
-                      "~/Scripts/respond.js"
-                      , "~/Scripts/ocanvas-2.8.4.js"
+                      "~/Scripts/respond.js",
+                      "~/Scripts/ocanvas-2.8.4.js",
+                      "~/Scripts/pdfmake.min.js",
+                      "~/Scripts/vfs_fonts.js"
+                      
                       ));
 
 
