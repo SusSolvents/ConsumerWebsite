@@ -733,6 +733,7 @@
                 if (checkHeaders(headers)) {
                     checkValues(values, headers);
                 }
+                $scope.allValuesValid = true;
                 $scope.$apply();
                 $("#csvFile").val('');
                 return true;
@@ -777,7 +778,7 @@
             for (var i = 0; i < 6; i++) {
                 if (arrHeaders[i] !== metaData[i]) {
                     console.log(arrHeaders[i]);
-                    $scope.errorMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in header metaData: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }
@@ -785,7 +786,7 @@
 
             for (var i = 6; i < arrHeaders.length; i++) {
                 if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
-                    $scope.errorMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }
