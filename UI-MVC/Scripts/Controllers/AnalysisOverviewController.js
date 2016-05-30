@@ -12,6 +12,7 @@
         var models;
         var currentChart = null;
         var showInstance = false;
+        $scope.allValuesValid = false;
         var algorithms = [];
         var totalSolvents = 0;
         var colors = [
@@ -85,8 +86,12 @@
 
 
 
-        $scope.$watch('features.$valid', function (newVal) {
-            $scope.valid = newVal;
+        $scope.$watchGroup(['form.features.$valid', 'allValuesValid'], function (newVal) {
+            if (newVal[1] && newVal[0]) {
+                $scope.valid = true;
+            } else {
+                $scope.valid = false;
+            }
         });
 
         $scope.analysisName = data.Name;
@@ -193,13 +198,17 @@
             }
         }
 
+        $scope.form = {};
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = "";
                 minMaxValues[i].valid = true;
-                //minMaxValues[i].Regex = new RegExp(minMaxValues[i].Regex);
-
             }
+            if ($scope.form !== undefined) {
+                $scope.form.features.$setPristine();
+            }
+            
+            
             minMaxValues.name = "";
             minMaxValues.casNumber = "";
             $scope.minMaxValues = minMaxValues;
@@ -267,6 +276,7 @@
                 document.getElementById("newSolventName").style.borderColor = "black";
 
             });
+            
         }
 
         function getClusterPosition(cluster) {
@@ -352,17 +362,28 @@
             $scope.ClassifiedInstance = instance;
             $scope.$apply();
         }
+
         $scope.SetStyle = function (index) {
             
             document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
             var value = document.getElementsByClassName("feature-input")[index].value;
-            if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue) {
-                minMaxValues[index].valid = false;
-            } else {
+            if (value === "") {
                 minMaxValues[index].valid = true;
+            } else {
+                if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue || value === "-") {
+                    minMaxValues[index].valid = false;
+                } else {
+                    minMaxValues[index].valid = true;
+                }
             }
-          
-            
+            for (var i = 0; i < minMaxValues.length; i++) {
+                if (minMaxValues[i].valid === false) {
+                    $scope.allValuesValid = false;
+                    return false;
+                }
+            }
+            $scope.allValuesValid = true;
+            return true;
         }
         
         $scope.downloadPdf = function () {
@@ -669,7 +690,7 @@
                 url: 'api/Analysis/ShareWithOrganisation',
                 params: { organisationId: organisationUser.Id, analysisId: data.Id }
             }).success(function succesCallback(data) {
-                notie.alert(1, "Cluster Analysis shard with the organisation", 2);
+                notie.alert(1, "Cluster Analysis shared with the organisation", 2);
                 $('#organisation-model').modal('hide');
                 $scope.sharedWith = data.SharedWith;
             });
@@ -742,6 +763,7 @@
                 params: { id: data.Id }
             }).success(function succesCallback(data) {
                 $scope.sharedWith = null;
+                notie.alert(1, "Cluster Analysis is no longer shared with the organisation", 2);
             });
         }
 
@@ -835,8 +857,7 @@
                 if (checkHeaders(headers)) {
                     checkValues(values, headers);
                 }
-                console.log(csv);
-                console.log(headers);
+                $scope.allValuesValid = true;
                 $scope.$apply();
                 $("#csvFile").val('');
                 return true;
@@ -848,9 +869,8 @@
         function checkValues(arrValues, arrHeaders) {
             try {
                 for (var i = 0; i < minMaxValues.length; i++) {
-                    if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
-                        console.log("check");
-                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i];
+                    if (minMaxValues[i].MinValue > arrValues[i+6] || minMaxValues[i].MaxValue < arrValues[i+6]) {
+                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i+6];
                         $scope.$apply();
                         return false;
                     }
@@ -866,7 +886,6 @@
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = Number(arrValues[i + 6]);
             }
-            console.log(minMaxValues);
             delete $scope.errorMessage;
             return true;
         }
@@ -881,8 +900,7 @@
             metaData.push("ID_EG_Annex_Nr");
             for (var i = 0; i < 6; i++) {
                 if (arrHeaders[i] !== metaData[i]) {
-                    console.log(arrHeaders[i]);
-                    $scope.errorMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in header metaData: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }
@@ -890,7 +908,7 @@
 
             for (var i = 6; i < arrHeaders.length; i++) {
                 if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
-                    $scope.errorMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i];
                     $scope.$apply();
                     return false;
                 }

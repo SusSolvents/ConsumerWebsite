@@ -71,7 +71,7 @@ app.config(function ($routeProvider, $locationProvider) {
     });
     $routeProvider.when("/analysis/overview/:id", {
         templateUrl: "Content/Views/Analysis/Overview.html",
-        controller: 'AnalysisOverviewController',
+        controller: 'AnalysisOverviewController as overview',
         authenticate: true,
         resolve: {
             result: function ($route, srvLibrary) {

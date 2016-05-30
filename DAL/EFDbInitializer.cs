@@ -68,7 +68,7 @@ namespace SS.DAL
                 MinValue = 100,
                 MaxValue = 800,
                
-                Regex = @"^\d{3,3}(\.\d{0,5})?$"
+                Regex = @"^\d{1,3}(\.\d{0,5})?$"
             });
             context.MinMaxValues.Add(new MinMaxValue()
             {
