@@ -85,7 +85,7 @@
 
 
 
-        $scope.$watch('features.$valid', function (newVal) {
+        $scope.$watch('form.features.$valid', function (newVal) {
             $scope.valid = newVal;
         });
 
@@ -193,13 +193,17 @@
             }
         }
 
+        $scope.form = {};
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = "";
                 minMaxValues[i].valid = true;
-                //minMaxValues[i].Regex = new RegExp(minMaxValues[i].Regex);
-
             }
+            if ($scope.form !== undefined) {
+                $scope.form.features.$setPristine();
+            }
+            
+            
             minMaxValues.name = "";
             minMaxValues.casNumber = "";
             $scope.minMaxValues = minMaxValues;
@@ -267,6 +271,7 @@
                 document.getElementById("newSolventName").style.borderColor = "black";
 
             });
+            
         }
 
         function getClusterPosition(cluster) {
