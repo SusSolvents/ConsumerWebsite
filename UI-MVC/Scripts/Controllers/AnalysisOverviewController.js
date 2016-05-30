@@ -355,7 +355,6 @@
                 setBorderDatapoint(datapoint);
                 currentChart.render();
             }
-            $scope.$apply();
         });
 
         function changeInstance(instance) {
@@ -389,12 +388,33 @@
         $scope.downloadPdf = function () {
             console.log(result.data);
 
-            generatePdf();
+            loadGraphs();
         }
-        
-        
+        var counter = 0;
+        var imageArray = [];
+        function loadGraphs() {
+            if (counter === result.data.AnalysisModels.length) {
+                counter = 0;
+                generatePdf();
+            } else {
+                $('#' + result.data.AnalysisModels[counter].Model.AlgorithmName).click();
+                html2canvas(document.getElementById('progress_' + result.data.AnalysisModels[counter].Model.AlgorithmName),
+                    {
+                        onrendered: function (canvas) {
+                            var data = canvas.toDataURL();
+                            imageArray.push(data);
+                            counter++;
+                            loadGraphs();
+
+                        }
+                    });
+               
+            }
+        }
+
         function generatePdf() {
-            
+            console.log(imageArray);
+            return null;
             var featureArray = [];
             var algorithmArray = [];
 
