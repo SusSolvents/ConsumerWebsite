@@ -12,6 +12,7 @@
         var models;
         var currentChart = null;
         var showInstance = false;
+        var allValuesValid = false;
         var algorithms = [];
         var totalSolvents = 0;
         var colors = [
@@ -86,7 +87,11 @@
 
 
         $scope.$watch('form.features.$valid', function (newVal) {
-            $scope.valid = newVal;
+            if (allValuesValid && newVal) {
+                $scope.valid = true;
+            } else {
+                $scope.valid = false;
+            }
         });
 
         $scope.analysisName = data.Name;
@@ -357,6 +362,7 @@
             $scope.ClassifiedInstance = instance;
             $scope.$apply();
         }
+
         $scope.SetStyle = function (index) {
             
             document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
@@ -366,8 +372,14 @@
             } else {
                 minMaxValues[index].valid = true;
             }
-          
-            
+            for (var i = 0; i < minMaxValues.length; i++) {
+                if (minMaxValues[i].valid === false) {
+                    allValuesValid = false;
+                    return false;
+                }
+            }
+            allValuesValid = true;
+            return true;
         }
 
         $scope.downloadPdf = function() {
@@ -550,7 +562,7 @@
                 url: 'api/Analysis/ShareWithOrganisation',
                 params: { organisationId: organisationUser.Id, analysisId: data.Id }
             }).success(function succesCallback(data) {
-                notie.alert(1, "Cluster Analysis shard with the organisation", 2);
+                notie.alert(1, "Cluster Analysis shared with the organisation", 2);
                 $('#organisation-model').modal('hide');
                 $scope.sharedWith = data.SharedWith;
             });
@@ -623,6 +635,7 @@
                 params: { id: data.Id }
             }).success(function succesCallback(data) {
                 $scope.sharedWith = null;
+                notie.alert(1, "Cluster Analysis is no longer shared with the organisation", 2);
             });
         }
 

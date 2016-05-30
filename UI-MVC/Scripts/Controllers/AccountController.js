@@ -51,7 +51,7 @@
                 $scope.registrationComplete = data;
                 //$location.path("/");
             }).error(function errorCallback(data) {
-                model.message = data;
+                model.message = data.Message;
             });
 
         }

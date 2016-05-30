@@ -61,7 +61,6 @@
                 angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
                 models = data;
                 $scope.algorithms = data;
-                console.log(data);
                 $scope.btnclass = "button-right disabled";
                 $rootScope.loadingView = false;
             });

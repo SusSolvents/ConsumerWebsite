@@ -360,7 +360,6 @@ angular.module('sussol.controllers')
 
 
         model.submit = function (isValid) {
-            console.log(model);
             if (isValid) {
                 createOrganisation(model, $http);
             } else {
