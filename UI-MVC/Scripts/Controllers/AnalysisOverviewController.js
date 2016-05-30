@@ -367,10 +367,14 @@
             
             document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
             var value = document.getElementsByClassName("feature-input")[index].value;
-            if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue) {
-                minMaxValues[index].valid = false;
-            } else {
+            if (value === "") {
                 minMaxValues[index].valid = true;
+            } else {
+                if (value < minMaxValues[index].MinValue || value > minMaxValues[index].MaxValue) {
+                    minMaxValues[index].valid = false;
+                } else {
+                    minMaxValues[index].valid = true;
+                }
             }
             for (var i = 0; i < minMaxValues.length; i++) {
                 if (minMaxValues[i].valid === false) {
@@ -729,8 +733,6 @@
                 if (checkHeaders(headers)) {
                     checkValues(values, headers);
                 }
-                console.log(csv);
-                console.log(headers);
                 $scope.$apply();
                 $("#csvFile").val('');
                 return true;
@@ -760,7 +762,6 @@
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = Number(arrValues[i + 6]);
             }
-            console.log(minMaxValues);
             delete $scope.errorMessage;
             return true;
         }
