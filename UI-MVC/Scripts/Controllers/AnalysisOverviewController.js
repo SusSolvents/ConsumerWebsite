@@ -1,6 +1,6 @@
 ﻿angular.module('sussol.controllers')
     .controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax) {
+    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, fileReader, $filter) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
@@ -50,6 +50,7 @@
             models = modelsTemp;
             setEnumNames();
             setMinMaxValues();
+            
             for (var i = 0; i < models.length; i++) {
                 clusters = getClusters(models[i].Model);
                 var clusterPositions = [];
@@ -81,6 +82,8 @@
         if (data.CreatedBy.Id.toString() === $window.sessionStorage.userId) {
             $scope.canEdit = true;
         }
+
+
 
         $scope.$watch('features.$valid', function (newVal) {
             $scope.valid = newVal;
@@ -189,11 +192,7 @@
                 minMaxValues[i].FeatureName = constants.FeatureName[minMaxValues[i].FeatureName];
             }
         }
-       
-        $scope.test = function(id) {
-            $("#" + id).val(function (index, value) { return value.substr(0, value.length - 1) });
-            
-        }
+
         function setMinMaxValues() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].value = "";
@@ -679,6 +678,104 @@
             }
         }
 
+        $scope.triggerUpload = function () {
+            $("#csvFile").click();
+        };
+        $scope.csvFile = [];
+        $scope.getFile = function (e, files) {
+            var reader = new FileReader();
+            reader.onload=function(e) {
+                var string = reader.result;
+                var csv = string.split("\n");
+                if (csv.length < 2) {
+                    $scope.errorMessage = "Your csv doesn't contain enough lines";
+                    $scope.$apply();
+                    return false;
+                }
+                var headers = csv[0].split("\t");
+                if (headers.length !== minMaxValues.length + 6) {
+                    $scope.errorMessage = "Your csv doens't contain the right amount of headers or it isn't split on tabs";
+                    $scope.$apply();
+                    return false;
+                }
+                var values = csv[1].split("\t");
+                if (values.length !== minMaxValues.length + 6) {
+                    $scope.errorMessage = "Your csv doens't contain the right amount of values or it isn't split on tabs";
+                    $scope.$apply();
+                    return false;
+                }
+                headers[0] = headers[0].substr(1);
+                headers[headers.length - 1] = headers[headers.length - 1].substr(0, headers[headers.length-1].length - 2);
+                values[0] = values[0].substr(1);
+                values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);
+                if (checkHeaders(headers)) {
+                    checkValues(values, headers);
+                }
+                console.log(csv);
+                console.log(headers);
+                $scope.$apply();
+                $("#csvFile").val('');
+                return true;
+            }
+            reader.readAsText(files[0]);
+
+        };
+
+        function checkValues(arrValues, arrHeaders) {
+            try {
+                for (var i = 0; i < minMaxValues.length; i++) {
+                    if (minMaxValues[i].MinValue > arrValues[i] || minMaxValues[i].MaxValue < arrValues[i]) {
+                        console.log("check");
+                        $scope.errorMessage = "One of the values is incorrect: " + arrHeaders[i];
+                        $scope.$apply();
+                        return false;
+                    }
+                }
+            }catch (e) {
+                $scope.errorMessage = "There is incorrent data in the file";
+                $scope.$apply();
+                return false;
+            }
+
+            minMaxValues.name = arrValues[1];
+            minMaxValues.casNumber = arrValues[3];
+            for (var i = 0; i < minMaxValues.length; i++) {
+                minMaxValues[i].value = Number(arrValues[i + 6]);
+            }
+            console.log(minMaxValues);
+            delete $scope.errorMessage;
+            return true;
+        }
+
+        function checkHeaders(arrHeaders) {
+            var metaData = [];
+            metaData.push("Input");
+            metaData.push("ID_Name_1");
+            metaData.push("Label");
+            metaData.push("ID_CAS_Nr_1");
+            metaData.push("ID_EG_Nr");
+            metaData.push("ID_EG_Annex_Nr");
+            for (var i = 0; i < 6; i++) {
+                if (arrHeaders[i] !== metaData[i]) {
+                    console.log(arrHeaders[i]);
+                    $scope.errorMessage = "Wrong input in headers metaData: " + arrHeaders[i];
+                    $scope.$apply();
+                    return false;
+                }
+            }
+
+            for (var i = 6; i < arrHeaders.length; i++) {
+                if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
+                    $scope.errorMessage = "Wrong input in headers feature names: " + arrHeaders[i];
+                    $scope.$apply();
+                    return false;
+                }
+            }
+            
+            
+            return true;
+        }
+
 
 
         function createClusterChart(clusterTemp) {
@@ -884,3 +981,20 @@
             });
         };
     });
+
+angular.module('sussol.services')
+.directive('fileChange', ['$parse', function ($parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function ($scope, element, attrs, ngModel) {
+            var attrHandler = $parse(attrs['fileChange']);
+            var handler = function (e) {
+                $scope.$apply(function () {
+                    attrHandler($scope, { $event: e, files: e.target.files });
+                });
+            };
+            element[0].addEventListener('change', handler, false);
+        }
+    }
+}]);

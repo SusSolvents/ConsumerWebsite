@@ -22,7 +22,7 @@
                         <li ng-if="sharedWith !== null && isOwner" style="margin-top: 5px;">
                             <a href="#" class="xs-button" ng-click="undoShare()">Undo Share</a>
                         </li>
-
+                        
                     </ul>
                 </div>
             </div>
@@ -284,8 +284,11 @@
     <div class="loginmodal-container classify-container">
         <i class="fa fa-times closecross" id="closecross" data-dismiss="modal"  aria-hidden="true"></i>
         <h1 >Classify a new Solvent</h1>
+        <a href="#" class="xs-button" ng-click="triggerUpload()">Upload csv</a>
+        <input type="file" id="csvFile" accept=".csv" name="csvFile" ng-model="csvFile" style="display: none" file-change="getFile($event,files)" />
         <form role="form" name="features" id="newSolvent" ng-submit="newSolvent()" novalidate>
             <div>
+                
                 <p style="color: darkorange;">{{errorMessage}}</p>
                 <label for="newSolventName">Name of solvent</label>
                 <input type="text"  id="newSolventName" ng-model="minMaxValues.name"   required/>
@@ -312,7 +315,7 @@
                             </td>
 
                             <td class="classify-solvent-row col-lg-4">
-                                <input class="feature-input" type="text" ng-change="SetStyle($index)" id="feature_{{$index}}" reg-exp-require="/{{feature.Regex}}/" name="feature_{{$index}}" ng-model="feature.value" placeholder="{{feature.MinValue}} - {{feature.MaxValue}}" required/>
+                                <input class="feature-input" type="text" ng-change="SetStyle($index)" id="feature_{{$index}}" title="{{$index}}" reg-exp-require="/{{feature.Regex}}/" name="feature_{{$index}}" ng-model="feature.value" placeholder="{{feature.MinValue}} - {{feature.MaxValue}}" required/>
                             </td>
                         </tr>
                     </table>

@@ -333,16 +333,15 @@ app.run([
 ]);
 app.directive("regExpRequire", function () {
 
-    var regexp;
+    var regexp = [];
     return {
-        restrict: "A",
+        restrict: 'A',
         link: function (scope, elem, attrs) {
-            regexp = eval(attrs.regExpRequire);
-
+            regexp.push(eval(attrs.regExpRequire));
             var char;
-            elem.on("keypress", function(event) {
+            elem.on("keypress", function (event) {
                 char = String.fromCharCode(event.which);
-                if (!regexp.test(elem.val() + char))
+                if (!regexp[event.currentTarget.title].test(elem.val() + char))
                     event.preventDefault();
             });
         }
