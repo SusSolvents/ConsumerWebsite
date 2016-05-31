@@ -1487,7 +1487,56 @@ form.ng-submitted .ng-valid {
     background: rgba(0,0,0,0.9);
     text-align: center;
 }
+.tiny-green {
+    position: relative;
+    padding: 3px;
+    margin-top: 50px;
+	background-image:-moz-linear-gradient(53% 13% -90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
+	background-image:-webkit-gradient(linear,53% 13%,53% 79%,color-stop(0, rgb(58,64,80)),color-stop(0.47, rgb(58,64,80)),color-stop(0.48, rgb(46,50,62)),color-stop(1, rgb(46,50,62)));
+	background-image:-webkit-linear-gradient(-90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
+	background-image:linear-gradient(-180deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
 
+	-moz-border-radius: 10px; /* Firefox */
+	-webkit-border-radius: 10px; /* Webkit */
+	border-radius: 10px;
+}
+/* ngIf animation */
+.animationIf.ng-enter,
+.animationIf.ng-leave {
+  -webkit-transition: opacity ease-in-out 0.7s;
+  -moz-transition: opacity ease-in-out 0.7s;
+  -ms-transition: opacity ease-in-out 0.7s;
+  -o-transition: opacity ease-in-out 0.7s;
+  transition: opacity ease-in-out 0.7s;
+}
+.animationIf.ng-enter,
+.animationIf.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.animationIf.ng-leave,
+.animationIf.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.tiny-green div {
+
+	font-family: arial;
+	font-size: 3px;
+	color: white;
+	text-align: right;
+	text-shadow: 0px 0px 2px #000;
+	text-indent: 9999px;
+	overflow: hidden;
+
+	background-image:-webkit-gradient(linear,71% 25%,71% 69%,color-stop(0, rgb(118,177,1)),color-stop(0.47, rgb(118,177,1)),color-stop(0.48, rgb(102,153,0)),color-stop(1, rgb(102,153,0)));
+	background-image:-webkit-linear-gradient(-90deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+	background-image:-moz-linear-gradient(71% 25% -180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+	background-image:linear-gradient(-180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+
+	-moz-border-radius: 10px; /* Firefox */
+	-webkit-border-radius: 10px; /* Webkit */
+	border-radius: 10px;
+}
 .sk-cube-grid {
    width: 90px;
     height: 90px;
@@ -1495,6 +1544,7 @@ form.ng-submitted .ng-valid {
     display: block;
     margin: 0 auto;
 }
+
 .wrapper {
         width: 200px;
     height: 250px;
@@ -1509,6 +1559,20 @@ form.ng-submitted .ng-valid {
     text-align: center;
     
 }
+.wrapper-pdf {
+        width: 300px;
+    height: 350px;
+    /* position: absolute; */
+    overflow: hidden;
+    
+    /* margin-top: 500px; */
+    /* left: 45%; */
+    margin: 0 auto;
+    margin-top: 300px;
+    display: block;
+    text-align: center;
+    
+}
 .wrapper h2 {
     
     margin-top: 60px;
@@ -1516,7 +1580,48 @@ form.ng-submitted .ng-valid {
     text-align: center;
 
 }
+.spinner {
+  margin: 100px auto 0;
+    width: 100%;
+  text-align: center;
+}
 
+.spinner > div {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+  border-radius: 10%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.42s;
+  animation-delay: -0.42s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.26s;
+  animation-delay: -0.26s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
@@ -1927,7 +2032,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 
 }
 .grid-top {
-    height: 165px;
+    height: 175px;
     padding: 8px;
 }
 .chartContainer {

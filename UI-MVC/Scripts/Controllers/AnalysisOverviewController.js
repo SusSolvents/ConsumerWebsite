@@ -1,6 +1,6 @@
 ﻿angular.module('sussol.controllers')
     .controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, fileReader, $filter) {
+    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, $rootScope,fileReader, $filter) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
@@ -391,40 +391,75 @@
             loadGraphs();
         }
         var counter = 0;
-        var imageArray = [];
+        var chartArray = [];
+        var progressArray = [];
+        var lastSelectedAlgorithm;
         function loadGraphs() {
+           
+           
+            if (counter === 0) {
+                lastSelectedAlgorithm = selectedAlgorithm;
+                $rootScope.loadingPdf = true;
+            }
+            if (counter < result.data.AnalysisModels.length) {
+                progress(((counter / result.data.AnalysisModels.length) * 100), $('#progresspdf'));
+            }
             if (counter === result.data.AnalysisModels.length) {
                 counter = 0;
+                $('#' + lastSelectedAlgorithm).click();
                 generatePdf();
             } else {
                 $('#' + result.data.AnalysisModels[counter].Model.AlgorithmName).click();
-                html2canvas(document.getElementById('progress_' + result.data.AnalysisModels[counter].Model.AlgorithmName),
-                    {
-                        onrendered: function (canvas) {
-                            var data = canvas.toDataURL();
-                            imageArray.push(data);
-                            counter++;
-                            loadGraphs();
-                        }
-                    });
+                setTimeout(
+                    function() {
+                        html2canvas(document.getElementById('chart-container-' + result.data.AnalysisModels[counter].Model.AlgorithmName),
+                        {
+                            onrendered: function (canvas) {
+                                chartArray.push(canvas.toDataURL());
+                                html2canvas(document.getElementById('progress_' + result.data.AnalysisModels[counter].Model.AlgorithmName),
+                                {
+                                    onrendered: function (canvas) {
+                                    progressArray.push(canvas.toDataURL());
+                                    counter++;
+                                    loadGraphs();
+                                }
+                                });
+                            }
+                        });
+                    }, 2000);
             }
         }
-
+        function progress(percent, $element) {
+            
+            var progressBarWidth = percent * $element.width() / 100;
+            $element.find('div').animate({ width: progressBarWidth }, 1000).html(percent + "% ");
+        }
         function generatePdf() {
-            console.log(imageArray);
-            return null;
             var featureArray = [];
             var algorithmArray = [];
+            
 
             for (var i = 0; i < minMaxValues.length; i++) {
                 featureArray.push({ text: minMaxValues[i].FeatureName, margin: [60, 10, 0, 0] });
             }
             for (var i = 0; i < result.data.AnalysisModels.length; i++) {
                 $scope.currAlgo = data.AnalysisModels[i];
-                algorithmArray.push({ text: result.data.AnalysisModels[i].Model.AlgorithmName, style: 'header4', margin: [10, 10, 0, 0] });
-               
+                algorithmArray.push({ text: result.data.AnalysisModels[i].Model.AlgorithmName, style: 'header4', margin: [10, 10, 0, 0], pageBreak: 'before' });
+                algorithmArray.push({
+                    image: progressArray[i], width: 560,
+                    height: 85,
+                    alignment: 'center',
+                    margin: [0,20,0,10]
+                });
+                algorithmArray.push({
+                    image: chartArray[i], width: 560,
+                    height: 280,
+                    alignment: 'center'
+                });
+                
                 for (var j = 0; j < $scope.currAlgo.Model.Clusters.length; j++) {
-                    algorithmArray.push({ text: 'Cluster ' + j + ": " + result.data.AnalysisModels[i].Model.Clusters[j].Solvents.length + ' Solvents', style: 'headercluster', margin: [25, 10, 0, 0] });
+                    algorithmArray.push({ text: 'Cluster ' + j + ": " + result.data.AnalysisModels[i].Model.Clusters[j].Solvents.length + ' Solvents', style: 'headercluster', color: colors[j], margin: [25, 10, 0, 0] });
+                    
 
                     algorithmArray.push({ text: 'Centroids', style: 'header5', margin: [27, 10, 0, 0] });
                     var centroids = "[";
@@ -437,7 +472,7 @@
                     algorithmArray.push({ text: centroids + "]", margin: [32, 5, 0, 0] });
                 }
             }
-
+            chartArray = [];
             
             var docDef = {
                 content: [
@@ -463,9 +498,7 @@
                 { text: 'Number of features: ' + result.data.AnalysisModels[0].Model.NumberOfFeatures, margin: [60, 10, 0, 0] },
                 { text: 'List of featurenames: ', style: 'header5', margin: [30, 30, 0, 0] },
                     {
-                        ul: featureArray,
-                        pageBreak: 'after'
-
+                        ul: featureArray
 
                     },
                     algorithmArray
@@ -487,10 +520,6 @@
                             }
                         ]
                     };
-
-
-
-
                 },
                 styles: {
                     header: {
@@ -526,12 +555,24 @@
                     headercluster: {
                         fontSize: 14,
                         bold: true,
-                        color: 'purple',
+                        
                         alignment: 'left'
                     },
                 }
             };
-            pdfMake.createPdf(docDef).download('Sussol_Analysis'+'.pdf');
+            pdfMake.createPdf(docDef).download('Sussol_Analysis' + '.pdf', function () {
+                progress((100), $('#progresspdf'));
+                setTimeout(function() {
+                    $rootScope.loadingPdf = false;
+                    $scope.$apply();
+
+                    setTimeout(function() { progress((0), $('#progresspdf'));},750);
+                }, 750);
+            });
+            
+
+            
+           
         }
         function resetProgress() {
             for (var i = 0; i < prevClusters.length; i++) {
