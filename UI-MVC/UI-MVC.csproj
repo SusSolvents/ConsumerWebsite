@@ -304,6 +304,7 @@
     <Content Include="Content\Images\down_arrow_select.jpg" />
     <Content Include="Content\Images\educational-book.svg" />
     <Content Include="Content\Images\farrestsolvent.png" />
+    <Content Include="Content\Images\headericon.png" />
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
     <Content Include="Content\Images\java-logo.svg" />
     <Content Include="Content\Images\loading.gif" />
@@ -358,6 +359,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angucomplete-alt.min.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-bootstrap-switch.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-route.min.js" />

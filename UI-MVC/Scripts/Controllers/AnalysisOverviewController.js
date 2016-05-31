@@ -363,7 +363,7 @@
         }
 
         $scope.SetStyle = function (index) {
-            
+            delete $scope.errorMessage;
             document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
             var value = document.getElementsByClassName("feature-input")[index].value;
             if (value === "") {
@@ -881,6 +881,10 @@
             }
         }
 
+        $scope.clearNewSolvent = function() {
+            setMinMaxValues();
+        }
+
         $scope.triggerUpload = function () {
             $("#csvFile").click();
         };
@@ -962,10 +966,10 @@
                     return false;
                 }
             }
-            console.log(arrHeaders);
-            for (var i = 0; i < arrHeaders.length; i++) {
-                if (arrHeaders[i + 6] !== constants.FeatureName[i]) {
-                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i + 6];
+
+            for (var i = 6; i < arrHeaders.length; i++) {
+                if (arrHeaders[i].replace("\r", "") !== minMaxValues[i-6].FeatureName) {
+                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i] + " must be " + minMaxValues[i - 6].FeatureName;
                     $scope.$apply();
                     return false;
                 }
