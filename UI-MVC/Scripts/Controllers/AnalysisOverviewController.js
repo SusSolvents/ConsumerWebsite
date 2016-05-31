@@ -359,7 +359,7 @@
 
         function changeInstance(instance) {
             $scope.ClassifiedInstance = instance;
-            $scope.$apply();
+           
         }
 
         $scope.SetStyle = function (index) {
@@ -398,6 +398,7 @@
            
            
             if (counter === 0) {
+                
                 lastSelectedAlgorithm = selectedAlgorithm;
                 $rootScope.loadingPdf = true;
             }
@@ -426,12 +427,13 @@
                                 });
                             }
                         });
-                    }, 2000);
+                    }, 2500);
             }
         }
         function progress(percent, $element) {
             
             var progressBarWidth = percent * $element.width() / 100;
+            console.log(progressBarWidth);
             $element.find('div').animate({ width: progressBarWidth }, 1000).html(percent + "% ");
         }
         function generatePdf() {
@@ -444,21 +446,22 @@
             }
             for (var i = 0; i < result.data.AnalysisModels.length; i++) {
                 $scope.currAlgo = data.AnalysisModels[i];
-                algorithmArray.push({ text: result.data.AnalysisModels[i].Model.AlgorithmName, style: 'header4', margin: [10, 10, 0, 0], pageBreak: 'before' });
+                algorithmArray.push({ text: result.data.AnalysisModels[i].Model.AlgorithmName, style: 'header4', margin: [10, 10, 0, 0], pageBreak: 'before', pageOrientation: 'landscape' });
                 algorithmArray.push({
-                    image: progressArray[i], width: 560,
-                    height: 85,
+                    image: progressArray[i], width: 800,
+                    height: 90,
                     alignment: 'center',
                     margin: [0,20,0,10]
                 });
                 algorithmArray.push({
-                    image: chartArray[i], width: 560,
-                    height: 280,
-                    alignment: 'center'
+                    image: chartArray[i], width: 800,
+                    height: 340,
+                    alignment: 'center',
+                    pageBreak: 'after'
                 });
                 
                 for (var j = 0; j < $scope.currAlgo.Model.Clusters.length; j++) {
-                    algorithmArray.push({ text: 'Cluster ' + j + ": " + result.data.AnalysisModels[i].Model.Clusters[j].Solvents.length + ' Solvents', style: 'headercluster', color: colors[j], margin: [25, 10, 0, 0] });
+                    algorithmArray.push({ text: 'Cluster ' + j + ": " + result.data.AnalysisModels[i].Model.Clusters[j].Solvents.length + ' Solvents', style: 'headercluster',color: colors[j], margin: [25, 10, 0, 0] });
                     
 
                     algorithmArray.push({ text: 'Centroids', style: 'header5', margin: [27, 10, 0, 0] });
@@ -492,11 +495,11 @@
                     pageBreak: 'after'
                 },
                 { text: 'General Information', style: 'header4', margin: [10, 10, 0, 0] },
-                { text: 'Trainging set: ', style: 'header5', margin: [30, 30, 0, 0] },
+                { text: 'Training set: ', style: 'header5', margin: [30, 30, 0, 0] },
                 { text: 'Name: ' + result.data.AnalysisModels[0].Model.DataSet, margin: [60, 10, 0, 0] },
                 { text: 'Number of solvents: ' + result.data.AnalysisModels[0].Model.NumberOfSolvents, margin: [60, 10, 0, 0] },
                 { text: 'Number of features: ' + result.data.AnalysisModels[0].Model.NumberOfFeatures, margin: [60, 10, 0, 0] },
-                { text: 'List of featurenames: ', style: 'header5', margin: [30, 30, 0, 0] },
+                { text: 'Features: ', style: 'header5', margin: [30, 30, 0, 0] },
                     {
                         ul: featureArray
 

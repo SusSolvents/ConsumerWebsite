@@ -1487,9 +1487,26 @@ form.ng-submitted .ng-valid {
     background: rgba(0,0,0,0.9);
     text-align: center;
 }
+.overlay-dark {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    
+    height: 100%;
+    background: rgba(0,0,0,1);
+    text-align: center;
+}
+.absolute-button {
+        position: absolute;
+    left: 20px;
+    top: 23px;
+}
 .tiny-green {
     position: relative;
     padding: 3px;
+    height: 10px;
     margin-top: 50px;
 	background-image:-moz-linear-gradient(53% 13% -90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
 	background-image:-webkit-gradient(linear,53% 13%,53% 79%,color-stop(0, rgb(58,64,80)),color-stop(0.47, rgb(58,64,80)),color-stop(0.48, rgb(46,50,62)),color-stop(1, rgb(46,50,62)));
@@ -1519,7 +1536,8 @@ form.ng-submitted .ng-valid {
 }
 
 .tiny-green div {
-
+    width: 0px;
+    
 	font-family: arial;
 	font-size: 3px;
 	color: white;

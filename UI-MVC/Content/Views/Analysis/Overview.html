@@ -255,7 +255,7 @@
             <i class="fa fa-times closecross" data-dismiss="modal" id="closecross-solvents" aria-hidden="true"></i>
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="margin-top-0 text-primary wow fadeInDown">Classified Solvents</h2>
+                    <h2 class="margin-top-0 wow fadeInDown">Classified Solvents</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -287,8 +287,11 @@
 <div class="modal fade analysis-modals" id="addSolvent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
     <div class="loginmodal-container classify-container">
         <i class="fa fa-times closecross" id="closecross-newSolvent" data-dismiss="modal"  aria-hidden="true"></i>
-        <h1 >Classify a new Solvent</h1>
-        <a href="#" class="xs-button" ng-click="triggerUpload()">Upload csv</a>
+        <div class="col-lg-12 text-center">
+            <h2 class="margin-top-0 wow fadeInDown">Classify new solvent</h2>
+            <hr class="primary">
+        </div>
+        <a href="#" class="xs-button absolute-button" ng-click="triggerUpload()">Upload csv</a>
         <input type="file" id="csvFile" accept=".csv" name="csvFile" ng-model="csvFile" style="display: none" file-change="getFile($event,files)" />
         <form role="form" name="form.features" id="newSolvent" ng-submit="newSolvent()" novalidate>
             <div>
