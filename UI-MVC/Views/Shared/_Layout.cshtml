@@ -13,6 +13,7 @@
     <script type="text/javascript" src="~/Scripts/angular.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-messages.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-animate.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angucomplete-alt.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-bootstrap-switch.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
@@ -154,7 +155,7 @@
 
 
 
-<div class="overlay" ng-show="loadingView">
+<div class="overlay animationIf" ng-if="loadingView">
     <div class="wrapper">
         <div class="sk-cube-grid">
             <div class="sk-cube sk-cube1"></div>
@@ -172,7 +173,7 @@
     </div>
 
 </div>
-<div class="overlay fade-element-in" ng-show="loadingPdf">
+<div class="overlay animationIf" ng-if="loadingPdf">
     <div class="wrapper-pdf">
         <div class="spinner">
             <div class="bounce1"></div>

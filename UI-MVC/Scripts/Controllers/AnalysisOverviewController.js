@@ -430,6 +430,7 @@
             }
         }
         function progress(percent, $element) {
+            
             var progressBarWidth = percent * $element.width() / 100;
             $element.find('div').animate({ width: progressBarWidth }, 1000).html(percent + "% ");
         }
@@ -564,8 +565,9 @@
                 setTimeout(function() {
                     $rootScope.loadingPdf = false;
                     $scope.$apply();
-                    progress((0), $('#progresspdf'));
-                }, 500);
+
+                    setTimeout(function() { progress((0), $('#progresspdf'));},750);
+                }, 750);
             });
             
 
