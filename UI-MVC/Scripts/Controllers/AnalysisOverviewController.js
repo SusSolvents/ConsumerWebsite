@@ -888,6 +888,7 @@
 
         $scope.clearNewSolvent = function() {
             setMinMaxValues();
+            delete $scope.errorMessage;
         }
 
         $scope.triggerUpload = function () {
