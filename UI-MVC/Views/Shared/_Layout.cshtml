@@ -13,7 +13,7 @@
     <script type="text/javascript" src="~/Scripts/angular.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-messages.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/angular-animate.min.js"></script>
+    
     <script type="text/javascript" src="~/Scripts/angucomplete-alt.min.js"></script>
     <script type="text/javascript" src="~/Scripts/angular-bootstrap-switch.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
@@ -69,7 +69,7 @@
                         
                     </li>
                     <li ng-controller="LoginController as login">
-                         <a href="/" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>
+                         <a href="home.html" ng-click="logOut()"  ng-if="username!==undefined">Log out</a>
                     </li>
 
                     
@@ -130,17 +130,15 @@
                 <div class="ml-container">
                     <img src="~/Content/Images/mlchain.PNG"/>
                     <p style="margin-top: 30px;">
-                        Hierboven wordt de ML ketting grafisch voorgesteld om de plaats van het algoritme te verduidelijken.
+                       
                     </p>
-                    <p>    
-                        De flow wordt bepaald door de data. 80 Procent van de data worden gebruikt voor het leerproces in de trainingfase. De data worden in een bepaald formaat aangeboden aan het algoritme dat van de data leert en er een kennismodel van maakt. Dit proces valt uiteen in een preprocessing fase waarin de data in de juiste vorm worden gezet, en het effectief verwerken van de data door het algoritme. Beide stappen kunnen worden geparametriseerd.
-                        Voor de preprocessing moeten we zelf software schrijven. We werken met een ML engine met de naam Weka (http://www.cs.waikato.ac.nz/ml/weka/index.html) van de universiteit van Waikato, New Zealand, waarin de meeste algoritmes al geïmplementeerd zijn. Weka verwacht de data in een bepaald formaat, dat verderop nog behandeld wordt. De preprocessing software zet de raw data om naar dat Weka formaat. In deze fase leggen we ook alle details vast die te maken hebben met de data, zoals de naamgeving, de datatypes, de character encoding, de ranges en wat te doen met missing data.
+                    <p>
+                         Machine Learning is a subfield of Artificial Intelligence in which a knowledge model is learned from training data. After the learning process, the model can be queried to get information from it.
                     </p>
-                    <p>    
-                        Bij de parametrisatie van de algoritmes zelf zijn er meer beperkingen omdat die vastgelegd zijn door de implementatie binnen Weka. Zo kan je bijvoorbeeld het aantal clustercenters op voorhand vastleggen, of juist niet. Elk algoritme heeft zijn eigen specifieke parameterset.
-                        20 Procent van de data wordt gebruikt om het model te valideren of te testen. De vraag wordt beantwoord of het model wel op de juiste manier op nieuwe data reageert. Het is pas wanneer de confidence levels van deze fase hoog genoeg zijn, dat we het model stabiel kunnen verklaren. Als dat niet het geval is, moeten we de ketting terug doorlopen. ML is een zeer iteratief proces.
-                        Nieuwe data die niet gebruikt werd in de train en de test fase, kan dan worden aangeboden aan het stabiele model ter classificatie.
+                    <p>
+                        Many machine learning algorithms have been developed over the last 40 years. There are roughly 2 main learning types : supervised and unsupervised learning. In supervised learning, the data that the algorithm must process are labelled with the class to which they belong. After training, new data are offered   to   the   model,   without   a   label.   The   model   can   then   classify   the   unknown   data.   In unsupervised learning, the data do not have a label. These algorithms cluster the data into groups or clusters  that  contain  comparable  instances.  Unsupervised  algorithms  are  based  on  mathematical, statistical  and  neural  techniques.  The  resulting  models  can  be  used  for  gaining  insight  in  the  data, classification and prediction. In the Sussol project, we choose for unsupervised learning. We want to let the software explore the data without putting too much information into the data representation. As  can  be  seen  in  the  picture  below,  the  Machine  Learning  chain  is rather  complex.  The  flow  is determined by the data. 80 % of the data are used for the training process, 20 % for validation of the resulting model. After learning, new data can be offered for classification and prediction.
                     </p>
+                    
                 </div>
                 
             
@@ -173,7 +171,7 @@
     </div>
 
 </div>
-<div class="overlay animationIf" ng-if="loadingPdf">
+<div class="overlay-dark animationIf" ng-if="loadingPdf">
     <div class="wrapper-pdf">
         <div class="spinner">
             <div class="bounce1"></div>
