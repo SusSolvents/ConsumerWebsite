@@ -405,10 +405,8 @@
                             imageArray.push(data);
                             counter++;
                             loadGraphs();
-
                         }
                     });
-               
             }
         }
 
@@ -870,10 +868,10 @@
                     $scope.$apply();
                     return false;
                 }
-                headers[0] = headers[0].substr(1);
+               /* headers[0] = headers[0].substr(1);
                 headers[headers.length - 1] = headers[headers.length - 1].substr(0, headers[headers.length-1].length - 2);
                 values[0] = values[0].substr(1);
-                values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);
+                values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);*/
                 if (checkHeaders(headers)) {
                     checkValues(values, headers);
                 }
@@ -925,10 +923,10 @@
                     return false;
                 }
             }
-
-            for (var i = 6; i < arrHeaders.length; i++) {
-                if (arrHeaders[i] !== constants.FeatureName[i - 6]) {
-                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i];
+            console.log(arrHeaders);
+            for (var i = 0; i < arrHeaders.length; i++) {
+                if (arrHeaders[i + 6] !== constants.FeatureName[i]) {
+                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i + 6];
                     $scope.$apply();
                     return false;
                 }
