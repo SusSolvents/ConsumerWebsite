@@ -185,9 +185,9 @@ angular.module('sussol.constants', [])
         4: 'Density_25°C_Minimum_kg/L',
         5: 'Viscosity_25°C_Minimum_mPa.s',
         6: 'Autoignition_Temperature_Minimum_°C',
-        7: 'Hansen_Delta_D_MPa1_2',
-        8: 'Hansen_Delta_P_MPa1_2',
-        9: 'Hansen_Delta_H_MPa1_2',
+        7: 'Hansen_Delta_D_MPa1/2',
+        8: 'Hansen_Delta_P_MPa1/2',
+        9: 'Hansen_Delta_H_MPa1/2',
         10: 'Solubility_Water_g/L',
         11: 'Dielectric_Constant_20°C'
     }
