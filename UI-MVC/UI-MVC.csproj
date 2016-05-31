@@ -304,6 +304,7 @@
     <Content Include="Content\Images\down_arrow_select.jpg" />
     <Content Include="Content\Images\educational-book.svg" />
     <Content Include="Content\Images\farrestsolvent.png" />
+    <Content Include="Content\Images\headericon.png" />
     <Content Include="Content\Images\img_same_dimension_2.jpg" />
     <Content Include="Content\Images\java-logo.svg" />
     <Content Include="Content\Images\loading.gif" />

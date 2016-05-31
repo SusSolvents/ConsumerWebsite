@@ -925,8 +925,8 @@
             }
 
             for (var i = 6; i < arrHeaders.length; i++) {
-                if (arrHeaders[i].replace("\r", "") !== constants.FeatureName[i-6]) {
-                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i] + " must be " + constants.FeatureName[i-6];
+                if (arrHeaders[i].replace("\r", "") !== minMaxValues[i-6].FeatureName) {
+                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i] + " must be " + minMaxValues[i - 6].FeatureName;
                     $scope.$apply();
                     return false;
                 }
