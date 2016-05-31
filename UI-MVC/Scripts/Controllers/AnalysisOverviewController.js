@@ -842,6 +842,10 @@
             }
         }
 
+        $scope.clearNewSolvent = function() {
+            setMinMaxValues();
+        }
+
         $scope.triggerUpload = function () {
             $("#csvFile").click();
         };
