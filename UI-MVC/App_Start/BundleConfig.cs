@@ -31,6 +31,7 @@ namespace SS.UI.Web.MVC
                       "~/Scripts/ocanvas-2.8.4.js",
                       "~/Scripts/pdfmake.min.js",
                       "~/Scripts/vfs_fonts.js",
+                      
 
                       "~/Scripts/html2canvas.js"
                       ));
