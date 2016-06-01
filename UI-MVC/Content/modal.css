@@ -35,7 +35,7 @@
     text-align: justify;
 }
 .ml-modal-container h1{
-    color: #b92ed1 !important;
+    margin-top: 5px !important;
     font-size: 2.2em !important;
     
 }
@@ -99,13 +99,13 @@
 
 .loginmodal-container input[type=text], input[type=password] {
   height: 44px;
-  font-size: 16px;
+  font-size: 19px;
   width: 100%;
   border-radius: 4px;
     padding-left: 5px;
   margin-bottom: 10px;
   -webkit-appearance: none;
-  background: rgba(255,255,255,0.9)  !important;
+  background: rgba(255,255,255,0.9);
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
   padding: 0 8px;
@@ -113,7 +113,7 @@
   -moz-box-sizing: border-box;
    -webkit-transition: all .5s;
   -moz-transition: all .5s;
-    color: grey;
+   color: black;
   transition: all .5s;
     cursor: pointer;
 }
@@ -127,7 +127,7 @@
 .loginmodal-container input[type=text]:focus, input[type=password]:focus {
     cursor: auto;
      color: #222;
-    background-color: #ccc;
+    background-color: rgb(210,210,210);
     box-shadow: none;
 }
 

@@ -112,7 +112,8 @@
         });
 
         
-        $scope.focusFeatureInput = function(event) {
+        $scope.focusFeatureInput = function (event) {
+            event.currentTarget.style.borderWidth = "2px";
             event.currentTarget.style.borderColor = "purple";
         }
 
@@ -151,7 +152,7 @@
                     'font-size': 24,
                     'font-family': "Questrial",
                     "color": colors[i]
-                }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / totalSolvents) * 100) - 0.2, 'time': 1000 });
+                }).radialProgress("to", { 'perc': ((prevClusters[i].Solvents.length / totalSolvents) * 100) - 0.2, 'time': 800 });
             }
         };
 
@@ -364,7 +365,8 @@
 
         $scope.SetStyle = function (index) {
             delete $scope.errorMessage;
-            document.getElementsByClassName("feature-input")[index].style.borderColor = "purple";
+            document.getElementsByClassName("feature-input")[index].setAttribute('style', 'background-color: #EED2EE !important'); 
+            
             var value = document.getElementsByClassName("feature-input")[index].value;
             if (value === "") {
                 minMaxValues[index].valid = true;
@@ -632,6 +634,7 @@
                         click: function (e) {
                             var solventen = getSolventsFromCluster(model, e.dataPoint.name);
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
+                            
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
                             var distances = [];
                             for (var i = 0; i < solventen.length; i++) {
@@ -641,7 +644,16 @@
                             for (var i = 0; i < solventen.length; i++) {
                                 solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
                             }
-                            createClusterChart(model.Clusters[e.dataPoint.name]);
+                            
+                            setTimeout(function() {
+                                var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
+                                for (var i = 0; i < tooltip.length; i++) {
+                                    tooltip[i].style.display = "none";
+                                }
+                                createClusterChart(model.Clusters[e.dataPoint.name]);
+                                $scope.overlayvisible = true;
+                            }, 900);
+                            
                             $scope.solventsInCluster = solventen;
                             $scope.cluster = e.dataPoint.name;
                             $scope.$apply();
@@ -830,11 +842,14 @@
         }
 
         $scope.closeOverlay = function closeOverlay(name) {
+            $scope.overlayvisible = false;
             delete $scope.selectedNodeObject;
             delete $scope.selectedCluster;
             delete $scope.selectedSolvent;
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
+            d3.selectAll("svg > *").remove();
+
         }
 
         function findModelOnName(name) {
@@ -1000,7 +1015,7 @@
             }
 
 
-            var width = 700, height = 410;
+            var width = 700, height = 440;
 
             var color = d3.scale.category20();
 
