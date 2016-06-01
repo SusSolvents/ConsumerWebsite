@@ -13,7 +13,7 @@ namespace SS.BL.Domain.Analyses
     {
         [Key]
         public long Id { get; set; }
-        [Index(IsUnique = true), MaxLength(450)]
+        [Index(IsUnique = true), MaxLength(35)]
         public string Name { get; set; }
         public int NumberOfSolvents { get; set; }
         public DateTime DateCreated { get; set; }
