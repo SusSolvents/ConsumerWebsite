@@ -133,6 +133,17 @@
             newPassword: "",
             confirmPassword: ""
         };
+
+        $scope.clearPassword = function () {
+            model.password = {
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: ""
+            };
+            delete $scope.message;
+            delete $scope.success;
+        }
+
         var changePassword = function (model, $http) {
             var formData = new FormData();
             formData.append('newPassword', model.password.newPassword);
