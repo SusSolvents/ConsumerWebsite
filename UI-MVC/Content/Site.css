@@ -598,7 +598,7 @@ footer {
 
 .form-control {
     height: 44px;
-    font-size: 16px;
+    font-size: 19px;
     width: 100%;
     border-radius: 4px;
     padding-left: 5px;
@@ -626,7 +626,7 @@ footer {
 }
 .form-control:focus {
     color: #222;
-    background-color: #ccc;
+    background-color: rgb(230,230,230);
     box-shadow: none;
     cursor: auto;
     outline: 0;
@@ -1097,8 +1097,9 @@ progress {
 
 .admin-card .admin-card-title{
     color: white;
-    font-size: 13px;
-    padding: 2px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    padding-top: 3px;
     text-align: center;
     width: 100%;
     text-transform: uppercase;
@@ -1107,8 +1108,9 @@ progress {
 }
 .admin-card-title{
     color: white;
-    font-size: 13px;
-    padding: 2px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    padding-top: 3px;
     text-align: center;
     width: 100%;
     text-transform: uppercase;
@@ -1984,7 +1986,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
    background-color: rgb(25,25,25);
    opacity: 0.97;
     padding: 10px;
-   transition: all 0.6s ease-in-out, padding 1ms;
+   transition: all 0.9s ease-in-out, padding 1ms;
 }
 .not-visible {
     visibility: collapse;
@@ -2001,7 +2003,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     cursor: pointer;
 }
 .closecross:hover {
-    color: black;
+    color: grey;
     transition: all 0.3s ease-in-out;
 }
 .grid {
@@ -2019,7 +2021,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 .grid-graph {
     position: relative;
-    height: 440px; 
+    height: 480px; 
     
     
 }
@@ -2028,7 +2030,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     padding-right: 7.5px;
 }
 .grid-right {
-    height: 440px;
+    height: 480px;
 }
 .absolute-counter {
     position: absolute;
@@ -2055,7 +2057,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 .chartContainer {
     width: 100%;
-    height: 380px;
+    height: 420px;
 }
 
 .circle {
@@ -2102,7 +2104,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 .solvent-legend {
     font-size: 19px;
-    margin-top: 200px;
+    margin-top: 240px;
     
 }
 .solvent-legend p {
@@ -2184,6 +2186,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     border: 2px solid purple;
 }
 
+.classify-solvent-row input:-webkit-autofill,.classify-solvent-row input:-webkit-autofill:focus  {
+    -webkit-box-shadow: 0 0 0px 1000px #EED2EE inset !important;
+}
 
 
 .styled-select select {
@@ -2326,7 +2331,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     padding-left: 10px;
     font-size: 13.5px !important;
     background-color: lightgray;
-    border: 2px solid black;
+  
 }
 .classified-solvents-container {
     margin-top: 4%;

@@ -95,7 +95,7 @@
                 <div class="row padding-less">
                     <div class="col-lg-12 col-md-12 grid grid-top text-nowrap" id="progress_{{model.Model.AlgorithmName}}">
                         <div class="progress-box" ng-style="{width: ((100/model.Model.Clusters.length)) + '%'}" ng-repeat="cluster in model.Model.Clusters">
-                            <h4 class="text-primary" style="margin: 0 0 8px 0; font-size: 21px;">Cluster {{$index}}</h4>
+                            <h4 class="text-primary" style="margin: 0 0 11px 0; font-size: 21px;">Cluster {{$index}}</h4>
                             <div class="circle-container" id="circle-{{model.Model.AlgorithmName}}-{{$index}}">
 
                             </div>
@@ -135,9 +135,9 @@
 
                             </canvas>
                             <div class="not-visible" id="overlay_{{model.Model.AlgorithmName}}">
-                                <i class="fa fa-times closecross" data-dismiss="modal" ng-click="closeOverlay(model.Model.AlgorithmName)" aria-hidden="true"></i>
+                                <i class="fa fa-times closecross" data-dismiss="modal" ng-if="overlayvisible" ng-click="closeOverlay(model.Model.AlgorithmName)" aria-hidden="true"></i>
 
-                                <div class="col-lg-4" style="text-align: initial; position: absolute; color: white; background: none; pointer-events: none;">
+                                <div class="col-lg-4" ng-if="overlayvisible" style="text-align: initial; position: absolute; color: white; background: none; pointer-events: none;">
                                     <h4>Cluster: {{cluster}}</h4>
                                     <h4>#Solvents: {{solventsInCluster.length}}</h4>
                                     <div class="solvent-legend">
@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                                 <svg id="clusterChart_{{model.Model.AlgorithmName}}"></svg>
-                                <div class="selected-node" id="selected-node-{{model.Model.AlgorithmName}}">
+                                <div class="selected-node" ng-if="overlayvisible" id="selected-node-{{model.Model.AlgorithmName}}">
                                     <div ng-if="selectedCluster === undefined">
                                         <div ng-if="!selectedNodeObject">
                                             No solvent selected <br/> Click on a node
