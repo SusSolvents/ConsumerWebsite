@@ -77,9 +77,9 @@
                             <div class="organisation-review">
 
                                         <img class="img-circle" ng-src="{{organisationModel.Organisation.LogoUrl || '/Content/Images/organisationLogo.jpg'}}" />
-                                        <p>{{organisationModel.Organisation.Name}}</p>
+                                        <div class="organisation-review-text">{{organisationModel.Organisation.Name}}<br/>
 
-                                        <p>{{organisationModel.Organisator.Firstname}} {{organisationModel.Organisator.Lastname}}</p>
+                                        {{organisationModel.Organisator.Firstname}} {{organisationModel.Organisator.Lastname}}</div>
 
                                         <a href="#" ng-click="allowOrganisation(organisationModel.Organisation.Id, $index)"><i class="fa fa-check"></i></a>
 

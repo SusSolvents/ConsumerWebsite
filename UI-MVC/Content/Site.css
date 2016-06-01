@@ -984,11 +984,14 @@ progress {
     margin-left: 4%;
 }
 
-.organisation-review p {
+.organisation-review-text {
     display: inline-block;
     width: 120px;
     text-align: left;
-    margin-left: 4px;
+    margin-left: 20px;
+}
+.organisation-review-text p{
+    
 }
 
 
