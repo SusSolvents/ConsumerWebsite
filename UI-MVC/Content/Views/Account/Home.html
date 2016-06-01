@@ -31,7 +31,7 @@
                         <div class="profile-review-alt" >
                             <p>Oops, no organisation</p>
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#organisation-modal" class="add-org"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#organisation-modal" class="add-org"><i class="fa fa-plus" aria-hidden="true" ng-click="resetOrganisationForm()"></i></a>
                     </div>
                     <div ng-if="!noOrganisations">
                         <a href="/organisation/{{organisation.Id}}"><img class="avatar-img" title="{{organisation.Name}}" ng-src="{{organisation.LogoUrl}}" style="width: 100px; height: 100px;" /></a>
@@ -153,17 +153,20 @@
                 <h2 class="margin-top-0 text-primary wow fadeInDown">Create your own organisation</h2>
                 <hr class="primary">
             </div>
-            {{message}}
+           
             <form name="organisationForm" novalidate
                   ng-submit="organisation.submit(organisationForm.$valid)">
                 <div class="col-lg-12">
+                    <div style="color: red;">
+                        {{message}}
+                    </div>
                     <label>Organisation Name</label>
                     <input type="text" placeholder="Name" name="name" class="form-control input-lg" ng-model="organisation.org.name" ng-change="setName()" required/>
 
                 </div>
                     <div class="col-lg-12">
                         <div>
-                            <input type="file" id="logoImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" />
+                            <input type="file" id="logoImage" ng-model="organisation.org.logo" style="display: none" ng-file-select="onFileSelect($files)" required />
                             <label>Upload your logo</label>
                             <img class="logo-img" ng-src="{{logoSrc || '/Content/Images/organisationLogo.jpg'}}" ng-click="triggerUpload()"/>
                         </div>

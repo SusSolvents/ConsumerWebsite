@@ -290,21 +290,29 @@
                           });
         };
 
-
-
     }
 );
 
 angular.module('sussol.controllers')
     .controller('CreateOrganisationController',
-    function ($window, $scope, $http, fileReader, $location) {
+    function ($window, $scope, $http, fileReader, $rootScope) {
         var model = this;
+        var process = 0;
         model.org = {
             name: "",
             logo: ""
         };
         getUserInfo($window.sessionStorage.userId);
 
+        $rootScope.resetOrganisationForm = function() {
+            model.org = {
+                name: "",
+                logo: ""
+            };
+            process = 0;
+            angular.element(document.querySelector('#progressBar .progress-bar')).css("width", process + "%").attr("aria-valuenow", process);
+            delete $scope.message;
+        }
 
         var createOrganisation = function (model, $http) {
             var formData = new FormData();
@@ -342,7 +350,7 @@ angular.module('sussol.controllers')
                 }
             });
         };
-        var process = 0;
+        
         $scope.setName = function setName() {
 
             if (model.org.name === "" || model.org.name === undefined) {
@@ -363,7 +371,7 @@ angular.module('sussol.controllers')
             if (isValid) {
                 createOrganisation(model, $http);
             } else {
-                $scope.message = "There are still invalid fields below";
+                $scope.message = "Fill in a name and select your logo";
             }
         };
 
