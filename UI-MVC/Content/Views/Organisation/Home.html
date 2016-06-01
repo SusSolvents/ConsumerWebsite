@@ -5,7 +5,7 @@
         <div class="col-lg-12 text-center">
             <h2 class="margin-top-0 text-primary wow fadeInDown">{{organisation.Name}}'s Organisation Dashboard</h2>
             <div class="organisation-buttons">
-                <a title="add member"  href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></a>
+                <a title="add member"  href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i class="fa fa-plus-square fa-2x" aria-hidden="true" ng-click="clearNewMember()"></i></a>
                 <a title="delete organisation" href="#" data-toggle="modal" data-target="#delete-organisation" ng-if="organiser"><i  class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
                 <a title="leave"  href="#" data-toggle="modal" data-target="#leave-modal" ng-if="organiser === false"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
             </div>
@@ -135,9 +135,9 @@
                 <p class="admin-card-title" style="margin: 0">Members</p>
                 <div class="member-container">
 
-                    <div id="myMmebers" class="carousel slide">
-                        <ol class="carousel-indicators">
-                            <li ng-repeat="slide in membersSlide" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
+                    <div id="myMembers" class="carousel slide">
+                        <ol class="carousel-indicators" style="bottom: 0;">
+                            <li ng-repeat="slide in membersSlide" data-target="#myMembers" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
                         </ol>
 
                         <div class="carousel-inner" style="height: auto">
@@ -150,8 +150,8 @@
                             </div>
                         </div>
                         <!-- Carousel nav -->
-                        <a class="carousel-control left" data-target="#myMembers" data-slide="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                        <a class="carousel-control right" data-target="#myMembers" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a class="carousel-control left" data-target="#myMembers" data-slide="prev"><i class="fa fa-angle-left" aria-hidden="true" style="margin-top: 100px; margin-left: 15px;"></i></a>
+                        <a class="carousel-control right" data-target="#myMembers" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true" style="margin-top: 100px; margin-right: 15px;" ></i></a>
                     </div>
                 </div>
 

@@ -1099,6 +1099,13 @@
                             return "white";
                         }
                     })
+                    .style("stroke-width", function (d) {
+                        if ($scope.selectedSolvent !== undefined && $scope.selectedSolvent.CasNumber === d.casNumber) {
+                            return "3";
+                        } else {
+                            return "1.5";
+                        }
+                    })
                     .style("fill", function (d) {
                         if (findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== null && findAnalysisModelOnName(selectedAlgorithm).ClassifiedInstance !== undefined) {
                             switch (d.casNumber) {

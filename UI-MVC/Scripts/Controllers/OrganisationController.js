@@ -108,7 +108,10 @@
 
 
 
-
+        $scope.clearNewMember = function() {
+            delete $scope.messageNewMember;
+            $scope.emailNewMember = "";
+        }
 
         $scope.members = members;
 
