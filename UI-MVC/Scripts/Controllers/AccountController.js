@@ -29,13 +29,14 @@
         });
 
         var registration = function (model, $http) {
+            console.log("test");
             var formData = new FormData();
             formData.append('firstname', model.user.firstname);
             formData.append('lastname', model.user.lastname);
             formData.append('email', model.user.email);
             formData.append('password', model.user.password);
             formData.append('picture', $scope.file);
-
+            console.log("test1");
             $http({
                 method: 'POST',
                 url: 'api/Account/Register',

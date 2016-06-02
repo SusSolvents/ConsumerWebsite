@@ -1,149 +1,149 @@
 ﻿<div class="col-lg-12 bgsection-2 fillHeight bigpadding">
 
-<div class="centered-container-admin">
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h2 class="margin-top-0 text-primary wow fadeInDown">{{organisation.Name}}'s Organisation Dashboard</h2>
-            <div class="organisation-buttons">
-                <a title="add member"  href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i class="fa fa-plus-square fa-2x" aria-hidden="true" ng-click="clearNewMember()"></i></a>
-                <a title="delete organisation" href="#" data-toggle="modal" data-target="#delete-organisation" ng-if="organiser"><i  class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
-                <a title="leave"  href="#" data-toggle="modal" data-target="#leave-modal" ng-if="organiser === false"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+    <div class="centered-container-admin">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margin-top-0 text-primary wow fadeInDown">{{organisation.Name}}'s Organisation Dashboard</h2>
+                <div class="organisation-buttons">
+                    <a title="add member" href="#" data-toggle="modal" data-target="#add-member-modal" ng-if="organiser"><i class="fa fa-plus-square fa-2x" aria-hidden="true" ng-click="clearNewMember()"></i></a>
+                    <a title="delete organisation" href="#" data-toggle="modal" data-target="#delete-organisation" ng-if="organiser"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                    <a title="leave" href="#" data-toggle="modal" data-target="#leave-modal" ng-if="organiser === false"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <hr class="primary">
             </div>
-            <hr class="primary">
         </div>
-    </div>
-    <div class="row" style="margin-top: 20px">
-        <div class="col-lg-4 padding-less">
-            <div class="admin-card-large col-lg-12 col-md-12">
-                <p class="admin-card-title">General information</p>
-                <div class="organisation-container">
-                    <input type="file" id="logo" name="logo" style="display: none" ng-file-select="onFileSelect($files)" />
-                    <div ng-if="organiser">
-                        <img title="logo" class="organisation-logo" src="{{imageSrc}}" ng-click="triggerUpload()" />
-                    </div>
-                    <div ng-if="!organiser">
-                        <img title="logo" class="organisation-logo" src="{{imageSrc}}" style="cursor: default;"/>
-                    </div>
-                    <img class="organisation-container-img img-circle" title="{{organiserUser.Email}}" ng-src="{{organiserUser.AvatarUrl || '/Content/Images/avatar.png'}}"/>
-                    <p style="margin-bottom: 2px;">{{organiserUser.Firstname}} {{organiserUser.Lastname}}</p>
-                    <p>{{organisation.Organisator.Email}}</p>
+        <div class="row" style="margin-top: 20px">
+            <div class="col-lg-4 padding-less">
+                <div class="admin-card-large col-lg-12 col-md-12">
+                    <p class="admin-card-title">General information</p>
+                    <div class="organisation-container">
+                        <input type="file" id="logo" name="logo" style="display: none" ng-file-select="onFileSelect($files)"/>
+                        <div ng-if="organiser">
+                            <img title="logo" class="organisation-logo" src="{{imageSrc}}" ng-click="triggerUpload()"/>
+                        </div>
+                        <div ng-if="!organiser">
+                            <img title="logo" class="organisation-logo" src="{{imageSrc}}" style="cursor: default;"/>
+                        </div>
+                        <img class="organisation-container-img img-circle" title="{{organiserUser.Email}}" ng-src="{{organiserUser.AvatarUrl || '/Content/Images/avatar.png'}}"/>
+                        <p style="margin-bottom: 2px;">{{organiserUser.Firstname}} {{organiserUser.Lastname}}</p>
+                        <p>{{organisation.Organisator.Email}}</p>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 padding-less">
-            <div class="admin-card col-lg-12 col-md-12">
-                <p class="admin-card-title">Organisation Cluster Analyses</p>
-                <div class="organisation-container">
-                    <div style="height: 40%; margin-top: 25px;">
-                        <p class="admin-card-general" style="margin-left: 0; font-size: 85px;">
-                            <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{totalAnalyses}}
+            <div class="col-lg-4 padding-less">
+                <div class="admin-card col-lg-12 col-md-12">
+                    <p class="admin-card-title">Organisation Cluster Analyses</p>
+                    <div class="organisation-container">
+                        <div style="height: 40%; margin-top: 25px;">
+                            <p class="admin-card-general" style="margin-left: 0; font-size: 85px;">
+                                <i class="fa fa-caret-up" style="margin-right: 20px;" aria-hidden="true"></i>{{totalAnalyses}}
+                            </p>
+                            <p style="color: greenyellow; display: inline; font-size: 22px;">cluster analyses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 padding-less">
+                <div class="admin-card col-lg-12">
+                    <p class="admin-card-title">Organisation members</p>
+                    <div class="text-center" style="margin-top: 20px;">
+                        <div class="circle-container" id="circle-members"></div>
+                        <p style="font-size: 15px; margin-top: 10px;">
+                            % organisation members<br/>({{members.length}} out of 20 members)
                         </p>
-                        <p style="color: greenyellow; display: inline; font-size: 22px;">cluster analyses</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 padding-less">
-            <div class="admin-card col-lg-12">
-                <p class="admin-card-title">Organisation members</p>
-                <div class="text-center" style="margin-top: 20px;">
-                    <div class="circle-container" id="circle-members"></div>
-                    <p style="font-size: 15px; margin-top: 10px;">
-                        % organisation members<br />({{members.length}} out of 20 members)
-                    </p>
 
                     </div>
                 </div>
             </div>
-        <div class="col-lg-4 padding-less">
-            <div class="admin-card col-lg-12">
-                <p class="admin-card-title">Cluster Analyses per user</p>
-                <div class="profile-review-alt" ng-if="noAnalyses">
-                    <p>No user activity</p>
-        </div>
-                <div id="chartCont-usract" ng-if="!noAnalyses" class="chart-container-admin">
+            <div class="col-lg-4 padding-less">
+                <div class="admin-card col-lg-12">
+                    <p class="admin-card-title">Cluster Analyses per user</p>
+                    <div class="profile-review-alt" ng-if="noAnalyses">
+                        <p>No user activity</p>
+                    </div>
+                    <div id="chartCont-usract" ng-if="!noAnalyses" class="chart-container-admin">
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="col-lg-4 padding-less">
-            <div class="admin-card col-lg-12">
-                <p class="admin-card-title">Cluster Analysis Trend</p>
-                <div class="profile-review-alt" ng-if="noAnalyses">
-                    <p>No analyses to show</p>
-                </div>
-                <div id="chartCont-solv" ng-if="!noAnalyses" class="chart-container-admin">
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="row" >
-        <div class="col-lg-12 padding-less">
-            <div class="admin-card col-lg-12 col-md-12 " style="height: 450px;">
-                <p class="admin-card-title" style="margin: 0">Cluster Analyses</p>
-                <div class="profile-review-alt" ng-if="noAnalyses">
-                    <p>No analyses to show</p>
-                </div>
-                <div id="myCarousel" ng-if="!noAnalyses" class="carousel slide">
-                    <ol class="carousel-indicators" >
-                        <li ng-repeat="slide in slideShow" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
-                    </ol>
-                    
-                    <div class="carousel-inner" style="height: 350px">
-                        <div class="item" ng-class="{active:$first}" ng-repeat="slide in slideShow">
-                            <div class="analysis-card-blog-style-1 center-block" style="padding-left: 55px; padding-right: 55px;">
-                                <div ng-repeat="analysis in slide">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 center-block card-padding" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
-                                        <div class="analysis-card-post">
-                                            <div class="analysis-card-post-image" ng-style="{'background-image': 'url('+analysis.image +')'}">
-                                                <div class="analysis-card-overlay"></div>
-                                                
-                                            </div>
-                                            <div class="analysis-card-post-text">
-                                                <h3>
-                                                    <a href="#">{{analysis.Name}}</a>
-                                                </h3>
-                                                <p>{{analysis.CreatedBy.Firstname}} {{analysis.CreatedBy.Lastname}} </p>
 
-                                                <p>{{analysis.NumberOfSolvents}} Solvents</p>
-                                            </div>
-                                            <div class="analysis-card-post-meta">
-                                                
-                                                <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+            <div class="col-lg-4 padding-less">
+                <div class="admin-card col-lg-12">
+                    <p class="admin-card-title">Cluster Analysis Trend</p>
+                    <div class="profile-review-alt" ng-if="noAnalyses">
+                        <p>No analyses to show</p>
+                    </div>
+                    <div id="chartCont-solv" ng-if="!noAnalyses" class="chart-container-admin">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 padding-less">
+                <div class="admin-card col-lg-12 col-md-12 " style="height: 450px;">
+                    <p class="admin-card-title" style="margin: 0">Cluster Analyses</p>
+                    <div class="profile-review-alt" ng-if="noAnalyses">
+                        <p>No analyses to show</p>
+                    </div>
+                    <div id="myCarousel" ng-if="!noAnalyses" class="carousel slide">
+                        <ol class="carousel-indicators">
+                            <li ng-repeat="slide in slideShow" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
+                        </ol>
+
+                        <div class="carousel-inner" style="height: 350px">
+                            <div class="item" ng-class="{active:$first}" ng-repeat="slide in slideShow">
+                                <div class="analysis-card-blog-style-1 center-block" style="padding-left: 55px; padding-right: 55px;">
+                                    <div ng-repeat="analysis in slide">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 center-block card-padding" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
+                                            <div class="analysis-card-post">
+                                                <div class="analysis-card-post-image" ng-style="{'background-image': 'url('+analysis.image +')'}">
+                                                    <div class="analysis-card-overlay"></div>
+
+                                                </div>
+                                                <div class="analysis-card-post-text">
+                                                    <h3>
+                                                        <a href="#">{{analysis.Name}}</a>
+                                                    </h3>
+                                                    <p>{{analysis.CreatedBy.Firstname}} {{analysis.CreatedBy.Lastname}} </p>
+
+                                                    <p>{{analysis.NumberOfSolvents}} Solvents</p>
+                                                </div>
+                                                <div class="analysis-card-post-meta">
+
+                                                    <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" data-target="#myCarousel" data-slide="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                        <a class="carousel-control right" data-target="#myCarousel" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
                     </div>
-                    <!-- Carousel nav -->
-                    <a class="carousel-control left" data-target="#myCarousel" data-slide="prev" ><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                    <a class="carousel-control right" data-target="#myCarousel" data-slide="next" ><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+
+
+
+
                 </div>
-
-
-
-
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 padding-less">
-            <div class="admin-card col-lg-12 col-md-12" style="height: 250px;">
-                <p class="admin-card-title" style="margin: 0">Members</p>
-                <div class="member-container">
+        <div class="row">
+            <div class="col-lg-12 padding-less">
+                <div class="admin-card col-lg-12 col-md-12" style="height: 250px;">
+                    <p class="admin-card-title" style="margin: 0">Members</p>
+                    <div class="member-container">
 
-                    <div id="myMembers" class="carousel slide">
-                        <ol class="carousel-indicators" style="bottom: 0;">
-                            <li ng-repeat="slide in membersSlide" data-target="#myMembers" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
-                        </ol>
+                        <div id="myMembers" class="carousel slide">
+                            <ol class="carousel-indicators" style="bottom: 0;">
+                                <li ng-repeat="slide in membersSlide" data-target="#myMembers" data-slide-to="{{$index}}" ng-class="{active:$first}"></li>
+                            </ol>
 
-                        <div class="carousel-inner" style="height: auto">
-                            <div class="item" ng-class="{active:$first}" ng-repeat="slide in membersSlide">
+                            <div class="carousel-inner" style="height: auto">
+                                <div class="item" ng-class="{active:$first}" ng-repeat="slide in membersSlide">
                                     <div class="about-user col-lg-2" ng-repeat="member in slide">
-                                        <img title="{{member.Email}}" class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}" />
+                                        <img title="{{member.Email}}" class="user-img" ng-src="{{member.AvatarUrl || '/Content/Images/avatar.png'}}"/>
                                         <p>{{member.Firstname}} {{member.Lastname}}</p>
                                     </div>
                                 </div>
@@ -151,43 +151,43 @@
                         </div>
                         <!-- Carousel nav -->
                         <a class="carousel-control left" data-target="#myMembers" data-slide="prev"><i class="fa fa-angle-left" aria-hidden="true" style="margin-top: 100px; margin-left: 15px;"></i></a>
-                        <a class="carousel-control right" data-target="#myMembers" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true" style="margin-top: 100px; margin-right: 15px;" ></i></a>
+                        <a class="carousel-control right" data-target="#myMembers" data-slide="next"><i class="fa fa-angle-right" aria-hidden="true" style="margin-top: 100px; margin-right: 15px;"></i></a>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+    <div class="modal fade" id="add-member-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="loginmodal-container password-container">
+            <h3 class="text-center">Add a new member</h3>
+            <div>
+                <form id="logform">
+                    {{messageNewMember}}
+                    <input type="text" name="email" ng-model="emailNewMember" placeholder="email address" required>
+                    <button ng-disabled="!emailNewMember" class="login loginmodal-submit" style="width: 100%; margin-top: 7px;" ng-click="AddMember()" id="load" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Adding member">Add member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="leave-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="loginmodal-container password-container">
+            <h4 class="text-center">Are you sure you want to leave this organisation?</h4>
+            <div>
+                <button class="login loginmodal-submit" data-dismiss="leave-modal" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="LeaveOrganisation()">Yes</button>
+                <button class="login loginmodal-submit" data-dismiss="leave-modal" style="width: 40%; margin-top: 7px;" ng-click="closeModalLeave()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-organisation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="loginmodal-container password-container">
+            <h4 class="text-center">Are you sure you want to delete this organisation?</h4>
+            <div>
+                <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="DeleteOrganisation()">Yes</button>
+                <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModalOrganisation()">No</button>
+            </div>
+        </div>
+    </div> 
 </div>
-<div class="modal fade" id="add-member-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="loginmodal-container password-container">
-        <h3 class="text-center">Add a new member</h3>
-        <div>
-            <form id="logform">
-            {{messageNewMember}}
-                <input type="text" name="email" ng-model="emailNewMember" placeholder="email address" required>
-                <button ng-disabled="!emailNewMember" class="login loginmodal-submit" style="width: 100%; margin-top: 7px;" ng-click="AddMember()" id="load" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Adding member">Add member</button>
-            </form>
-        </div>
-    </div>
-</div> 
-
-<div class="modal fade" id="leave-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="loginmodal-container password-container">
-        <h4 class="text-center">Are you sure you want to leave this organisation?</h4>
-        <div>
-            <button class="login loginmodal-submit"   data-dismiss="modal" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="LeaveOrganisation()">Yes</button>
-            <button class="login loginmodal-submit"  data-dismiss="modal" style="width: 40%; margin-top: 7px;" ng-click="closeModalLeave()">No</button>
-        </div>
-    </div>
-</div> 
-
-<div class="modal fade" id="delete-organisation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="loginmodal-container password-container">
-        <h4 class="text-center">Are you sure you want to delete this organisation?</h4>
-        <div>
-            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="DeleteOrganisation()">Yes</button>
-            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModalOrganisation()">No</button>
-        </div>
-    </div>
-</div> 

@@ -158,7 +158,6 @@ angular.module('sussol.controllers', ['sussol.services', 'sussol.constants'])
                 delete $window.sessionStorage.username;
                 delete $window.sessionStorage.role;
                 delete $window.sessionStorage.admin;
-                window.location.href = '/';
             }
         }
         $scope.closeModal = function closeModal() {
