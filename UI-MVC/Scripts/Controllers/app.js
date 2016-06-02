@@ -289,7 +289,7 @@ angular.module('sussol.controllers')
 angular.bootstrap(document.body, ['sussol']);
 
 app.run([
-    '$rootScope', '$location', 'AuthenticationService', '$window', '$http', '$timeout', function ($root, $location, AuthenticationService, $window, $http, $timeout) {
+    '$rootScope', '$location', 'AuthenticationService', '$window', '$http', '$timeout', function ($root, $location, AuthenticationService, $window, $http) {
         
         $root.toHome = function () {
             window.location.href = '/';
