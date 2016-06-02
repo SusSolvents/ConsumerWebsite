@@ -220,23 +220,32 @@ angular.module('sussol.services')
 
 angular.module('sussol.controllers')
     .controller('homeController', 
-    function ($timeout, $rootScope, $scope) {
+    function ($timeout, $rootScope, $scope, $window) {
+        
         $rootScope.footer = false;
-        if (window.location.hash) {
-            $('html, body').stop().animate({
-                scrollTop: ($(window.location.hash).offset().top - 60)
-            }, 2950, 'easeInOutExpo');
-
+        
+        if ($window.sessionStorage.scrollDiv !== undefined) {
+            $(document).ready(function () {
+                $('html, body').stop().animate({
+                    scrollTop: ($($window.sessionStorage.scrollDiv).offset().top - 30)
+                }, 2950, 'easeInOutExpo');
+                event.preventDefault();
+            });
+            delete $window.sessionStorage.scrollDiv;
         }
+        
+
+
         $scope.$on("$destroy", function() {
             $rootScope.footer = true;
         });
+        
         $timeout(function () {
             $('a.page-scroll').bind('click', function (event) {
                 var $ele = $(this);
                 if ($($ele.attr('href')).offset() !== undefined) {
                     $('html, body').stop().animate({
-                        scrollTop: ($($ele.attr('href')).offset().top - 60)
+                        scrollTop: ($($ele.attr('href')).offset().top - 20)
                     }, 2950, 'easeInOutExpo');
                     event.preventDefault();
                 }
@@ -280,7 +289,23 @@ angular.module('sussol.controllers')
 angular.bootstrap(document.body, ['sussol']);
 
 app.run([
-    '$rootScope', '$location', 'AuthenticationService', '$window', '$http', function($root, $location, AuthenticationService, $window, $http) {
+    '$rootScope', '$location', 'AuthenticationService', '$window', '$http', '$timeout', function ($root, $location, AuthenticationService, $window, $http, $timeout) {
+        
+        $root.toHome = function () {
+            window.location.href = '/';
+        }
+        $root.scrollPage = function (event) {
+            if ($location.url() !== '/') {
+                $window.sessionStorage.scrollDiv = event;
+                window.location.href = '/';
+            } else {
+                $('html, body').stop().animate({
+                    scrollTop: ($(event).offset().top - 20)
+                }, 2950, 'easeInOutExpo');
+                event.preventDefault();
+
+            }
+        }
         $root.$on('$routeChangeStart', function (event, curr) {
             
             $root.username = $window.sessionStorage.username;
