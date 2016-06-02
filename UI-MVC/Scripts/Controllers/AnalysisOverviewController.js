@@ -1,6 +1,6 @@
 ﻿angular.module('sussol.controllers')
     .controller('AnalysisOverviewController',
-    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, $rootScope,fileReader, $filter) {
+    function ($scope, $window, $http, $routeParams, constants, result, $timeout, organisation, minMax, $rootScope) {
         var solvents = [];
         var selectedAlgorithm;
         var organisationUser = organisation.data;
