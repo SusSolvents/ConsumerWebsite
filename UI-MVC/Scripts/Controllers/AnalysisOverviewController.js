@@ -779,6 +779,7 @@
             getClusterFromSolvent($scope.selectedSolvent);
             var element = document.getElementsByClassName('angucomplete-holder');
             element[0].style.width = '50px';
+            $scope.overlayvisible = true;
         }
         $scope.focusSearch = function(index) {
             var element = document.getElementsByClassName('angucomplete-holder');
