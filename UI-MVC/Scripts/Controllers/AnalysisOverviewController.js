@@ -388,8 +388,6 @@
         }
         
         $scope.downloadPdf = function () {
-            console.log(result.data);
-
             loadGraphs();
         }
         var counter = 0;
@@ -435,7 +433,6 @@
         function progress(percent, $element) {
             
             var progressBarWidth = percent * $element.width() / 100;
-            console.log(progressBarWidth);
             $element.find('div').animate({ width: progressBarWidth }, 1000).html(percent + "% ");
         }
         function generatePdf() {

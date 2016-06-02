@@ -220,7 +220,8 @@ angular.module('sussol.services')
 
 angular.module('sussol.controllers')
     .controller('homeController', 
-    function ($timeout, $rootScope, $scope) {
+    function ($timeout, $rootScope, $scope, $templateCache) {
+        //$templateCache.removeAll();
         $rootScope.footer = false;
         if (window.location.hash) {
             $('html, body').stop().animate({
