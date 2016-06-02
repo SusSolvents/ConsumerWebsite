@@ -162,15 +162,14 @@
 
         $scope.LeaveOrganisation = function () {
             $('#leave-modal').modal('hide');
+            $('body').removeClass('modal-open');
             $http({
                 method: 'POST',
                 url: 'api/Organisation/LeaveOrganisation',
                 params: { userId: $window.sessionStorage.userId, organisationId: organisation.Id }
             }).success(function succesCallback() {
                 notie.alert(1, "You left the organisation", 2);
-                $('body').removeClass('modal-open');
                 $location.path("/account/" + $window.sessionStorage.userId);
-
             });
         }
 

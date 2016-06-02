@@ -441,7 +441,7 @@
             
 
             for (var i = 0; i < minMaxValues.length; i++) {
-                featureArray.push({ text: minMaxValues[i].FeatureName, margin: [60, 10, 0, 0] });
+                featureArray.push({ text: minMaxValues[i].FeatureName + "   [ " + minMaxValues[i].MinValue + " ~ " + minMaxValues[i].MaxValue + " ]" , margin: [60, 10, 0, 0] });
             }
             for (var i = 0; i < result.data.AnalysisModels.length; i++) {
                 $scope.currAlgo = data.AnalysisModels[i];
@@ -472,6 +472,21 @@
                         }
                     }
                     algorithmArray.push({ text: centroids + "]", margin: [32, 5, 0, 0] });
+                    algorithmArray.push({ text: 'Min and max distance to cluster center', style: 'header5', margin: [27, 10, 0, 0] });
+                    var maxSolvent = undefined, minSolvent = undefined;
+
+                    for (var k = 0;k < result.data.AnalysisModels[i].Model.Clusters[j].Solvents.length; k++) {
+                        if (maxSolvent === undefined || result.data.AnalysisModels[i].Model.Clusters[j].Solvents[k].DistanceToClusterCenter > maxSolvent.DistanceToClusterCenter) {
+                            maxSolvent = result.data.AnalysisModels[i].Model.Clusters[j].Solvents[k];
+                        }
+                        if (minSolvent === undefined || result.data.AnalysisModels[i].Model.Clusters[j].Solvents[k].DistanceToClusterCenter < minSolvent.DistanceToClusterCenter) {
+                            minSolvent = result.data.AnalysisModels[i].Model.Clusters[j].Solvents[k];
+                        }
+                    }
+                    var minMaxForPdf = "Minimum distance: " + minSolvent.DistanceToClusterCenter.toFixed(2) + " - " + minSolvent.Name + " \n"
+                        + "Maximum distance: " + maxSolvent.DistanceToClusterCenter.toFixed(2) + " - " + maxSolvent.Name;
+                    
+                    algorithmArray.push({ text: minMaxForPdf, margin: [32, 5, 0, 0] });
                 }
             }
             chartArray = [];

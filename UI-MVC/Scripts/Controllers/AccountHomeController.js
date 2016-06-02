@@ -1,7 +1,8 @@
 ﻿angular.module('sussol.controllers')
     .controller('AccountHomeController', function ($scope, $rootScope, $http, fileReader, $routeParams, $location, result, organisationsResult, analysesResult) {
         var data = result.data;
-
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
         $scope.firstname = data.Firstname;
         $scope.lastname = data.Lastname;
         $scope.id = data.Id;
