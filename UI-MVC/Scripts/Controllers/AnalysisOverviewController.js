@@ -487,7 +487,16 @@
                         + "Maximum distance: " + maxSolvent.DistanceToClusterCenter.toFixed(2) + " - " + maxSolvent.Name;
                     
                     algorithmArray.push({ text: minMaxForPdf, margin: [32, 5, 0, 0] });
+                    if (showInstance) {
+                        if (result.data.AnalysisModels[i].ClassifiedInstance.ClusterNumber === result.data.AnalysisModels[i].Model.Clusters[j].Number) {
+                            algorithmArray.push({ text: 'Classified solvent', style: 'header5', margin: [27, 10, 0, 0] });
+                            algorithmArray.push({ text: 'Name: ' + result.data.AnalysisModels[i].ClassifiedInstance.Name, margin: [32, 5, 0, 0] });
+                            algorithmArray.push({ text: 'Cas number: ' + result.data.AnalysisModels[i].ClassifiedInstance.CasNumber, margin: [32, 5, 0, 0] });
+                            algorithmArray.push({ text: 'Distance to cluster center: ' + result.data.AnalysisModels[i].ClassifiedInstance.DistanceToClusterCenter.toFixed(2), margin: [32, 5, 0, 0] });
+                        }
+                    }
                 }
+                
             }
             chartArray = [];
             
