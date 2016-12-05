@@ -115,7 +115,7 @@ p {
     padding-bottom: 50px
 }
 .text-primary {
-    color: #b92ed1;
+    color: white;
 }
 
 .modal-content {
@@ -1989,7 +1989,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
    background-color: rgb(25,25,25);
    opacity: 0.97;
     padding: 10px;
-   transition: all 0.9s ease-in-out, padding 1ms;
+   transition: all 0.4s ease-in-out, padding 1ms;
 }
 .not-visible {
     visibility: collapse;
@@ -2372,3 +2372,29 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     border-top: grey dotted 1px;
     height: 80px;
 }
+.axisHorizontal path{
+        fill: none;
+    }
+
+    .axisHorizontal .tick line {
+        stroke-width: 1;
+        stroke: rgba(255, 255, 255, 0.3);
+    }
+
+    .bar {
+        fill: steelblue;
+        fill-opacity: 1;
+    }
+     .toolTip {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }

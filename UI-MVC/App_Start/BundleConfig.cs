@@ -16,7 +16,7 @@ namespace SS.UI.Web.MVC
                         , "~/Scripts/morphext.min.js"
                         , "~/Scripts/canvasjs.min.js"
                         , "~/Scripts/radial-progress-bar.js"
-                        
+                        , "~/Scripts/Controllers/UtilitiesController.js"
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

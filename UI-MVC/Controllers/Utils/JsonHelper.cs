@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Newtonsoft.Json;
 using SS.BL.Domain.Analyses;
-using SS.BL.Domain.Users;
 
 namespace SS.UI.Web.MVC.Controllers.Utils
 {
