@@ -193,12 +193,11 @@
                                 <i class="fa fa-times closecross" data-dismiss="modal" ng-if="overlaySolventVisible" ng-click="closeSolventOverlayScope(model.Model.AlgorithmName)" aria-hidden="true"></i>
 
                                 <div class="col-lg-4" ng-if="overlaySolventVisible" style="text-align: initial; position: absolute; color: white; background: none; pointer-events: none;">
-                                    <h4>Centralized Solvent: {{centeredSolvent}}</h4>
-                                    <h4>#Other Solvents: {{numberOfOtherSolvents}}</h4>
+                                    <h4>Distances to: {{centeredSolvent}}</h4>
                                     
                                 </div>
                                 <svg style="margin-top: 60px; padding-top: 30px" id="solventChart_{{model.Model.AlgorithmName}}"></svg>
-                                <div class="selected-node" ng-if="overlayvisible" id="selected-node-solvent-{{model.Model.AlgorithmName}}">
+                                <div class="selected-node-small" ng-if="overlayvisible" id="selected-node-solvent-{{model.Model.AlgorithmName}}">
                                     <div ng-if="selectedCluster === undefined">
                                         <div ng-if="!selectedNodeObject">
                                             No solvent selected <br /> Click on a node
@@ -208,8 +207,7 @@
                                             {{selectedNodeObject.Name}}
                                             <h4> Cas Number: </h4>
                                             {{selectedNodeObject.CasNumber}}
-                                            <h4> Distance to center: </h4>
-                                            {{selectedNodeObject.DistanceToClusterCenter}}
+                                           
                                         </div>
                                     </div>
                                     <div ng-if="selectedCluster !== undefined">

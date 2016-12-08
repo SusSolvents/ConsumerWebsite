@@ -804,8 +804,6 @@
             });
         }
 
-       
-
         function getSolventsFromCluster(model, number) {
             return model.Clusters[number].Solvents;
         }
@@ -846,7 +844,6 @@
                 $('#closecross-solvents').removeClass('disabled-element');
                 $('#classBtn_' + index).button("reset");
             });
-
         }
 
         $scope.changeName = function changeName() {
@@ -877,7 +874,6 @@
         }
         
         $scope.closeOverlay = function closeOverlay(name) {
-            
             closeSolventOverlay(name);
             $scope.overlayvisible = false;
             delete $scope.selectedNodeObject;
@@ -886,8 +882,8 @@
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
             d3.selectAll("svg > *").remove();
-
         }
+
         function closeSolventOverlay(name) {
             delete $scope.centeredSolvent;
             delete $scope.numberOfOtherSolvents;
@@ -899,7 +895,8 @@
             $('#overlay_solvent_' + name).removeClass("div-overlay");
 
         };
-        $scope.closeSolventOverlayScope = function(name) {
+
+        $scope.closeSolventOverlayScope = function (name) {
             closeSolventOverlay(name);
         }
 
@@ -1225,8 +1222,9 @@
                     })
                     .on("click", function (d) {
                         if (window.event.ctrlKey) {
-                            handleCtrlClick(d,clusterTemp);
-                            
+                            if (d.casNumber !== "None") {
+                                handleCtrlClick(d, clusterTemp);
+                            }
                         } else {
                             if (d.casNumber === "None") {
                                 $scope.selectedCluster = d.cluster;
@@ -1286,10 +1284,9 @@
                 });
             });
         };
-
-      
+   
         function createBulletChart(otherSolvents, normalizedDistances) {
-            var width = 700, height = 400;
+            var width = 730, height = 400;
             otherSolvents.sort(function(a, b) {
                 return a.distanceToCentralSolvent - b.distanceToCentralSolvent;
             });
@@ -1307,7 +1304,7 @@
             var div = d3.select("body").append("div").attr("class", "toolTip");
 
             var axisMargin = 40,
-                    margin = 40,
+                    margin = 30,
                     valueMargin = 15,
                     barHeight = (height - axisMargin - margin * 2) * 0.4 / data.length,
                     barPadding = (height - axisMargin - margin * 2) * 0.6 / data.length,
@@ -1353,7 +1350,7 @@
                     .orient("bottom");
 
             bar.append("rect")
-                    .attr("transform", "translate(" + labelWidth + ", 0)")
+                    .attr("transform", "translate(" + (labelWidth+5) + ", 0)")
                     .attr("height", barHeight)
                     .attr("width", function (d) {
                         return scale(d.value);
@@ -1377,10 +1374,13 @@
                         div.style("top", d3.event.pageY - 25 + "px");
                         div.style("display", "inline-block");
                         div.html((d.label) + "<br>Distance: " + d.value);
+                        d3.select(this).style("cursor", "pointer");
+
                     });
             bar
                     .on("mouseout", function (d) {
                         div.style("display", "none");
+                        d3.select(this).style("cursor", "default");
                     });
             bar.on("click",
                 function (d) {
@@ -1402,10 +1402,11 @@
 
             svg.insert("g", ":first-child")
                     .attr("class", "axisHorizontal")
-                    .attr("transform", "translate(" + (margin + labelWidth) + "," + (height - axisMargin - margin - 28) + ")")
+                    .attr("transform", "translate(" + (margin + labelWidth + 5) + "," + (height - axisMargin - margin - 28) + ")")
                     .call(xAxis);
-
         }
+
+       
         function handleCtrlClick(clickEvent, clusterTemp) {
             var matrix = buildMatrix(clusterTemp);
             delete $scope.selectedNodeObject;

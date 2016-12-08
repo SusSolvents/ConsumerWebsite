@@ -400,6 +400,7 @@
     <Content Include="Content\Csv\Solvent matrix 9 solvents 6 features.csv" />
     <Content Include="Content\Images\animation.webm" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bullet.js" />
     <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\Controllers\AdminController.js" />
     <Content Include="Scripts\Controllers\AnalysisOverviewController.js" />

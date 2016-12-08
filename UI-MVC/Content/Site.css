@@ -206,7 +206,7 @@ footer {
 
 .navbar-default .nav > li.active>a,
 .navbar-default .nav>li.active>a:focus {
-    color: #9c27b0 !important;
+    color: white !important;
     background-color: transparent;
 }
 
@@ -301,7 +301,7 @@ footer {
 }
 .small-button {
       /* border: 1px solid #3079ed; */
-  border: 1.75px solid white;
+  border: 2px solid white;
   color: #fff;
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
@@ -326,7 +326,7 @@ footer {
 
 .button-right {
   /* border: 1px solid #3079ed; */
-  border: 1.75px solid white;
+  border: 2px solid white;
   color: #fff;
   font-family: 'Questrial', 'Roboto';
   text-shadow: 0 1px rgba(0,0,0,0.1); 
@@ -351,14 +351,14 @@ footer {
 }
 .button-right.disabled {
   /* border: 1px solid #3079ed; */
-    border: 1.75px solid gray;
+    border: 2px solid gray;
     color: gray;
     pointer-events: none;
     cursor: default;
 }
 
 .button:hover, .xs-button:hover,.button-right:hover , .small-button:hover {
-  border: 1.75px solid white;
+  border: 2px solid white;
   text-shadow: 0 1px rgba(0,0,0,0.3);
   background-color: rgba(40,40,40,0.7);
     text-decoration: none;
@@ -899,7 +899,7 @@ progress {
 .admin-card-large {
     height: 515px;
     border-radius: 2px;
-    background-color: rgba(60,60,60,1);
+    background-color: rgba(115,115,115,1);
     overflow: hidden;
     padding: 0;
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
@@ -1390,7 +1390,7 @@ form.ng-submitted .ng-valid {
   -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
   cursor: pointer;
-  border: 1px solid grey;
+  border: 1.5px solid whitesmoke;
 }
 
 .analysis-card-blog-style-1 .analysis-card-post:hover {
@@ -2105,6 +2105,20 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     color: white;
     pointer-events: none;
 }
+
+.selected-node-small {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 10px;
+    width: 150px;
+    height: auto;
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    cursor: text;
+    color: white;
+    pointer-events: none;
+}
 .solvent-legend {
     font-size: 19px;
     margin-top: 240px;
@@ -2398,3 +2412,6 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
         padding: 5px;
         text-align: center;
     }
+.axisHorizontal .tick text{
+  fill:white;
+}
