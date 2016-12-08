@@ -84,6 +84,11 @@ namespace SS.BL.Analyses
             return repo.ShareWithOrganisation(organisationId, analysisId);
         }
 
+        public void DeleteAnalysis(long analysisId)
+        {
+            repo.DeleteAnalysis(analysisId);
+        }
+
         public List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName)
         {
             return repo.ReadModelsForAlgorithm(algorithmName);

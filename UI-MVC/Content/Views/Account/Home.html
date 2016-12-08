@@ -62,8 +62,8 @@
                             <div class="row">
                                 <div class="col-lg-12" style="margin-bottom: 25px;">
 
-                                    <div class="col-lg-3 col-md-3 same-height" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" ng-click="selectAnalysis($event)">
-                                        <div class="analysis-card-post">
+                                    <div class="col-lg-3 col-md-3 same-height" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}" >
+                                        <div class="analysis-card-post" ng-click="selectAnalysis($event)">
                                             <div class="analysis-card-post-image" ng-style="{'background-image': 'url('+analysis.image +')'}">
                                                 <div class="analysis-card-overlay"></div>
 
@@ -78,7 +78,11 @@
                                             <div class="analysis-card-post-meta">
                                                 #{{analysis.Id}}<br/>
                                                 <i class="fa fa-clock-o"></i> {{analysis.DateCreated}} ago
+                                              
                                             </div>
+                                        </div>
+                                        <div class="analysis-settings-delete">
+                                            <i class="fa fa-trash-o delete-analysis-btn" aria-hidden="true" ng-click="deleteAnalysis(analysis.Id)"></i>
                                         </div>
                                     </div>
                                 </div>

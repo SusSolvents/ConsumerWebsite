@@ -24,6 +24,7 @@ namespace SS.BL.Analyses
         Analysis UpdateAnalysis(Analysis analysis);
         Analysis UndoShare(long id);
         Analysis ShareWithOrganisation(long organisationId, long analysisId);
+        void DeleteAnalysis(long analysisId);
 
         //Model
         List<Model> ReadModelsForAlgorithm(AlgorithmName algorithmName);

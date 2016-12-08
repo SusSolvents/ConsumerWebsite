@@ -42,5 +42,6 @@ namespace SS.DAL.EFAnalyses
         IEnumerable<ClassifiedInstance> ReadClassifiedInstancesForUser(long userId, long analysisId);
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
         AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
+        void DeleteAnalysis(long analysisId);
     }
 }

@@ -40,6 +40,21 @@
             $scope.noAnalyses = false;
         }
 
+
+        $scope.deleteAnalysis = function (analysisId) {
+            debugger;
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/DeleteAnalysis',
+                params: { id: analysisId }
+            }).success(function succesCallback(data) {
+                debugger;
+            }).error(function errorCallback(data) {
+                //$scope.message = data;
+            });
+        }
+
+
         function timeSince(date) {
             var seconds = Math.floor((new Date() - date) / 1000);
             var interval = Math.floor(seconds / 31536000);

@@ -132,6 +132,7 @@
                 method: 'GET',
                 url: 'api/Account/GetAllUsersForAdmin'
             }).success(function (data) {
+                debugger;
                 $scope.users = data;
             });
         }
@@ -276,8 +277,11 @@
                 url: 'api/Account/DeleteUser',
                 params: { email: email }
             }).success(function (data) {
-                var userList = $scope.users;
-
+                
+                $scope.users = $.grep($scope.users, function(e) {
+                     return e.Email !== email;
+                });
+                $scope.apply();
                 notie.alert(1, data, 2);
             });
         }

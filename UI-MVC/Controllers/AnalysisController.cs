@@ -271,6 +271,14 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(analysis);
         }
 
+        //POST api/Analysis/UndoShare
+        [Route("DeleteAnalysis")]
+        [HttpPost]
+        public IHttpActionResult DeleteAnalysis(long id)
+        {
+            _analysisManager.DeleteAnalysis(id);
+            return Ok();
+        }
 
         //GET api/Analysis/ReadMinMaxValues
         [Route("ReadMinMaxValues")]

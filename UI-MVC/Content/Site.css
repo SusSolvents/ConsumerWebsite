@@ -1376,10 +1376,10 @@ form.ng-submitted .ng-valid {
 .analysis-card-blog-style-1 .analysis-card-post {
   float: left;
   width: 100%;
-  height: 100%;
+    height: 300px;
   background: #fff;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -1467,7 +1467,7 @@ form.ng-submitted .ng-valid {
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta {
   border-top: 1px solid #f0f0f0;
-  padding: 5px 20px;
+  padding: 5px 5px 5px 20px;
     line-height: 25px;
     font-family: "Questrial";
     font-size: 13px;
@@ -2334,7 +2334,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     padding-left: 16%;
 }
 .same-height {
-    height: 300px;
+    height: 345px;
     overflow: hidden;
         margin-bottom: 10px;
     margin-top: 10px;
@@ -2430,6 +2430,21 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     font-size: 26px;
     cursor: pointer;
 }
-.delete-usr-btn:hover {
+.delete-analysis-btn {
+   
+    font-size: 26px;
+    cursor: pointer;
+}
+.delete-usr-btn:hover,.delete-analysis-btn:hover {
     color: red !important;
+}
+
+.analysis-settings-delete {
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    padding: 6px;
 }

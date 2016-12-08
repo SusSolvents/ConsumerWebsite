@@ -234,5 +234,11 @@ namespace SS.DAL.EFAnalyses
             return model;
         }
 
+        public void DeleteAnalysis(long analysisId)
+        {
+            var currentAnalysis = _context.Analyses.Find(analysisId);
+            _context.Analyses.Remove(currentAnalysis);
+            _context.SaveChanges();
+        }
     }
 }
