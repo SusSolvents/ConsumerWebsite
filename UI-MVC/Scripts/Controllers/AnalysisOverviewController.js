@@ -1286,7 +1286,11 @@
         };
    
         function createBulletChart(otherSolvents, normalizedDistances) {
-            var width = 730, height = 400;
+            var width = 730, height = otherSolvents.length > 10 ? 40 * otherSolvents.length : 400;
+            if (height > $("#scrollable-div").height() || otherSolvents.length >= 10) {
+                $("#scrollable-div").css("overflow-y", "scroll");
+            }
+            var selectedBar = null;
             otherSolvents.sort(function(a, b) {
                 return a.distanceToCentralSolvent - b.distanceToCentralSolvent;
             });
@@ -1352,9 +1356,14 @@
             bar.append("rect")
                     .attr("transform", "translate(" + (labelWidth+5) + ", 0)")
                     .attr("height", barHeight)
-                    .attr("width", function (d) {
-                        return scale(d.value);
-                    });
+                    .attr("width", 0)
+                    .transition()
+                    .duration(700)
+                    .ease("linear")
+                    .attr("width", function(d) {
+                    return scale(d.value);
+                })
+                    .style("fill", "rgb(70, 130, 180)");
 
             bar.append("text")
                     .attr("class", "value")
@@ -1384,15 +1393,22 @@
                     });
             bar.on("click",
                 function (d) {
-                    
                     if (d.solvent !== undefined) {
                         
+                        
+                        if (selectedBar != undefined) {
+                            d3.select(selectedBar).style("fill", "steelblue");
+                        }
+                        selectedBar = this;
+                        d3.select(this).style("fill", "rgb(241, 169, 78)");
+
+
                         var selectedNodeObject = {
                             Name: d.solvent.Name,
                             CasNumber: d.solvent.CasNumber
                             
                         };
-
+                      
                         $scope.selectedNodeObject = selectedNodeObject;
                         
                         $scope.selectedSolvent = d.solvent;
@@ -1404,15 +1420,24 @@
                     .attr("class", "axisHorizontal")
                     .attr("transform", "translate(" + (margin + labelWidth + 5) + "," + (height - axisMargin - margin - 28) + ")")
                     .call(xAxis);
+
+           
         }
 
        
         function handleCtrlClick(clickEvent, clusterTemp) {
-            var matrix = buildMatrix(clusterTemp);
+           
+            var newInstance = $scope.ClassifiedInstance;
+            var copiedCluster = jQuery.extend(true,{}, clusterTemp);
+            if (newInstance) {
+                copiedCluster.Solvents.push(newInstance);
+            }
+            
+            var matrix = buildMatrix(copiedCluster);
             delete $scope.selectedNodeObject;
             delete $scope.selectedCluster;
             delete $scope.selectedSolvent;
-            var solvents = Object.create(clusterTemp.Solvents);
+            var solvents = Object.create(copiedCluster.Solvents);
             $('#overlay_solvent_' + selectedAlgorithm).removeClass("not-visible");
             $('#overlay_solvent_' + selectedAlgorithm).addClass("div-overlay");
             $scope.overlaySolventVisible = true;

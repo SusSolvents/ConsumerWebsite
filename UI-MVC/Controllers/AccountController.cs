@@ -182,6 +182,16 @@ namespace SS.UI.Web.MVC.Controllers
             return Ok(email + " will now have access to Sussol");
         }
 
+        //POST api/Account/AllowUser
+        [System.Web.Http.Route("DeleteUser")]
+        [System.Web.Http.HttpPost]
+        public OkNegotiatedContentResult<string> DeleteUser(string email)
+        {
+            var userToDelete = _userMgr.ReadUser(email);
+            _userMgr.DeleteUser(userToDelete);
+            return Ok(" will now have access to Sussol");
+        }
+
         //POST api/Account/DenyUser
         [System.Web.Http.Route("DenyUser")]
         [System.Web.Http.HttpPost]

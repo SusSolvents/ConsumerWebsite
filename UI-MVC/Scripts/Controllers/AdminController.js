@@ -145,6 +145,21 @@
                 blockUser(user.Email);
             }
         }
+        var userToDelete = null;
+        $scope.deleteUser = function (user) {
+            userToDelete = user;
+            $('#delete-user').modal("show");
+        }
+
+        $scope.confirmDeleteUser = function() {
+            $('#delete-user').modal("hide");
+            deleteUserFromDatabase(userToDelete.Email);
+            userToDelete = null;
+        }
+        $scope.declineDeleteUser = function () {
+            $('#delete-user').modal("hide");
+            userToDelete = null;
+        }
 
         function unBlockUser(email) {
             $http({
@@ -155,6 +170,8 @@
                 notie.alert(1, data, 2);
             });
         }
+
+
 
         function blockUser(email) {
             $http({
@@ -241,6 +258,7 @@
 
         $scope.closeModal = function () {
             $('#delete-organisation').modal('hide');
+           
         }
 
         $scope.changeOrganisation = function (organisation) {
@@ -252,7 +270,17 @@
             }
         }
 
+        function deleteUserFromDatabase(email) {
+            $http({
+                method: 'POST',
+                url: 'api/Account/DeleteUser',
+                params: { email: email }
+            }).success(function (data) {
+                var userList = $scope.users;
 
+                notie.alert(1, data, 2);
+            });
+        }
 
         function createChart(id, json, type, title, color) {
             var chart = new CanvasJS.Chart(id,

@@ -102,13 +102,15 @@
 
                         <div class="user-admin-row" ng-repeat="user in users">
                             <div style="display: inline-block; float: left; padding-left: 40px; margin-top: 5px;">{{user.Email}}</div>
-                            <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 50px;">
+                            <i class="fa fa-trash-o delete-usr-btn" aria-hidden="true" ng-click="deleteUser(user)"></i>
+                            <div class="onoffswitch" style="display: inline-block; float: right; margin-right: 10px;">
                                 <input type="checkbox" class="onoffswitch-checkbox" id="onoffswitch-{{user.Email}}" ng-model="user.LockoutEnabled" ng-click="changeUser(user)">
                                 <label class="onoffswitch-label" for="onoffswitch-{{user.Email}}">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
                                 </label>
                             </div>
+                            
                         </div>
                     </div>
 
@@ -144,6 +146,15 @@
         <div>
             <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="DeleteOrganisation()">Yes</button>
             <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="closeModal()">No</button>
+        </div>
+    </div>
+</div> 
+<div class="modal fade" id="delete-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="loginmodal-container password-container">
+        <h4 class="text-center">Are you sure you want to delete this user?</h4>
+        <div>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px; margin-right: 20px; margin-left: 20px;" ng-click="confirmDeleteUser()">Yes</button>
+            <button class="login loginmodal-submit" style="width: 40%; margin-top: 7px;" ng-click="declineDeleteUser()">No</button>
         </div>
     </div>
 </div> 
