@@ -2034,10 +2034,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     height: 480px;
 }
 .absolute-counter {
-    position: absolute;
     display: inline;
-    bottom: 10px;
-    margin-left: -10px;
+    margin-top: 0px;
     font-size: 16px;
     color: grey;
 }
@@ -2073,6 +2071,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     }
 .circle-container {
     text-align: center;
+    margin-top: 2px;
     
 }
 .node {
@@ -2454,4 +2453,14 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     /* border-spacing: 10px; */
     border-spacing: 13px 0;
     text-align:left;
+}
+
+.circle-container:hover + .text-primary, .progress-box .text-primary:hover{
+    cursor: pointer;
+    color: #b92ed1;
+}
+
+
+.circle-container:hover{
+    cursor: pointer;
 }

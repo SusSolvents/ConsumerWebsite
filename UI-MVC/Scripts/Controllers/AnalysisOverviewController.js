@@ -12,6 +12,7 @@
         var solventOverlayOpened = false;
         var minMaxValues = minMax.data;
         var models;
+        var selectedModel = null;
         var currentChart = null;
         var showInstance = false;
         $scope.allValuesValid = false;
@@ -108,7 +109,8 @@
                 $('#' + algorithms[i]).removeClass("blurless");
             }
 
-
+            
+            selectedModel = models[0].Model;
             createChart(models[0].Model);
             createProgress(findAnalysisModelOnName(selectedAlgorithm));
         });
@@ -374,7 +376,6 @@
 
         function changeInstance(instance) {
             $scope.ClassifiedInstance = instance;
-           
         }
 
         $scope.SetStyle = function (index) {
@@ -667,32 +668,8 @@
                         toolTipContent: "<span style='\"'color: {color};'\"'><strong>Cluster {name}</strong></span><br/><strong>#solvents</strong> {solvents} <br/> <strong>Percentage</strong> {y}%<br/> <strong>Max distance</strong> {z}",
                         dataPoints: jsonModel,
                         click: function (e) {
-                            var solventen = getSolventsFromCluster(model, e.dataPoint.name);
-                            $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
+                            drawSolventChart(e.dataPoint.name);
                             
-                            $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
-                            overlayOpened = true;
-                            var distances = [];
-                            for (var i = 0; i < solventen.length; i++) {
-                                distances.push(solventen[i].DistanceToClusterCenter);
-                            }
-                            var max = Math.max.apply(Math, distances);
-                            for (var i = 0; i < solventen.length; i++) {
-                                solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
-                            }
-                            
-                            setTimeout(function() {
-                                var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
-                                for (var i = 0; i < tooltip.length; i++) {
-                                    tooltip[i].style.display = "none";
-                                }
-                                createClusterChart(model.Clusters[e.dataPoint.name]);
-                                $scope.overlayvisible = true;
-                            }, 900);
-                            
-                            $scope.solventsInCluster = solventen;
-                            $scope.cluster = e.dataPoint.name;
-                            $scope.$apply();
                         },
                         mouseout: function (e) {       
                         var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
@@ -708,6 +685,44 @@
 
             currentChart = chart;
             
+        }
+
+        $scope.clusterChange = function (clusternumber) {
+            $scope.closeOverlay(selectedAlgorithm);
+            drawSolventChart(clusternumber);
+        }
+
+        function drawSolventChart(clusternumber) {
+
+            var model = findModelOnName(selectedAlgorithm);
+            var solventen = getSolventsFromCluster(model, clusternumber);
+            $('#overlay_' + selectedAlgorithm).removeClass("not-visible");
+
+            $('#overlay_' + selectedAlgorithm).addClass("div-overlay");
+            overlayOpened = true;
+            
+            var distances = [];
+            for (var i = 0; i < solventen.length; i++) {
+                distances.push(solventen[i].DistanceToClusterCenter);
+            }
+            var max = Math.max.apply(Math, distances);
+            for (var i = 0; i < solventen.length; i++) {
+                solventen[i].DistanceToClusterPercentage = (solventen[i].DistanceToClusterCenter / max) * 95;
+            }
+
+            setTimeout(function () {
+                var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
+                for (var i = 0; i < tooltip.length; i++) {
+                    tooltip[i].style.display = "none";
+                }
+                createClusterChart(model.Clusters[clusternumber]);
+                $scope.overlayvisible = true;
+            }, 900);
+
+            $scope.solventsInCluster = solventen;
+
+            $scope.cluster = clusternumber;
+            $scope.$apply();
         }
 
         var canvaz;
@@ -1009,6 +1024,9 @@
             reader.readAsText(files[0]);
 
         };
+         
+       
+
 
         function checkValues(arrValues, arrHeaders) {
             try {
