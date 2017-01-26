@@ -669,7 +669,7 @@
                         dataPoints: jsonModel,
                         click: function (e) {
                             drawSolventChart(e.dataPoint.name);
-                            
+                            $scope.$apply();
                         },
                         mouseout: function (e) {       
                         var tooltip = document.getElementsByClassName("canvasjs-chart-tooltip");
@@ -690,6 +690,7 @@
         $scope.clusterChange = function (clusternumber) {
             $scope.closeOverlay(selectedAlgorithm);
             drawSolventChart(clusternumber);
+
         }
 
         function drawSolventChart(clusternumber) {
@@ -722,7 +723,9 @@
             $scope.solventsInCluster = solventen;
 
             $scope.cluster = clusternumber;
-            $scope.$apply();
+
+            $(".cluster-div").removeClass("selected");
+            $("#cluster-div-" + clusternumber).addClass("selected");
         }
 
         var canvaz;
@@ -895,6 +898,8 @@
         }
         
         $scope.closeOverlay = function closeOverlay(name) {
+
+            $(".cluster-div").removeClass("selected");
             closeSolventOverlay(name);
             $scope.overlayvisible = false;
             delete $scope.selectedNodeObject;

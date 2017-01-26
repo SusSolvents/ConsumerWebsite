@@ -95,12 +95,14 @@
                 <div class="row padding-less">
                     <div class="col-lg-12 col-md-12 grid grid-top text-nowrap" id="progress_{{model.Model.AlgorithmName}}">
                         <div class="progress-box" ng-style="{width: ((100/model.Model.Clusters.length)) + '%'}" ng-repeat="cluster in model.Model.Clusters">
-                            <div class="circle-container" ng-click="clusterChange($index)" id="circle-{{model.Model.AlgorithmName}}-{{$index}}">
+                            <div id="cluster-div-{{$index}}" class="cluster-div" ng-click="clusterChange($index)">
+                                <div class="circle-container"  id="circle-{{model.Model.AlgorithmName}}-{{$index}}">
 
+                                </div>
+                                <h4 class="text-primary" style="margin: 2px 0 0px 0; font-size: 21px;">Cluster {{$index}}</h4>
+
+                                <div class="absolute-counter">{{model.Model.Clusters[$index].Solvents.length}} / {{totalSolvents}} solvents</div>
                             </div>
-                            <h4 class="text-primary" style="margin: 2px 0 0px 0; font-size: 21px;" ng-click="clusterChange($index)">Cluster {{$index}}</h4>
-                            
-                            <div class="absolute-counter">{{model.Model.Clusters[$index].Solvents.length}} / {{totalSolvents}} solvents</div>
                         </div>
                     </div>
                 </div>

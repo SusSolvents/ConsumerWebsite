@@ -2052,7 +2052,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 }
 .grid-top {
     height: 175px;
-    padding: 8px;
+    padding: 2px 8px;
 }
 .chartContainer {
     width: 100%;
@@ -2455,12 +2455,29 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     text-align:left;
 }
 
-.circle-container:hover + .text-primary, .progress-box .text-primary:hover{
+
+
+.cluster-div{
+     display: inline-block;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 5px;
+    margin-top: 3px;
+    
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease-in;
+}
+.cluster-div:hover{
     cursor: pointer;
-    color: #b92ed1;
+    border: 1.5px solid #b92ed1;
+    
+    transition: all 0.2s ease-in;
 }
 
-
-.circle-container:hover{
-    cursor: pointer;
+.cluster-div:hover > .text-primary{
+    color: #b92ed1;
+}
+.cluster-div.selected{
+   
+    border: 1.75px solid #b92ed1;
 }
