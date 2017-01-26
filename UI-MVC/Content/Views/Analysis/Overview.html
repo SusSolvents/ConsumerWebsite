@@ -181,7 +181,7 @@
                                     <div ng-if="selectedCluster !== undefined">
                                         <div>
                                             <h4>Distance to clusters</h4>
-                                            <div ng-repeat="cluster in selectedCluster.DistanceToClusters">
+                                            <div ng-repeat="cluster in selectedCluster.DistanceToClusters" ng-if="cluster.ToClusterId != (selectedCluster.Id-1)">
                                                 To cluster {{cluster.ToClusterId}}: {{cluster.Distance}}
                                             </div>
                                         </div>
@@ -229,13 +229,12 @@
                     <div class="col-lg-4 col-md-4 padding-less">
                         <div class="grid grid-right col-lg-12" style="color: lightgray; overflow: auto; font-size: 15px; padding-left: 20px; padding-right: 15px;">
                             <h3 class="text-primary text-center" ng-if="selectedCluster === undefined">Solvent Details</h3>
-                            <h3 class="text-primary text-center" ng-if="selectedCluster !== undefined">Cluster Details</h3>
+                            <h3 class="text-primary text-center" ng-if="selectedCluster !== undefined">Cluster Solvents</h3>
 
                             <div class="classified-solvent-alt" ng-if="selectedSolvent === undefined && selectedCluster === undefined">
                                 <p style="margin-top: 140px; color:rgba(80,80,80,1)">No solvent selected</p>
                             </div>
                             
-                            <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster solvents</h4>
                             <h4 ng-if="selectedSolvent && selectedCluster === undefined" style="margin-top: 25px;">Solvent: {{selectedSolvent.Name}}</h4>
                             <table ng-if="selectedSolvent">
                                 <tr>
