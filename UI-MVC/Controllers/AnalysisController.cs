@@ -218,7 +218,7 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     foreach (var csvLocation in _csvLocations)
                     {
-                        var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()),
+                        var response = client.UploadFile(new Uri("http://api-sussolkdg.rhcloud.com/api/model/" + algorithmName.ToString().ToLower()),
                         csvLocation);
                         //creatie van model binnen algoritme
                         var jsonResponse = Encoding.Default.GetString(response);
@@ -336,8 +336,9 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     var serialized = JsonConvert.SerializeObject(model.Values);
                     String parameters = "path="+analysisModel.Model.ModelPath+"&featureValues=" + serialized;
-                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                    var classifiedInstance = JsonHelper.ParseJsonToClassifiedInstance(client.UploadString(new Uri("http://localhost:8080/SussolWebservice/api/classify"), parameters));
+                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded"); 
+ 
+                     var classifiedInstance = JsonHelper.ParseJsonToClassifiedInstance(client.UploadString(new Uri("http://api-sussolkdg.rhcloud.com/api/classify"), parameters));
                     classifiedInstance.CasNumber = model.CasNumber;
                     classifiedInstance.Name = model.Name;
                     classifiedInstance.Features = new List<Feature>();

@@ -34,6 +34,13 @@ namespace SS.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Analysis>().HasRequired(p => p.CreatedBy)
+                .WithRequiredDependent().WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Analysis>().HasRequired(p=>p.AnalysisModels)
+                .WithRequiredDependent().WillCascadeOnDelete(true);
+            
         }
     }
 }
