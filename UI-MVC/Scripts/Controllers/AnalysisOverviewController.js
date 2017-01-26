@@ -8,7 +8,8 @@
         var prevClassifiedInstances;
         var prevClusters;
         var clusters;
-        
+        var overlayOpened = false;
+        var solventOverlayOpened = false;
         var minMaxValues = minMax.data;
         var models;
         var currentChart = null;
@@ -670,6 +671,7 @@
                             $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                             
                             $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
+                            overlayOpened = true;
                             var distances = [];
                             for (var i = 0; i < solventen.length; i++) {
                                 distances.push(solventen[i].DistanceToClusterCenter);
@@ -711,6 +713,8 @@
         var canvaz;
         function drawClassifySolvent(datapoint) {
             $scope.closeOverlay(selectedAlgorithm);
+            
+
             if (canvaz !== undefined) {
                 canvaz.timeline.stop();
                 canvaz.clear();
@@ -815,6 +819,8 @@
             var element = document.getElementsByClassName('angucomplete-holder');
             element[0].style.width = '50px';
             $scope.overlayvisible = true;
+            overlayOpened = true;
+
         }
         $scope.focusSearch = function(index) {
             var element = document.getElementsByClassName('angucomplete-holder');
@@ -882,6 +888,8 @@
             $('#overlay_' + name).addClass("not-visible");
             $('#overlay_' + name).removeClass("div-overlay");
             d3.selectAll("svg > *").remove();
+            overlayOpened = false;
+
         }
 
         function closeSolventOverlay(name) {
@@ -890,10 +898,11 @@
             delete $scope.selectedNodeObject;
             delete $scope.selectedCluster;
             delete $scope.selectedSolvent;
-            
+            solventOverlayOpened = false;
             $scope.overlaySolventVisible = false;
             $('#overlay_solvent_' + name).addClass("not-visible");
             $('#overlay_solvent_' + name).removeClass("div-overlay");
+
 
         };
 
@@ -936,6 +945,8 @@
             if (cluster !== null) {
                 $('#overlay_' + model.AlgorithmName).removeClass("not-visible");
                 $('#overlay_' + model.AlgorithmName).addClass("div-overlay");
+                overlayOpened = true;
+
                 var distances = [];
                 for (var i = 0; i < cluster.Solvents.length; i++) {
                     distances.push(cluster.Solvents[i].DistanceToClusterCenter);
@@ -1159,6 +1170,7 @@
                 ;
                 delete $scope.selectedNodeObject;
                 delete $scope.selectedCluster;
+                delete $scope.selectedD3Node;
                 $scope.$apply();
                 var selectedNode = null;
                 var selectedCluster = null;
@@ -1427,7 +1439,12 @@
 
         $(document).keyup(function (e) {
             if (e.keyCode == 27) { // escape key maps to keycode `27`
-                closeSolventOverlay(selectedAlgorithm);
+                if (solventOverlayOpened) {
+                    closeSolventOverlay(selectedAlgorithm);
+                } else if (overlayOpened) {
+                    $scope.closeOverlay(selectedAlgorithm);
+                }
+
                 $scope.$apply();
 
             }
@@ -1447,7 +1464,7 @@
             var solvents = Object.create(copiedCluster.Solvents);
             $('#overlay_solvent_' + selectedAlgorithm).removeClass("not-visible");
             $('#overlay_solvent_' + selectedAlgorithm).addClass("div-overlay");
-
+            solventOverlayOpened = true;
             $scope.overlaySolventVisible = true;
             var distances = [];
             for (var j = 0; j < solvents.length; j++) {
