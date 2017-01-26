@@ -64,11 +64,11 @@
 
                                     <div class="col-lg-3 col-md-3 same-height" ng-repeat="analysis in analyses | orderBy: OrderBy" id="{{analysis.Id}}" name="{{analysis.Id}}">
                                         <div class="analysis-card-post">
-                                            <div class="analysis-card-post-image" ng-click="selectAnalysis($event)" ng-style="{'background-image': 'url('+analysis.image +')'}">
+                                            <div class="analysis-card-post-image" ng-click="selectAnalysis(analysis.Id)" ng-style="{'background-image': 'url('+analysis.image +')'}">
                                                 <div class="analysis-card-overlay"></div>
 
                                             </div>
-                                            <div class="analysis-card-post-text" ng-click="selectAnalysis($event)">
+                                            <div class="analysis-card-post-text" ng-click="selectAnalysis(analysis.Id)">
                                                 <h3>
                                                     <a href="#">{{analysis.Name}}</a>
                                                 </h3>

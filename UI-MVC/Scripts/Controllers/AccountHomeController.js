@@ -108,8 +108,8 @@
             $location.path("/organisation/" + id);
         }
 
-        $scope.selectAnalysis = function selectAnalysis($event) {
-            $location.path("/analysis/overview/" + $event.currentTarget.id);
+        $scope.selectAnalysis = function selectAnalysis(id) {
+            $location.path("/analysis/overview/" + id);
         }
 
         $scope.triggerUpload = function () {
