@@ -36,7 +36,15 @@ namespace SS.DAL.EFUsers
 
         public void DeleteUser(User user)
         {
+            var analysesToDelete = _context.Analyses.Include(p=> p.AnalysisModels).Where(p => p.CreatedBy.Id == user.Id).ToList();
+            
+            foreach (var analyse in  analysesToDelete)
+            {
+                _context.AnalysisModels.RemoveRange(analyse.AnalysisModels);
+            }
+            _context.Analyses.RemoveRange(analysesToDelete);
             _context.Users.Remove(user);
+            
             _context.SaveChanges();
         }
 

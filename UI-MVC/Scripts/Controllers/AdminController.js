@@ -276,8 +276,8 @@
                 url: 'api/Account/DeleteUser',
                 params: { email: email }
             }).success(function (data) {
-                var userList = $scope.users;
-
+                var usersLeft = $scope.users.filter(obj => obj.Email !== email);
+                $scope.users = usersLeft;
                 notie.alert(1, data, 2);
             });
         }
