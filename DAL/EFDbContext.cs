@@ -39,7 +39,7 @@ namespace SS.DAL
                 .WithRequiredDependent().WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Analysis>().HasRequired(p=>p.AnalysisModels)
-                .WithRequiredDependent().WillCascadeOnDelete(true);
+                .WithMany().WillCascadeOnDelete(true);
             
         }
     }
