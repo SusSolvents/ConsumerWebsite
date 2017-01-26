@@ -181,9 +181,12 @@
                                     <div ng-if="selectedCluster !== undefined">
                                         <div>
                                             <h4>Distance to clusters</h4>
-                                            <div style="text-align:left; padding-left: 19px;" ng-repeat="otherCluster in selectedCluster.DistanceToClusters" ng-if="otherCluster.ToClusterId != cluster">
-                                                To cluster {{otherCluster.ToClusterId}}: <span style="padding-left: 10px">{{otherCluster.Distance}}</span>
-                                            </div>
+                                                <table class="overlay-table">
+                                                    <tr  ng-repeat="otherCluster in selectedCluster.DistanceToClusters" ng-if="otherCluster.ToClusterId != cluster">
+                                                        <td>To cluster {{otherCluster.ToClusterId}}:</td>
+                                                        <td>{{otherCluster.Distance}}</td>
+                                                    </tr>
+                                                </table>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +206,7 @@
                                 <div class="selected-node-small" ng-if="overlayvisible" id="selected-node-solvent-{{model.Model.AlgorithmName}}">
                                     <div ng-if="selectedCluster === undefined">
                                         <div ng-if="!selectedNodeObject">
-                                            No solvent selected <br /> Click on a node
+                                            No solvent selected <br /> Click on a bar
                                         </div>
                                         <div ng-if="selectedNodeObject">
                                             <h4>Selected solvent:</h4>

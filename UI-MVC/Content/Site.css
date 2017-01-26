@@ -2447,3 +2447,11 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .analysis-card-post .analysis-card-post-text:hover, .analysis-card-post .analysis-card-post-image:hover {
     cursor: pointer;
 }
+.overlay-table{
+        margin-left: 6px;
+    /* column-gap: 44px; */
+    border-collapse: separate;
+    /* border-spacing: 10px; */
+    border-spacing: 13px 0;
+    text-align:left;
+}
