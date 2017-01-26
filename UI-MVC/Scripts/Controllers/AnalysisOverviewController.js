@@ -262,6 +262,7 @@
                 showClusterAnalysis(data);
                 $scope.errorMessage = undefined;
                 $('#load').button('reset');
+                delete $scope.headerz;
 
                 document.getElementById('closecross').disabled = false;
                 for (var i = 0; i < document.getElementsByClassName("feature-input").length; i++) {
@@ -994,7 +995,7 @@
         $scope.csvFile = [];
         $scope.getFile = function (e, files) {
             var reader = new FileReader();
-            reader.onload=function(e) {
+            reader.onload = function (e) {
                 var string = reader.result;
                 var csv = string.split("\n");
                 if (csv.length < 2) {
@@ -1002,8 +1003,9 @@
                     $scope.$apply();
                     return false;
                 }
-                var headers = csv[0].split("\t");
-                if (headers.length !== minMaxValues.length + 6) {
+                var headers = csv[0].split("\t").filter(p => p != '' || p.length > 0);
+                
+                if (headers.length !== minMaxValues.length + 6 && headers.length !== minMaxValues.length + 7) {
                     $scope.errorMessage = "Your csv doens't contain the right amount of headers or it isn't split on tabs";
                     $scope.$apply();
                     return false;
@@ -1018,6 +1020,24 @@
                 headers[headers.length - 1] = headers[headers.length - 1].substr(0, headers[headers.length-1].length - 2);
                 values[0] = values[0].substr(1);
                 values[values.length - 1] = values[values.length - 1].substr(0, values[headers.length - 1].length - 2);*/
+                
+                var tempHeaders = headers.slice(6, headers.length);
+                var headerObjects = [];
+                for (var i = 0; i < tempHeaders.length; i++) {
+                    tempHeaders[i].value = "";
+
+                    headerObjects.push({ FeatureName: tempHeaders[i], value: "" });
+                   
+                }
+
+                for (var i = 0; i < headerObjects.length; i++) {
+                    headerObjects[i].value = Number(values[i + 6]);
+                }
+
+                $scope.headerz = headerObjects;
+                debugger;
+
+                
                 if (checkHeaders(headers)) {
                     checkValues(values, headers);
                 }
@@ -1073,13 +1093,13 @@
                 }
             }
 
-            for (var i = 6; i < arrHeaders.length; i++) {
-                if (arrHeaders[i].replace("\r", "") !== minMaxValues[i-6].FeatureName) {
-                    $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i] + " must be " + minMaxValues[i - 6].FeatureName;
-                    $scope.$apply();
-                    return false;
-                }
-            }
+            //for (var i = 6; i < arrHeaders.length; i++) {
+            //    if (arrHeaders[i].replace("\r", "") !== minMaxValues[i-6].FeatureName) {
+            //        $scope.errorMessage = "Wrong input in header feature names: " + arrHeaders[i] + " must be " + minMaxValues[i - 6].FeatureName;
+            //        $scope.$apply();
+            //        return false;
+            //    }
+            //}
             
             
             return true;

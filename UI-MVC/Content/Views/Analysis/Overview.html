@@ -345,26 +345,24 @@
                 <div>
                     <span style="color: darkorange;" ng-show="form.features.regex.$error.pattern">Not a valid CAS number!</span>
                     <table class="classify-solvent-table col-lg-12">
-                        <tr style="padding-bottom: 10px;">
+                        <tr ng-if="headerz && headerz.length>0" style="padding-bottom: 10px;">
                             <th class="col-lg-7">Feature name</th>
                             <th class="col-lg-3" style="padding-left: 20%; padding-bottom: 12px">Value</th>
                         </tr>
-                        <tr ng-repeat="feature in minMaxValues">
+                        <tr ng-repeat="feature in headerz">
                             <td class="col-lg-7">{{feature.FeatureName}}
-                                <p ng-if="$index === 10" style="font-size: small; display: inline"> ( -1 = Infinity )</p>
-                                <br/>
-                                <span ng-if="feature.valid === false" style="margin-left: 5px; color: darkorange;">
+                                <!--<span ng-if="feature.valid === false" style="margin-left: 5px; color: darkorange;">
                                     The value must be in range {{feature.MinValue}} to {{feature.MaxValue}}!
                                 </span>
                                 <span ng-show="form.features['feature_' + $index].$dirty && form.features['feature_' + $index].$error.required" style="margin-left: 5px; color: darkorange;">
                                     This value cannot be empty!
-                                </span>
+                                </span>-->
                                
                             </td>
 
 
                             <td class="classify-solvent-row col-lg-4">
-                                <input class="feature-input" type="text" ng-change="SetStyle($index)" id="feature_{{$index}}" title="{{$index}}" reg-exp-require="/{{feature.Regex}}/" name="feature_{{$index}}" ng-model="feature.value" placeholder="[ {{feature.MinValue}} ~ {{feature.MaxValue}} ]" required/>
+                                <input class="feature-input" type="text" ng-change="SetStyle($index)" id="feature_{{$index}}" title="{{$index}}" name="feature_{{$index}}" ng-model="feature.value" required/>
                             </td>
                         </tr>
                     </table>
