@@ -284,6 +284,16 @@ namespace SS.UI.Web.MVC.Controllers
             return BadRequest("Analysis not found");
         }
 
+        //DELETE api/Analysis/Delete
+        [Route("Delete/{id:int}")]
+        [HttpPost]
+        public IHttpActionResult Delete(int id)
+        {
+            _analysisManager.DeleteAnalysis(id);
+
+            return Ok("Analysis deleted");
+        }
+
         //GET api/Analysis/ReadClassifiedInstances
         [Route("ReadClassifiedInstances")]
         [HttpGet]

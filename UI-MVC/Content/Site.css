@@ -1471,8 +1471,6 @@ form.ng-submitted .ng-valid {
     line-height: 25px;
     font-family: "Questrial";
     font-size: 13px;
-  margin-right: 10px;
-    
   color: grey;
 }
 .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:hover, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:active, .analysis-card-blog-style-1 .analysis-card-post .analysis-card-post-meta a:focus {
@@ -2430,6 +2428,22 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     font-size: 26px;
     cursor: pointer;
 }
-.delete-usr-btn:hover {
+
+.delete-analysis-btn {
+    display: inline-block;
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.delete-usr-btn:hover, .delete-analysis-btn:hover {
     color: red !important;
+}
+
+.analysis-card-post:hover {
+    cursor: default;
+}
+
+.analysis-card-post .analysis-card-post-text:hover, .analysis-card-post .analysis-card-post-image:hover {
+    cursor: pointer;
 }

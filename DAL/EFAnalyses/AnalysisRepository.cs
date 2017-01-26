@@ -236,7 +236,9 @@ namespace SS.DAL.EFAnalyses
 
         public void DeleteAnalysis(long analysisId)
         {
-            var currentAnalysis = _context.Analyses.Find(analysisId);
+            var currentAnalysis = _context.Analyses.Include(p => p.AnalysisModels).Single(p => p.Id == analysisId);
+
+            _context.AnalysisModels.RemoveRange(currentAnalysis.AnalysisModels);
             _context.Analyses.Remove(currentAnalysis);
             _context.SaveChanges();
         }

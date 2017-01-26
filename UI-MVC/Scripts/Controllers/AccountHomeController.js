@@ -26,7 +26,6 @@
             $scope.organisation = organisation;
         }
 
-
         var analyses = analysesResult.data;
 
         var i;
@@ -39,21 +38,6 @@
         if (analyses.length !== 0) {
             $scope.noAnalyses = false;
         }
-
-
-        $scope.deleteAnalysis = function (analysisId) {
-            debugger;
-            $http({
-                method: 'POST',
-                url: 'api/Analysis/DeleteAnalysis',
-                params: { id: analysisId }
-            }).success(function succesCallback(data) {
-                debugger;
-            }).error(function errorCallback(data) {
-                //$scope.message = data;
-            });
-        }
-
 
         function timeSince(date) {
             var seconds = Math.floor((new Date() - date) / 1000);
@@ -91,6 +75,33 @@
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
         });
+
+        var analysisToDelete = null;
+        $scope.deleteAnalysis = function (id) {
+            analysisToDelete = id;
+            $('#delete-analysis').modal("show");
+        }
+
+        $scope.confirmDeleteAnalysis = function () {
+            $('#delete-analysis').modal("hide");
+            deleteAnalysisFromDatabase(analysisToDelete);
+            analysisToDelete = null;
+        }
+        $scope.declineDeleteUser = function () {
+            $('#delete-analysis').modal("hide");
+            analysisToDelete = null;
+        }
+
+        function deleteAnalysisFromDatabase(id) {
+            $http({
+                method: 'POST',
+                url: 'api/Analysis/Delete/' + id
+            }).success(function (data) {
+                notie.alert(1, data, 2);
+                var analysesLeft = $scope.analyses.filter(obj => obj.Id !== id);
+                $scope.analyses = analysesLeft;
+            });
+        }
 
 
         $scope.selectOrganisation = function (id) {
