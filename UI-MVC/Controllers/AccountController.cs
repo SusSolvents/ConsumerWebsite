@@ -191,7 +191,7 @@ namespace SS.UI.Web.MVC.Controllers
             _userMgr.DeleteUser(userToDelete);
             var user = UserManager.Users.Single(u => u.Email == email);
             UserManager.Delete(user);
-            return Ok(" will now have access to Sussol");
+            return Ok("User is deleted from sussol");
         }
 
         //POST api/Account/DenyUser
