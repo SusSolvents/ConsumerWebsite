@@ -235,9 +235,9 @@
                                 <p style="margin-top: 140px; color:rgba(80,80,80,1)">No solvent selected</p>
                             </div>
                             
-                            <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster Centroids</h4>
+                            <h4 ng-if="selectedCluster !== undefined" style="margin-top: 10px;">Cluster solvents</h4>
                             <h4 ng-if="selectedSolvent && selectedCluster === undefined" style="margin-top: 25px;">Solvent: {{selectedSolvent.Name}}</h4>
-                            <table ng-if="selectedSolvent || selectedCluster">
+                            <table ng-if="selectedSolvent">
                                 <tr>
                                     <th style="padding-left: 15px">Feature name</th>
                                     <th style="padding-left: 15px">Value</th>
@@ -246,12 +246,13 @@
                                     <td style="padding-left: 15px">{{feature.FeatureName}}</td>
                                     <td style="padding-left: 15px">{{feature.Value}}</td>
                                 </tr>
-                                <tr ng-repeat="vectorData in selectedCluster.VectorData" ng-if="selectedCluster !== undefined">
-                                    <td style="padding-left: 15px">{{vectorData.FeatureName}}</td>
-                                    <td style="padding-left: 15px">{{vectorData.Value}}</td>
+                            </table>
+                            <table ng-if="selectedCluster">
+                                <tr ng-repeat="solvent in selectedCluster.Solvents | orderBy:'Name'" ng-if="selectedCluster !== undefined">
+                                    <td style="padding-left: 15px">- {{solvent.Name}}</td>
+                                    
                                 </tr>
                             </table>
-
                         </div>
                     </div>
                 </div>

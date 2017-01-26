@@ -890,6 +890,7 @@
             delete $scope.selectedNodeObject;
             delete $scope.selectedCluster;
             delete $scope.selectedSolvent;
+            
             $scope.overlaySolventVisible = false;
             $('#overlay_solvent_' + name).addClass("not-visible");
             $('#overlay_solvent_' + name).removeClass("div-overlay");
@@ -909,6 +910,8 @@
             }
             return model;
         }
+
+
 
         function findAnalysisModelOnName(name) {
             for (var i = 0; i < models.length; i++) {
@@ -1063,8 +1066,6 @@
                     }
                     var distance = getEuclidianDistance(vector1, vector2);
                     distances.push(distance);
-
-                    
                 }
                 buildDistanceMatrix.addRowWithDistances(distances);
             }
@@ -1424,7 +1425,13 @@
            
         }
 
-       
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                closeSolventOverlay(selectedAlgorithm);
+                $scope.$apply();
+
+            }
+        });
         function handleCtrlClick(clickEvent, clusterTemp) {
            
             var newInstance = $scope.ClassifiedInstance;
@@ -1440,6 +1447,7 @@
             var solvents = Object.create(copiedCluster.Solvents);
             $('#overlay_solvent_' + selectedAlgorithm).removeClass("not-visible");
             $('#overlay_solvent_' + selectedAlgorithm).addClass("div-overlay");
+
             $scope.overlaySolventVisible = true;
             var distances = [];
             for (var j = 0; j < solvents.length; j++) {
