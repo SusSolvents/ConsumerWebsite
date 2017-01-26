@@ -181,8 +181,8 @@
                                     <div ng-if="selectedCluster !== undefined">
                                         <div>
                                             <h4>Distance to clusters</h4>
-                                            <div ng-repeat="cluster in selectedCluster.DistanceToClusters" ng-if="cluster.ToClusterId != (selectedCluster.Id-1)">
-                                                To cluster {{cluster.ToClusterId}}: {{cluster.Distance}}
+                                            <div ng-repeat="otherCluster in selectedCluster.DistanceToClusters" ng-if="otherCluster.ToClusterId != cluster">
+                                                To cluster {{otherCluster.ToClusterId}}: {{otherCluster.Distance}}
                                             </div>
                                         </div>
                                     </div>
@@ -216,8 +216,8 @@
                                     <div ng-if="selectedCluster !== undefined">
                                         <div>
                                             <h4>Distance to clusters</h4>
-                                            <div ng-repeat="cluster in selectedCluster.DistanceToClusters">
-                                                To cluster {{cluster.ToClusterId}}: {{cluster.Distance}}
+                                            <div ng-repeat="otherCluster in selectedCluster.DistanceToClusters" ng-if="otherCluster.ToClusterId != cluster">
+                                                To cluster {{otherCluster.ToClusterId}}: {{otherCluster.Distance}}
                                             </div>
                                         </div>
                                     </div>
