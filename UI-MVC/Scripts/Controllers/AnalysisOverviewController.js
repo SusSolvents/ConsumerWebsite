@@ -197,7 +197,7 @@
 
         }
         $scope.getWidth = function getWidth(clusters) {
-            var counter = clusters.filter(p => p.Solvents.length > 20).length;
+            var counter = clusters.filter(p => p.Solvents.length > 0).length;
             debugger;
             return {
                 "width": (100 / counter) + "%"
