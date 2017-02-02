@@ -196,7 +196,13 @@
             $scope.solvents = solvents;
 
         }
-
+        $scope.getWidth = function getWidth(clusters) {
+            var counter = clusters.filter(p => p.Solvents.length > 20).length;
+            debugger;
+            return {
+                "width": (100 / counter) + "%"
+            }
+        }
         function setEnumMinMax() {
             for (var i = 0; i < minMaxValues.length; i++) {
                 minMaxValues[i].FeatureName = constants.FeatureName[minMaxValues[i].FeatureName];
