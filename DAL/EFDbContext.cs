@@ -30,7 +30,7 @@ namespace SS.DAL
         public DbSet<VectorData> VectorData { get; set; }
         public DbSet<MinMaxValue> MinMaxValues { get; set; }
         public DbSet<ClassifiedInstance> ClassifiedInstances { get; set; }
-
+        public DbSet<EHSScore> EHSScores { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

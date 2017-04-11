@@ -110,6 +110,9 @@ namespace SS.DAL
                 
                 Regex = @"^\d{1,3}(\.\d{0,5})?$"
             });
+
+            //change
+
             context.SaveChanges();
         }
 
