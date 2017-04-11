@@ -43,5 +43,7 @@ namespace SS.DAL.EFAnalyses
         AnalysisModel CreateClassifiedInstance(long modelId, long userId, ClassifiedInstance classifiedInstance);
         AnalysisModel SetClassifiedSolvent(long modelId, long instanceId);
         void DeleteAnalysis(long analysisId);
+
+        Boolean CheckCasNumber(String casNummer);
     }
 }

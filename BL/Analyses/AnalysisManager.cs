@@ -134,5 +134,8 @@ namespace SS.BL.Analyses
         {
             return repo.ReadMinMaxValues(id);
         }
+        public Boolean CheckCasnumber(String casnummer) {
+            return repo.CheckCasNumber(casnummer);
+        }
     }
 }
