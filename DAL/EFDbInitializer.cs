@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using SS.BL.Domain.Users;
 using SS.BL.Domain.Analyses;
-using System.IO;
 
 namespace SS.DAL
 {
@@ -113,16 +112,16 @@ namespace SS.DAL
                 Regex = @"^\d{1,3}(\.\d{0,5})?$"
             });
 
-<<<<<<< HEAD
+
             var Lines = SS.DAL.Properties.Resources.datasetqframe.ToString().Split('\n');
-=======
-            var Lines = File.ReadLines("C:\\Users\\Christophe\\Desktop\\ConsumerWebsite-master\\ConsumerWebsite-master\\UI-MVC\\Database stage 2017 csv.csv").Select(a => a.Split('\n'));
->>>>>>> 2089f2898ccdbe7ce5d237708d018325d45ed171
+
+           
+
 
 
             foreach (var line in Lines.Skip(2))
             {
-<<<<<<< HEAD
+
                 if (line.ToString() == null || line.ToString() == "")
                 {
                     break;
@@ -161,32 +160,11 @@ namespace SS.DAL
                 
 
 
-=======
-
-                string woord = line.ElementAt(0).ToString();
-                string[] result = woord.Split(';');
-                System.Diagnostics.Debug.WriteLine(result.ElementAt(5));
-                context.EHSScores.Add(new EHSScore()
-                {
-
-                    CasNumber = result.ElementAt(2).ToString(),
-                    EhsSScore = Int32.Parse(result.ElementAt(5)),
-                    EhsHScore = Int32.Parse(result.ElementAt(6)),
-                    EhsEScore = Int32.Parse(result.ElementAt(7)),
-                    EhsColorCode = result.ElementAt(8).ToString()
-
-                });
->>>>>>> 2089f2898ccdbe7ce5d237708d018325d45ed171
-
 
 
             }
-<<<<<<< HEAD
 
 
-            //change
-=======
->>>>>>> 2089f2898ccdbe7ce5d237708d018325d45ed171
 
             context.SaveChanges();
         }
