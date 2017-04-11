@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SS.BL.Domain.Users;
 using SS.BL.Domain.Analyses;
+using System.IO;
 
 namespace SS.DAL
 {
@@ -111,7 +112,29 @@ namespace SS.DAL
                 Regex = @"^\d{1,3}(\.\d{0,5})?$"
             });
 
-            //change
+            var Lines = File.ReadLines("C:\\Users\\Christophe\\Desktop\\ConsumerWebsite-master\\ConsumerWebsite-master\\UI-MVC\\Database stage 2017 csv.csv").Select(a => a.Split('\n'));
+
+
+            foreach (var line in Lines.Skip(2))
+            {
+
+                string woord = line.ElementAt(0).ToString();
+                string[] result = woord.Split(';');
+                System.Diagnostics.Debug.WriteLine(result.ElementAt(5));
+                context.EHSScores.Add(new EHSScore()
+                {
+
+                    CasNumber = result.ElementAt(2).ToString(),
+                    EhsSScore = Int32.Parse(result.ElementAt(5)),
+                    EhsHScore = Int32.Parse(result.ElementAt(6)),
+                    EhsEScore = Int32.Parse(result.ElementAt(7)),
+                    EhsColorCode = result.ElementAt(8).ToString()
+
+                });
+
+
+
+            }
 
             context.SaveChanges();
         }
