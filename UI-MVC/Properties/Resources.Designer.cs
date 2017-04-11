@@ -22,7 +22,7 @@ namespace SS.UI.Web.MVC.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SS.UI.Web.MVC.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SS.UI.Web.MVC.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SS.UI.Web.MVC.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,9 +64,19 @@ namespace SS.UI.Web.MVC.Properties {
         ///   Looks up a localized string similar to Source;ID Name;ID CAS Nr;ID EG Nr;ID EG Annex Nr;EHS S Score;EHS H Score;EHS E Score;EHS Color Code;Boiling Point  (øC);Melting Point  (øC);Vapour Pressure (25øC mmHg);Flash Point  (øC);Autoignition Temperature  (øC);Hansen Delta D (MPa1/2);Hansen Delta P (MPa1/2);Hansen Delta H (MPa1/2);Solubility Water (20 øC g/L);Density (25øC  kg/L);Viscosity (25øC  mPa.s);Relative Vapour Density  (Air=1);Log P Octanol Water (20øC);Refractive Index (20øC);Surface Tension (25øC mN/m)
         ///DataType;string;string;string;string [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string datasetqframe {
+        public static string datasetqframe {
             get {
                 return ResourceManager.GetString("datasetqframe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] JavaSussolApplication_1_0_SNAPSHOT {
+            get {
+                object obj = ResourceManager.GetObject("JavaSussolApplication_1_0_SNAPSHOT", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

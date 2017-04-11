@@ -218,6 +218,8 @@ namespace SS.UI.Web.MVC.Controllers
                 {
                     foreach (var csvLocation in _csvLocations)
                     {
+                        com.sussol.web.controller.ServiceModel dll = new com.sussol.web.controller.ServiceModel();
+                        
                         var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()),
                         csvLocation);
                         //creatie van model binnen algoritme
