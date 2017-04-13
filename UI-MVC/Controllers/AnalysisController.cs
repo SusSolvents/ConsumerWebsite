@@ -19,12 +19,14 @@ using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
 
+
 namespace SS.UI.Web.MVC.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Analysis")]
     public class AnalysisController : ApiController
     {
+        
         private readonly IAnalysisManager _analysisManager;
         private readonly IUserManager _userManager;
         private readonly List<String> _csvLocations; 
@@ -125,6 +127,21 @@ namespace SS.UI.Web.MVC.Controllers
             return models;
         }
 
+        [Route("FillAlgorithms")]
+        [HttpGet]
+        public List<Model> FillAlgorithms()
+        {
+            //System.Diagnostics.Debug.WriteLine(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString().Split('\n').ElementAt(0));
+            com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
+            object answer = sus.canopyModeller(Properties.Resources.datasetqframe.ToString(), "", "").getAlgorithm().ToString();
+
+            Debug.WriteLine("answer:" + answer.ToString());
+            //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString(), "", "");
+
+            //return response.ToString();
+            return null;
+        }
+
         //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
         [HttpPost]
@@ -216,17 +233,19 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 using (var client = new WebClient())
                 {
-                    foreach (var csvLocation in _csvLocations)
-                    {
-                        com.sussol.web.controller.ServiceModel dll = new com.sussol.web.controller.ServiceModel();
-                        
-                        var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()),
-                        csvLocation);
-                        //creatie van model binnen algoritme
-                        var jsonResponse = Encoding.Default.GetString(response);
-                        var algorithm = JsonHelper.ParseJson(jsonResponse, minMaxValues.ToList());
-                        _analysisManager.CreateAlgorithm(algorithm);
-                    }
+                    //foreach (var csvLocation in _csvLocations)
+                    //{
+
+
+                    //    //var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()), csvLocation);
+                    //    //creatie van model binnen algoritme
+                    //    //var jsonResponse = Encoding.Default.GetString(response);
+                    //    //var algorithm =  minMaxValues.ToList();
+                    //    //_analysisManager.CreateAlgorithm(algorithm);
+                    //}
+
+                    //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe, "", "");
+                    //System.Diagnostics.Debug.Write(response.toString());
                     client.Dispose();
                     return Ok();
                 }

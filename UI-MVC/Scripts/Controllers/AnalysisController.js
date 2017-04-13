@@ -1,8 +1,8 @@
 ﻿angular.module('sussol.controllers')
     .controller('AnalysisController',
     function ($scope, $window, $http, $location, $rootScope, srvLibrary) {
-        var algorithms = [];
-        var models = [];
+        var algorithms = $http.get("/api/Analysis/FillAlgorithms");
+        var models = ["hello", "bye", "hello", "bye", "hello", "bye", "hello", "bye", "hello", "bye"];
         var process = 0;
         
         $scope.disabled = true;
@@ -47,6 +47,14 @@
                 }
             }
             return false;
+        }
+
+        function fillarray() {
+            $https({
+                method: 'GET',
+                url: 'api/Analysis/StartAnalysis',
+                params: {algorithms: algorithms}
+            })
         }
         
         $scope.startAnalysis = function startAnalysis() {

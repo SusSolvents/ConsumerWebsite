@@ -56,9 +56,117 @@
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JavaSussolApplication-1.0-SNAPSHOT, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Downloads\JavaSussolApplication-1.0-SNAPSHOT.dll</HintPath>
+    <Reference Include="IKVM.AWT.WinForms, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.AWT.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Beans, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Beans.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Charsets, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Charsets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Cldrdata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Cldrdata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Corba, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Corba.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Jdbc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Localedata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Localedata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Management, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Management.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Media, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Media.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Misc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Misc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Naming, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Naming.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Nashorn, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Nashorn.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Remoting, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Remoting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.SwingAWT, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Tools, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Tools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.Util.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Bind, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.Bind.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Crypto, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Transform, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.Transform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.WebServices, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.XPath, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.Runtime, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.Runtime.JNI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL">
       <HintPath>..\packages\JSON.1.0.1\lib\net40\Json.dll</HintPath>
@@ -100,6 +208,10 @@
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SussolApplicationV1, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\SussolApplicationV1.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.3.2\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -365,7 +477,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Resources\JavaSussolApplication-1.0-SNAPSHOT.dll" />
+    <None Include="Resources\datasetqframe.csv" />
+    <None Include="Resources\SussolApplicationV1.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angucomplete-alt.min.js" />
@@ -409,7 +522,6 @@
     <Content Include="Content\Csv\Solvent matrix 27 solvents 12 features.csv" />
     <Content Include="Content\Csv\Solvent matrix 9 solvents 6 features.csv" />
     <Content Include="Content\Images\animation.webm" />
-    <None Include="Resources\datasetqframe.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bullet.js" />
     <Content Include="Scripts\canvasjs.min.js" />
