@@ -131,9 +131,11 @@ namespace SS.UI.Web.MVC.Controllers
         [HttpGet]
         public List<Model> FillAlgorithms()
         {
-            //System.Diagnostics.Debug.WriteLine(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString().Split('\n').ElementAt(0));
-            com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
-            object answer = sus.canopyModeller(Properties.Resources.datasetqframe.ToString(), "", "").getAlgorithm().ToString();
+            String test = SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString();
+         com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
+         object answer = sus.canopyModeller(test, "", "");
+
+            //object answer = sus.canopyModeller(test, "", "").getAlgorithm().ToString();
 
             Debug.WriteLine("answer:" + answer.ToString());
             //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString(), "", "");
