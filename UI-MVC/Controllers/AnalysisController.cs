@@ -132,16 +132,17 @@ namespace SS.UI.Web.MVC.Controllers
         public List<Model> FillAlgorithms()
         {
             String test = SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString();
+         com.sussol.domain.utilities.Globals.STORAGE_PATH = "C:\\Users\\Dries\\OneDrive\\Documenten\\";
          com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
          object answer = sus.canopyModeller(test, "", "");
 
             //object answer = sus.canopyModeller(test, "", "").getAlgorithm().ToString();
 
             Debug.WriteLine("answer:" + answer.ToString());
-            //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString(), "", "");
+         //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString(), "", "");
 
-            //return response.ToString();
-            return null;
+         //return response.ToString();
+         return null;
         }
 
         //POST api/Analysis/Createanalysis

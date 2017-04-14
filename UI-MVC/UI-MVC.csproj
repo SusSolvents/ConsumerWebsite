@@ -140,9 +140,8 @@
     <Reference Include="IKVM.Runtime.JNI, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.Runtime.JNI.dll</HintPath>
     </Reference>
-    <Reference Include="JavaSussolApplicationV7, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\ikvm\bin\JavaSussolApplicationV7.dll</HintPath>
+    <Reference Include="JavaSussolApplicationV8">
+      <HintPath>..\..\..\..\..\..\ikvm\bin\JavaSussolApplicationV8.dll</HintPath>
     </Reference>
     <Reference Include="Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL">
       <HintPath>..\packages\JSON.1.0.1\lib\net40\Json.dll</HintPath>
@@ -451,6 +450,7 @@
     <Content Include="Global.asax" />
     <None Include="Resources\datasetqframe.csv" />
     <None Include="Resources\SussolApplicationV1.dll" />
+    <None Include="Resources\JavaSussolApplicationV8.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\angucomplete-alt.min.js" />
