@@ -18,7 +18,8 @@ using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
-
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Converters;
 
 namespace SS.UI.Web.MVC.Controllers
 {
@@ -135,10 +136,32 @@ namespace SS.UI.Web.MVC.Controllers
             var pathWithEnv = @"%USERPROFILE%\";
             var filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
             com.sussol.domain.utilities.Globals.STORAGE_PATH = filePath;
-            
-            
-         com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
-         object answer = sus.canopyModeller(test, "", "");
+            com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
+
+            //var perso = JsonConvert.DeserializeObject<dynamic>();
+            JObject jObject = JObject.Parse(sus.canopyModeller(test, "", "").ToString());
+            JToken jModel = jObject["algrorithm"];
+
+            Debug.WriteLine("Cluster: " + (int)jModel["cluster"].ElementAt(1));
+
+            //Create an Cluster to parse incomming data cluster
+            //Cluster cluster = new Cluster()
+            //{
+            //    Number = 
+            //};
+
+
+            Model model = new Model()
+            {
+                DataSet = (string)jModel["dataSet"],
+                Date = (DateTime)jModel["date"],
+                ModelPath = (string)jModel["modelPath"],
+                Clusters = null,
+
+        };
+
+        
+        
 
          return null;
         }
