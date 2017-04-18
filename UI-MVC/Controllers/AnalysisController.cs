@@ -140,30 +140,95 @@ namespace SS.UI.Web.MVC.Controllers
 
             //var perso = JsonConvert.DeserializeObject<dynamic>();
             JObject jObject = JObject.Parse(sus.canopyModeller(test, "", "").ToString());
-            JToken jModel = jObject["algrorithm"];
+            JToken jModel = jObject["model"];
 
-            Debug.WriteLine("Cluster: " + (int)jModel["cluster"].ElementAt(1));
 
-            //Create an Cluster to parse incomming data cluster
-            //Cluster cluster = new Cluster()
+            //JToken jClusters = jModel["clusters"];
+            ////JToken jClusters = jObject["clusters"];
+
+            ////Debug.WriteLine("model: " + (string)jModel.ToString());
+
+            //JArray array = JArray.Parse(jClusters.ToString());
+            //List<Cluster> clusters = new List<Cluster>();
+
+            //foreach (JObject content in array.Children<JObject>())
             //{
-            //    Number = 
+            //    JArray DiToClu = JArray.Parse(content["distanceToClusters"].ToString());
+            //    List<ClusterDistanceCenter> CluDiCeList = new List<ClusterDistanceCenter>();
+            //    JArray VectorDatas = JArray.Parse(content["vectorData"].ToString());
+            //    List<VectorData> VectorDataList = new List<VectorData>();
+            //    JArray solvents = JArray.Parse(content["solvents"].ToString());
+            //    List<Solvent> solventList = new List<Solvent>();
+            //    JArray features = JArray.Parse(content["features"].ToString());
+            //    List<Feature> featureList = new List<Feature>();
+
+            //    foreach (JObject DiToClucont in array.Children<JObject>())
+            //    {
+            //        ClusterDistanceCenter CluDiCe = new ClusterDistanceCenter()
+            //        {
+            //            ToClusterId = (long)DiToClu["clusterId"],
+            //            Distance = (double)DiToClu["distance"]
+            //        };
+
+            //        CluDiCeList.Add(CluDiCe);
+            //    }
+
+
+
+            //    foreach (JObject vector in VectorDatas)
+            //    {
+            //        VectorData vect = new VectorData()
+            //        {
+            //            Value = (double)vector["value"],
+            //            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), (string)vector["name"])
+
+            //    };
+            //        VectorDataList.Add(vect);
+            //    }
+
+            //    foreach(JObject feature in features)
+            //    {
+            //        Feature feat = new Feature()
+            //        {
+            //            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), (string)feature["name"]),
+            //            Value = (double)feature["value"]
+            //        };
+            //        featureList.Add(feat);
+            //    }
+
+            //    foreach (JObject solvent in solvents)
+            //    {
+            //        Solvent solv = new Solvent()
+            //        {
+            //            Name = (string)solvent["name"],
+            //            CasNumber = (string)solvent["casNumber"],
+            //            DistanceToClusterCenter = (double)solvent["distanceToClusterCenter"],
+            //            Features = featureList
+            //        };
+            //    };
+
+            //    Cluster clust = new Cluster()
+            //    {
+            //        Number = (int)content["clusterNumber"],
+            //        DistanceToClusters = CluDiCeList,
+            //        Solvents = solventList,
+            //        VectorData = VectorDataList
+            //    };
+            //}
+
+
+
+            //Model model = new Model()
+            //{
+            //    DataSet = (string)jModel["dataSet"],
+            //    //Date = (DateTime)jModel["date"],
+            //    ModelPath = (string)jModel["modelPath"],
+            //    Clusters = clusters
+
             //};
 
-
-            Model model = new Model()
-            {
-                DataSet = (string)jModel["dataSet"],
-                Date = (DateTime)jModel["date"],
-                ModelPath = (string)jModel["modelPath"],
-                Clusters = null,
-
-        };
-
-        
-        
-
-         return null;
+            return JsonHelper.ParseJson(jObject.ToString(), _analysisManager.ReadMinMaxValues().ToList()).Models.ToList();
+            
         }
 
         //POST api/Analysis/Createanalysis
@@ -181,7 +246,7 @@ namespace SS.UI.Web.MVC.Controllers
                 Name = name,
                 DateCreated = DateTime.Now,
                 AnalysisModels = new List<AnalysisModel>(),
-                NumberOfSolvents = models[0].NumberOfSolvents
+                NumberOfSolvents = 0 //fix
             };
             foreach (Model m in models)
             {
@@ -235,7 +300,8 @@ namespace SS.UI.Web.MVC.Controllers
             List<Model> models = new List<Model>();
             foreach (AlgorithmName algorithm in algorithmNames)
             {
-                var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
+                //var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
+                var modelsTemp = FillAlgorithms();
                 if (modelsTemp.Count == 0)
                 {
                     await CreateModels(algorithm);
@@ -243,7 +309,7 @@ namespace SS.UI.Web.MVC.Controllers
                 }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
             }
-            return Ok(models.GroupBy(x => x.DataSet).Select(y => y.First()).ToList());
+            return Ok(FillAlgorithms().GroupBy(x => x.DataSet).Select(y => y.First()).ToList());
         }
 
         //POST api/Analysis/CreateModel
