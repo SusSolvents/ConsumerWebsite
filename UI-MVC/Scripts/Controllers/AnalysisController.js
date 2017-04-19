@@ -5,6 +5,7 @@
         var models = [];
         var process = 0;
         
+        
         $scope.disabled = true;
         $scope.btnclass = "button-right disabled";
         $scope.modelDisabled = true;
@@ -47,6 +48,14 @@
                 }
             }
             return false;
+        }
+
+        function fillarray() {
+            $https({
+                method: 'GET',
+                url: 'api/Analysis/FillAlgorithms',
+                params: {algorithms: algorithms}
+            })
         }
         
         $scope.startAnalysis = function startAnalysis() {

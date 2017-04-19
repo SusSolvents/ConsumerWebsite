@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -110,6 +111,61 @@ namespace SS.DAL
                 
                 Regex = @"^\d{1,3}(\.\d{0,5})?$"
             });
+
+
+            var Lines = SS.DAL.Properties.Resources.datasetqframe.ToString().Split('\n');
+
+           
+
+
+
+            foreach (var line in Lines.Skip(2))
+            {
+
+                if (line.ToString() == null || line.ToString() == "")
+                {
+                    break;
+                }
+                
+                    string[] result = line.ToString().Split(';');
+                    context.EHSScores.Add(new EHSScore()
+                    {
+                        Source = result.ElementAt(0).ToString(),
+                        CasNumber = result.ElementAt(2).ToString(),
+                        IDName = result.ElementAt(1).ToString(),
+                        EGNr = result.ElementAt(3).ToString(),
+                        EGAnnexNr = result.ElementAt(4).ToString(),
+                        EhsSScore = Int32.Parse(result.ElementAt(5)),
+                        EhsHScore = Int32.Parse(result.ElementAt(6)),
+                        EhsEScore = Int32.Parse(result.ElementAt(7)),
+                        EhsColorCode = result.ElementAt(8).ToString(),
+                        BoilingPoint = Convert.ToDouble(result.ElementAt(9)),
+                        MeltingPoint = Convert.ToDouble(result.ElementAt(10)),
+                        VapourPress = Convert.ToDouble(result.ElementAt(11)),
+                        FlashPoint = Convert.ToDouble(result.ElementAt(12)),
+                        Autoignition = Convert.ToDouble(result.ElementAt(13)),
+                        HansenDeltaD = Convert.ToDouble(result.ElementAt(14)),
+                        HansenDeltaP = Convert.ToDouble(result.ElementAt(15)),
+                        HansenDeltaH = Convert.ToDouble(result.ElementAt(16)),
+                        SolubilityWater = Convert.ToDouble(result.ElementAt(17)),
+                        Density = Convert.ToDouble(result.ElementAt(18)),
+                        Viscosity = Convert.ToDouble(result.ElementAt(19)),
+                        RelativeVapDen = Convert.ToDouble(result.ElementAt(20)),
+                        LogPOctanol = Convert.ToDouble(result.ElementAt(21)),
+                        RefractiveIndex = Convert.ToDouble(result.ElementAt(22)),
+                        SurfaceTension = Convert.ToDouble(result.ElementAt(23))
+
+
+                    });
+                
+
+
+
+
+            }
+
+
+
             context.SaveChanges();
         }
 

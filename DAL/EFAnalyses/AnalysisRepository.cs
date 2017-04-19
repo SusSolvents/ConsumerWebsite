@@ -242,5 +242,17 @@ namespace SS.DAL.EFAnalyses
             _context.Analyses.Remove(currentAnalysis);
             _context.SaveChanges();
         }
+        public Boolean CheckCasNumber(String casnummer)
+        {
+            //bool contains;
+            //if(contains = _context.Solvents.FirstOrDefault(a => a.CasNumber.Equals(casnummer))) 
+            //    return true;
+            //else return false;
+            var result = _context.Solvents.Find(casnummer);
+            if (result ==null)
+                return true;
+            else return false;
+
+        }
     }
 }

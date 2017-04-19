@@ -18,6 +18,8 @@ using SS.BL.Domain.Users;
 using SS.BL.Users;
 using SS.UI.Web.MVC.Controllers.Utils;
 using SS.UI.Web.MVC.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Converters;
 
 namespace SS.UI.Web.MVC.Controllers
 {
@@ -25,15 +27,16 @@ namespace SS.UI.Web.MVC.Controllers
     [RoutePrefix("api/Analysis")]
     public class AnalysisController : ApiController
     {
+        
         private readonly IAnalysisManager _analysisManager;
         private readonly IUserManager _userManager;
-        private readonly List<String> _csvLocations; 
+        //private readonly List<string> _datasets; 
         public AnalysisController(IAnalysisManager analysisManager, IUserManager userManager)
         {
             this._analysisManager = analysisManager;
             this._userManager = userManager;
 
-            _csvLocations = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("~/Content/Csv/")).ToList();
+           // _datasets.Add(Properties.Resources.datasetqframe);
 
         }
 
@@ -125,6 +128,116 @@ namespace SS.UI.Web.MVC.Controllers
             return models;
         }
 
+        [Route("FillAlgorithms")]
+        [HttpGet]
+        public List<Model> FillAlgorithms()
+        {
+            String test = SS.UI.Web.MVC.Properties.Resources.datasetqframe.ToString();
+            var pathWithEnv = @"%USERPROFILE%\";
+            var filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
+            com.sussol.domain.utilities.Globals.STORAGE_PATH = filePath;
+            com.sussol.web.controller.ServiceModel sus = new com.sussol.web.controller.ServiceModel();
+
+            //var perso = JsonConvert.DeserializeObject<dynamic>();
+            JObject jObject = JObject.Parse(sus.canopyModeller(test, "", "").ToString());
+            JToken jModel = jObject["model"];
+
+
+            //JToken jClusters = jModel["clusters"];
+            ////JToken jClusters = jObject["clusters"];
+
+            ////Debug.WriteLine("model: " + (string)jModel.ToString());
+
+            //JArray array = JArray.Parse(jClusters.ToString());
+            //List<Cluster> clusters = new List<Cluster>();
+
+            //foreach (JObject content in array.Children<JObject>())
+            //{
+            //    JArray DiToClu = JArray.Parse(content["distanceToClusters"].ToString());
+            //    List<ClusterDistanceCenter> CluDiCeList = new List<ClusterDistanceCenter>();
+            //    JArray VectorDatas = JArray.Parse(content["vectorData"].ToString());
+            //    List<VectorData> VectorDataList = new List<VectorData>();
+            //    JArray solvents = JArray.Parse(content["solvents"].ToString());
+            //    List<Solvent> solventList = new List<Solvent>();
+            //    JArray features = JArray.Parse(content["features"].ToString());
+            //    List<Feature> featureList = new List<Feature>();
+
+            //    foreach (JObject DiToClucont in array.Children<JObject>())
+            //    {
+            //        ClusterDistanceCenter CluDiCe = new ClusterDistanceCenter()
+            //        {
+            //            ToClusterId = (long)DiToClu["clusterId"],
+            //            Distance = (double)DiToClu["distance"]
+            //        };
+
+            //        CluDiCeList.Add(CluDiCe);
+            //    }
+
+
+
+            //    foreach (JObject vector in VectorDatas)
+            //    {
+            //        VectorData vect = new VectorData()
+            //        {
+            //            Value = (double)vector["value"],
+            //            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), (string)vector["name"])
+
+            //    };
+            //        VectorDataList.Add(vect);
+            //    }
+
+            //    foreach(JObject feature in features)
+            //    {
+            //        Feature feat = new Feature()
+            //        {
+            //            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), (string)feature["name"]),
+            //            Value = (double)feature["value"]
+            //        };
+            //        featureList.Add(feat);
+            //    }
+
+            //    foreach (JObject solvent in solvents)
+            //    {
+            //        Solvent solv = new Solvent()
+            //        {
+            //            Name = (string)solvent["name"],
+            //            CasNumber = (string)solvent["casNumber"],
+            //            DistanceToClusterCenter = (double)solvent["distanceToClusterCenter"],
+            //            Features = featureList
+            //        };
+            //    };
+
+            //    Cluster clust = new Cluster()
+            //    {
+            //        Number = (int)content["clusterNumber"],
+            //        DistanceToClusters = CluDiCeList,
+            //        Solvents = solventList,
+            //        VectorData = VectorDataList
+            //    };
+            //}
+
+
+
+            //Model model = new Model()
+            //{
+            //    DataSet = (string)jModel["dataSet"],
+            //    //Date = (DateTime)jModel["date"],
+            //    ModelPath = (string)jModel["modelPath"],
+            //    Clusters = clusters
+
+            //};
+
+            List<Model> mod = JsonHelper.ParseJson(jObject.ToString(), _analysisManager.ReadMinMaxValues().ToList()).Models.ToList();
+            Algorithm algo = new Algorithm()
+            {
+                AlgorithmName = 0,
+                Models = mod
+            };
+            _analysisManager.CreateAlgorithm(algo);
+            return mod;
+
+        }
+
         //POST api/Analysis/Createanalysis
         [Route("CreateAnalysis")]
         [HttpPost]
@@ -194,7 +307,8 @@ namespace SS.UI.Web.MVC.Controllers
             List<Model> models = new List<Model>();
             foreach (AlgorithmName algorithm in algorithmNames)
             {
-                var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
+                //var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
+                var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm); ;
                 if (modelsTemp.Count == 0)
                 {
                     await CreateModels(algorithm);
@@ -216,15 +330,21 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 using (var client = new WebClient())
                 {
-                    foreach (var csvLocation in _csvLocations)
-                    {
-                        var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()),
-                        csvLocation);
-                        //creatie van model binnen algoritme
-                        var jsonResponse = Encoding.Default.GetString(response);
-                        var algorithm = JsonHelper.ParseJson(jsonResponse, minMaxValues.ToList());
-                        _analysisManager.CreateAlgorithm(algorithm);
-                    }
+                    //foreach (var dataset in _datasets)
+                    //{
+
+
+                    // var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + "canopy" + dataset.ToString())); //algorithmName.ToString().ToLower())
+                    //creatie van model binnen algoritme
+                    //var jsonResponse = Encoding.Default.GetString(response);
+                    //var algorithm =  minMaxValues.ToList();
+                    //_analysisManager.CreateAlgorithm(algorithm);
+                    //}
+
+                    //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe, "", "");
+                    //System.Diagnostics.Debug.Write(response.toString());
+
+                    FillAlgorithms();
                     client.Dispose();
                     return Ok();
                 }
@@ -344,11 +464,10 @@ namespace SS.UI.Web.MVC.Controllers
                     
                     for (int i = 0; i < model.FeatureNames.Length; i++)
                     {
-                        model.FeatureNames[i] =
-                            model.FeatureNames[i].Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
+                        model.FeatureNames[i] = model.FeatureNames[i].Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
                         Feature f = new Feature()
                         {
-                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), model.FeatureNames[i]),
+                            FeatureName = model.FeatureNames[i].ToString(),
                             Value = model.Values[i]
                         };
                         classifiedInstance.Features.Add(f);
@@ -401,7 +520,7 @@ namespace SS.UI.Web.MVC.Controllers
                             featureNames[i].ToString().Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
                             Feature f = new Feature()
                                 {
-                                    FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i].ToString()),
+                                    FeatureName = featureNames[i].ToString(),
                                     Value = Double.Parse(values[i].ToString())
                                 };
                                 classifiedInstance.Features.Add(f);

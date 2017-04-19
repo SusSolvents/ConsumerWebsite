@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System;
+using System.Reflection;
 using SS.UI.Web.MVC;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -11,12 +13,14 @@ namespace SS.UI.Web.MVC
     /// </summary>
     public partial class Startup
     {
-        /// <summary>
-        /// The configuration.
-        /// </summary>
-        /// <param name="app">
-        /// The app.
-        /// </param>
+      /// <summary>
+      /// The configuration.
+      /// </summary>
+      /// <param name="app">
+      /// The app.
+      /// </param>
+      /// 
+      //changes
         public void Configuration(IAppBuilder app)
         {
             this.ConfigureAuth(app);

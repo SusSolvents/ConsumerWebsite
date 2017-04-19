@@ -38,10 +38,11 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                 };
                 foreach (var vector in cluster.vectorData)
                 {
+                    string naam = vector.name.ToString().Replace("(", "").Replace(")", "").Replace("/", "").Replace("=", "").Replace("ø", "");
                     VectorData vectorData = new VectorData()
                     {
                         Value =  vector.value,
-                        FeatureName = vector.name
+                        FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), naam)
                     };
 
                     clusterTemp.VectorData.Add(vectorData);
@@ -82,9 +83,10 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         FeatureName featureName;
                         Enum.TryParse<FeatureName>(feature.name.ToString(), out featureName);
                         var value = minMaxValues.FirstOrDefault(a => a.FeatureName == featureName);
+                        string naam = feature.name.ToString().Replace("(", "").Replace(")", "").Replace("/", "").Replace("=", "").Replace("ø", "");
                         Feature featureTemp = new Feature()
                         {
-                            FeatureName = feature.name,
+                            FeatureName = naam,
                             Value = feature.value
                         };
                         featureTemp.MinMaxValue = value;
