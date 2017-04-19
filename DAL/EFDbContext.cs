@@ -6,11 +6,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 
 namespace SS.DAL
 {
     public class EFDbContext : DbContext
     {
+        
         public EFDbContext() : base("sussol")
         {
             Database.SetInitializer<EFDbContext>(new EFDbInitializer());

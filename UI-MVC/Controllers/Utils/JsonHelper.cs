@@ -86,7 +86,7 @@ namespace SS.UI.Web.MVC.Controllers.Utils
                         string naam = feature.name.ToString().Replace("(", "").Replace(")", "").Replace("/", "").Replace("=", "").Replace("ø", "");
                         Feature featureTemp = new Feature()
                         {
-                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), naam),
+                            FeatureName = naam,
                             Value = feature.value
                         };
                         featureTemp.MinMaxValue = value;

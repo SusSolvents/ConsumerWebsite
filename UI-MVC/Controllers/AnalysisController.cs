@@ -30,13 +30,13 @@ namespace SS.UI.Web.MVC.Controllers
         
         private readonly IAnalysisManager _analysisManager;
         private readonly IUserManager _userManager;
-        private readonly List<String> _csvLocations; 
+        //private readonly List<string> _datasets; 
         public AnalysisController(IAnalysisManager analysisManager, IUserManager userManager)
         {
             this._analysisManager = analysisManager;
             this._userManager = userManager;
 
-            _csvLocations = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("~/Content/Csv/")).ToList();
+           // _datasets.Add(Properties.Resources.datasetqframe);
 
         }
 
@@ -227,8 +227,15 @@ namespace SS.UI.Web.MVC.Controllers
 
             //};
 
-            return JsonHelper.ParseJson(jObject.ToString(), _analysisManager.ReadMinMaxValues().ToList()).Models.ToList();
-            
+            List<Model> mod = JsonHelper.ParseJson(jObject.ToString(), _analysisManager.ReadMinMaxValues().ToList()).Models.ToList();
+            Algorithm algo = new Algorithm()
+            {
+                AlgorithmName = 0,
+                Models = mod
+            };
+            _analysisManager.CreateAlgorithm(algo);
+            return mod;
+
         }
 
         //POST api/Analysis/Createanalysis
@@ -246,7 +253,7 @@ namespace SS.UI.Web.MVC.Controllers
                 Name = name,
                 DateCreated = DateTime.Now,
                 AnalysisModels = new List<AnalysisModel>(),
-                NumberOfSolvents = 0 //fix
+                NumberOfSolvents = models[0].NumberOfSolvents
             };
             foreach (Model m in models)
             {
@@ -301,7 +308,7 @@ namespace SS.UI.Web.MVC.Controllers
             foreach (AlgorithmName algorithm in algorithmNames)
             {
                 //var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm);
-                var modelsTemp = FillAlgorithms();
+                var modelsTemp = _analysisManager.ReadModelsForAlgorithm(algorithm); ;
                 if (modelsTemp.Count == 0)
                 {
                     await CreateModels(algorithm);
@@ -309,7 +316,7 @@ namespace SS.UI.Web.MVC.Controllers
                 }
                 models.AddRange(_analysisManager.ReadModelsForAlgorithm(algorithm)); 
             }
-            return Ok(FillAlgorithms().GroupBy(x => x.DataSet).Select(y => y.First()).ToList());
+            return Ok(models.GroupBy(x => x.DataSet).Select(y => y.First()).ToList());
         }
 
         //POST api/Analysis/CreateModel
@@ -323,19 +330,21 @@ namespace SS.UI.Web.MVC.Controllers
             {
                 using (var client = new WebClient())
                 {
-                    //foreach (var csvLocation in _csvLocations)
+                    //foreach (var dataset in _datasets)
                     //{
 
 
-                    //    //var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + algorithmName.ToString().ToLower()), csvLocation);
-                    //    //creatie van model binnen algoritme
-                    //    //var jsonResponse = Encoding.Default.GetString(response);
-                    //    //var algorithm =  minMaxValues.ToList();
-                    //    //_analysisManager.CreateAlgorithm(algorithm);
+                    // var response = client.UploadFile(new Uri("http://localhost:8080/SussolWebservice/api/model/" + "canopy" + dataset.ToString())); //algorithmName.ToString().ToLower())
+                    //creatie van model binnen algoritme
+                    //var jsonResponse = Encoding.Default.GetString(response);
+                    //var algorithm =  minMaxValues.ToList();
+                    //_analysisManager.CreateAlgorithm(algorithm);
                     //}
 
                     //var response = servicedll.canopyModeller(SS.UI.Web.MVC.Properties.Resources.datasetqframe, "", "");
                     //System.Diagnostics.Debug.Write(response.toString());
+
+                    FillAlgorithms();
                     client.Dispose();
                     return Ok();
                 }
@@ -455,11 +464,10 @@ namespace SS.UI.Web.MVC.Controllers
                     
                     for (int i = 0; i < model.FeatureNames.Length; i++)
                     {
-                        model.FeatureNames[i] =
-                            model.FeatureNames[i].Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
+                        model.FeatureNames[i] = model.FeatureNames[i].Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
                         Feature f = new Feature()
                         {
-                            FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), model.FeatureNames[i]),
+                            FeatureName = model.FeatureNames[i].ToString(),
                             Value = model.Values[i]
                         };
                         classifiedInstance.Features.Add(f);
@@ -512,7 +520,7 @@ namespace SS.UI.Web.MVC.Controllers
                             featureNames[i].ToString().Replace("°", "Degrees").Replace('.', '_').Replace('/', '_');
                             Feature f = new Feature()
                                 {
-                                    FeatureName = (FeatureName)Enum.Parse(typeof(FeatureName), featureNames[i].ToString()),
+                                    FeatureName = featureNames[i].ToString(),
                                     Value = Double.Parse(values[i].ToString())
                                 };
                                 classifiedInstance.Features.Add(f);

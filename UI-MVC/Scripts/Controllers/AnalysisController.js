@@ -53,7 +53,7 @@
         function fillarray() {
             $https({
                 method: 'GET',
-                url: 'api/Analysis/FillAlgorithms")',
+                url: 'api/Analysis/FillAlgorithms',
                 params: {algorithms: algorithms}
             })
         }
